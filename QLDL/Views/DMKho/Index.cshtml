@@ -1,0 +1,43 @@
+﻿@model QLDL.EF.DMKho;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- body -->
+<div class="container">
+    <h2>Danh mục Kho</h2>
+    <div class="table-responsive">
+        <table class="table table-striped" id="dataTable">
+            <thead>
+                <tr>
+                    <td>#</td>
+                    <th>STT</th>
+                    <th>Kho</th>
+                    <th>Địa chỉ</th>
+                    <th>Người liên hệ</th>
+                    <th>Số điện thoại</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a href="#">Sửa</a>|
+                            <a href="#">Xóa</a>|
+                        </td>
+                        <td>1</td>
+                        <td>@item.</td>
+                        <td>An Phú, T.BD</td>
+                        <td>nhân vật a</td>
+                        <td>0945315184</td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
