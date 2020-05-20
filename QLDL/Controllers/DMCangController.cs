@@ -73,7 +73,7 @@ namespace QLDL.Controllers
                 {
                     SetAlert("Mã mooc này đã tồn tại! " +
                         "Vui lòng nhập mã mooc khác!", "warning");
-                    return RedirectToAction("Create", "DMMooc");
+                    return RedirectToAction("Update", "DMCang", new { id = dMCang.Id });
                 }
                 else
                 {

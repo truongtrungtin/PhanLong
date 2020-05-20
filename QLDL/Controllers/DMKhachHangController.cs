@@ -73,7 +73,7 @@ namespace QLDL.Controllers
                 {
                     SetAlert("Mã khách hàng này đã tồn tại! " +
                         "Vui lòng nhập mã xe khác!", "warning");
-                    return RedirectToAction("Create", "DMKhachHang");
+                    return RedirectToAction("Update", "DMKhachHang", new { id = dMKhachHang.Id });
                 }
                 else
                 {

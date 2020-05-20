@@ -72,7 +72,7 @@ namespace QLDL.Controllers
                 {
                     SetAlert("Mã loại này đã tồn tại! " +
                         "Vui lòng nhập mã loại khác!", "warning");
-                    return RedirectToAction("Create", "DMLoai");
+                    return RedirectToAction("Update", "DMLoai", new { id = dMLoai.Id });
                 }
                 else
                 {
