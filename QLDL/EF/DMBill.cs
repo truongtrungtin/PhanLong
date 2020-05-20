@@ -28,8 +28,6 @@ namespace QLDL.EF
 
         public long? CangTra { get; set; }
 
-        public long? Kho { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiPhi> ChiPhis { get; set; }
 
@@ -41,7 +39,5 @@ namespace QLDL.EF
         public virtual DMCang DMCang1 { get; set; }
 
         public virtual DMKhachHang DMKhachHang { get; set; }
-
-        public virtual DMKho DMKho { get; set; }
     }
 }

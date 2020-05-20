@@ -144,7 +144,7 @@ namespace QLDL.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<DMKho>()
-                .HasMany(e => e.DMBills)
+                .HasMany(e => e.CTBills)
                 .WithOptional(e => e.DMKho)
                 .HasForeignKey(e => e.Kho);
 
@@ -156,6 +156,11 @@ namespace QLDL.EF
             modelBuilder.Entity<DMLoai>()
                 .Property(e => e.MaLoai)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<DMLoai>()
+                .HasMany(e => e.CTBills)
+                .WithOptional(e => e.DMLoai)
+                .HasForeignKey(e => e.Loai);
 
             modelBuilder.Entity<DMLoai>()
                 .HasMany(e => e.PhatSinhs)
