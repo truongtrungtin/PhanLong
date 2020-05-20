@@ -9,10 +9,10 @@ namespace QLDL.DAO
 {
     public class DMMoocDao
     {
-        QLDLContext db = null;
+        QLDLDBContext db = null;
         public DMMoocDao()
         {
-            db = new QLDLContext();
+            db = new QLDLDBContext();
         }
         public List<DMMooc> ListAll()
         {

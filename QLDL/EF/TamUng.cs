@@ -11,6 +11,7 @@ namespace QLDL.EF
     {
         public long Id { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? Ngay { get; set; }
 
         public long? NVUng { get; set; }
@@ -22,7 +23,6 @@ namespace QLDL.EF
 
         public long? NoiDung { get; set; }
 
-        [Column(TypeName = "money")]
         public decimal? Tien { get; set; }
 
         [StringLength(250)]

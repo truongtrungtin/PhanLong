@@ -13,6 +13,9 @@ namespace QLDL.EF
         public DMNhanVien()
         {
             PhatSinhs = new HashSet<PhatSinh>();
+            PhatSinhChis = new HashSet<PhatSinhChi>();
+            PhatSinhChis1 = new HashSet<PhatSinhChi>();
+            PhatSinhThus = new HashSet<PhatSinhThu>();
             TamUngs = new HashSet<TamUng>();
         }
 
@@ -26,6 +29,15 @@ namespace QLDL.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinh> PhatSinhs { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhatSinhChi> PhatSinhChis { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhatSinhChi> PhatSinhChis1 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhatSinhThu> PhatSinhThus { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TamUng> TamUngs { get; set; }

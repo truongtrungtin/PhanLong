@@ -26,14 +26,19 @@ namespace QLDL.EF
 
         public long? Kho { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? HanLuuCont { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? HanLuuBai { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? HanLuuRong { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? NgayGiao { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? NgayGui { get; set; }
 
         public int? DoDay { get; set; }

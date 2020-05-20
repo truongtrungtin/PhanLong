@@ -9,10 +9,10 @@ namespace QLDL.DAO
 {
     public class DMXeDao
     {
-        QLDLContext db = null;
+        QLDLDBContext db = null;
         public DMXeDao()
         {
-            db = new QLDLContext();
+            db = new QLDLDBContext();
         }
         public List<DMXe> ListAll()
         {

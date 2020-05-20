@@ -8,10 +8,10 @@ namespace QLDL.DAO
 {
     public class DMPhiDao
     {
-        QLDLContext db = null;
+        QLDLDBContext db = null;
         public DMPhiDao()
         {
-            db = new QLDLContext();
+            db = new QLDLDBContext();
         }
         public List<DMPhi> ListAll()
         {

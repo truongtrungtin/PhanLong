@@ -9,10 +9,10 @@ namespace QLDL.DAO
 {
     public class DMKhoDao
     {
-        QLDLContext db = null;
+        QLDLDBContext db = null;
         public DMKhoDao()
         {
-            db = new QLDLContext();
+            db = new QLDLDBContext();
         }
         public List<DMKho> ListAll()
         {

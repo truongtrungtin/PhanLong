@@ -6,18 +6,17 @@ namespace QLDL.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("CTChiPhi")]
-    public partial class CTChiPhi
+    [Table("CTChi")]
+    public partial class CTChi
     {
         public long Id { get; set; }
 
-        public long? ChiPhi { get; set; }
+        public long? PhatSinhChi { get; set; }
 
         public long? NoiDung { get; set; }
 
         public int? SoLuong { get; set; }
 
-        [Column(TypeName = "money")]
         public decimal? DonGia { get; set; }
 
         public long? Mooc { get; set; }
@@ -26,7 +25,7 @@ namespace QLDL.EF
 
         public long? Cont { get; set; }
 
-        public virtual ChiPhi ChiPhi1 { get; set; }
+        public virtual PhatSinhChi PhatSinhChi1 { get; set; }
 
         public virtual SuaMooc SuaMooc { get; set; }
 

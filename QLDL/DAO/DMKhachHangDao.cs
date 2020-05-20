@@ -9,10 +9,10 @@ namespace QLDL.DAO
 {
     public class DMKhachHangDao
     {
-        QLDLContext db = null;
+        QLDLDBContext db = null;
         public DMKhachHangDao()
         {
-            db = new QLDLContext();
+            db = new QLDLDBContext();
         }
         public List<DMKhachHang> ListAll()
         {

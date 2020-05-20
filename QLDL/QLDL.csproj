@@ -152,9 +152,8 @@
     <Compile Include="DAO\DMLoaiDao.cs" />
     <Compile Include="DAO\DmXeDao.cs" />
     <Compile Include="DAO\PhatSinhDao.cs" />
-    <Compile Include="EF\ChiPhi.cs" />
     <Compile Include="EF\CTBill.cs" />
-    <Compile Include="EF\CTChiPhi.cs" />
+    <Compile Include="EF\CTChi.cs" />
     <Compile Include="EF\CTHoaDon.cs" />
     <Compile Include="EF\CTSuaMooc.cs" />
     <Compile Include="EF\CTSuaXe.cs" />
@@ -171,7 +170,9 @@
     <Compile Include="EF\HinhThucTT.cs" />
     <Compile Include="EF\HoaDon.cs" />
     <Compile Include="EF\PhatSinh.cs" />
-    <Compile Include="EF\QLDLContext.cs" />
+    <Compile Include="EF\PhatSinhChi.cs" />
+    <Compile Include="EF\PhatSinhThu.cs" />
+    <Compile Include="EF\QLDLDBContext.cs" />
     <Compile Include="EF\SuaMooc.cs" />
     <Compile Include="EF\SuaXe.cs" />
     <Compile Include="EF\TamUng.cs" />
@@ -1990,12 +1991,12 @@
     <Content Include="Views\DMNoiDung\Index.cshtml" />
     <Content Include="Views\DMNoiDung\Create.cshtml" />
     <Content Include="Views\DMNoiDung\Update.cshtml" />
-
-
     <Content Include="Views\DMBill\Create.cshtml" />
     <Content Include="Views\DMBill\Index.cshtml" />
     <Content Include="Views\DMBill\Update.cshtml" />
     <Content Include="Views\PhatSinh\Create.cshtml" />
+    <Content Include="Views\PhatSinh\Index.cshtml" />
+    <Content Include="Views\PhatSinh\Update.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

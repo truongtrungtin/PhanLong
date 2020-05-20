@@ -11,6 +11,7 @@ namespace QLDL.EF
     {
         public long Id { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? Ngay { get; set; }
 
         public long? Loai { get; set; }
@@ -28,10 +29,8 @@ namespace QLDL.EF
 
         public long? CangTra { get; set; }
 
-        [Column(TypeName = "money")]
         public decimal? CuocKH { get; set; }
 
-        [Column(TypeName = "money")]
         public decimal? CuocTX { get; set; }
 
         public long? TenTX { get; set; }
@@ -41,27 +40,25 @@ namespace QLDL.EF
         [StringLength(50)]
         public string HDNang { get; set; }
 
-        [Column(TypeName = "money")]
-        public decimal? TienNang { get; set; }
+        public decimal TienNang { get; set; }
 
         [StringLength(50)]
         public string HDHa { get; set; }
 
-        [Column(TypeName = "money")]
         public decimal? TienHa { get; set; }
 
         public long? PhiKH { get; set; }
 
-        [Column(TypeName = "money")]
         public decimal? TienPhiKH { get; set; }
 
         public long? PhiCT { get; set; }
 
-        [Column(TypeName = "money")]
         public decimal? TienPhiCT { get; set; }
 
         [StringLength(250)]
         public string GhiChu { get; set; }
+
+        public virtual DMBill DMBill { get; set; }
 
         public virtual DMCang DMCang { get; set; }
 

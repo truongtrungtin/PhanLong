@@ -23,7 +23,6 @@ namespace QLDL.EF
 
         public int? SoLuong { get; set; }
 
-        [Column(TypeName = "money")]
         public decimal? DonGia { get; set; }
 
         public int? Thue { get; set; }

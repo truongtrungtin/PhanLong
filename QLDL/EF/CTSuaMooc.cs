@@ -18,7 +18,6 @@ namespace QLDL.EF
         [StringLength(10)]
         public string SoLuong { get; set; }
 
-        [Column(TypeName = "money")]
         public decimal? DonGia { get; set; }
 
         public virtual DMNoiDung DMNoiDung { get; set; }

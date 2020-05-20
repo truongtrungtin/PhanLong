@@ -1,0 +1,62 @@
+﻿@model IEnumerable<QLDL.EF.PhatSinh>
+@{
+    ViewBag.Title = "Phát Sinh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int a = 0;
+}
+
+    <h2>Phát Sinh</h2>
+@Html.ActionLink("Tạo Mới", "Create", null, new { @class = "btn btn-primary mb-1" })
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="dataTable">
+        <thead>
+            <tr>
+
+                <th style="width:1% ">STT</th>
+                <th>Ngày</th>
+                <th>Loại</th>
+                <th>KH</th>
+                <th>Kho</th>
+                <th>Số Cont</th>
+                <th>Số Bill</th>
+                <th>Tài xế</th>
+                <th>Số Xe</th>
+                <td>#</td>
+            </tr>
+
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+            <tr id="row_@item.Id">
+
+                <td>@{a = a + 1;} @a </td>
+                <td>@item.Ngay.Value.ToShortDateString()</td>
+                <td>@item.DMLoai.MaLoai</td>
+                <td>@item.DMKhachHang.MaKH</td>
+                <td>@item.DMKho.MaKho</td>
+                <td>@item.SoCont</td>
+                <td>@item.DMBill.MaBill</td>
+                <td>@item.DMNhanVien.MaNV</td>
+                <td>@item.DMXe.MaXe</td>
+                
+                <td>
+                    <a href="/PhatSinh/Update/@item.Id">Sửa</a>&ensp;|&ensp;
+                    @Ajax.ActionLink("Xóa", "Delete", new { @id = item.Id }, new AjaxOptions
+               {
+                   Confirm = "Bạn có chắc là muốn xóa không??",
+                   OnComplete = "$('#row_" + @item.Id + "').remove()",
+                   HttpMethod = "Delete"
+               })
+                </td>
+            </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+
+

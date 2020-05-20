@@ -6,17 +6,18 @@ namespace QLDL.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ChiPhi")]
-    public partial class ChiPhi
+    [Table("PhatSinhChi")]
+    public partial class PhatSinhChi
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ChiPhi()
+        public PhatSinhChi()
         {
-            CTChiPhis = new HashSet<CTChiPhi>();
+            CTChis = new HashSet<CTChi>();
         }
 
         public long Id { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? NgayChi { get; set; }
 
         [StringLength(250)]
@@ -27,9 +28,27 @@ namespace QLDL.EF
 
         public long? Bill { get; set; }
 
-        public virtual DMBill DMBill { get; set; }
+        public long? NguoiChi { get; set; }
+
+        public long? NguoiNhan { get; set; }
+
+        public long? KhachHang { get; set; }
+
+        public decimal? Tien { get; set; }
+
+        public long? HTTT { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTChiPhi> CTChiPhis { get; set; }
+        public virtual ICollection<CTChi> CTChis { get; set; }
+
+        public virtual DMBill DMBill { get; set; }
+
+        public virtual DMKhachHang DMKhachHang { get; set; }
+
+        public virtual DMNhanVien DMNhanVien { get; set; }
+
+        public virtual DMNhanVien DMNhanVien1 { get; set; }
+
+        public virtual HinhThucTT HinhThucTT { get; set; }
     }
 }

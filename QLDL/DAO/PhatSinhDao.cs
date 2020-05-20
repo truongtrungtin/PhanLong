@@ -8,10 +8,10 @@ namespace QLDL.DAO
 {
     public class PhatSinhDao
     {
-        QLDLContext db = null;
+        QLDLDBContext db = null;
         public PhatSinhDao()
         {
-            db = new QLDLContext();
+            db = new QLDLDBContext();
         }
         public List<PhatSinh> ListAll()
         {

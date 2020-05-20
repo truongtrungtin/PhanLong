@@ -8,10 +8,10 @@ namespace QLDL.DAO
 {
     public class DMNhanVienDao
     {
-        QLDLContext db = null;
+        QLDLDBContext db = null;
         public DMNhanVienDao()
         {
-            db = new QLDLContext();
+            db = new QLDLDBContext();
         }
         public List<DMNhanVien> ListAll()
         {

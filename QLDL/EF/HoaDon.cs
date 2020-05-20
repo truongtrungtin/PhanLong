@@ -17,6 +17,7 @@ namespace QLDL.EF
 
         public long Id { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? NgayHD { get; set; }
 
         [StringLength(10)]

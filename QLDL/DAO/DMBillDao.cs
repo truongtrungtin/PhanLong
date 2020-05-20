@@ -8,10 +8,10 @@ namespace QLDL.DAO
 {
     public class DMBillDao
     {
-        QLDLContext db = null;
+        QLDLDBContext db = null;
         public DMBillDao()
         {
-            db = new QLDLContext();
+            db = new QLDLDBContext();
         }
         public List<DMBill> ListAll()
         {

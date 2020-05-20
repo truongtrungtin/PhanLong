@@ -12,12 +12,13 @@ namespace QLDL.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SuaXe()
         {
-            CTChiPhis = new HashSet<CTChiPhi>();
+            CTChis = new HashSet<CTChi>();
             CTSuaXes = new HashSet<CTSuaXe>();
         }
 
         public long Id { get; set; }
 
+        [Column(TypeName = "date")]
         public DateTime? Ngay { get; set; }
 
         public long? Xe { get; set; }
@@ -32,7 +33,7 @@ namespace QLDL.EF
         public string GhiChu { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTChiPhi> CTChiPhis { get; set; }
+        public virtual ICollection<CTChi> CTChis { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTSuaXe> CTSuaXes { get; set; }
