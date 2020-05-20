@@ -40,7 +40,7 @@ namespace QLDL.Controllers
                     long id = dao.Insert(dMKho);
                     if (id > 0 )
                     {
-                        SetAlert("Đã thêm Kho thành công !", "success");
+                        SetAlert("Đã thêm Kho thành công!", "success");
                         return RedirectToAction("Index", "DMKho");
                     }
                     else

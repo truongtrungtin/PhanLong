@@ -19,7 +19,7 @@ namespace QLDL.DAO
             return db.DMKhoes.OrderBy(x => x.Id).ToList();
         }
 
-        public List<DMKho> Check(String MaKho)
+        public List<DMKho> Check(string MaKho)
         {
             return db.DMKhoes.Where(x => x.MaKho == MaKho).ToList();
 

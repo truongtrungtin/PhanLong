@@ -1,0 +1,54 @@
+﻿@model IEnumerable<QLDL.EF.DMKhachHang>
+@{
+    ViewBag.Title = "Danh mục Khách hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int a = 0;
+}
+
+<!-- body -->
+
+<h2>Danh mục Khách hàng</h2>
+@Html.ActionLink("Thêm Khách hàng", "Create", null, new { @class = "btn btn-primary mb-1" })
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="dataTable">
+        <thead>
+            <tr>
+                <td>#</td>
+                <th>STT</th>
+                <th>Mã khách hàng</th>
+                <th>Tên công ty</th>
+                <th>MST</th>
+                <th>Địa chỉ</th>
+                <th>Người liên hệ</th>
+                <th>Số điện thoại</th>
+            </tr>
+        </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                <tr id="row_@item.Id">
+                    <td>
+                        <a href="/DMKhachHang/Update/@item.Id">Sửa</a>&ensp;|&ensp;
+                        @Ajax.ActionLink("Xóa", "Delete", new { @id = item.Id }, new AjaxOptions
+                   {
+                       Confirm = "Bạn có chắc là muốn xóa khách hàng "+ item.MaKH +" không??",
+                       OnComplete = "$('#row_" + @item.Id + "').remove()",
+                       HttpMethod = "Delete"
+                   })
+                    </td>
+                    <td>@{a = a + 1;} @a </td>
+                    <td>@item.MaKH</td>
+                    <td>@item.TenCongTy</td>
+                    <td>@item.NguoiLienHe</td>
+                    <td>@item.SoDienThoai</td>
+                </tr>
+                }
+            </tbody>
+  
+        </table>
+</div>
+
+
+
