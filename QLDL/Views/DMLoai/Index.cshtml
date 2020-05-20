@@ -32,7 +32,7 @@
                         <a href="/DMLoai/Update/@item.Id">Sửa</a>&ensp;|&ensp;
                         @Ajax.ActionLink("Xóa", "Delete", new { @id = item.Id }, new AjaxOptions
                    {
-                       Confirm = "Bạn có chắc là muốn xóa cảng " + item.MaLoai + " không??",
+                       Confirm = "Bạn có chắc là muốn xóa loại " + item.MaLoai + " không??",
                        OnComplete = "$('#row_" + @item.Id + "').remove()",
                        HttpMethod = "Delete"
                    })
