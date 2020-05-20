@@ -53,5 +53,60 @@ namespace QLDL.Controllers
             SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
             return RedirectToAction("Create", "DMKhachHang");
         }
+
+        [HttpGet]
+        public ActionResult Update(long id)
+        {
+            var dao = new DMKhachHangDao();
+            var model = dao.GetById(id);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Update(DMKhachHang dMKhachHang)
+        {
+            if (ModelState.IsValid)
+            {
+                var dao = new DMKhachHangDao();
+                var Check1 = dao.Check(dMKhachHang.MaKH);
+                var Check2 = dao.GetById(dMKhachHang.Id);
+                if (Check1.Count > 0 && Check2.MaKH != dMKhachHang.MaKH)
+                {
+                    SetAlert("Mã khách hàng này đã tồn tại! " +
+                        "Vui lòng nhập mã xe khác!", "warning");
+                    return RedirectToAction("Update", "DMKhachHang", new { id = dMKhachHang.Id });
+                }
+                else
+                {
+                    var result = dao.Update(dMKhachHang);
+                    if (result)
+                    {
+                        SetAlert("Cập nhật dữ liệu khách hàng thành công!", "success");
+                        return RedirectToAction("Index", "DMKhachHang");
+                    }
+                    else
+                    {
+                        SetAlert("Cập nhật dữ liệu khách hàng không thành công", "warning");
+                        return RedirectToAction("Update", "DMKhachHang");
+                    }
+                }
+            }
+            return View("Index");
+        }
+
+        [HttpDelete]
+        public ActionResult Delete(long id)
+        {
+            var result = new DMKhachHangDao().Delete(id);
+            if (result)
+            {
+                SetAlert("Xóa khách hàng thành công", "success");
+                return RedirectToAction("Index", "DMKhachHang");
+            }
+            else
+            {
+                SetAlert("Xóa khách hàng không thành công", "warning");
+                return RedirectToAction("Index", "DMKhachHang");
+            }
+        }
     }
 }
