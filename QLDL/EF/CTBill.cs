@@ -24,6 +24,8 @@ namespace QLDL.EF
         [StringLength(50)]
         public string Seal { get; set; }
 
+        public long? Kho { get; set; }
+
         public DateTime? HanLuuCont { get; set; }
 
         public DateTime? HanLuuBai { get; set; }
@@ -33,6 +35,7 @@ namespace QLDL.EF
         public DateTime? NgayGiao { get; set; }
 
         public DateTime? NgayGui { get; set; }
+
         public int? DoDay { get; set; }
 
         [StringLength(50)]
@@ -45,8 +48,14 @@ namespace QLDL.EF
         public bool? TrangThaiLuuBai { get; set; }
 
         public bool? TrangThaiLuuRong { get; set; }
+
         [StringLength(250)]
         public string GhiChu { get; set; }
+
         public virtual DMBill DMBill { get; set; }
+
+        public virtual DMKho DMKho { get; set; }
+
+        public virtual DMLoai DMLoai { get; set; }
     }
 }

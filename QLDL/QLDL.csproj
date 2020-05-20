@@ -129,6 +129,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DMBillController.cs" />
     <Compile Include="Controllers\DMCangController.cs" />
     <Compile Include="Controllers\DMKhachHangController.cs" />
     <Compile Include="Controllers\DMKhoController.cs" />
@@ -137,6 +138,8 @@
     <Compile Include="Controllers\DMPhiController.cs" />
     <Compile Include="Controllers\DMXeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PhatSinhController.cs" />
+    <Compile Include="DAO\DMBillDao.cs" />
     <Compile Include="DAO\DMCangDao.cs" />
     <Compile Include="DAO\DMKhachHangDao.cs" />
     <Compile Include="DAO\DMKhoDao.cs" />
@@ -144,6 +147,7 @@
     <Compile Include="DAO\DMPhiDao.cs" />
     <Compile Include="DAO\DMLoaiDao.cs" />
     <Compile Include="DAO\DmXeDao.cs" />
+    <Compile Include="DAO\PhatSinhDao.cs" />
     <Compile Include="EF\ChiPhi.cs" />
     <Compile Include="EF\CTBill.cs" />
     <Compile Include="EF\CTChiPhi.cs" />
@@ -1964,6 +1968,22 @@
     <Content Include="Views\DMXe\Update.cshtml" />
     <Content Include="Views\DMXe\Create.cshtml" />
     <Content Include="Views\DMXe\Index.cshtml" />
+    <Content Include="Views\DMKhachHang\Create.cshtml" />
+    <Content Include="Views\DMKhachHang\Index.cshtml" />
+    <Content Include="Views\DMKhachHang\Update.cshtml" />
+    <Content Include="Views\DMLoai\Create.cshtml" />
+    <Content Include="Views\DMLoai\Index.cshtml" />
+    <Content Include="Views\DMLoai\Update.cshtml" />
+    <Content Include="Views\DMMooc\Create.cshtml" />
+    <Content Include="Views\DMMooc\Index.cshtml" />
+    <Content Include="Views\DMMooc\Update.cshtml" />
+    <Content Include="Views\DMPhi\Create.cshtml" />
+    <Content Include="Views\DMPhi\Index.cshtml" />
+    <Content Include="Views\DMPhi\Update.cshtml" />
+    <Content Include="Views\DMBill\Create.cshtml" />
+    <Content Include="Views\DMBill\Index.cshtml" />
+    <Content Include="Views\DMBill\Update.cshtml" />
+    <Content Include="Views\PhatSinh\Create.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

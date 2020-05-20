@@ -15,8 +15,6 @@ namespace QLDL.EF
             ChiPhis = new HashSet<ChiPhi>();
             CTBills = new HashSet<CTBill>();
         }
-
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
 
         [StringLength(250)]
@@ -27,8 +25,6 @@ namespace QLDL.EF
         public long? KhachHang { get; set; }
 
         public long? CangTra { get; set; }
-
-        public long? Kho { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiPhi> ChiPhis { get; set; }
@@ -41,7 +37,5 @@ namespace QLDL.EF
         public virtual DMCang DMCang1 { get; set; }
 
         public virtual DMKhachHang DMKhachHang { get; set; }
-
-        public virtual DMKho DMKho { get; set; }
     }
 }

@@ -24,6 +24,9 @@ namespace QLDL.EF
 
         public long? KH { get; set; }
 
+        [StringLength(250)]
+        public string GhiChu { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTHoaDon> CTHoaDons { get; set; }
 

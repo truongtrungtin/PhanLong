@@ -60,10 +60,7 @@ namespace QLDL.EF
         [Column(TypeName = "money")]
         public decimal? TienPhiCT { get; set; }
 
-        [StringLength(50)]
-        public string Thoigian { get; set; }
-
-        [StringLength(10)]
+        [StringLength(250)]
         public string GhiChu { get; set; }
 
         public virtual DMCang DMCang { get; set; }
