@@ -16,7 +16,6 @@ namespace QLDL.EF
             CTBills = new HashSet<CTBill>();
         }
 
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
 
         [StringLength(250)]

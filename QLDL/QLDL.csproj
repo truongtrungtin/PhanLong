@@ -135,6 +135,7 @@
     <Compile Include="Controllers\DMLoaiController.cs" />
     <Compile Include="Controllers\DMMoocController.cs" />
     <Compile Include="Controllers\DMNhanVienController.cs" />
+    <Compile Include="Controllers\DMNoiDungController.cs" />
     <Compile Include="Controllers\DMPhiController.cs" />
     <Compile Include="Controllers\DMXeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -143,6 +144,7 @@
     <Compile Include="DAO\DMKhoDao.cs" />
     <Compile Include="DAO\DMMoocDao.cs" />
     <Compile Include="DAO\DMNhanVienDao.cs" />
+    <Compile Include="DAO\DMNoiDungDao.cs" />
     <Compile Include="DAO\DMPhiDao.cs" />
     <Compile Include="DAO\DMLoaiDao.cs" />
     <Compile Include="DAO\DmXeDao.cs" />
@@ -1981,6 +1983,9 @@
     <Content Include="Views\DMNhanVien\Index.cshtml" />
     <Content Include="Views\DMNhanVien\Create.cshtml" />
     <Content Include="Views\DMNhanVien\Update.cshtml" />
+    <Content Include="Views\DMNoiDung\Index.cshtml" />
+    <Content Include="Views\DMNoiDung\Create.cshtml" />
+    <Content Include="Views\DMNoiDung\Update.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
