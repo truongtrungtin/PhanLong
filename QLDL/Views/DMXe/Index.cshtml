@@ -1,0 +1,48 @@
+﻿@model IEnumerable<QLDL.EF.DMXe>
+@{
+    ViewBag.Title = "Danh mục Xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int a = 0;
+}
+
+<h2>Danh mục Xe</h2>
+@Html.ActionLink("Thêm Xe", "Create", null, new { @class = "btn btn-primary mb-1" })
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="dataTable">
+        <thead>
+            <tr>
+
+                <th>STT</th>
+                <th>Mã Xe</th>
+                <th>Biển số</th>
+                <td>#</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.Id">
+
+                    <td>@{a = a + 1;} @a </td>
+                    <td>@item.MaXe</td>
+                    <td>@item.BienSo</td>
+                    <td>
+                        <a href="/DMXe/Update/@item.Id">Sửa</a>&ensp;|&ensp;
+                        @Ajax.ActionLink("Xóa", "Delete", new { @id = item.Id }, new AjaxOptions
+                   {
+                       Confirm = "Bạn có chắc là muốn xóa cảng " + item.MaXe + " không??",
+                       OnComplete = "$('#row_" + @item.Id + "').remove()",
+                       HttpMethod = "Delete"
+                   })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+
+

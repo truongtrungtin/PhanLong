@@ -2,47 +2,45 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Web;
 
 namespace QLDL.DAO
 {
-    public class DMKhoDao
+    public class DMCangDao
     {
         QLDLContext db = null;
-        public DMKhoDao()
+        public DMCangDao()
         {
             db = new QLDLContext();
         }
-        public List<DMKho> ListAll()
+        public List<DMCang> ListAll()
         {
-            return db.DMKhoes.OrderBy(x => x.Id).ToList();
+            return db.DMCangs.OrderBy(x => x.Id).ToList();
         }
 
-        public List<DMKho> Check(string MaKho)
+        public List<DMCang> Check(string MaCang)
         {
-            return db.DMKhoes.Where(x => x.MaKho == MaKho).ToList();
+            return db.DMCangs.Where(x => x.MaCang == MaCang).ToList();
 
         }
-        public DMKho GetById(long id)
+        public DMCang GetById(long id)
         {
-            return db.DMKhoes.SingleOrDefault(x => x.Id == id);
+            return db.DMCangs.SingleOrDefault(x => x.Id == id);
         }
-        public long Insert(DMKho entity)
+        public long Insert(DMCang entity)
         {
-            db.DMKhoes.Add(entity);
+            db.DMCangs.Add(entity);
             db.SaveChanges();
             return entity.Id;
         }
 
-        public bool Update(DMKho dMKho)
+        public bool Update(DMCang dMCang)
         {
             try
             {
-                var item = db.DMKhoes.Find(dMKho.Id);
-                item.DiaChi = dMKho.DiaChi;
-                item.NguoiLienHe = dMKho.NguoiLienHe;
-                item.SoDienThoai = dMKho.SoDienThoai;
+                var item = db.DMCangs.Find(dMCang.Id);
+                item.MaCang = dMCang.MaCang;
+                item.TenCang = dMCang.TenCang;
                 db.SaveChanges();
                 return true;
             }
@@ -56,8 +54,8 @@ namespace QLDL.DAO
         {
             try
             {
-                var item = db.DMKhoes.Find(id);
-                db.DMKhoes.Remove(item);
+                var item = db.DMCangs.Find(id);
+                db.DMCangs.Remove(item);
                 db.SaveChanges();
                 return true;
             }
@@ -67,7 +65,5 @@ namespace QLDL.DAO
             }
 
         }
-
-
     }
 }

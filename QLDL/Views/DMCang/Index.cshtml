@@ -1,0 +1,48 @@
+﻿@model IEnumerable<QLDL.EF.DMCang>
+@{
+    ViewBag.Title = "Danh mục Cảng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int a = 0;
+}
+
+<h2>Danh Mục Cảng</h2>
+@Html.ActionLink("Thêm Cảng", "Create", null, new { @class = "btn btn-primary mb-1" })
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="dataTable">
+        <thead>
+            <tr>
+
+                <th>STT</th>
+                <th>Mã Cảng</th>
+                <th>Tên Cảng</th>
+                <td>#</td>
+            </tr>
+        </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                <tr id="row_@item.Id">
+
+                    <td>@{a = a + 1;} @a </td>
+                    <td>@item.MaCang</td>
+                    <td>@item.TenCang</td>
+                    <td>
+                        <a href="/DMCang/Update/@item.Id">Sửa</a>&ensp;|&ensp;
+                        @Ajax.ActionLink("Xóa", "Delete", new { @id = item.Id }, new AjaxOptions
+                   {
+                       Confirm = "Bạn có chắc là muốn xóa cảng " + item.MaCang + " không??",
+                       OnComplete = "$('#row_" + @item.Id + "').remove()",
+                       HttpMethod = "Delete"
+                   })
+                    </td>
+                </tr>
+                }
+            </tbody>
+  
+        </table>
+</div>
+
+
+

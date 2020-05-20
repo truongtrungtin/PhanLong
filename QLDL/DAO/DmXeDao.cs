@@ -7,42 +7,41 @@ using System.Web;
 
 namespace QLDL.DAO
 {
-    public class DMKhoDao
+    public class DMXeDao
     {
         QLDLContext db = null;
-        public DMKhoDao()
+        public DMXeDao()
         {
             db = new QLDLContext();
         }
-        public List<DMKho> ListAll()
+        public List<DMXe> ListAll()
         {
-            return db.DMKhoes.OrderBy(x => x.Id).ToList();
+            return db.DMXes.OrderBy(x => x.Id).ToList();
         }
 
-        public List<DMKho> Check(string MaKho)
+        public List<DMXe> Check(string maXe)
         {
-            return db.DMKhoes.Where(x => x.MaKho == MaKho).ToList();
+            return db.DMXes.Where(x => x.MaXe == maXe).ToList();
 
         }
-        public DMKho GetById(long id)
+        public DMXe GetById(long id)
         {
-            return db.DMKhoes.SingleOrDefault(x => x.Id == id);
+            return db.DMXes.SingleOrDefault(x => x.Id == id);
         }
-        public long Insert(DMKho entity)
+        public long Insert(DMXe entity)
         {
-            db.DMKhoes.Add(entity);
+            db.DMXes.Add(entity);
             db.SaveChanges();
             return entity.Id;
         }
 
-        public bool Update(DMKho dMKho)
+        public bool Update(DMXe dMKho)
         {
             try
             {
-                var item = db.DMKhoes.Find(dMKho.Id);
-                item.DiaChi = dMKho.DiaChi;
-                item.NguoiLienHe = dMKho.NguoiLienHe;
-                item.SoDienThoai = dMKho.SoDienThoai;
+                var item = db.DMXes.Find(dMKho.Id);
+                item.MaXe = dMKho.MaXe;
+                item.BienSo = dMKho.BienSo;
                 db.SaveChanges();
                 return true;
             }
@@ -56,8 +55,8 @@ namespace QLDL.DAO
         {
             try
             {
-                var item = db.DMKhoes.Find(id);
-                db.DMKhoes.Remove(item);
+                var item = db.DMXes.Find(id);
+                db.DMXes.Remove(item);
                 db.SaveChanges();
                 return true;
             }
