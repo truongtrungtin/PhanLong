@@ -14,7 +14,7 @@ namespace QLDL.Controllers
         {
             var dao = new DMKhachHangDao();
             var model = dao.ListAll();
-            return View();
+            return View(model);
         }
     }
 }
