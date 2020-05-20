@@ -32,6 +32,7 @@ namespace QLDL.EF
 
         public DateTime? NgayGiao { get; set; }
 
+        public DateTime? NgayGui { get; set; }
         public int? DoDay { get; set; }
 
         [StringLength(50)]
@@ -39,12 +40,13 @@ namespace QLDL.EF
 
         public long? SoXe { get; set; }
 
-        public bool? TrangThaiLuCont { get; set; }
+        public bool? TrangThaiLuuCont { get; set; }
 
         public bool? TrangThaiLuuBai { get; set; }
 
         public bool? TrangThaiLuuRong { get; set; }
-
+        [StringLength(250)]
+        public string GhiChu { get; set; }
         public virtual DMBill DMBill { get; set; }
     }
 }

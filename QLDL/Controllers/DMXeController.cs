@@ -72,7 +72,7 @@ namespace QLDL.Controllers
                 {
                     SetAlert("Mã xe này đã tồn tại! " +
                         "Vui lòng nhập mã xe khác!", "warning");
-                    return RedirectToAction("Create", "DMXe");
+                    return RedirectToAction("Update", "DMXe", new { id = dMXe.Id });
                 }
                 else
                 {

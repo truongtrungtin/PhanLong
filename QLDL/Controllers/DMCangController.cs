@@ -71,9 +71,9 @@ namespace QLDL.Controllers
                 var Check2 = dao.GetById(dMCang.Id);
                 if (Check1.Count > 0 && Check2.MaCang != dMCang.MaCang)
                 {
-                    SetAlert("Mã mooc này đã tồn tại! " +
-                        "Vui lòng nhập mã mooc khác!", "warning");
-                    return RedirectToAction("Create", "DMMooc");
+                    SetAlert("Mã cảng này đã tồn tại! " +
+                        "Vui lòng nhập mã cảng khác!", "warning");
+                    return RedirectToAction("Update", "DMCang", new { id = dMCang.Id });
                 }
                 else
                 {
@@ -90,7 +90,7 @@ namespace QLDL.Controllers
                     }
                 }
             }
-            return View("DMCang");
+            return View("Index");
         }
 
         // Delete

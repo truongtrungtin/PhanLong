@@ -1,10 +1,10 @@
 ﻿@model QLDL.EF.DMKho
 @{
-    ViewBag.Title = "Update";
+    ViewBag.Title = "Chỉnh Sửa";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Danh mục Kho</h2>
+    <h2>Chỉnh sửa Kho @Model.MaKho</h2>
 @using (Html.BeginForm("Update", "DMKho", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -43,8 +43,8 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Update" class="btn btn-facebook" /> |
-            <a href="/DMkho">Back to List</a>
+            <input type="submit" value="Sửa" class="btn btn-facebook" /> |
+            <a href="/DMkho">Trở lại danh mục</a>
         </div>
     </div>
 </div>

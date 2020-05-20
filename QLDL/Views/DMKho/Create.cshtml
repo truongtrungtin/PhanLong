@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Danh mục Kho</h2>
+<h2>Danh mục Kho</h2><hr />
 @using (Html.BeginForm("Create", "DMKho", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -41,8 +41,8 @@
         </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-facebook" /> |
-                <a href="/DMkho">Back to List</a>
+                <input type="submit" value="Thêm" class="btn btn-facebook" /> |
+                <a href="/DMkho">Trở lại danh mục</a>
             </div>
         </div>
     </div>
