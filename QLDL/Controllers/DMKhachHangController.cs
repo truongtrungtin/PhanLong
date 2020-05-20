@@ -53,5 +53,22 @@ namespace QLDL.Controllers
             SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
             return RedirectToAction("Create", "DMKhachHang");
         }
+
+        [HttpGet]
+        public ActionResult Update(long id)
+        {
+            var dao = new DMKhachHangDao();
+            var model = dao.GetById(id);
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult Update(DMKhachHang dMKhachHang)
+        {
+            if (ModelState.IsValid)
+            {
+                var dao = new DMKhachHangDao();
+                var
+            }
+        }
     }
 }
