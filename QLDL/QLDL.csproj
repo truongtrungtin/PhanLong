@@ -132,13 +132,15 @@
     <Compile Include="Controllers\DMCangController.cs" />
     <Compile Include="Controllers\DMKhachHangController.cs" />
     <Compile Include="Controllers\DMKhoController.cs" />
+    <Compile Include="Controllers\DMLoaiController.cs" />
     <Compile Include="Controllers\DMMoocController.cs" />
     <Compile Include="Controllers\DMXeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="DAO\DMCangDao.cs" />
     <Compile Include="DAO\DMKhachHangDao.cs" />
     <Compile Include="DAO\DMKhoDao.cs" />
-    <Compile Include="DAO\DMMooc.cs" />
+    <Compile Include="DAO\DMLoaiDao.cs" />
+    <Compile Include="DAO\DMMoocDao.cs" />
     <Compile Include="DAO\DmXeDao.cs" />
     <Compile Include="EF\ChiPhi.cs" />
     <Compile Include="EF\CTBill.cs" />
@@ -1961,6 +1963,12 @@
     <Content Include="Views\DMXe\Update.cshtml" />
     <Content Include="Views\DMXe\Create.cshtml" />
     <Content Include="Views\DMXe\Index.cshtml" />
+    <Content Include="Views\DMKhachHang\Index.cshtml" />
+    <Content Include="Views\DMKhachHang\Create.cshtml" />
+    <Content Include="Views\DMKhachHang\Update.cshtml" />
+    <Content Include="Views\DMLoai\Index.cshtml" />
+    <Content Include="Views\DMLoai\Create.cshtml" />
+    <Content Include="Views\DMLoai\Update.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

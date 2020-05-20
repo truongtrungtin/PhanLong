@@ -1,11 +1,11 @@
-﻿@model QLDL.EF.DMKho
+﻿@model QLDL.EF.DMKhachHang
 @{
     ViewBag.Title = "Update";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Danh mục Kho</h2>
-@using (Html.BeginForm("Update", "DMKho", FormMethod.Post))
+<h2>Cập nhật khách hàng @Model.MaKH</h2>
+@using (Html.BeginForm("Update", "DMKhachHang", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -14,10 +14,24 @@
     @Html.HiddenFor(model => model.Id)
 
     <div class="form-group">
-        @Html.LabelFor(model => model.MaKho, htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.MaKH, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-3">
-            @Html.EditorFor(model => model.MaKho, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.MaKho, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.MaKH, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MaKH, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.TenCongTy, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.TenCongTy, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.TenCongTy, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.MST, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-3">
+            @Html.EditorFor(model => model.MST, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.MST, "", new { @class = "text-danger" })
         </div>
     </div>
     <div class="form-group">
@@ -43,8 +57,8 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Update" class="btn btn-facebook" /> |
-            <a href="/DMkho">Back to List</a>
+            <input type="submit" value="Sửa" class="btn btn-facebook" /> |
+            <a href="/DMXe">Trở về Danh mục</a>
         </div>
     </div>
 </div>

@@ -1,4 +1,4 @@
-namespace QLDL.EF
+﻿namespace QLDL.EF
 {
     using System;
     using System.Collections.Generic;
@@ -18,7 +18,7 @@ namespace QLDL.EF
         }
 
         public long Id { get; set; }
-
+        
         [StringLength(50)]
         public string MaKH { get; set; }
 
