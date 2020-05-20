@@ -11,7 +11,6 @@ namespace QLDL.Controllers
     public class DMCangController : BaseController
     {
         // GET: DMCang
-        // GET: DMKho
         public ActionResult Index()
         {
             var dao = new DMCangDao();

@@ -135,6 +135,8 @@
     <Compile Include="Controllers\DMKhoController.cs" />
     <Compile Include="Controllers\DMLoaiController.cs" />
     <Compile Include="Controllers\DMMoocController.cs" />
+    <Compile Include="Controllers\DMNhanVienController.cs" />
+    <Compile Include="Controllers\DMNoiDungController.cs" />
     <Compile Include="Controllers\DMPhiController.cs" />
     <Compile Include="Controllers\DMXeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -144,6 +146,8 @@
     <Compile Include="DAO\DMKhachHangDao.cs" />
     <Compile Include="DAO\DMKhoDao.cs" />
     <Compile Include="DAO\DMMoocDao.cs" />
+    <Compile Include="DAO\DMNhanVienDao.cs" />
+    <Compile Include="DAO\DMNoiDungDao.cs" />
     <Compile Include="DAO\DMPhiDao.cs" />
     <Compile Include="DAO\DMLoaiDao.cs" />
     <Compile Include="DAO\DmXeDao.cs" />
@@ -1980,6 +1984,14 @@
     <Content Include="Views\DMPhi\Create.cshtml" />
     <Content Include="Views\DMPhi\Index.cshtml" />
     <Content Include="Views\DMPhi\Update.cshtml" />
+    <Content Include="Views\DMNhanVien\Index.cshtml" />
+    <Content Include="Views\DMNhanVien\Create.cshtml" />
+    <Content Include="Views\DMNhanVien\Update.cshtml" />
+    <Content Include="Views\DMNoiDung\Index.cshtml" />
+    <Content Include="Views\DMNoiDung\Create.cshtml" />
+    <Content Include="Views\DMNoiDung\Update.cshtml" />
+
+
     <Content Include="Views\DMBill\Create.cshtml" />
     <Content Include="Views\DMBill\Index.cshtml" />
     <Content Include="Views\DMBill\Update.cshtml" />

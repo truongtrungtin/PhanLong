@@ -1,0 +1,46 @@
+﻿@model IEnumerable<QLDL.EF.DMNoiDung>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int a = 0;
+}
+
+<h2>Danh mục Nội Dung</h2>
+@Html.ActionLink("Thêm Nội dung", "Create", null, new { @class = "btn btn-primary mb-1" })
+<hr />
+<div class="table-responsive">
+    <table class="table table-bordered table-striped" id="dataTable">
+        <thead>
+            <tr>
+
+                <th>STT</th>
+                <th>Mã nội dung</th>
+                <th>Mô tả</th>
+                <td>#</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.Id">
+
+                    <td>@{a = a + 1;} @a </td>
+                    <td>@item.MaND</td>
+                    <td>@item.MoTa</td>
+                    <td>
+                        <a href="/DMKhachHang/Update/@item.Id">Sửa</a>&ensp;|&ensp;
+                        @Ajax.ActionLink("Xóa", "Delete", new { @id = item.Id }, new AjaxOptions
+                   {
+                       Confirm = "Bạn có chắc là muốn xóa nội dung " + item.MaND + " không??",
+                       OnComplete = "$('#row_" + @item.Id + "').remove()",
+                       HttpMethod = "Delete"
+                   })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
