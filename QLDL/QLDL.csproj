@@ -129,10 +129,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\DMCangController.cs" />
     <Compile Include="Controllers\DMKhoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="DAO\DMCangDao.cs" />
     <Compile Include="DAO\DMKhoDao.cs" />
     <Compile Include="EF\ChiPhi.cs" />
     <Compile Include="EF\CTBill.cs" />
@@ -1788,7 +1786,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\DMCang\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
