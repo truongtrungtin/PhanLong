@@ -67,17 +67,27 @@ namespace QLDL.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new DMCangDao();
-
-                var result = dao.Update(dMCang);
-                if (result)
+                var Check1 = dao.Check(dMCang.MaCang);
+                var Check2 = dao.GetById(dMCang.Id);
+                if (Check1.Count > 0 && Check2.MaCang != dMCang.MaCang)
                 {
-                    SetAlert("Cập nhật dữ liệu cảng thành công!", "success");
-                    return RedirectToAction("Index", "DMCang");
+                    SetAlert("Mã mooc này đã tồn tại! " +
+                        "Vui lòng nhập mã mooc khác!", "warning");
+                    return RedirectToAction("Create", "DMMooc");
                 }
                 else
                 {
-                    SetAlert("Cập nhật dữ liệu cảng không thành công", "warning");
-                    return RedirectToAction("Update", "DMCang");
+                    var result = dao.Update(dMCang);
+                    if (result)
+                    {
+                        SetAlert("Cập nhật dữ liệu cảng thành công!", "success");
+                        return RedirectToAction("Index", "DMCang");
+                    }
+                    else
+                    {
+                        SetAlert("Cập nhật dữ liệu cảng không thành công", "warning");
+                        return RedirectToAction("Update", "DMCang");
+                    }
                 }
             }
             return View("DMCang");

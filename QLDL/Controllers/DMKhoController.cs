@@ -29,7 +29,8 @@ namespace QLDL.Controllers
             {
                 var dao = new DMKhoDao();
                 var Check = dao.Check(dMKho.MaKho);
-                if (Check.Count > 0 )
+      
+                if (Check.Count > 0)
                 {
                     SetAlert("Mã kho này đã tồn tại! " +
                         "Vui lòng nhập mã kho khác!", "warning");
@@ -66,18 +67,29 @@ namespace QLDL.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new DMKhoDao();
-
-                var result = dao.Update(dMKho);
-                if (result)
+                var Check1 = dao.Check(dMKho.MaKho);
+                var Check2 = dao.GetById(dMKho.Id);
+                if (Check1.Count > 0 && Check2.MaKho != dMKho.MaKho)
                 {
-                    SetAlert("Cập nhật dữ liệu kho thành công!", "success");
-                    return RedirectToAction("Index", "DMKho");
+                    SetAlert("Mã kho này đã tồn tại! " +
+                        "Vui lòng nhập mã kho khác!", "warning");
+                    return RedirectToAction("Update", "DMKho",new { id = dMKho.Id});
                 }
                 else
                 {
-                    SetAlert("Cập nhật dữ liệu kho không thành công", "warning");
-                    return RedirectToAction("Update", "DMKho");
+                    var result = dao.Update(dMKho);
+                    if (result)
+                    {
+                        SetAlert("Cập nhật dữ liệu kho thành công!", "success");
+                        return RedirectToAction("Index", "DMKho");
+                    }
+                    else
+                    {
+                        SetAlert("Cập nhật dữ liệu kho không thành công", "warning");
+                        return RedirectToAction("Update", "DMKho");
+                    }
                 }
+                
             }
             return View("DMKho");
         }

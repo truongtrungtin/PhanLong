@@ -8,12 +8,12 @@ using System.Web.Mvc;
 
 namespace QLDL.Controllers
 {
-    public class DMXeController : BaseController
+    public class DMMoocController : BaseController
     {
         // GET: DMKho
         public ActionResult Index()
         {
-            var dao = new DMXeDao();
+            var dao = new DMMoocDao();
             var model = dao.ListAll();
             return View(model);
         }
@@ -23,88 +23,88 @@ namespace QLDL.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(DMXe dMXe)
+        public ActionResult Create(DMMooc dMMooc)
         {
             if (ModelState.IsValid)
             {
-                var dao = new DMXeDao();
-                var Check = dao.Check(dMXe.MaXe);
+                var dao = new DMMoocDao();
+                var Check = dao.Check(dMMooc.MaMooc);
                 if (Check.Count > 0)
                 {
-                    SetAlert("Mã xe này đã tồn tại! " +
-                        "Vui lòng nhập mã xe khác!", "warning");
-                    return RedirectToAction("Create", "DMXe");
+                    SetAlert("Mã mooc này đã tồn tại! " +
+                        "Vui lòng nhập mã mooc khác!", "warning");
+                    return RedirectToAction("Create", "DMMooc");
                 }
                 else
                 {
-                    long id = dao.Insert(dMXe);
+                    long id = dao.Insert(dMMooc);
                     if (id > 0)
                     {
-                        SetAlert("Đã thêm xe thành công !", "success");
-                        return RedirectToAction("Index", "DMXe");
+                        SetAlert("Đã thêm mooc thành công !", "success");
+                        return RedirectToAction("Index", "DMMooc");
                     }
                     else
                     {
-                        SetAlert("Thêm xe không thành công, vui lòng thử lại!", "warning");
-                        return RedirectToAction("Create", "DMXe");
+                        SetAlert("Thêm mooc không thành công, vui lòng thử lại!", "warning");
+                        return RedirectToAction("Create", "DMMooc");
                     }
                 }
             }
             SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
-            return RedirectToAction("Create", "DMXe");
+            return RedirectToAction("Create", "DMMooc");
         }
         [HttpGet]
         public ActionResult Update(long id)
         {
-            var dao = new DMXeDao();
+            var dao = new DMMoocDao();
             var model = dao.GetById(id);
             return View(model);
         }
         [HttpPost]
-        public ActionResult Update(DMXe dMXe)
+        public ActionResult Update(DMMooc dMMooc)
         {
             if (ModelState.IsValid)
             {
-                var dao = new DMXeDao();
-                var Check1 = dao.Check(dMXe.MaXe);
-                var Check2 = dao.GetById(dMXe.Id);
-                if (Check1.Count > 0 && Check2.MaXe != dMXe.MaXe)
+                var dao = new DMMoocDao();
+                var Check1 = dao.Check(dMMooc.MaMooc);
+                var Check2 = dao.GetById(dMMooc.Id);
+                if (Check1.Count > 0 && Check2.MaMooc != dMMooc.MaMooc)
                 {
-                    SetAlert("Mã xe này đã tồn tại! " +
-                        "Vui lòng nhập mã xe khác!", "warning");
-                    return RedirectToAction("Create", "DMXe");
+                    SetAlert("Mã mooc này đã tồn tại! " +
+                        "Vui lòng nhập mã mooc khác!", "warning");
+                    return RedirectToAction("Create", "DMMooc");
                 }
                 else
                 {
-                    var result = dao.Update(dMXe);
+                    var result = dao.Update(dMMooc);
                     if (result)
                     {
                         SetAlert("Cập nhật dữ liệu xe thành công!", "success");
-                        return RedirectToAction("Index", "DMXe");
+                        return RedirectToAction("Index", "DMMooc");
                     }
                     else
                     {
                         SetAlert("Cập nhật dữ liệu xe không thành công", "warning");
-                        return RedirectToAction("Update", "DMXe");
+                        return RedirectToAction("Update", "DMMooc");
                     }
                 }
             }
-            return View("DMXe");
+            return View("DMMooc");
         }
 
         // Delete
         [HttpDelete]
         public ActionResult Delete(long id)
         {
-            var result = new DMXeDao().Delete(id);
+            var result = new DMMoocDao().Delete(id);
             if (result)
             {
-                SetAlert("Xóa xe thành công", "success");
+                SetAlert("Xóa mooc thành công", "success");
                 return RedirectToAction("Index", "DMXe");
             }
             else
             {
-                SetAlert("Xóa xe không thành công", "warning");
+                SetAlert("Xóa mooc không thành công", "warning");
                 return RedirectToAction("Index", "DMXe");
             }
         }
