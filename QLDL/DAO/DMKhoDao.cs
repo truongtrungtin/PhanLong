@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web;
 
 namespace QLDL.DAO
@@ -17,5 +18,56 @@ namespace QLDL.DAO
         {
             return db.DMKhoes.OrderBy(x => x.Id).ToList();
         }
+
+        public List<DMKho> Check(String MaKho)
+        {
+            return db.DMKhoes.Where(x => x.MaKho == MaKho).ToList();
+
+        }
+        public DMKho GetById(long id)
+        {
+            return db.DMKhoes.SingleOrDefault(x => x.Id == id);
+        }
+        public long Insert(DMKho entity)
+        {
+            db.DMKhoes.Add(entity);
+            db.SaveChanges();
+            return entity.Id;
+        }
+
+        public bool Update(DMKho dMKho)
+        {
+            try
+            {
+                var item = db.DMKhoes.Find(dMKho.Id);
+                item.DiaChi = dMKho.DiaChi;
+                item.NguoiLienHe = dMKho.NguoiLienHe;
+                item.SoDienThoai = dMKho.SoDienThoai;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+        public bool Delete(long id)
+        {
+            try
+            {
+                var item = db.DMKhoes.Find(id);
+                db.DMKhoes.Remove(item);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+
+        }
+
+
     }
 }

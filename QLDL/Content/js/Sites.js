@@ -1,4 +1,9 @@
-(function($) {
+$(function () {
+    $('#AlertBox').removeClass('hide');
+    $('#AlertBox').delay(3000).slideUp(500);
+
+})
+(function ($) {
   "use strict"; // Start of use strict
 
   // Toggle the side navigation
