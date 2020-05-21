@@ -41,11 +41,9 @@
         public long? CangTra { get; set; }
 
         [Display(Name = "Cước KH")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N0}")]
         public decimal? CuocKH { get; set; }
 
         [Display(Name = "Cước TX")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N0}")]
         public decimal? CuocTX { get; set; }
 
         [Display(Name = "Tên TX")]
@@ -59,7 +57,6 @@
         public string HDNang { get; set; }
 
         [Display(Name = "Tiền nâng")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N0}")]
         public decimal TienNang { get; set; }
 
         [StringLength(50)]
@@ -67,21 +64,18 @@
         public string HDHa { get; set; }
 
         [Display(Name = "Tiền hạ")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N0}")]
         public decimal? TienHa { get; set; }
 
         [Display(Name = "Phí KH")]
         public long? PhiKH { get; set; }
 
         [Display(Name = "Tiền phí KH")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N0}")]
         public decimal? TienPhiKH { get; set; }
 
         [Display(Name = "Phí CT")]
         public long? PhiCT { get; set; }
 
         [Display(Name = "Tiền phí CT")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N0}")]
         public decimal? TienPhiCT { get; set; }
 
         [StringLength(250)]

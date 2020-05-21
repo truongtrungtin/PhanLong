@@ -5,15 +5,15 @@
     int a = 0;
 }
 
-<h2>Danh mục Nội Dung</h2>
+<h4>Danh mục Nội Dung</h4>
 @Html.ActionLink("Thêm Nội dung", "Create", null, new { @class = "btn btn-primary mb-1" })
 <hr />
-<div class="table-responsive">
-    <table class="table table-bordered table-striped" id="dataTable">
+<div class="table-responsive">@using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post)){
+    <table class="table table-bordered table-striped" id="dataTable" width="100%">
         <thead>
             <tr>
 
-                <th>STT</th>
+                <th width="1%"><input type='checkbox' id='check' value='' /></th>
                 <th>Mã nội dung</th>
                 <th>Mô tả</th>
                 <td>#</td>
@@ -25,7 +25,7 @@
             {
                 <tr id="row_@item.Id">
 
-                    <td>@{a = a + 1;} @a </td>
+                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
                     <td>@item.MaND</td>
                     <td>@item.MoTa</td>
                     <td>
@@ -41,6 +41,6 @@
             }
         </tbody>
 
-    </table>
+    </table><div class="form-group"> <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /></div>}
 </div>
 

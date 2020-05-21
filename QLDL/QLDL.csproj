@@ -63,6 +63,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -141,6 +142,7 @@
     <Compile Include="Controllers\DMXeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhatSinhController.cs" />
+    <Compile Include="DAO\CTBillDao.cs" />
     <Compile Include="DAO\DMBillDao.cs" />
     <Compile Include="DAO\DMCangDao.cs" />
     <Compile Include="DAO\DMKhachHangDao.cs" />
@@ -1997,6 +1999,8 @@
     <Content Include="Views\PhatSinh\Create.cshtml" />
     <Content Include="Views\PhatSinh\Index.cshtml" />
     <Content Include="Views\PhatSinh\Update.cshtml" />
+    <Content Include="Views\PhatSinh\ViewPhatSinh.cshtml" />
+    <Content Include="Views\DMBill\CTBill.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

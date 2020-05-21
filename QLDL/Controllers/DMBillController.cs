@@ -16,6 +16,15 @@ namespace QLDL.Controllers
             var model = dao.ListAll();
             return View(model);
         }
+        public ActionResult CTBill(long id)
+        {
+            var Bill = new DMBillDao().GetById(id);
+            var dao = new CTBillDao();
+            var model = dao.ListAll(id);
+            ViewBag.Bill = Bill.MaBill;
+            return View(model);
+        }
+
         [HttpGet]
         public ActionResult Create()
         {
@@ -101,6 +110,7 @@ namespace QLDL.Controllers
             }
             return View("Index");
         }
+
 
         // Delete
         [HttpDelete]

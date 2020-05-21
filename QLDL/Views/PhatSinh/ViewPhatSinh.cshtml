@@ -1,20 +1,17 @@
 ﻿@model IEnumerable<QLDL.EF.PhatSinh>
-@{
-    ViewBag.Title = "Phát Sinh";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
-<h5>Nhập Liệu / <a href="/PhatSinh"> Phát Sinh </a> </h5>
+
+
+
 <hr />
-<h4>
-    Phát Sinh @Html.ActionLink("Tạo Mới", "Create", null, new { @class = "btn btn-primary mb-1" })
-</h4>
+<h4><b>Phát Sinh</b></h4>
 <div class="table-responsive">
-    @using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post))
+    @using (Html.BeginForm("Create", "PhatSinh", FormMethod.Post))
     {
+
         <table class="table table-bordered table-striped" id="dataTable" width="100%">
             <thead>
                 <tr>
-                    <th width="10Dạpx"><input type='checkbox' id='check' value='' /></th>
+                    <th width="1%"><input type='checkbox' id='check' value='' /></th>
                     <th>Ngày</th>
                     <th>Loại</th>
                     <th>KH</th>
@@ -45,7 +42,7 @@
 
                         <td>
                             <a href="/PhatSinh/Update/@item.Id">Sửa</a>&ensp;|&ensp;
-                            <a href="/PhatSinh/Create/@item.Id">Copy</a>
+                            <a href="/PhatSinh/Create/@item.Id?Copy=Copy">Copy</a>
                         </td>
                     </tr>
                 }
@@ -53,7 +50,8 @@
 
         </table>
         <div class="form-group">
-            <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+            <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /> / 
+
         </div>
     }
 

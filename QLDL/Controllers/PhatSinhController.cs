@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Windows.Forms;
 
 namespace QLDL.Controllers
 {
@@ -17,34 +18,90 @@ namespace QLDL.Controllers
             var model = dao.ListAll();
             return View(model);
         }
-        [HttpGet]
-        public ActionResult Create()
-        {
-            SetViewBag();
-            return View();
-        }
         [HttpPost]
-        public ActionResult Create(PhatSinh phatSinh)
+        public ActionResult Index(int[] chkId, string delete = null, string copy = null)
         {
-            if (ModelState.IsValid)
+            var dao = new PhatSinhDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new PhatSinhDao();
-
-                long id = dao.Insert(phatSinh);
-                if (id > 0)
+                var result = dao.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Đã thêm bảng ghi thành công !", "success");
-                    return RedirectToAction("Index", "PhatSinh");
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    SetAlert("Thêm bảng ghi không thành công, vui lòng thử lại!", "warning");
-                    return RedirectToAction("Create", "PhatSinh");
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
                 }
+            }
+            var model = dao.ListAll();
+            return View(model);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult ViewPhatSinh()
+        {
+            var dao = new PhatSinhDao();
+            var model = dao.ListAll();
+            return PartialView(model);
+        }
+        [HttpGet]
+        public ActionResult Create(long? id = null, string Copy = null)
+        {
+            if (id != null && Copy != null)
+            {
+                var dao = new PhatSinhDao();
+                var model = dao.GetById(id);
+                SetViewBag();
+                return View(model);
+            }
+            else
+            {
+                SetViewBag();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Create(PhatSinh phatSinh, int[] chkId, string delete = null, string copy = null)
+        {
+            var ps = new PhatSinhDao();
+            if (delete != null && chkId != null)
+            {
+                var result = ps.checkbox(chkId);
+                if (result)
+                {
+                    SetAlert("Đã xóa thành công!", "success");
+                }
+                else
+                {
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new PhatSinhDao();
+                    long result = dao.Insert(phatSinh);
+                    if (result > 0)
+                    {
+                        SetAlert("Đã thêm bảng ghi thành công !", "success");
+                        return RedirectToAction("Create", "PhatSinh");
+                    }
+                    else
+                    {
+                        SetAlert("Thêm bảng ghi không thành công, vui lòng thử lại!", "warning");
+                        return RedirectToAction("Create", "PhatSinh");
+                    }
+
+                }
+                SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
 
             }
-            SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
             return RedirectToAction("Create", "PhatSinh");
+
+
         }
         [HttpGet]
         public ActionResult Update(long id)
@@ -74,6 +131,7 @@ namespace QLDL.Controllers
             }
             return View("Index");
         }
+
 
         // Delete
         [HttpDelete]

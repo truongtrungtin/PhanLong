@@ -1,0 +1,85 @@
+﻿@model IEnumerable<QLDL.EF.CTBill>
+@{
+    ViewBag.Title = "Danh mục Kho";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int a = 0;
+}
+
+<!-- body -->
+    <h5>Danh mục / <a href="/DMBill"> Bill </a>/ <a href="#"> @ViewBag.Bill </a></h5>
+<hr />
+<h4> Bill:  <b>@ViewBag.Bill</b>  @Html.ActionLink("Thêm dữ liệu vào Bill", "Create", null, new { @class = "btn btn-primary mb-1" })</h4>
+   
+    <hr />
+    <div class="table-responsive">
+        @using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post))
+        {
+            <table class="table table-bordered table-striped" id="dataTable" width="100%">
+                <thead>
+                    <tr>
+                        <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                        <th>Số Cont</th>
+                        <th>Số DK</th>
+                        <th>Loại</th>
+                        <th>Seal</th>
+                        <td>Mã kho</td>
+                        <td>Hạn lưu Cont</td>
+                        <td>Hạn Lưu Bãi</td>
+                        <td>Hạn Lưu rỗng</td>
+                        <td>Ngày Giao</td>
+                        <td>Ngày gửi</td>
+                        <td>Độ dày</td>
+                        <td>Quy Cách</td>
+                        <td>Số Xe</td>
+                        <td>TT Lưu Bãi</td>
+                        <td>TT Lưu Cont</td>
+                        <td>TT Lưu Rỗng</td>
+                        <td>Ghi Chú</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr id="row_@item.Id">
+
+                            <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                            <td>@item.Cont</td>
+                            <td>@item.SoDK</td>
+                            <td>@item.DMLoai.MaLoai</td>
+                            <td>@item.Seal</td>
+                            <td>@item.DMKho.MaKho</td>
+                            <td>@item.HanLuuCont</td>
+                            <td>@item.HanLuuBai</td>
+                            <td>@item.HanLuuRong</td>
+                            <td>@item.NgayGiao</td>
+                            <td>@item.NgayGui</td>
+                            <td>@item.DoDay</td>
+                            <td>@item.QuyCach</td>
+                            <td>@item.SoXe</td>
+                            <td>@item.TrangThaiLuuBai</td>
+                            <td>@item.TrangThaiLuuCont</td>
+                            <td>@item.TrangThaiLuuRong</td>
+                            <td>@item.GhiChu</td>
+                            <td>
+                                <a href="/DMBill/UpdateCTBill/@item.Id">Sửa</a>&ensp;|&ensp;
+                                @Ajax.ActionLink("Xóa", "Delete", new { @id = item.Id }, new AjaxOptions
+                           {
+                               Confirm = "Bạn có chắc là muốn xóa kho " + item.Id + " không??",
+                               OnComplete = "$('#row_" + @item.Id + "').remove()",
+                               HttpMethod = "Delete"
+                           })
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+            <div class="form-group">
+                <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /> |
+                <a href="/DMBill">Trở lại danh mục Bill</a>
+            </div>
+        }
+    </div>
+
+
+

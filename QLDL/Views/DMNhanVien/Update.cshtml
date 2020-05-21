@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Cập nhật nhân viên @Model.MaNV</h2>
+<h4>Cập nhật nhân viên @Model.MaNV</h4>
 @using (Html.BeginForm("Update", "DMNhanVien", FormMethod.Post))
 {
     @Html.AntiForgeryToken()

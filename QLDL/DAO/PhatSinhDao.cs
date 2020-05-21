@@ -13,12 +13,33 @@ namespace QLDL.DAO
         {
             db = new QLDLDBContext();
         }
+
+        public bool checkbox(int[] chkId)
+        {
+            try
+            {
+                for (int i = 0; i < chkId.Length; i++)
+                {
+                    int temp = chkId[i];
+                    var article = db.PhatSinhs.Where(x => x.Id == temp).SingleOrDefault();
+                    db.PhatSinhs.Remove(article);
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            
+        }
         public List<PhatSinh> ListAll()
         {
             return db.PhatSinhs.OrderBy(x => x.Id).ToList();
         }
 
-        public PhatSinh GetById(long id)
+        public PhatSinh GetById(long? id)
         {
             return db.PhatSinhs.SingleOrDefault(x => x.Id == id);
         }

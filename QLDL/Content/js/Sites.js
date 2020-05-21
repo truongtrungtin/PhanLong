@@ -1,8 +1,43 @@
+﻿$("#delete").click(function () {
+    var checkboxes = document.querySelectorAll('input[name="chkId[]"]:checked').length;
+    console.log(checkboxes)
+    if (checkboxes > 0) {
+        if (!confirm("Bạn có chắc chắn muốn xóa không?")) {
+            return false;
+        }
+    } else {
+        alert("Không có giá trị nào được chọn để xóa!!");
+        return false;
+    }
+    
+});
+
+// Chức năng chọn hết
+document.getElementById("check").onclick = function () {
+    // Lấy danh sách checkbox
+    var checkboxes = document.getElementsByName('chkId[]');
+    if (document.getElementById("check").checked) {
+        // Lặp và thiết lập checked
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = true;
+        }
+    } else {
+        // Lặp và thiết lập Uncheck
+        for (var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = false;
+        }
+    }
+
+};
+
+
+
 $(function () {
     $('#AlertBox').removeClass('hide');
     $('#AlertBox').delay(3000).slideUp(500);
 
-})
+});
+
 (function ($) {
   "use strict"; // Start of use strict
 
