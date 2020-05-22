@@ -1,8 +1,13 @@
 ﻿@model QLDL.EF.PhatSinh
-
+@using QLDL.DAO;
 @{
+
     ViewBag.Title = "Thêm mới";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var Loai = new DMLoaiDao().ListAll();
+
+
 }
 <h5>Nhập Liệu / <a href="/PhatSinh"> Phát Sinh </a> / <a href="/PhatSinh/Create"> Thêm mới </a> </h5>
 <hr />
@@ -27,8 +32,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Loai, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.Loai, null, htmlAttributes: new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Loai, "", new { @class = "text-danger" })
+                        <input type="text" name="Loai" id="txt1" onkeyup="showHint(this.value)" />
                     </div>
                 </div>
 
@@ -197,7 +201,23 @@
         </div>
     </div>
 }
-
+<script>
+    function showHint(str) {
+        var xhttp;
+        if (str.length == 0) {
+            document.getElementById("txtHint").innerHTML = "";
+            return;
+        }
+        xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+            }
+        };
+        xhttp.open("GET", "gethint.asp?q=" + str, true);
+        xhttp.send();
+    }
+</script>
 @{Html.RenderAction("ViewPhatSinh", "PhatSinh");}
 
 

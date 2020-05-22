@@ -48,6 +48,7 @@ namespace QLDL.Controllers
         [HttpGet]
         public ActionResult Create(long? id = null, string Copy = null)
         {
+            
             if (id != null && Copy != null)
             {
                 var dao = new PhatSinhDao();
@@ -57,6 +58,7 @@ namespace QLDL.Controllers
             }
             else
             {
+                
                 SetViewBag();
                 return View();
             }
@@ -149,6 +151,7 @@ namespace QLDL.Controllers
                 return RedirectToAction("Index", "PhatSinh");
             }
         }
+
         public void SetViewBag(long? selectedId = null)
         {
             var KhachHang = new DMKhachHangDao();
