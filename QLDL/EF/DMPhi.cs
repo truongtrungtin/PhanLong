@@ -19,11 +19,9 @@ namespace QLDL.EF
         public long Id { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "Mã phí")]
         public string MaPhi { get; set; }
 
         [StringLength(250)]
-        [Display(Name = "Tên phí")]
         public string TenPhi { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

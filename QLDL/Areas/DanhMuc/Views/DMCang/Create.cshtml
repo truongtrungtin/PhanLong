@@ -1,0 +1,36 @@
+﻿@model QLDL.EF.DMCang
+@{
+    ViewBag.Title = "Thêm cảng mới";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Thêm cảng mới</h4><hr />
+@using (Html.BeginForm("Create", "DMCang", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.MaCang, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.MaCang, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MaCang, "", new { @class = "text-danger" })
+            </div> 
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TenCang, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.TenCang, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenCang, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Thêm mới" class="btn btn-primary" /> |
+                <a href="/DMCang">Trở lại Danh mục>
+            </div>
+        </div>
+    </div>
+}
+

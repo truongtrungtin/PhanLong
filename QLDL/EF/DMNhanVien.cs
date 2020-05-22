@@ -16,17 +16,14 @@ namespace QLDL.EF
             PhatSinhChis = new HashSet<PhatSinhChi>();
             PhatSinhChis1 = new HashSet<PhatSinhChi>();
             PhatSinhThus = new HashSet<PhatSinhThu>();
-            TamUngs = new HashSet<TamUng>();
         }
 
         public long Id { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "Mã nhân viên")]
         public string MaNV { get; set; }
 
         [StringLength(250)]
-        [Display(Name = "Tên nhân viên")]
         public string TenNV { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -40,8 +37,5 @@ namespace QLDL.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinhThu> PhatSinhThus { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TamUng> TamUngs { get; set; }
     }
 }

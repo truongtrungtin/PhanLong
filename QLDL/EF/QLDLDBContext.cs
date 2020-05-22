@@ -34,7 +34,6 @@ namespace QLDL.EF
         public virtual DbSet<PhatSinhThu> PhatSinhThus { get; set; }
         public virtual DbSet<SuaMooc> SuaMoocs { get; set; }
         public virtual DbSet<SuaXe> SuaXes { get; set; }
-        public virtual DbSet<TamUng> TamUngs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -57,6 +56,10 @@ namespace QLDL.EF
             modelBuilder.Entity<CTChi>()
                 .Property(e => e.DonGia)
                 .HasPrecision(18, 0);
+
+            modelBuilder.Entity<CTChi>()
+                .Property(e => e.Cont)
+                .IsUnicode(false);
 
             modelBuilder.Entity<CTHoaDon>()
                 .Property(e => e.DonGia)
@@ -212,10 +215,10 @@ namespace QLDL.EF
                 .WithOptional(e => e.DMNhanVien)
                 .HasForeignKey(e => e.NguoiThu);
 
-            modelBuilder.Entity<DMNhanVien>()
-                .HasMany(e => e.TamUngs)
-                .WithOptional(e => e.DMNhanVien)
-                .HasForeignKey(e => e.NVUng);
+            modelBuilder.Entity<DMNoiDung>()
+                .HasMany(e => e.CTChis)
+                .WithOptional(e => e.DMNoiDung)
+                .HasForeignKey(e => e.NoiDung);
 
             modelBuilder.Entity<DMNoiDung>()
                 .HasMany(e => e.CTSuaMoocs)
@@ -223,7 +226,7 @@ namespace QLDL.EF
                 .HasForeignKey(e => e.NoiDung);
 
             modelBuilder.Entity<DMNoiDung>()
-                .HasMany(e => e.TamUngs)
+                .HasMany(e => e.CTSuaXes)
                 .WithOptional(e => e.DMNoiDung)
                 .HasForeignKey(e => e.NoiDung);
 
@@ -246,6 +249,11 @@ namespace QLDL.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<DMXe>()
+                .HasMany(e => e.CTBills)
+                .WithOptional(e => e.DMXe)
+                .HasForeignKey(e => e.SoXe);
+
+            modelBuilder.Entity<DMXe>()
                 .HasMany(e => e.PhatSinhs)
                 .WithOptional(e => e.DMXe)
                 .HasForeignKey(e => e.Xe);
@@ -266,11 +274,6 @@ namespace QLDL.EF
 
             modelBuilder.Entity<HinhThucTT>()
                 .HasMany(e => e.PhatSinhThus)
-                .WithOptional(e => e.HinhThucTT)
-                .HasForeignKey(e => e.HTTT);
-
-            modelBuilder.Entity<HinhThucTT>()
-                .HasMany(e => e.TamUngs)
                 .WithOptional(e => e.HinhThucTT)
                 .HasForeignKey(e => e.HTTT);
 
@@ -367,10 +370,6 @@ namespace QLDL.EF
                 .HasMany(e => e.CTSuaXes)
                 .WithOptional(e => e.SuaXe)
                 .HasForeignKey(e => e.MaSuaXe);
-
-            modelBuilder.Entity<TamUng>()
-                .Property(e => e.Tien)
-                .HasPrecision(18, 0);
         }
     }
 }

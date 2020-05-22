@@ -138,19 +138,25 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\DMBillController.cs" />
-    <Compile Include="Controllers\DMCangController.cs" />
-    <Compile Include="Controllers\DMKhachHangController.cs" />
-    <Compile Include="Controllers\DMKhoController.cs" />
-    <Compile Include="Controllers\DMLoaiController.cs" />
-    <Compile Include="Controllers\DMMoocController.cs" />
-    <Compile Include="Controllers\DMNhanVienController.cs" />
-    <Compile Include="Controllers\DMNoiDungController.cs" />
-    <Compile Include="Controllers\DMPhiController.cs" />
-    <Compile Include="Controllers\DMXeController.cs" />
+    <Compile Include="Areas\BangKe\BangKeAreaRegistration.cs" />
+    <Compile Include="Areas\DanhMuc\DanhMucAreaRegistration.cs" />
+    <Compile Include="Areas\DanhMuc\Controllers\BaseController.cs" />
+    <Compile Include="Areas\DanhMuc\Controllers\DMBillController.cs" />
+    <Compile Include="Areas\DanhMuc\Controllers\DMCangController.cs" />
+    <Compile Include="Areas\DanhMuc\Controllers\DMKhachHangController.cs" />
+    <Compile Include="Areas\DanhMuc\Controllers\DMKhoController.cs" />
+    <Compile Include="Areas\DanhMuc\Controllers\DMLoaiController.cs" />
+    <Compile Include="Areas\DanhMuc\Controllers\DMMoocController.cs" />
+    <Compile Include="Areas\DanhMuc\Controllers\DMNhanVienController.cs" />
+    <Compile Include="Areas\DanhMuc\Controllers\DMNoiDungController.cs" />
+    <Compile Include="Areas\DanhMuc\Controllers\DMPhiController.cs" />
+    <Compile Include="Areas\DanhMuc\Controllers\DMXeController.cs" />
+    <Compile Include="Areas\NhapLieu\Controllers\BaseController.cs" />
+    <Compile Include="Areas\NhapLieu\NhapLieuAreaRegistration.cs" />
+    <Compile Include="Areas\ThongKe\ThongKeAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PhatSinhController.cs" />
+    <Compile Include="Areas\NhapLieu\Controllers\PhatSinhController.cs" />
+    <Compile Include="Controllers\ThanhToanLuongController.cs" />
     <Compile Include="DAO\CTBillDao.cs" />
     <Compile Include="DAO\DMBillDao.cs" />
     <Compile Include="DAO\DMCangDao.cs" />
@@ -186,10 +192,10 @@
     <Compile Include="EF\QLDLDBContext.cs" />
     <Compile Include="EF\SuaMooc.cs" />
     <Compile Include="EF\SuaXe.cs" />
-    <Compile Include="EF\TamUng.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ThanhToanLuongModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1816,7 +1822,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Areas\BangKe\Controllers\" />
+    <Folder Include="Areas\BangKe\Data\" />
+    <Folder Include="Areas\BangKe\Views\Shared\" />
+    <Folder Include="Areas\DanhMuc\Data\" />
+    <Folder Include="Areas\DanhMuc\Views\Shared\" />
+    <Folder Include="Areas\NhapLieu\Data\" />
+    <Folder Include="Areas\NhapLieu\Views\Shared\" />
+    <Folder Include="Areas\ThongKe\Controllers\" />
+    <Folder Include="Areas\ThongKe\Data\" />
+    <Folder Include="Areas\ThongKe\Views\Shared\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -1973,47 +1988,51 @@
     <Content Include="Content\vendor\jquery\jquery.min.map" />
     <Content Include="Content\vendor\jquery\jquery.slim.min.map" />
     <Content Include="Mvc.sitemap" />
+    <Content Include="Areas\DanhMuc\Views\web.config" />
+    <Content Include="Areas\BangKe\Views\web.config" />
+    <Content Include="Areas\NhapLieu\Views\web.config" />
+    <Content Include="Areas\ThongKe\Views\web.config" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\DMKho\Index.cshtml" />
-    <Content Include="Views\DMKho\Create.cshtml" />
-    <Content Include="Views\DMKho\Update.cshtml" />
-    <Content Include="Views\DMCang\Index.cshtml" />
-    <Content Include="Views\DMCang\Update.cshtml" />
-    <Content Include="Views\DMCang\Create.cshtml" />
-    <Content Include="Views\DMXe\Update.cshtml" />
-    <Content Include="Views\DMXe\Create.cshtml" />
-    <Content Include="Views\DMXe\Index.cshtml" />
-    <Content Include="Views\DMKhachHang\Create.cshtml" />
-    <Content Include="Views\DMKhachHang\Index.cshtml" />
-    <Content Include="Views\DMKhachHang\Update.cshtml" />
-    <Content Include="Views\DMLoai\Create.cshtml" />
-    <Content Include="Views\DMLoai\Index.cshtml" />
-    <Content Include="Views\DMLoai\Update.cshtml" />
-    <Content Include="Views\DMMooc\Create.cshtml" />
-    <Content Include="Views\DMMooc\Index.cshtml" />
-    <Content Include="Views\DMMooc\Update.cshtml" />
-    <Content Include="Views\DMPhi\Create.cshtml" />
-    <Content Include="Views\DMPhi\Index.cshtml" />
-    <Content Include="Views\DMPhi\Update.cshtml" />
-    <Content Include="Views\DMNhanVien\Index.cshtml" />
-    <Content Include="Views\DMNhanVien\Create.cshtml" />
-    <Content Include="Views\DMNhanVien\Update.cshtml" />
-    <Content Include="Views\DMNoiDung\Index.cshtml" />
-    <Content Include="Views\DMNoiDung\Create.cshtml" />
-    <Content Include="Views\DMNoiDung\Update.cshtml" />
-    <Content Include="Views\DMBill\Create.cshtml" />
-    <Content Include="Views\DMBill\Index.cshtml" />
-    <Content Include="Views\DMBill\Update.cshtml" />
-    <Content Include="Views\PhatSinh\Create.cshtml" />
-    <Content Include="Views\PhatSinh\Index.cshtml" />
-    <Content Include="Views\PhatSinh\Update.cshtml" />
-    <Content Include="Views\PhatSinh\ViewPhatSinh.cshtml" />
-    <Content Include="Views\DMBill\CTBill.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMKho\Index.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMKho\Create.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMKho\Update.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMCang\Index.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMCang\Update.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMCang\Create.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMXe\Update.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMXe\Create.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMXe\Index.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMKhachHang\Create.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMKhachHang\Index.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMKhachHang\Update.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMLoai\Create.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMLoai\Index.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMLoai\Update.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMMooc\Create.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMMooc\Index.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMMooc\Update.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMPhi\Create.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMPhi\Index.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMPhi\Update.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMNhanVien\Index.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMNhanVien\Create.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMNhanVien\Update.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMNoiDung\Index.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMNoiDung\Create.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMNoiDung\Update.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMBill\Create.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMBill\Index.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMBill\Update.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinh\Create.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinh\Index.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinh\Update.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinh\ViewPhatSinh.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMBill\CTBill.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapTitleHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapPathHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\SiteMapNodeModelList.cshtml" />
@@ -2022,6 +2041,8 @@
     <Content Include="Views\Shared\DisplayTemplates\MetaRobotsHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\MenuHelperModel.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMBill\CreateCTBill.cshtml" />
+    <Content Include="Views\ThanhToanLuong\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

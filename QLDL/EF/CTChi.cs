@@ -1,4 +1,4 @@
-﻿namespace QLDL.EF
+namespace QLDL.EF
 {
     using System;
     using System.Collections.Generic;
@@ -11,27 +11,22 @@
     {
         public long Id { get; set; }
 
-        [Display(Name = "Phát sinh chi")]
         public long? PhatSinhChi { get; set; }
 
-        [Display(Name = "Nội dung")]
         public long? NoiDung { get; set; }
 
-        [Display(Name = "Số lượng")]
         public int? SoLuong { get; set; }
 
-        [Display(Name = "Đơn giá")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:N0}")]
         public decimal? DonGia { get; set; }
 
-        [Display(Name = "Số mooc")]
         public long? Mooc { get; set; }
 
-        [Display(Name = "Số xe")]
         public long? Xe { get; set; }
 
-        [Display(Name = "Số cont")]
-        public long? Cont { get; set; }
+        [StringLength(250)]
+        public string Cont { get; set; }
+
+        public virtual DMNoiDung DMNoiDung { get; set; }
 
         public virtual PhatSinhChi PhatSinhChi1 { get; set; }
 

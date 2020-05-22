@@ -3,20 +3,47 @@
             xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
             xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
 
+
   <mvcSiteMapNode title="Home" controller="Home" action="Index">
-    <mvcSiteMapNode title="Danh mục kho" controller="DMKho" action="Index">
+    <mvcSiteMapNode title="Danh mục kho" controller="DMKho" action="Index" area="DanhMuc">
       <mvcSiteMapNode title="Thêm" controller="DMKho" action="Create"/>
       <mvcSiteMapNode title="Sửa" controller="DMKho" action="Update"/>
     </mvcSiteMapNode>
-    <mvcSiteMapNode title="Danh mục cảng" controller="DMCang" action="Index"/>
-    <mvcSiteMapNode title="Danh mục khách hàng" controller="DMKhachHang" action="Index"/>
-    <mvcSiteMapNode title="Danh mục xe" controller="DMXe" action="Index"/>
-    <mvcSiteMapNode title="Danh mục mooc" controller="DMMooc" action="Index"/>
-    <mvcSiteMapNode title="Danh mục loại" controller="DMLoai" action="Index"/>
-    <mvcSiteMapNode title="Danh mục nhân viên" controller="DMNhanVien" action="Index"/>
-    <mvcSiteMapNode title="Danh mục phí" controller="DMPhi" action="Index"/>
-    <mvcSiteMapNode title="Danh mục nội dung" controller="DMNoiDung" action="Index"/>
-    <mvcSiteMapNode title="Danh mục bill" controller="DMBill" action="Index"/>
+    <mvcSiteMapNode title="Danh mục cảng" controller="DMCang" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMCang" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMCang" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục khách hàng" controller="DMKhachHang" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMKhachHang" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMKhachHang" action="Update"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục xe" controller="DMXe" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMXe" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMXe" action="Update"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục mooc" controller="DMMooc" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMMooc" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMMooc" action="Update"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục loại" controller="DMLoai" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMLoai" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMLoai" action="Update"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục nhân viên" controller="DMNhanVien" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMNhanVien" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMNhanVien" action="Update"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục phí" controller="DMPhi" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMPhi" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMPhi" action="Update"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục nội dung" controller="DMNoiDung" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMNoiDung" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMNoiDung" action="Update"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục bill" controller="DMBill" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMBill" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMBill" action="Update"/>
+    </mvcSiteMapNode>
   </mvcSiteMapNode>
-
 </mvcSiteMap>

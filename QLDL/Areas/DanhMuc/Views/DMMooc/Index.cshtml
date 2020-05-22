@@ -1,0 +1,46 @@
+﻿@model IEnumerable<QLDL.EF.DMMooc>
+@{
+    ViewBag.Title = "Danh mục Mooc";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int a = 0;
+}
+
+    <h4>
+        Danh mục Mooc
+        @Html.ActionLink("Thêm Mooc", "Create", null, new { @class = "btn btn-primary mb-1" })
+    </h4>
+<hr />
+<div class="table-responsive">@using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post)){
+    <table class="table table-bordered table-striped" id="dataTable" width="100%">
+        <thead>
+            <tr>
+
+                <th style="width: 1%"><input type='checkbox' id='check' value='' /></th>
+                <th >Mã Mooc</th>
+                <th >Biển số</th>
+                <td >#</td>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.Id">
+
+                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                    <td>@item.MaMooc</td>
+                    <td>@item.BienSo</td>
+                    <td>
+                        @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                        &ensp;| &ensp;
+                        @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table><div class="form-group"> <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /></div>}
+</div>
+
+
+

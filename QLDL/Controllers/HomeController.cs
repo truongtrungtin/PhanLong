@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace QLDL.Controllers
+namespace QLDL.Areas.DanhMuc.Controllers
 {
     public class HomeController : BaseController
     {

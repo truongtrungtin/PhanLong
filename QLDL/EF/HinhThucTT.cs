@@ -1,4 +1,4 @@
-﻿namespace QLDL.EF
+namespace QLDL.EF
 {
     using System;
     using System.Collections.Generic;
@@ -14,18 +14,15 @@
         {
             PhatSinhChis = new HashSet<PhatSinhChi>();
             PhatSinhThus = new HashSet<PhatSinhThu>();
-            TamUngs = new HashSet<TamUng>();
         }
 
         public long Id { get; set; }
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Mã HD")]
         public string MaHT { get; set; }
 
         [StringLength(50)]
-        [Display(Name = "Mô tả")]
         public string MoTa { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -33,8 +30,5 @@
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinhThu> PhatSinhThus { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TamUng> TamUngs { get; set; }
     }
 }

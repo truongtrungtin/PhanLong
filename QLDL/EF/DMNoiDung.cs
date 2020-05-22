@@ -1,4 +1,4 @@
-﻿namespace QLDL.EF
+namespace QLDL.EF
 {
     using System;
     using System.Collections.Generic;
@@ -12,25 +12,27 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DMNoiDung()
         {
+            CTChis = new HashSet<CTChi>();
             CTSuaMoocs = new HashSet<CTSuaMooc>();
-            TamUngs = new HashSet<TamUng>();
+            CTSuaXes = new HashSet<CTSuaXe>();
         }
 
         public long Id { get; set; }
 
         [Required]
         [StringLength(50)]
-        [Display(Name = "Mã nội dung")]
         public string MaND { get; set; }
 
         [StringLength(250)]
-        [Display(Name = "Mô tả")]
         public string MoTa { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTChi> CTChis { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTSuaMooc> CTSuaMoocs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TamUng> TamUngs { get; set; }
+        public virtual ICollection<CTSuaXe> CTSuaXes { get; set; }
     }
 }
