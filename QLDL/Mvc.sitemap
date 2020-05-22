@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+  <mvcSiteMapNode title="Home" controller="Home" action="Index">
+    <mvcSiteMapNode title="Danh mục kho" controller="DMKho" action="Index">
+      <mvcSiteMapNode title="Thêm" controller="DMKho" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMKho" action="Update"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục cảng" controller="DMCang" action="Index"/>
+    <mvcSiteMapNode title="Danh mục khách hàng" controller="DMKhachHang" action="Index"/>
+    <mvcSiteMapNode title="Danh mục xe" controller="DMXe" action="Index"/>
+    <mvcSiteMapNode title="Danh mục mooc" controller="DMMooc" action="Index"/>
+    <mvcSiteMapNode title="Danh mục loại" controller="DMLoai" action="Index"/>
+    <mvcSiteMapNode title="Danh mục nhân viên" controller="DMNhanVien" action="Index"/>
+    <mvcSiteMapNode title="Danh mục phí" controller="DMPhi" action="Index"/>
+    <mvcSiteMapNode title="Danh mục nội dung" controller="DMNoiDung" action="Index"/>
+    <mvcSiteMapNode title="Danh mục bill" controller="DMBill" action="Index"/>
+  </mvcSiteMapNode>
+
+</mvcSiteMap>

@@ -18,6 +18,10 @@
                 @TempData["AlertMessage"]
             </div>
         }
+    <div>
+        <p>Your location: @Html.MvcSiteMap().SiteMapPath()</p>
+        
+    </div>
         @RenderBody()
     </div>
     <a class="scroll-to-top rounded" href="#page-top">
