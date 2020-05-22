@@ -5,7 +5,7 @@
 }
 
 <!-- body -->
-<h4> Bill:  <b>@ViewBag.Bill</b>  @Html.ActionLink("Thêm dữ liệu vào Bill", "Create", null, new { @class = "btn btn-primary mb-1" })</h4>
+<h4> Bill:  <b>@ViewBag.Bill</b>  @Html.ActionLink("Thêm dữ liệu vào Bill", "CreateCTBill", null, new { @class = "btn btn-primary mb-1" })</h4>
    
     <hr />
     <div class="table-responsive">
@@ -69,7 +69,8 @@
             </table>
             <div class="form-group">
                 <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /> |
-                <a href="/DMBill">Trở lại danh mục Bill</a>
+                @Html.ActionLink("Trở lại", "Index")
+
             </div>
         }
     </div>

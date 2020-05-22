@@ -45,5 +45,13 @@
       <mvcSiteMapNode title="Thêm" controller="DMBill" action="Create"/>
       <mvcSiteMapNode title="Sửa" controller="DMBill" action="Update"/>
     </mvcSiteMapNode>
+    <mvcSiteMapNode title="Phát Sinh" controller="PhatSinh" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="PhatSinh" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="PhatSinh" action="Update"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Phát Sinh Chi" controller="PhatSinhChi" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="PhatSinhChi" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="PhatSinhChi" action="Update"/>
+    </mvcSiteMapNode>
   </mvcSiteMapNode>
 </mvcSiteMap>

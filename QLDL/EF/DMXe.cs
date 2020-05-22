@@ -13,6 +13,7 @@ namespace QLDL.EF
         public DMXe()
         {
             CTBills = new HashSet<CTBill>();
+            CTChis = new HashSet<CTChi>();
             PhatSinhs = new HashSet<PhatSinh>();
             SuaXes = new HashSet<SuaXe>();
         }
@@ -27,6 +28,9 @@ namespace QLDL.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTBill> CTBills { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTChi> CTChis { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinh> PhatSinhs { get; set; }

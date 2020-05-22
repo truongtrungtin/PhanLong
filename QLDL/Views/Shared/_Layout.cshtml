@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
     <link href="~/Content/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-
-    <link href="~/Content/Site.css" rel="stylesheet">
+    <link href="~/Content/css/select2.css" rel="stylesheet" />
+    <link href="~/Content/css/Site.css" rel="stylesheet">
     <title>@ViewBag.Title</title>
 </head>
 <body>
@@ -41,9 +41,15 @@
 <!-- datatables -->
 <script src="~/Content/vendor/datatables/jquery.dataTables.min.js"></script>
 <script src="~/Content/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
 <script src="~/Content/js/demo/datatables-demo.js"></script>
-
+<script src="~/Content/js/select2.min.js"></script>
 <script src="~/Content/js/Sites.js"></script>
 <script src="~/Content/js/Controller/AccountController.js"></script>
+
+<script>
+    $(".js-example-tags").select2({
+        maximumSelectionLength: 2,
+        placeholder: "Select ... ",
+    });
+</script>
 </html>

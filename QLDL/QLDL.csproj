@@ -139,6 +139,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\BangKe\BangKeAreaRegistration.cs" />
+    <Compile Include="Areas\DanhMuc\Controllers\HinhThucTTController.cs" />
     <Compile Include="Areas\DanhMuc\DanhMucAreaRegistration.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\BaseController.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\DMBillController.cs" />
@@ -152,12 +153,14 @@
     <Compile Include="Areas\DanhMuc\Controllers\DMPhiController.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\DMXeController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\BaseController.cs" />
+    <Compile Include="Areas\NhapLieu\Controllers\PhatSinhChiController.cs" />
     <Compile Include="Areas\NhapLieu\NhapLieuAreaRegistration.cs" />
     <Compile Include="Areas\ThongKe\ThongKeAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\PhatSinhController.cs" />
     <Compile Include="Controllers\ThanhToanLuongController.cs" />
     <Compile Include="DAO\CTBillDao.cs" />
+    <Compile Include="DAO\CTChiDao.cs" />
     <Compile Include="DAO\DMBillDao.cs" />
     <Compile Include="DAO\DMCangDao.cs" />
     <Compile Include="DAO\DMKhachHangDao.cs" />
@@ -168,6 +171,8 @@
     <Compile Include="DAO\DMPhiDao.cs" />
     <Compile Include="DAO\DMLoaiDao.cs" />
     <Compile Include="DAO\DmXeDao.cs" />
+    <Compile Include="DAO\HinhThucTTDao.cs" />
+    <Compile Include="DAO\PhatSinhChiDao.cs" />
     <Compile Include="DAO\PhatSinhDao.cs" />
     <Compile Include="EF\CTBill.cs" />
     <Compile Include="EF\CTChi.cs" />
@@ -192,6 +197,7 @@
     <Compile Include="EF\QLDLDBContext.cs" />
     <Compile Include="EF\SuaMooc.cs" />
     <Compile Include="EF\SuaXe.cs" />
+    <Compile Include="EF\sysdiagram.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -203,6 +209,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\select2.css" />
+    <Content Include="Content\js\select2.min.js" />
     <Content Include="Content\js\demo\chart-area-demo.js" />
     <Content Include="Content\js\demo\chart-bar-demo.js" />
     <Content Include="Content\js\demo\chart-pie-demo.js" />
@@ -1805,7 +1813,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
+    <Content Include="Content\css\Site.css" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Web.config" />
@@ -1826,6 +1834,7 @@
     <Folder Include="Areas\BangKe\Data\" />
     <Folder Include="Areas\BangKe\Views\Shared\" />
     <Folder Include="Areas\DanhMuc\Data\" />
+    <Folder Include="Areas\DanhMuc\Views\HTTT\" />
     <Folder Include="Areas\DanhMuc\Views\Shared\" />
     <Folder Include="Areas\NhapLieu\Data\" />
     <Folder Include="Areas\NhapLieu\Views\Shared\" />
@@ -1992,6 +2001,10 @@
     <Content Include="Areas\BangKe\Views\web.config" />
     <Content Include="Areas\NhapLieu\Views\web.config" />
     <Content Include="Areas\ThongKe\Views\web.config" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhChi\Index.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhChi\CTChi.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhChi\Create.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhChi\ViewPhatSinhChi.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

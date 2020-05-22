@@ -12,6 +12,7 @@ namespace QLDL.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DMPhi()
         {
+            CTChis = new HashSet<CTChi>();
             PhatSinhs = new HashSet<PhatSinh>();
             PhatSinhs1 = new HashSet<PhatSinh>();
         }
@@ -23,6 +24,9 @@ namespace QLDL.EF
 
         [StringLength(250)]
         public string TenPhi { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTChi> CTChis { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinh> PhatSinhs { get; set; }

@@ -13,8 +13,8 @@ namespace QLDL.EF
         public DMBill()
         {
             CTBills = new HashSet<CTBill>();
-            PhatSinhChis = new HashSet<PhatSinhChi>();
             PhatSinhs = new HashSet<PhatSinh>();
+            PhatSinhChis = new HashSet<PhatSinhChi>();
             PhatSinhThus = new HashSet<PhatSinhThu>();
         }
 
@@ -32,9 +32,6 @@ namespace QLDL.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTBill> CTBills { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhatSinhChi> PhatSinhChis { get; set; }
-
         public virtual DMCang DMCang { get; set; }
 
         public virtual DMCang DMCang1 { get; set; }
@@ -43,6 +40,9 @@ namespace QLDL.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinh> PhatSinhs { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhatSinhChi> PhatSinhChis { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinhThu> PhatSinhThus { get; set; }

@@ -12,11 +12,11 @@ namespace QLDL.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DMNoiDung()
         {
-            CTChis = new HashSet<CTChi>();
             CTSuaMoocs = new HashSet<CTSuaMooc>();
             CTSuaXes = new HashSet<CTSuaXe>();
         }
 
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
 
         [Required]
@@ -25,9 +25,6 @@ namespace QLDL.EF
 
         [StringLength(250)]
         public string MoTa { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTChi> CTChis { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTSuaMooc> CTSuaMoocs { get; set; }

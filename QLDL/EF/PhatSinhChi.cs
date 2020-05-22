@@ -20,23 +20,21 @@ namespace QLDL.EF
         [Column(TypeName = "date")]
         public DateTime? NgayChi { get; set; }
 
-        [StringLength(250)]
-        public string GhiChu { get; set; }
-
-        [StringLength(50)]
-        public string SoHD { get; set; }
-
-        public long? Bill { get; set; }
-
         public long? NguoiChi { get; set; }
 
         public long? NguoiNhan { get; set; }
 
+        public long? HTTT { get; set; }
+
         public long? KhachHang { get; set; }
 
-        public decimal? Tien { get; set; }
+        public long? Bill { get; set; }
 
-        public long? HTTT { get; set; }
+        [StringLength(50)]
+        public string SoHD { get; set; }
+
+        [StringLength(250)]
+        public string GhiChu { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTChi> CTChis { get; set; }

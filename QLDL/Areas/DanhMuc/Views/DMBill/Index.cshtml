@@ -4,8 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int a = 0;
 }
-    <h4>Danh Mục Bill @Html.ActionLink("Thêm Bill", "Create", null, new { @class = "btn btn-primary mb-1" })
-    </h4>
+<h4>
+    Danh Mục Bill @Html.ActionLink("Thêm Bill", "Create", null, new { @class = "btn btn-primary mb-1" })
+</h4>
 <div class="table-responsive">
     @using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post))
     {
@@ -27,7 +28,7 @@
                     <tr id="row_@item.Id">
 
                         <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                        <td><a href="/DMBill/CTBill/@item.Id"> @item.MaBill</a></td>
+                        <td>@Html.ActionLink(item.MaBill, "CTBill", new { id = item.Id })</td>
                         <td>@item.DMKhachHang.TenCongTy</td>
                         <td>@item.DMCang.TenCang</td>
                         <td>@item.DMCang1.TenCang</td>
@@ -40,8 +41,11 @@
                 }
             </tbody>
 
-        </table><div class="form-group"> <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /></div>}
-    </div>
+        </table>
+    <div class="form-group">
+    <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+        </div>}
+</div>
 
 
 

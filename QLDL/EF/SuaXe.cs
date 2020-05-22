@@ -12,7 +12,6 @@ namespace QLDL.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SuaXe()
         {
-            CTChis = new HashSet<CTChi>();
             CTSuaXes = new HashSet<CTSuaXe>();
         }
 
@@ -31,9 +30,6 @@ namespace QLDL.EF
 
         [StringLength(250)]
         public string GhiChu { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTChi> CTChis { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTSuaXe> CTSuaXes { get; set; }
