@@ -18,7 +18,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Ngay, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Ngay.Value.ToShortDateString(), new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.Ngay, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.Ngay, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Loai, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.Loai, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.Loai, null, htmlAttributes: new { @class = "form-control js-example-tags" })
                         @Html.ValidationMessageFor(model => model.Loai, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.KhachHang, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.KhachHang, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.KhachHang, null, htmlAttributes: new { @class = "form-control js-example-tags" })
                         @Html.ValidationMessageFor(model => model.KhachHang, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Kho, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.Kho, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.Kho, null, htmlAttributes: new { @class = "form-control js-example-tags" })
                         @Html.ValidationMessageFor(model => model.Kho, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.SoBill, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.SoBill, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.SoBill, null, htmlAttributes: new { @class = "form-control js-example-tags" })
                         @Html.ValidationMessageFor(model => model.SoBill, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.CangNhan, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.CangNhan, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.CangNhan, null, htmlAttributes: new { @class = "form-control js-example-tags" })
                         @Html.ValidationMessageFor(model => model.CangNhan, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -76,7 +76,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.CangTra, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.CangTra, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.CangTra, null, htmlAttributes: new { @class = "form-control js-example-tags" })
                         @Html.ValidationMessageFor(model => model.CangTra, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -84,7 +84,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.CuocKH, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.CuocKH, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(model => model.CuocKH, new { htmlAttributes = new { @class = "form-control " } })
                         @Html.ValidationMessageFor(model => model.CuocKH, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.TenTX, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.TenTX, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.TenTX, null, htmlAttributes: new { @class = "form-control js-example-tags" })
                         @Html.ValidationMessageFor(model => model.TenTX, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -108,7 +108,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Xe, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.Xe, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.Xe, null, htmlAttributes: new { @class = "form-control js-example-tags" })
                         @Html.ValidationMessageFor(model => model.Xe, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -150,7 +150,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.PhiKH, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.PhiKH, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.PhiKH, null, htmlAttributes: new { @class = "form-control js-example-tags" })
                         @Html.ValidationMessageFor(model => model.PhiKH, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -166,7 +166,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.PhiCT, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.PhiCT, null, htmlAttributes: new { @class = "form-control" })
+                        @Html.DropDownListFor(model => model.PhiCT, null, htmlAttributes: new { @class = "form-control js-example-tags" })
                         @Html.ValidationMessageFor(model => model.PhiCT, "", new { @class = "text-danger" })
                     </div>
                 </div>

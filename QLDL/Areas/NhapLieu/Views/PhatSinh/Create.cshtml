@@ -47,7 +47,7 @@
 
                                 <option selected value="NUll">-- Chọn cont --</option>
                             }
-     
+
                             @foreach (var item in KH)
                             {
                                 <option value="@item.Id">@item.MaKH</option>
@@ -91,7 +91,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.CangNhan, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.CangNhan, null, htmlAttributes: new {@class = "form-control js-example-tags" })
+                        @Html.DropDownListFor(model => model.CangNhan, null, htmlAttributes: new { @class = "form-control js-example-tags" })
                         @Html.ValidationMessageFor(model => model.CangNhan, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -209,8 +209,14 @@
         </div>
     </div>
 }
+<hr />
+<hr />
+@using (Html.BeginForm("Create", "PhatSinh", FormMethod.Post))
+{
+    @{Html.RenderAction("ViewPhatSinh", "PhatSinh");}
+
+}
 
 
-@{Html.RenderAction("ViewPhatSinh", "PhatSinh");}
 
 

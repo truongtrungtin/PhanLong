@@ -1,50 +1,64 @@
 ﻿@model QLDL.EF.DMKho
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Thêm mới";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h4>Danh mục Kho</h4><hr />
+<h4><b>Thêm Kho</b></h4>
+<hr />
 @using (Html.BeginForm("Create", "DMKho", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-
     <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaKho, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-3">
-                @Html.EditorFor(model => model.MaKho, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaKho, "", new { @class = "text-danger" })
-            </div> 
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-3">
-                @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+        <div class="row">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="col-lg-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MaKho, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.MaKho, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MaKho, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.NguoiLienHe, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-3">
-                @Html.EditorFor(model => model.NguoiLienHe, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NguoiLienHe, "", new { @class = "text-danger" })
+            <div class="col-lg-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DiaChi, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.SoDienThoai, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-3">
-                @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
+            <div class="col-lg-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.NguoiLienHe, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.NguoiLienHe, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.NguoiLienHe, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Thêm mới" class="btn btn-primary" /> |
-                <a href="/DMkho">Trở lại danh mục</a>
+            <div class="col-lg-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SoDienThoai, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.SoDienThoai, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.SoDienThoai, "", new { @class = "text-danger" })
+                    </div>
+                </div>
             </div>
+
+        </div>
+
+    </div>
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="submit" value="Thêm mới" class="btn btn-primary" /> 
         </div>
     </div>
 }
+
+@{Html.RenderAction("ViewDMKho", "DMKho");}
+<hr />
 

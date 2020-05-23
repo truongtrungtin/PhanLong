@@ -17,40 +17,94 @@ namespace QLDL.Areas.DanhMuc.Controllers
             var model = dao.ListAll();
             return View(model);
         }
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
-        }
         [HttpPost]
-        public ActionResult Create(DMPhi dMPhi)
+        public ActionResult Index(int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var dao = new DMPhiDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new DMPhiDao();
-                var Check = dao.Check(dMPhi.MaPhi);
-                if (Check.Count > 0)
+                var result = dao.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Mã Phí này đã tồn tại! " +
-                        "Vui lòng nhập mã Phí khác!", "warning");
-                    return RedirectToAction("Create", "DMPhi");
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    long id = dao.Insert(dMPhi);
-                    if (id > 0)
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            var model = dao.ListAll();
+            return View(model);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult ViewDMPhi()
+        {
+            var dao = new DMPhiDao();
+            var model = dao.ListAll();
+            return PartialView(model);
+        }
+        [HttpGet]
+        public ActionResult Create(long? id = null, string Copy = null)
+        {
+            if (id != null && Copy != null)
+            {
+                var dao = new DMPhiDao();
+                var model = dao.GetById(id);
+                return View(model);
+            }
+            else
+            {
+
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult Create(DMPhi dMPhi, int[] chkId, string delete = null)
+        {
+            var item = new DMPhiDao();
+            if (delete != null && chkId != null)
+            {
+                var result = item.checkbox(chkId);
+                if (result)
+                {
+                    SetAlert("Đã xóa thành công!", "success");
+                }
+                else
+                {
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new DMPhiDao();
+                    var Check = dao.Check(dMPhi.MaPhi);
+                    if (Check.Count > 0)
                     {
-                        SetAlert("Đã thêm Phí thành công !", "success");
-                        return RedirectToAction("Index", "DMPhi");
+                        SetAlert("Mã Phí này đã tồn tại! " +
+                            "Vui lòng nhập mã Phí khác!", "warning");
+                        return RedirectToAction("Create", "DMPhi");
                     }
                     else
                     {
-                        SetAlert("Thêm Phí không thành công, vui lòng thử lại!", "warning");
-                        return RedirectToAction("Create", "DMPhi");
+                        long id = dao.Insert(dMPhi);
+                        if (id > 0)
+                        {
+                            SetAlert("Đã thêm Phí thành công !", "success");
+                            return RedirectToAction("Create", "DMPhi");
+                        }
+                        else
+                        {
+                            SetAlert("Thêm Phí không thành công, vui lòng thử lại!", "warning");
+                            return RedirectToAction("Create", "DMPhi");
+                        }
                     }
                 }
+                SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
+
             }
-            SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
             return RedirectToAction("Create", "DMPhi");
         }
         [HttpGet]
@@ -61,35 +115,53 @@ namespace QLDL.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Update(DMPhi dMPhi)
+        public ActionResult Update(DMPhi dMPhi, int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var item = new DMPhiDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new DMPhiDao();
-                var Check1 = dao.Check(dMPhi.MaPhi);
-                var Check2 = dao.GetById(dMPhi.Id);
-                if (Check1.Count > 0 && Check2.MaPhi != dMPhi.MaPhi)
+                var result = item.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Mã Phí này đã tồn tại! " +
-                        "Vui lòng nhập mã Phí khác!", "warning");
-                    return RedirectToAction("Update", "DMPhi", new { id = dMPhi.Id });
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    var result = dao.Update(dMPhi);
-                    if (result)
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new DMPhiDao();
+                    var Check1 = dao.Check(dMPhi.MaPhi);
+                    var Check2 = dao.GetById(dMPhi.Id);
+                    if (Check1.Count > 0 && Check2.MaPhi != dMPhi.MaPhi)
                     {
-                        SetAlert("Cập nhật dữ liệu Phí thành công!", "success");
-                        return RedirectToAction("Index", "DMPhi");
+                        SetAlert("Mã Phí này đã tồn tại! " +
+                            "Vui lòng nhập mã Phí khác!", "warning");
+                        return RedirectToAction("Update", "DMPhi", new { id = dMPhi.Id });
                     }
                     else
                     {
-                        SetAlert("Cập nhật dữ liệu Phí không thành công", "warning");
-                        return RedirectToAction("Update", "DMPhi");
+                        var result = dao.Update(dMPhi);
+                        if (result)
+                        {
+                            SetAlert("Cập nhật dữ liệu Phí thành công!", "success");
+                            return RedirectToAction("Update", "DMPhi");
+                        }
+                        else
+                        {
+                            SetAlert("Cập nhật dữ liệu Phí không thành công", "warning");
+                            return RedirectToAction("Update", "DMPhi");
+                        }
                     }
                 }
+                SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
+
             }
-            return View("Index");
+            return View("Update");
         }
 
         // Delete

@@ -1,24 +1,18 @@
-﻿@model IEnumerable<QLDL.EF.DMMooc>
-@{
-    ViewBag.Title = "Danh mục Mooc";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    
-}
+﻿@model IEnumerable<QLDL.EF.HinhThucTT>
 
-    <h4>
-        Danh mục Mooc
-        @Html.ActionLink("Thêm Mooc", "Create", null, new { @class = "btn btn-primary mb-1" })
-    </h4>
-<hr />
-<div class="table-responsive">@using (Html.BeginForm("Index", "DMMooc", FormMethod.Post)){
+<h4>
+    <b>Danh sách</b>
+</h4>
+<div class="table-responsive">
+
     <table class="table table-bordered table-striped" id="dataTable" width="100%">
         <thead>
             <tr>
 
-                <th style="width: 1%"><input type='checkbox' id='check' value='' /></th>
-                <th >Mã Mooc</th>
-                <th >Biển số</th>
-                <td >#</td>
+                <th width="5px"><input type='checkbox' id='check' value='' /></th>
+                <th>Mã HTTT</th>
+                <th>Mô tả</th>
+                <td>#</td>
             </tr>
         </thead>
         <tbody>
@@ -28,8 +22,8 @@
                 <tr id="row_@item.Id">
 
                     <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                    <td>@item.MaMooc</td>
-                    <td>@item.BienSo</td>
+                    <td>@item.MaHT</td>
+                    <td>@item.MoTa</td>
                     <td>
                         @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
                         &ensp;| &ensp;
@@ -39,7 +33,7 @@
             }
         </tbody>
 
-    </table><div class="form-group"> <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /></div>}
+    </table><div class="form-group"> <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /></div>
 </div>
 
 

@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Danh mục Bill";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int a = 0;
+    
 }
 <h4>
     Danh Mục Bill @Html.ActionLink("Thêm Bill", "Create", null, new { @class = "btn btn-primary mb-1" })
@@ -14,11 +14,12 @@
             <thead>
                 <tr>
                     <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                    <th></th>
                     <th>Mã Bill</th>
                     <th>Khách Hàng</th>
                     <th>Cảng Nhận</th>
                     <th>Cảng Trả</th>
-                    <td>#</td>
+                    <th>#</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,7 +28,8 @@
                 {
                     <tr id="row_@item.Id">
 
-                        <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                        <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                        <td width="1%">@Html.ActionLink("Chi tiết", "CTBill", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })</td>
                         <td>@Html.ActionLink(item.MaBill, "CTBill", new { id = item.Id })</td>
                         <td>@item.DMKhachHang.TenCongTy</td>
                         <td>@item.DMCang.TenCang</td>

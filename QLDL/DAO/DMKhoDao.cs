@@ -16,15 +16,34 @@ namespace QLDL.DAO
         }
         public List<DMKho> ListAll()
         {
-            return db.DMKhoes.OrderBy(x => x.Id).ToList();
+            return db.DMKhoes.OrderByDescending(x => x.Id).ToList();
         }
+        public bool checkbox(int[] chkId)
+        {
+            try
+            {
+                for (int i = 0; i < chkId.Length; i++)
+                {
+                    int temp = chkId[i];
+                    var article = db.DMKhoes.Where(x => x.Id == temp).SingleOrDefault();
+                    db.DMKhoes.Remove(article);
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
 
+                return false;
+            }
+
+        }
         public List<DMKho> Check(string MaKho)
         {
             return db.DMKhoes.Where(x => x.MaKho == MaKho).ToList();
 
         }
-        public DMKho GetById(long id)
+        public DMKho GetById(long? id)
         {
             return db.DMKhoes.SingleOrDefault(x => x.Id == id);
         }

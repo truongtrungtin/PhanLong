@@ -13,9 +13,29 @@ namespace QLDL.DAO
         {
             db = new QLDLDBContext();
         }
+        public bool checkbox(int[] chkId)
+        {
+            try
+            {
+                for (int i = 0; i < chkId.Length; i++)
+                {
+                    int temp = chkId[i];
+                    var article = db.DMLoais.Where(x => x.Id == temp).SingleOrDefault();
+                    db.DMLoais.Remove(article);
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+
+        }
         public List<DMLoai> ListAll()
         {
-            return db.DMLoais.OrderBy(x => x.Id).ToList();
+            return db.DMLoais.OrderByDescending(x => x.Id).ToList();
         }
 
         public List<DMLoai> Check(string MaLoai)
@@ -23,7 +43,7 @@ namespace QLDL.DAO
             return db.DMLoais.Where(x => x.MaLoai == MaLoai).ToList();
 
         }
-        public DMLoai GetById(long id)
+        public DMLoai GetById(long? id)
         {
             return db.DMLoais.SingleOrDefault(x => x.Id == id);
         }

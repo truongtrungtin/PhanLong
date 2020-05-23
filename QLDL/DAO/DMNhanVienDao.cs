@@ -13,15 +13,35 @@ namespace QLDL.DAO
         {
             db = new QLDLDBContext();
         }
+        public bool checkbox(int[] chkId)
+        {
+            try
+            {
+                for (int i = 0; i < chkId.Length; i++)
+                {
+                    int temp = chkId[i];
+                    var article = db.DMNhanViens.Where(x => x.Id == temp).SingleOrDefault();
+                    db.DMNhanViens.Remove(article);
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+
+        }
         public List<DMNhanVien> ListAll()
         {
-            return db.DMNhanViens.OrderBy(x => x.Id).ToList();
+            return db.DMNhanViens.OrderByDescending(x => x.Id).ToList();
         }
         public List<DMNhanVien> Check(string MaNhanVien)
         {
             return db.DMNhanViens.Where(x => x.MaNV == MaNhanVien).ToList();
         }
-        public DMNhanVien GetById(long id)
+        public DMNhanVien GetById(long? id)
         {
             return db.DMNhanViens.SingleOrDefault(x => x.Id == id);
         }

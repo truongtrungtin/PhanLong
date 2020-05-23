@@ -13,12 +13,32 @@ namespace QLDL.DAO
         {
             db = new QLDLDBContext();
         }
+        public bool checkbox(int[] chkId)
+        {
+            try
+            {
+                for (int i = 0; i < chkId.Length; i++)
+                {
+                    int temp = chkId[i];
+                    var article = db.CTBills.Where(x => x.Id == temp).SingleOrDefault();
+                    db.CTBills.Remove(article);
+                }
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+
+        }
         public List<CTBill> ListAll(long bill)
         {
-            return db.CTBills.Where(x => x.Bill == bill).OrderBy(x => x.Id).ToList();
+            return db.CTBills.Where(x => x.Bill == bill).OrderByDescending(x => x.NgayGiao).ToList();
         }
 
-        public CTBill GetById(long id)
+        public CTBill GetById(long? id)
         {
             return db.CTBills.SingleOrDefault(x => x.Id == id);
         }

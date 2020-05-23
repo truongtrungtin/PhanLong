@@ -36,7 +36,7 @@ namespace QLDL.DAO
         }
         public List<HinhThucTT> ListAll()
         {
-            return db.HinhThucTTs.OrderBy(x => x.Id).ToList();
+            return db.HinhThucTTs.OrderByDescending(x => x.Id).ToList();
         }
         public List<HinhThucTT> Check(string MaHT)
         {

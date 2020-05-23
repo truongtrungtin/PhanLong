@@ -16,52 +16,110 @@ namespace QLDL.Areas.DanhMuc.Controllers
             var model = dao.ListAll();
             return View(model);
         }
-
-        [HttpGet]
-        public ActionResult Create()
-        {
-            SetViewBag();
-            return View();
-        }
         [HttpPost]
-        public ActionResult Create(DMBill dMBill)
+        public ActionResult Index(int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var dao = new DMBillDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new DMBillDao();
-                var Check = dao.Check(dMBill.MaBill);
-                if (Check.Count > 0)
+                var result = dao.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Mã Bill này đã tồn tại! " +
-                        "Vui lòng nhập mã Bill khác!", "warning");
-                    return RedirectToAction("Create", "DMBill");
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    long id = dao.Insert(dMBill);
-                    if (id > 0)
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            var model = dao.ListAll();
+            return View(model);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult ViewDMBill()
+        {
+            var dao = new DMBillDao();
+            var model = dao.ListAll();
+            return PartialView(model);
+        }
+
+        [HttpGet]
+        public ActionResult Create(long? id = null, string Copy = null)
+        {
+
+            if (id != null && Copy != null)
+            {
+                var dao = new DMBillDao();
+                var model = dao.GetById(id);
+                SetViewBag();
+                return View(model);
+            }
+            else
+            {
+
+                SetViewBag();
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult Create(DMBill dMBill, int[] chkId, string delete = null)
+        {
+            var ps = new DMBillDao();
+            if (delete != null && chkId != null)
+            {
+                var result = ps.checkbox(chkId);
+                if (result)
+                {
+                    SetAlert("Đã xóa thành công!", "success");
+                }
+                else
+                {
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new DMBillDao();
+                    var Check = dao.Check(dMBill.MaBill);
+                    if (Check.Count > 0)
                     {
-                        SetAlert("Đã thêm Bill thành công !", "success");
-                        return RedirectToAction("Index", "DMBill");
+                        SetAlert("Mã Bill này đã tồn tại! " +
+                            "Vui lòng nhập mã Bill khác!", "warning");
+                        return RedirectToAction("Create", "DMBill");
                     }
                     else
                     {
-                        SetAlert("Thêm Bill không thành công, vui lòng thử lại!", "warning");
-                        return RedirectToAction("Create", "DMBill");
+                        long id = dao.Insert(dMBill);
+                        if (id > 0)
+                        {
+                            SetAlert("Đã thêm Bill thành công !", "success");
+                            return RedirectToAction("Index", "DMBill");
+                        }
+                        else
+                        {
+                            SetAlert("Thêm Bill không thành công, vui lòng thử lại!", "warning");
+                            return RedirectToAction("Create", "DMBill");
+                        }
                     }
                 }
+                SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
+
             }
-            SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
             return RedirectToAction("Create", "DMBill");
         }
+
         public void SetViewBag(long? selectedId = null)
         {
             var KhachHang = new DMKhachHangDao();
             var Cang = new DMCangDao();
+            var Xe = new DMXeDao();
             ViewBag.KhachHang = new SelectList(KhachHang.ListAll(), "Id", "TenCongTy", selectedId);
             ViewBag.CangNhan = new SelectList(Cang.ListAll(), "Id", "TenCang", selectedId);
             ViewBag.CangTra = new SelectList(Cang.ListAll(), "Id", "TenCang", selectedId);
-
+            ViewBag.SoXe = new SelectList(Xe.ListAll(), "Id", "BienSo", selectedId);
         }
         [HttpGet]
         public ActionResult Update(long id)
@@ -72,35 +130,53 @@ namespace QLDL.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Update(DMBill dMBill)
+        public ActionResult Update(DMBill dMBill, int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var ps = new DMBillDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new DMBillDao();
-                var Check1 = dao.Check(dMBill.MaBill);
-                var Check2 = dao.GetById(dMBill.Id);
-                if (Check1.Count > 0 && Check2.MaBill != dMBill.MaBill)
+                var result = ps.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Mã Bill này đã tồn tại! " +
-                        "Vui lòng nhập mã Bill khác!", "warning");
-                    return RedirectToAction("Update", "DMBill", new { id = dMBill.Id });
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    var result = dao.Update(dMBill);
-                    if (result)
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new DMBillDao();
+                    var Check1 = dao.Check(dMBill.MaBill);
+                    var Check2 = dao.GetById(dMBill.Id);
+                    if (Check1.Count > 0 && Check2.MaBill != dMBill.MaBill)
                     {
-                        SetAlert("Cập nhật dữ liệu Bill thành công!", "success");
-                        return RedirectToAction("Index", "DMBill");
+                        SetAlert("Mã Bill này đã tồn tại! " +
+                            "Vui lòng nhập mã Bill khác!", "warning");
+                        return RedirectToAction("Update", "DMBill", new { id = dMBill.Id });
                     }
                     else
                     {
-                        SetAlert("Cập nhật dữ liệu Bill không thành công", "warning");
-                        return RedirectToAction("Update", "DMBill");
+                        var result = dao.Update(dMBill);
+                        if (result)
+                        {
+                            SetAlert("Cập nhật dữ liệu Bill thành công!", "success");
+                            return RedirectToAction("Update", "DMBill");
+                        }
+                        else
+                        {
+                            SetAlert("Cập nhật dữ liệu Bill không thành công", "warning");
+                            return RedirectToAction("Update", "DMBill");
+                        }
                     }
                 }
+                SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
+
             }
-            return View("Index");
+            return View("Update");
         }
 
 
@@ -129,38 +205,77 @@ namespace QLDL.Areas.DanhMuc.Controllers
             var dao = new CTBillDao();
             var model = dao.ListAll(id);
             ViewBag.Bill = Bill.MaBill;
+            ViewBag.IdBill = Bill.Id;
             return View(model);
         }
 
 
         [HttpGet]
-        public ActionResult CreateCTBill()
+        public ActionResult CreateCTBill(long? id = null, string Copy = null)
         {
-            SetViewBag();
-            return View();
+            var Bill = new DMBillDao().GetById(id);
+            if (id != null && Copy != null)
+            {
+                ViewBag.Bill = Bill.MaBill;
+                ViewBag.IdBill = Bill.Id;
+                var dao = new CTBillDao();
+                var model = dao.GetById(id);
+                SetViewBag();
+                return View(model);
+            }
+            else
+            {
+                ViewBag.Bill = Bill.MaBill;
+                ViewBag.IdBill = Bill.Id;
+                SetViewBag();
+                return View();
+            }
         }
         [HttpPost]
-        public ActionResult CreateCTBill(CTBill dMBill)
+        public ActionResult CreateCTBill(CTBill dMBill, int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var ps = new CTBillDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new CTBillDao();
-
-                long id = dao.Insert(dMBill);
-                if (id > 0)
+                var result = ps.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Đã thêm giá trị thành công !", "success");
-                    return RedirectToAction("CTBill", "DMBill");
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    SetAlert("Thêm giá trị không thành công, vui lòng thử lại!", "warning");
-                    return RedirectToAction("CreateCTBill", "DMBill");
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
                 }
             }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new CTBillDao();
 
-            SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
+                    long id = dao.Insert(dMBill);
+                    if (id > 0)
+                    {
+                        SetAlert("Đã thêm giá trị thành công !", "success");
+                        return RedirectToAction("CreateCTBill", "DMBill");
+                    }
+                    else
+                    {
+                        SetAlert("Thêm giá trị không thành công, vui lòng thử lại!", "warning");
+                        return RedirectToAction("CreateCTBill", "DMBill");
+                    }
+                }
+
+                SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
+            }
             return RedirectToAction("CreateCTBill", "DMBill");
+        }
+        [ChildActionOnly]
+        public PartialViewResult ViewCTBill(long id)
+        {
+            var dao = new CTBillDao();
+            var model = dao.ListAll(id);
+            return PartialView(model);
         }
 
         [HttpGet]
@@ -172,26 +287,42 @@ namespace QLDL.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult UpdateCTBill(CTBill cTBill)
+        public ActionResult UpdateCTBill(CTBill cTBill, int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var ps = new CTBillDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new CTBillDao();
-                
-                var result = dao.Update(cTBill);
+                var result = ps.checkbox(chkId);
                 if (result)
                 {
-                    SetAlert("Cập nhật dữ liệu thành công!", "success");
-                    return RedirectToAction("CTBill", "DMBill", new { id = cTBill.Bill });
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    SetAlert("Cập nhật dữ liệu không thành công", "warning");
-                    return RedirectToAction("UpdateCTBill", "DMBill", new { id = cTBill.Bill });
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
                 }
-
             }
-            return View("Index");
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new CTBillDao();
+
+                    var result = dao.Update(cTBill);
+                    if (result)
+                    {
+                        SetAlert("Cập nhật dữ liệu thành công!", "success");
+                        return RedirectToAction("UpdateCTBill", "DMBill", new { id = cTBill.Bill });
+                    }
+                    else
+                    {
+                        SetAlert("Cập nhật dữ liệu không thành công", "warning");
+                        return RedirectToAction("UpdateCTBill", "DMBill", new { id = cTBill.Bill });
+                    }
+
+                }
+            }
+            return View("UpdateCTBill");
         }
 
 

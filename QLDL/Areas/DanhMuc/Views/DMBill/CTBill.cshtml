@@ -5,7 +5,7 @@
 }
 
 <!-- body -->
-<h4> Bill:  <b>@ViewBag.Bill</b>  @Html.ActionLink("Thêm dữ liệu vào Bill", "CreateCTBill", null, new { @class = "btn btn-primary mb-1" })</h4>
+<h4> Bill:  <b>@ViewBag.Bill</b>  @Html.ActionLink("Thêm dữ liệu vào Bill", "CreateCTBill", new{id = @ViewBag.IdBill }, new { @class = "btn btn-primary mb-1" })</h4>
    
     <hr />
     <div class="table-responsive">
@@ -19,19 +19,19 @@
                         <th>Số DK</th>
                         <th>Loại</th>
                         <th>Seal</th>
-                        <td>Mã kho</td>
-                        <td>Hạn lưu Cont</td>
-                        <td>Hạn Lưu Bãi</td>
-                        <td>Hạn Lưu rỗng</td>
-                        <td>Ngày Giao</td>
-                        <td>Ngày gửi</td>
-                        <td>Độ dày</td>
-                        <td>Quy Cách</td>
-                        <td>Số Xe</td>
-                        <td>TT Lưu Bãi</td>
-                        <td>TT Lưu Cont</td>
-                        <td>TT Lưu Rỗng</td>
-                        <td>Ghi Chú</td>
+                        <th>Mã kho</th>
+                        <th>Hạn lưu Cont</th>
+                        <th>Hạn Lưu Bãi</th>
+                        <th>Hạn Lưu rỗng</th>
+                        <th>Ngày Giao</th>
+                        <th>Ngày gửi</th>
+                        <th>Độ dày</th>
+                        <th>Quy Cách</th>
+                        <th>Số Xe</th>
+                        <th>TT Lưu Bãi</th>
+                        <th>TT Lưu Cont</th>
+                        <th>TT Lưu Rỗng</th>
+                        <th>Ghi Chú</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -36,7 +36,7 @@ namespace QLDL.DAO
         }
         public List<PhatSinh> ListAll()
         {
-            return db.PhatSinhs.OrderBy(x => x.Id).ToList();
+            return db.PhatSinhs.OrderByDescending(x => x.Ngay).ToList();
         }
 
         public PhatSinh GetById(long? id)

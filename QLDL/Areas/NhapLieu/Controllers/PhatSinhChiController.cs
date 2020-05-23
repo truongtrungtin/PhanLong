@@ -19,7 +19,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Index(int[] chkId, string delete = null, string copy = null)
+        public ActionResult Index(int[] chkId, string delete = null)
         {
             var dao = new PhatSinhChiDao();
             if (delete != null && chkId != null)
@@ -66,7 +66,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(PhatSinhChi phatSinhChi, int[] chkId, string delete = null, string copy = null)
+        public ActionResult Create(PhatSinhChi phatSinhChi, int[] chkId, string delete = null)
         {
             var ps = new PhatSinhChiDao();
             if (delete != null && chkId != null)
@@ -115,24 +115,42 @@ namespace QLDL.Areas.NhapLieu.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Update(PhatSinhChi phatSinhChi)
+        public ActionResult Update(PhatSinhChi phatSinhChi, int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var ps = new PhatSinhChiDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new PhatSinhChiDao();
-                var result = dao.Update(phatSinhChi);
+                var result = ps.checkbox(chkId);
                 if (result)
                 {
-                    SetAlert("Cập nhật dữ liệu thành công!", "success");
-                    return RedirectToAction("Index", "PhatSinhChi");
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    SetAlert("Cập nhật dữ liệu không thành công", "warning");
-                    return RedirectToAction("Update", "PhatSinhChi");
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
                 }
             }
-            return View("Index");
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new PhatSinhChiDao();
+                    var result = dao.Update(phatSinhChi);
+                    if (result)
+                    {
+                        SetAlert("Cập nhật dữ liệu thành công!", "success");
+                        return RedirectToAction("Update", "PhatSinhChi");
+                    }
+                    else
+                    {
+                        SetAlert("Cập nhật dữ liệu không thành công", "warning");
+                        return RedirectToAction("Update", "PhatSinhChi");
+                    }
+                }
+                SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
+
+            }
+            return View("Update");
         }
 
 
@@ -197,7 +215,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
         }
 
         [HttpPost]
-        public ActionResult CTChi(long id, int[] chkId, string delete = null, string copy = null)
+        public ActionResult CTChi(long id, int[] chkId, string delete = null)
         {
             var dao = new CTChiDao();
             if (delete != null && chkId != null)

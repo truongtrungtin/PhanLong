@@ -17,40 +17,92 @@ namespace QLDL.Areas.DanhMuc.Controllers
             var model = dao.ListAll();
             return View(model);
         }
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
-        }
         [HttpPost]
-        public ActionResult Create(DMCang dMCang)
+        public ActionResult Index(int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var dao = new DMCangDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new DMCangDao();
-                var Check = dao.Check(dMCang.MaCang);
-                if (Check.Count > 0)
+                var result = dao.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Mã cảng này đã tồn tại! " +
-                        "Vui lòng nhập mã cảng khác!", "warning");
-                    return RedirectToAction("Create", "DMCang");
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    long id = dao.Insert(dMCang);
-                    if (id > 0)
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            var model = dao.ListAll();
+            return View(model);
+        }
+        [ChildActionOnly]
+        public PartialViewResult ViewDMCang()
+        {
+            var dao = new DMCangDao();
+            var model = dao.ListAll();
+            return PartialView(model);
+        }
+        [HttpGet]
+        public ActionResult Create(long? id = null, string Copy = null)
+        {
+            if (id != null && Copy != null)
+            {
+                var dao = new DMCangDao();
+                var model = dao.GetById(id);
+                return View(model);
+            }
+            else
+            {
+
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult Create(DMCang dMCang, int[] chkId, string delete = null)
+        {
+            var item = new DMCangDao();
+            if (delete != null && chkId != null)
+            {
+                var result = item.checkbox(chkId);
+                if (result)
+                {
+                    SetAlert("Đã xóa thành công!", "success");
+                }
+                else
+                {
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new DMCangDao();
+                    var Check = dao.Check(dMCang.MaCang);
+                    if (Check.Count > 0)
                     {
-                        SetAlert("Đã thêm cảng thành công !", "success");
-                        return RedirectToAction("Index", "DMCang");
+                        SetAlert("Mã cảng này đã tồn tại! " +
+                            "Vui lòng nhập mã cảng khác!", "warning");
+                        return RedirectToAction("Create", "DMCang");
                     }
                     else
                     {
-                        SetAlert("Thêm cảng không thành công, vui lòng thử lại!", "warning");
-                        return RedirectToAction("Create", "DMCang");
+                        long id = dao.Insert(dMCang);
+                        if (id > 0)
+                        {
+                            SetAlert("Đã thêm cảng thành công !", "success");
+                            return RedirectToAction("Create", "DMCang");
+                        }
+                        else
+                        {
+                            SetAlert("Thêm cảng không thành công, vui lòng thử lại!", "warning");
+                            return RedirectToAction("Create", "DMCang");
+                        }
                     }
                 }
+                SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
             }
-            SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
             return RedirectToAction("Create", "DMCang");
         }
         [HttpGet]
@@ -61,35 +113,53 @@ namespace QLDL.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Update(DMCang dMCang)
+        public ActionResult Update(DMCang dMCang, int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var item = new DMCangDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new DMCangDao();
-                var Check1 = dao.Check(dMCang.MaCang);
-                var Check2 = dao.GetById(dMCang.Id);
-                if (Check1.Count > 0 && Check2.MaCang != dMCang.MaCang)
+                var result = item.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Mã cảng này đã tồn tại! " +
-                        "Vui lòng nhập mã cảng khác!", "warning");
-                    return RedirectToAction("Update", "DMCang", new { id = dMCang.Id });
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    var result = dao.Update(dMCang);
-                    if (result)
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new DMCangDao();
+                    var Check1 = dao.Check(dMCang.MaCang);
+                    var Check2 = dao.GetById(dMCang.Id);
+                    if (Check1.Count > 0 && Check2.MaCang != dMCang.MaCang)
                     {
-                        SetAlert("Cập nhật dữ liệu cảng thành công!", "success");
-                        return RedirectToAction("Index", "DMCang");
+                        SetAlert("Mã cảng này đã tồn tại! " +
+                            "Vui lòng nhập mã cảng khác!", "warning");
+                        return RedirectToAction("Update", "DMCang", new { id = dMCang.Id });
                     }
                     else
                     {
-                        SetAlert("Cập nhật dữ liệu cảng không thành công", "warning");
-                        return RedirectToAction("Update", "DMCang");
+                        var result = dao.Update(dMCang);
+                        if (result)
+                        {
+                            SetAlert("Cập nhật dữ liệu cảng thành công!", "success");
+                            return RedirectToAction("Index", "DMCang");
+                        }
+                        else
+                        {
+                            SetAlert("Cập nhật dữ liệu cảng không thành công", "warning");
+                            return RedirectToAction("Update", "DMCang");
+                        }
                     }
                 }
+                SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
+
             }
-            return View("Index");
+            return View("Update");
         }
 
         // Delete

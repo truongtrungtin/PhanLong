@@ -1834,7 +1834,6 @@
     <Folder Include="Areas\BangKe\Data\" />
     <Folder Include="Areas\BangKe\Views\Shared\" />
     <Folder Include="Areas\DanhMuc\Data\" />
-    <Folder Include="Areas\DanhMuc\Views\HTTT\" />
     <Folder Include="Areas\DanhMuc\Views\Shared\" />
     <Folder Include="Areas\NhapLieu\Data\" />
     <Folder Include="Areas\NhapLieu\Views\Shared\" />
@@ -2005,6 +2004,20 @@
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\CTChi.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\Create.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\ViewPhatSinhChi.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMKho\ViewDMKho.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMCang\ViewDMCang.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMKhachHang\ViewDMKhachHang.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMLoai\ViewDMLoai.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMMooc\ViewDMMooc.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMNhanVien\ViewDMNhanVien.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMPhi\ViewDMPhi.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMNoiDung\ViewDMNoiDung.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMXe\ViewDMXe.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\HinhThucTT\ViewHinhThucTT.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\HinhThucTT\Index.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\HinhThucTT\Create.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\HinhThucTT\Update.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMBill\ViewCTBill.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

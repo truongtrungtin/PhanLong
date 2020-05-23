@@ -17,40 +17,93 @@ namespace QLDL.Areas.DanhMuc.Controllers
             var model = dao.ListAll();
             return View(model);
         }
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
-        }
         [HttpPost]
-        public ActionResult Create(DMXe dMXe)
+        public ActionResult Index(int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var dao = new DMXeDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new DMXeDao();
-                var Check = dao.Check(dMXe.MaXe);
-                if (Check.Count > 0)
+                var result = dao.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Mã xe này đã tồn tại! " +
-                        "Vui lòng nhập mã xe khác!", "warning");
-                    return RedirectToAction("Create", "DMXe");
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    long id = dao.Insert(dMXe);
-                    if (id > 0)
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            var model = dao.ListAll();
+            return View(model);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult ViewDMXe()
+        {
+            var dao = new DMXeDao();
+            var model = dao.ListAll();
+            return PartialView(model);
+        }
+        [HttpGet]
+        public ActionResult Create(long? id = null, string Copy = null)
+        {
+            if (id != null && Copy != null)
+            {
+                var dao = new DMXeDao();
+                var model = dao.GetById(id);
+                return View(model);
+            }
+            else
+            {
+
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult Create(DMXe dMXe, int[] chkId, string delete = null)
+        {
+            var item = new DMXeDao();
+            if (delete != null && chkId != null)
+            {
+                var result = item.checkbox(chkId);
+                if (result)
+                {
+                    SetAlert("Đã xóa thành công!", "success");
+                }
+                else
+                {
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new DMXeDao();
+                    var Check = dao.Check(dMXe.MaXe);
+                    if (Check.Count > 0)
                     {
-                        SetAlert("Đã thêm xe thành công !", "success");
-                        return RedirectToAction("Index", "DMXe");
+                        SetAlert("Mã xe này đã tồn tại! " +
+                            "Vui lòng nhập mã xe khác!", "warning");
+                        return RedirectToAction("Create", "DMXe");
                     }
                     else
                     {
-                        SetAlert("Thêm xe không thành công, vui lòng thử lại!", "warning");
-                        return RedirectToAction("Create", "DMXe");
+                        long id = dao.Insert(dMXe);
+                        if (id > 0)
+                        {
+                            SetAlert("Đã thêm xe thành công !", "success");
+                            return RedirectToAction("Create", "DMXe");
+                        }
+                        else
+                        {
+                            SetAlert("Thêm xe không thành công, vui lòng thử lại!", "warning");
+                            return RedirectToAction("Create", "DMXe");
+                        }
                     }
                 }
+                SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
             }
-            SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
             return RedirectToAction("Create", "DMXe");
         }
         [HttpGet]
@@ -61,35 +114,53 @@ namespace QLDL.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Update(DMXe dMXe)
+        public ActionResult Update(DMXe dMXe, int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var item = new DMXeDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new DMXeDao();
-                var Check1 = dao.Check(dMXe.MaXe);
-                var Check2 = dao.GetById(dMXe.Id);
-                if (Check1.Count > 0 && Check2.MaXe != dMXe.MaXe)
+                var result = item.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Mã xe này đã tồn tại! " +
-                        "Vui lòng nhập mã xe khác!", "warning");
-                    return RedirectToAction("Update", "DMXe", new { id = dMXe.Id });
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    var result = dao.Update(dMXe);
-                    if (result)
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new DMXeDao();
+                    var Check1 = dao.Check(dMXe.MaXe);
+                    var Check2 = dao.GetById(dMXe.Id);
+                    if (Check1.Count > 0 && Check2.MaXe != dMXe.MaXe)
                     {
-                        SetAlert("Cập nhật dữ liệu xe thành công!", "success");
-                        return RedirectToAction("Index", "DMXe");
+                        SetAlert("Mã xe này đã tồn tại! " +
+                            "Vui lòng nhập mã xe khác!", "warning");
+                        return RedirectToAction("Update", "DMXe", new { id = dMXe.Id });
                     }
                     else
                     {
-                        SetAlert("Cập nhật dữ liệu xe không thành công", "warning");
-                        return RedirectToAction("Update", "DMXe");
+                        var result = dao.Update(dMXe);
+                        if (result)
+                        {
+                            SetAlert("Cập nhật dữ liệu xe thành công!", "success");
+                            return RedirectToAction("Update", "DMXe");
+                        }
+                        else
+                        {
+                            SetAlert("Cập nhật dữ liệu xe không thành công", "warning");
+                            return RedirectToAction("Update", "DMXe");
+                        }
                     }
                 }
+                SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
+
             }
-            return View("DMXe");
+            return View("Update");
         }
 
         // Delete

@@ -17,40 +17,94 @@ namespace QLDL.Areas.DanhMuc.Controllers
             var model = dao.ListAll();
             return View(model);
         }
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
-        }
         [HttpPost]
-        public ActionResult Create(DMKhachHang dMKhachHang)
+        public ActionResult Index(int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var dao = new DMKhachHangDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new DMKhachHangDao();
-                var Check = dao.Check(dMKhachHang.MaKH);
-                if (Check.Count > 0)
+                var result = dao.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Mã khách hàng này đã tồn tại! " +
-                        "Vui lòng nhập mã khách hàng khác!", "warning");
-                    return RedirectToAction("Create", "DMKhachHang");
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    long id = dao.Insert(dMKhachHang);
-                    if (id > 0 )
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            var model = dao.ListAll();
+            return View(model);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult ViewDMKhachHang()
+        {
+            var dao = new DMKhachHangDao();
+            var model = dao.ListAll();
+            return PartialView(model);
+        }
+        [HttpGet]
+        public ActionResult Create(long? id = null, string Copy = null)
+        {
+            if (id != null && Copy != null)
+            {
+                var dao = new DMKhachHangDao();
+                var model = dao.GetById(id);
+                return View(model);
+            }
+            else
+            {
+
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult Create(DMKhachHang dMKhachHang, int[] chkId, string delete = null)
+        {
+            var item = new DMKhachHangDao();
+            if (delete != null && chkId != null)
+            {
+                var result = item.checkbox(chkId);
+                if (result)
+                {
+                    SetAlert("Đã xóa thành công!", "success");
+                }
+                else
+                {
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new DMKhachHangDao();
+                    var Check = dao.Check(dMKhachHang.MaKH);
+                    if (Check.Count > 0)
                     {
-                        SetAlert("Đã thêm Khách hàng thành công!", "success");
-                        return RedirectToAction("Index", "DMKhachHang");
+                        SetAlert("Mã khách hàng này đã tồn tại! " +
+                            "Vui lòng nhập mã khách hàng khác!", "warning");
+                        return RedirectToAction("Create", "DMKhachHang");
                     }
                     else
                     {
-                        SetAlert("Thêm Khách hàng không thành công, vui lòng thử lại!", "warning");
-                        return RedirectToAction("Create", "DMKhachHang");
+                        long id = dao.Insert(dMKhachHang);
+                        if (id > 0)
+                        {
+                            SetAlert("Đã thêm Khách hàng thành công!", "success");
+                            return RedirectToAction("Create", "DMKhachHang");
+                        }
+                        else
+                        {
+                            SetAlert("Thêm Khách hàng không thành công, vui lòng thử lại!", "warning");
+                            return RedirectToAction("Create", "DMKhachHang");
+                        }
                     }
                 }
+                SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
+
             }
-            SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
             return RedirectToAction("Create", "DMKhachHang");
         }
 
@@ -62,35 +116,53 @@ namespace QLDL.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Update(DMKhachHang dMKhachHang)
+        public ActionResult Update(DMKhachHang dMKhachHang, int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var item = new DMKhachHangDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new DMKhachHangDao();
-                var Check1 = dao.Check(dMKhachHang.MaKH);
-                var Check2 = dao.GetById(dMKhachHang.Id);
-                if (Check1.Count > 0 && Check2.MaKH != dMKhachHang.MaKH)
+                var result = item.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Mã khách hàng này đã tồn tại! " +
-                        "Vui lòng nhập mã xe khác!", "warning");
-                    return RedirectToAction("Update", "DMKhachHang", new { id = dMKhachHang.Id });
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    var result = dao.Update(dMKhachHang);
-                    if (result)
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new DMKhachHangDao();
+                    var Check1 = dao.Check(dMKhachHang.MaKH);
+                    var Check2 = dao.GetById(dMKhachHang.Id);
+                    if (Check1.Count > 0 && Check2.MaKH != dMKhachHang.MaKH)
                     {
-                        SetAlert("Cập nhật dữ liệu khách hàng thành công!", "success");
-                        return RedirectToAction("Index", "DMKhachHang");
+                        SetAlert("Mã khách hàng này đã tồn tại! " +
+                            "Vui lòng nhập mã xe khác!", "warning");
+                        return RedirectToAction("Update", "DMKhachHang", new { id = dMKhachHang.Id });
                     }
                     else
                     {
-                        SetAlert("Cập nhật dữ liệu khách hàng không thành công", "warning");
-                        return RedirectToAction("Update", "DMKhachHang");
+                        var result = dao.Update(dMKhachHang);
+                        if (result)
+                        {
+                            SetAlert("Cập nhật dữ liệu khách hàng thành công!", "success");
+                            return RedirectToAction("Update", "DMKhachHang");
+                        }
+                        else
+                        {
+                            SetAlert("Cập nhật dữ liệu khách hàng không thành công", "warning");
+                            return RedirectToAction("Update", "DMKhachHang");
+                        }
                     }
                 }
+                SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
+
             }
-            return View("Index");
+            return View("Update");
         }
 
         [HttpDelete]

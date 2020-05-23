@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Danh mục Xe";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int a = 0;
+    
 }
 
     <h4>
@@ -10,7 +10,9 @@
         @Html.ActionLink("Thêm Xe", "Create", null, new { @class = "btn btn-primary mb-1" })
     </h4>
 <hr />
-<div class="table-responsive">@using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post)){
+<div class="table-responsive">
+    @using (Html.BeginForm("Index", "DMXe", FormMethod.Post))
+    {
     <table class="table table-bordered table-striped" id="dataTable" width="100%">
         <thead>
             <tr>

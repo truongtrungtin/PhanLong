@@ -17,40 +17,94 @@ namespace QLDL.Areas.DanhMuc.Controllers
             var model = dao.ListAll();
             return View(model);
         }
-        [HttpGet]
-        public ActionResult Create()
-        {
-            return View();
-        }
         [HttpPost]
-        public ActionResult Create(DMMooc dMMooc)
+        public ActionResult Index(int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var dao = new DMMoocDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new DMMoocDao();
-                var Check = dao.Check(dMMooc.MaMooc);
-                if (Check.Count > 0)
+                var result = dao.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Mã mooc này đã tồn tại! " +
-                        "Vui lòng nhập mã mooc khác!", "warning");
-                    return RedirectToAction("Create", "DMMooc");
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    long id = dao.Insert(dMMooc);
-                    if (id > 0)
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            var model = dao.ListAll();
+            return View(model);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult ViewDMMooc()
+        {
+            var dao = new DMKhoDao();
+            var model = dao.ListAll();
+            return PartialView(model);
+        }
+        [HttpGet]
+        public ActionResult Create(long? id = null, string Copy = null)
+        {
+            if (id != null && Copy != null)
+            {
+                var dao = new DMMoocDao();
+                var model = dao.GetById(id);
+                return View(model);
+            }
+            else
+            {
+
+                return View();
+            }
+        }
+        [HttpPost]
+        public ActionResult Create(DMMooc dMMooc, int[] chkId, string delete = null)
+        {
+            var item = new DMMoocDao();
+            if (delete != null && chkId != null)
+            {
+                var result = item.checkbox(chkId);
+                if (result)
+                {
+                    SetAlert("Đã xóa thành công!", "success");
+                }
+                else
+                {
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new DMMoocDao();
+                    var Check = dao.Check(dMMooc.MaMooc);
+                    if (Check.Count > 0)
                     {
-                        SetAlert("Đã thêm mooc thành công !", "success");
-                        return RedirectToAction("Index", "DMMooc");
+                        SetAlert("Mã mooc này đã tồn tại! " +
+                            "Vui lòng nhập mã mooc khác!", "warning");
+                        return RedirectToAction("Create", "DMMooc");
                     }
                     else
                     {
-                        SetAlert("Thêm mooc không thành công, vui lòng thử lại!", "warning");
-                        return RedirectToAction("Create", "DMMooc");
+                        long id = dao.Insert(dMMooc);
+                        if (id > 0)
+                        {
+                            SetAlert("Đã thêm mooc thành công !", "success");
+                            return RedirectToAction("Create", "DMMooc");
+                        }
+                        else
+                        {
+                            SetAlert("Thêm mooc không thành công, vui lòng thử lại!", "warning");
+                            return RedirectToAction("Create", "DMMooc");
+                        }
                     }
                 }
+                SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
+
             }
-            SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
             return RedirectToAction("Create", "DMMooc");
         }
         [HttpGet]
@@ -61,35 +115,53 @@ namespace QLDL.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Update(DMMooc dMMooc)
+        public ActionResult Update(DMMooc dMMooc, int[] chkId, string delete = null)
         {
-            if (ModelState.IsValid)
+            var item = new DMMoocDao();
+            if (delete != null && chkId != null)
             {
-                var dao = new DMMoocDao();
-                var Check1 = dao.Check(dMMooc.MaMooc);
-                var Check2 = dao.GetById(dMMooc.Id);
-                if (Check1.Count > 0 && Check2.MaMooc != dMMooc.MaMooc)
+                var result = item.checkbox(chkId);
+                if (result)
                 {
-                    SetAlert("Mã mooc này đã tồn tại! " +
-                        "Vui lòng nhập mã mooc khác!", "warning");
-                    return RedirectToAction("Update", "DMMooc", new { id = dMMooc.Id });
+                    SetAlert("Đã xóa thành công!", "success");
                 }
                 else
                 {
-                    var result = dao.Update(dMMooc);
-                    if (result)
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new DMMoocDao();
+                    var Check1 = dao.Check(dMMooc.MaMooc);
+                    var Check2 = dao.GetById(dMMooc.Id);
+                    if (Check1.Count > 0 && Check2.MaMooc != dMMooc.MaMooc)
                     {
-                        SetAlert("Cập nhật dữ liệu xe thành công!", "success");
-                        return RedirectToAction("Index", "DMMooc");
+                        SetAlert("Mã mooc này đã tồn tại! " +
+                            "Vui lòng nhập mã mooc khác!", "warning");
+                        return RedirectToAction("Update", "DMMooc", new { id = dMMooc.Id });
                     }
                     else
                     {
-                        SetAlert("Cập nhật dữ liệu xe không thành công", "warning");
-                        return RedirectToAction("Update", "DMMooc");
+                        var result = dao.Update(dMMooc);
+                        if (result)
+                        {
+                            SetAlert("Cập nhật dữ liệu xe thành công!", "success");
+                            return RedirectToAction("Update", "DMMooc");
+                        }
+                        else
+                        {
+                            SetAlert("Cập nhật dữ liệu xe không thành công", "warning");
+                            return RedirectToAction("Update", "DMMooc");
+                        }
                     }
                 }
+                SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
+
             }
-            return View("Index");
+            return View("Update");
         }
 
         // Delete

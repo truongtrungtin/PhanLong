@@ -1,0 +1,72 @@
+﻿@model IEnumerable<QLDL.EF.CTBill>
+
+<!-- body -->
+<h4><b>Danh sách</b></h4>
+<div class="table-responsive">
+
+        <table class="table table-bordered table-striped" id="dataTable" width="100%">
+            <thead>
+                <tr>
+                    <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                    <th>Số Cont</th>
+                    <th>Số DK</th>
+                    <th>Loại</th>
+                    <th>Seal</th>
+                    <td>Mã kho</td>
+                    <td>Hạn lưu Cont</td>
+                    <td>Hạn Lưu Bãi</td>
+                    <td>Hạn Lưu rỗng</td>
+                    <td>Ngày Giao</td>
+                    <td>Ngày gửi</td>
+                    <td>Độ dày</td>
+                    <td>Quy Cách</td>
+                    <td>Số Xe</td>
+                    <td>TT Lưu Bãi</td>
+                    <td>TT Lưu Cont</td>
+                    <td>TT Lưu Rỗng</td>
+                    <td>Ghi Chú</td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr id="row_@item.Id">
+
+                        <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                        <td>@item.Cont</td>
+                        <td>@item.SoDK</td>
+                        <td>@item.DMLoai.MaLoai</td>
+                        <td>@item.Seal</td>
+                        <td>@item.DMKho.MaKho</td>
+                        <td>@item.HanLuuCont</td>
+                        <td>@item.HanLuuBai</td>
+                        <td>@item.HanLuuRong</td>
+                        <td>@item.NgayGiao</td>
+                        <td>@item.NgayGui</td>
+                        <td>@item.DoDay</td>
+                        <td>@item.QuyCach</td>
+                        <td>@item.SoXe</td>
+                        <td>@item.TrangThaiLuuBai</td>
+                        <td>@item.TrangThaiLuuCont</td>
+                        <td>@item.TrangThaiLuuRong</td>
+                        <td>@item.GhiChu</td>
+                        <td>
+                            @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                            &ensp;| &ensp;
+                            @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+        <div class="form-group">
+            <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /> |
+            @Html.ActionLink("Trở lại", "Index")
+
+        </div>
+    
+</div>
+
+
+

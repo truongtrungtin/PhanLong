@@ -1,23 +1,23 @@
-﻿@model IEnumerable<QLDL.EF.DMNoiDung>
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-    
-}
+﻿@model IEnumerable<QLDL.EF.DMKhachHang>
 
-<h4>Danh mục Nội Dung
-@Html.ActionLink("Thêm Nội dung", "Create", null, new { @class = "btn btn-primary mb-1" })</h4>
+<h4>
+    Danh mục Khách Hàng
+</h4>
 <hr />
 <div class="table-responsive">
-    @using (Html.BeginForm("Index", "DMNoiDung", FormMethod.Post))
+    @using (Html.BeginForm("Index", "DMKhachHang", FormMethod.Post))
     {
         <table class="table table-bordered table-striped" id="dataTable" width="100%">
             <thead>
                 <tr>
 
                     <th width="1%"><input type='checkbox' id='check' value='' /></th>
-                    <th>Mã nội dung</th>
-                    <th>Mô tả</th>
+                    <th>Mã khách hàng</th>
+                    <th>Tên công ty</th>
+                    <th>MST</th>
+                    <th>Địa chỉ</th>
+                    <th>Người liên hệ</th>
+                    <th>Số điện thoại</th>
                     <td>#</td>
                 </tr>
             </thead>
@@ -28,8 +28,12 @@
                     <tr id="row_@item.Id">
 
                         <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                        <td>@item.MaND</td>
-                        <td>@item.MoTa</td>
+                        <td>@item.MaKH</td>
+                        <td>@item.TenCongTy</td>
+                        <td>@item.MST</td>
+                        <td>@item.DiaChi</td>
+                        <td>@item.NguoiLienHe</td>
+                        <td>@item.SoDienThoai</td>
                         <td>
                             @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
                             &ensp;| &ensp;
