@@ -55,13 +55,13 @@ namespace QLDL.DAO
             return entity.Id;
         }
 
-        public bool Update(DMMooc dMKho)
+        public bool Update(DMMooc dMMooc)
         {
             try
             {
-                var item = db.DMMoocs.Find(dMKho.Id);
-                item.MaMooc = dMKho.MaMooc;
-                item.BienSo = dMKho.BienSo;
+                var item = db.DMMoocs.Find(dMMooc.Id);
+                item.MaMooc = dMMooc.MaMooc;
+                item.BienSo = dMMooc.BienSo;
                 db.SaveChanges();
                 return true;
             }

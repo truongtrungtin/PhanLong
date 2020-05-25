@@ -2,43 +2,50 @@
 @{
     ViewBag.Title = "Danh mục nhân viên";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
 }
+<div class="card h-100">
+    <div class="card-body no-gutters">
+        <h4>
+            <b>Danh mục Nhân viên</b>
+            @Html.ActionLink("Thêm Nhân Viên", "Create", null, new { @class = "btn btn-primary mb-1" })
+        </h4>
 
-<h4>Danh mục Nhân viên
-@Html.ActionLink("Thêm Nhân Viên", "Create", null, new { @class = "btn btn-primary mb-1" })</h4>
-<hr />
-<div class="table-responsive">
-    @using (Html.BeginForm("Index", "DMNhanVien", FormMethod.Post))
-    {
-        <table class="table table-bordered table-striped" id="dataTable" width="100%">
-            <thead>
-                <tr>
+        <div class="table-responsive">
+            @using (Html.BeginForm("Index", "DMNhanVien", FormMethod.Post))
+            {
+                <table class="table table-bordered table-striped" id="dataTable" width="100%">
+                    <thead>
+                        <tr>
 
-                    <th width="1%"><input type='checkbox' id='check' value='' /></th>
-                    <th>Mã nhân viên</th>
-                    <th>Tên nhân viên</th>
-                    <td>#</td>
-                </tr>
-            </thead>
-            <tbody>
+                            <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                            <th>Mã nhân viên</th>
+                            <th>Tên nhân viên</th>
+                            <td>#</td>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-                @foreach (var item in Model)
-                {
-                    <tr id="row_@item.Id">
+                        @foreach (var item in Model)
+                        {
+                            <tr id="row_@item.Id">
 
-                        <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                        <td>@item.MaNV</td>
-                        <td>@item.TenNV</td>
-                        <td>
-                            @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                            &ensp;| &ensp;
-                            @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
-                        </td>
-                    </tr>
+                                <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                                <td>@item.MaNV</td>
+                                <td>@item.TenNV</td>
+                                <td>
+                                    @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                </table>
+            <div class="form-group"> <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+                </div>
                 }
-            </tbody>
-
-        </table><div class="form-group"> <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /></div>}
+        </div>
+    </div>
 </div>
+
 

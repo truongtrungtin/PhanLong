@@ -1,39 +1,37 @@
 ﻿@model IEnumerable<QLDL.EF.DMLoai>
 
 <h4>
-    Danh mục Loại
+    <b>Danh mục</b>
 </h4>
 <hr />
 <div class="table-responsive">
-    @using (Html.BeginForm("Create", "DMLoai", FormMethod.Post))
-    {
-        <table class="table table-bordered table-striped" id="dataTable" width="100%">
-            <thead>
-                <tr>
+    <table class="table table-bordered table-striped" id="dataTable" width="100%">
+        <thead>
+            <tr>
+                <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                <th>Mã loại</th>
+                <th>Mô tả</th>
+                <td>#</td>
+            </tr>
+        </thead>
+        <tbody>
 
-                    <th width="1%"><input type='checkbox' id='check' value='' /></th>
-                    <th>Mã loại</th>
-                    <th>Mô tả</th>
-                    <td>#</td>
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.Id">
+
+                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                    <td>@item.MaLoai</td>
+                    <td>@item.MoTa</td>
+                    <td>
+                        @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
+            }
+        </tbody>
 
-                @foreach (var item in Model)
-                {
-                    <tr id="row_@item.Id">
-
-                        <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                        <td>@item.MaLoai</td>
-                        <td>@item.MoTa</td>
-                        <td>
-                            @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                            &ensp;| &ensp;
-                            @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
-                        </td>
-                    </tr>
-                }
-            </tbody>
-
-        </table><div class="form-group"> <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /></div>}
+    </table>
+    <div class="form-group">
+        <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+    </div>
 </div>

@@ -1,15 +1,13 @@
 ﻿@model IEnumerable<QLDL.EF.DMCang>
 
 <h4>
-    <b> Danh Mục Cảng </b>
+    <b> Danh Mục </b>
 </h4>
 <hr />
 <div class="table-responsive">
-
     <table class="table table-bordered table-striped" id="dataTable" width="100%">
         <thead>
             <tr>
-
                 <th width="1%"><input type='checkbox' id='check' value='' /></th>
                 <th>Mã Cảng</th>
                 <th>Tên Cảng</th>
@@ -27,8 +25,6 @@
                     <td>@item.TenCang</td>
                     <td>
                         @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                        &ensp;| &ensp;
-                        @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
                     </td>
                 </tr>
             }

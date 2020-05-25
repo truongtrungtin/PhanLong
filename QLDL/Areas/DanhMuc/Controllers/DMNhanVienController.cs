@@ -55,7 +55,6 @@ namespace QLDL.Areas.DanhMuc.Controllers
             }
             else
             {
-
                 return View();
             }
         }

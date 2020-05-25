@@ -116,10 +116,14 @@ namespace QLDL.Areas.DanhMuc.Controllers
             var KhachHang = new DMKhachHangDao();
             var Cang = new DMCangDao();
             var Xe = new DMXeDao();
+            var Loai = new DMLoaiDao();
+            var Kho = new DMKhoDao();
             ViewBag.KhachHang = new SelectList(KhachHang.ListAll(), "Id", "TenCongTy", selectedId);
             ViewBag.CangNhan = new SelectList(Cang.ListAll(), "Id", "TenCang", selectedId);
             ViewBag.CangTra = new SelectList(Cang.ListAll(), "Id", "TenCang", selectedId);
             ViewBag.SoXe = new SelectList(Xe.ListAll(), "Id", "BienSo", selectedId);
+            ViewBag.Loai = new SelectList(Loai.ListAll(), "Id", "MaLoai", selectedId);
+            ViewBag.Kho = new SelectList(Kho.ListAll(), "Id", "MaKho", selectedId);
         }
         [HttpGet]
         public ActionResult Update(long id)
@@ -213,6 +217,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
         [HttpGet]
         public ActionResult CreateCTBill(long? id = null, string Copy = null)
         {
+          
             var Bill = new DMBillDao().GetById(id);
             if (id != null && Copy != null)
             {
@@ -274,7 +279,9 @@ namespace QLDL.Areas.DanhMuc.Controllers
         public PartialViewResult ViewCTBill(long id)
         {
             var dao = new CTBillDao();
-            var model = dao.ListAll(id);
+            var bill = dao.GetById(id).Bill;
+            var Bill = new DMBillDao().GetById(bill);
+            var model = dao.ListAll(Bill.Id);
             return PartialView(model);
         }
 

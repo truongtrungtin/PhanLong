@@ -5,44 +5,56 @@
 
 }
 <div class="container">
-    <h4>
-        <b>Hình thức thanh toán</b>
-        @Html.ActionLink("Thêm hình thức thanh toán", "Create", null, new { @class = "btn btn-primary mb-1" })
-    </h4>
-    <hr />
-    <div class="table-responsive">
-        @using (Html.BeginForm("Index", "HinhThucTT", FormMethod.Post))
-        {
-            <table class="table table-bordered table-striped" id="dataTable" width="100%">
-                <thead>
-                    <tr>
-                        <th class="sorting_asc_disabled sorting_desc_disabled" width="5px"><input type='checkbox' id='check' value='' /></th>
-                        <th>Mã HTTT</th>
-                        <th>Mô tả</th>
-                        <td>#</td>
-                    </tr>
-                </thead>
-                <tbody>
+    <div class="card h-100">
+        <div class="card-body no-gutters">
+            <h4>
+                <b>Hình thức thanh toán</b>
+                @Html.ActionLink("Thêm hình thức thanh toán", "Create", null, new { @class = "btn btn-primary mb-1" })
+            </h4>
+            <hr />
+            <div class="table-responsive">
+                @using (Html.BeginForm("Index", "HinhThucTT", FormMethod.Post))
+                {
+                    <table class="table table-bordered table-striped" id="dataTable" width="100%">
+                        <thead>
+                            <tr>
+                                <th class="sorting_asc_disabled sorting_desc_disabled" width="5px"><input type='checkbox' id='check' value='' /></th>
+                                <th>Mã HTTT</th>
+                                <th>Mô tả</th>
+                                <td>#</td>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                    @foreach (var item in Model)
-                    {
-                        <tr id="row_@item.Id">
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.Id">
 
-                            <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                            <td>@item.MaHT
-                                
-                            </td>
-                            <td>@item.MoTa</td>
-                            <td>
-                                @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                                &ensp;| &ensp;
-                                @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
-                            </td>
-                        </tr>
-                    }
-                </tbody>
+                                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                                    <td>
+                                        @item.MaHT
 
-            </table><div class="form-group"> <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /></div>}
+                                    </td>
+                                    <td>@item.MoTa</td>
+                                    <td>
+                                        @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                        &ensp;| &ensp;
+                                        @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th colspan="8">
+                                    <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                }
+            </div>
+        </div>
     </div>
-
 </div>

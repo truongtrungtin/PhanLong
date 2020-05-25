@@ -1,16 +1,13 @@
 ﻿@model IEnumerable<QLDL.EF.DMKhachHang>
 
 <h4>
-    Danh mục Khách Hàng
+    <b> Danh mục </b>
 </h4>
 <hr />
 <div class="table-responsive">
-    @using (Html.BeginForm("Index", "DMKhachHang", FormMethod.Post))
-    {
         <table class="table table-bordered table-striped" id="dataTable" width="100%">
             <thead>
                 <tr>
-
                     <th width="1%"><input type='checkbox' id='check' value='' /></th>
                     <th>Mã khách hàng</th>
                     <th>Tên công ty</th>
@@ -36,13 +33,13 @@
                         <td>@item.SoDienThoai</td>
                         <td>
                             @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                            &ensp;| &ensp;
-                            @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
                         </td>
                     </tr>
                 }
             </tbody>
 
-        </table><div class="form-group"> <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /></div>}
+        </table>
+    <div class="form-group"> <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+        </div>
 </div>
 

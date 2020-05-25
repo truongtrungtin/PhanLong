@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>QLDL</RootNamespace>
     <AssemblyName>QLDL</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -60,6 +61,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -67,12 +69,9 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -117,6 +116,7 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.0.1\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
@@ -149,7 +149,6 @@
     <Compile Include="Areas\DanhMuc\Controllers\DMLoaiController.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\DMMoocController.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\DMNhanVienController.cs" />
-    <Compile Include="Areas\DanhMuc\Controllers\DMNoiDungController.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\DMPhiController.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\DMXeController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\BaseController.cs" />
@@ -167,7 +166,6 @@
     <Compile Include="DAO\DMKhoDao.cs" />
     <Compile Include="DAO\DMMoocDao.cs" />
     <Compile Include="DAO\DMNhanVienDao.cs" />
-    <Compile Include="DAO\DMNoiDungDao.cs" />
     <Compile Include="DAO\DMPhiDao.cs" />
     <Compile Include="DAO\DMLoaiDao.cs" />
     <Compile Include="DAO\DmXeDao.cs" />
@@ -177,8 +175,6 @@
     <Compile Include="EF\CTBill.cs" />
     <Compile Include="EF\CTChi.cs" />
     <Compile Include="EF\CTHoaDon.cs" />
-    <Compile Include="EF\CTSuaMooc.cs" />
-    <Compile Include="EF\CTSuaXe.cs" />
     <Compile Include="EF\DMBill.cs" />
     <Compile Include="EF\DMCang.cs" />
     <Compile Include="EF\DMKhachHang.cs" />
@@ -186,7 +182,6 @@
     <Compile Include="EF\DMLoai.cs" />
     <Compile Include="EF\DMMooc.cs" />
     <Compile Include="EF\DMNhanVien.cs" />
-    <Compile Include="EF\DMNoiDung.cs" />
     <Compile Include="EF\DMPhi.cs" />
     <Compile Include="EF\DMXe.cs" />
     <Compile Include="EF\HinhThucTT.cs" />
@@ -195,9 +190,6 @@
     <Compile Include="EF\PhatSinhChi.cs" />
     <Compile Include="EF\PhatSinhThu.cs" />
     <Compile Include="EF\QLDLDBContext.cs" />
-    <Compile Include="EF\SuaMooc.cs" />
-    <Compile Include="EF\SuaXe.cs" />
-    <Compile Include="EF\sysdiagram.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2011,13 +2003,13 @@
     <Content Include="Areas\DanhMuc\Views\DMMooc\ViewDMMooc.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMNhanVien\ViewDMNhanVien.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMPhi\ViewDMPhi.cshtml" />
-    <Content Include="Areas\DanhMuc\Views\DMNoiDung\ViewDMNoiDung.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMXe\ViewDMXe.cshtml" />
     <Content Include="Areas\DanhMuc\Views\HinhThucTT\ViewHinhThucTT.cshtml" />
     <Content Include="Areas\DanhMuc\Views\HinhThucTT\Index.cshtml" />
     <Content Include="Areas\DanhMuc\Views\HinhThucTT\Create.cshtml" />
     <Content Include="Areas\DanhMuc\Views\HinhThucTT\Update.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\ViewCTBill.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMBill\ViewDMBill.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2048,9 +2040,6 @@
     <Content Include="Areas\DanhMuc\Views\DMNhanVien\Index.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMNhanVien\Create.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMNhanVien\Update.cshtml" />
-    <Content Include="Areas\DanhMuc\Views\DMNoiDung\Index.cshtml" />
-    <Content Include="Areas\DanhMuc\Views\DMNoiDung\Create.cshtml" />
-    <Content Include="Areas\DanhMuc\Views\DMNoiDung\Update.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\Create.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\Index.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\Update.cshtml" />
@@ -2069,6 +2058,7 @@
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\CreateCTBill.cshtml" />
     <Content Include="Views\ThanhToanLuong\Index.cshtml" />
+    <None Include="Properties\PublishProfiles\PhanLong.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

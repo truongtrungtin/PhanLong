@@ -29,24 +29,28 @@
 
                 @foreach (var item in Model)
                 {
-                    <tr id="row_@item.Id">
+                <tr id="row_@item.Id">
 
-                        <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                        <td>@item.Ngay.Value.ToShortDateString()</td>
-                        <td>@item.DMLoai.MaLoai</td>
-                        <td>@item.DMKhachHang.MaKH</td>
-                        <td>@item.DMKho.MaKho</td>
-                        <td>@item.SoCont</td>
+                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                    <td>@item.Ngay.Value.ToShortDateString()</td>
+                    <td>@item.DMLoai.MaLoai</td>
+                    <td>@item.DMKhachHang.MaKH</td>
+                    <td>@item.DMKho.MaKho</td>
+                    <td>@item.SoCont</td>
+                    @if (item.SoBill != null)
+                    {
                         <td>@item.DMBill.MaBill</td>
-                        <td>@item.DMNhanVien.MaNV</td>
-                        <td>@item.DMXe.MaXe</td>
+                    }
 
-                        <td>
-                            @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                            &ensp;| &ensp;
-                            @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
-                        </td>
-                    </tr>
+                    <td>@item.DMNhanVien.MaNV</td>
+                    <td>@item.DMXe.MaXe</td>
+
+                    <td>
+                        @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                        &ensp;| &ensp;
+                        @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
+                    </td>
+                </tr>
                 }
             </tbody>
 

@@ -141,7 +141,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                     if (Check1.Count > 0 && Check2.MaKH != dMKhachHang.MaKH)
                     {
                         SetAlert("Mã khách hàng này đã tồn tại! " +
-                            "Vui lòng nhập mã xe khác!", "warning");
+                            "Vui lòng nhập mã khách hàng khác!", "warning");
                         return RedirectToAction("Update", "DMKhachHang", new { id = dMKhachHang.Id });
                     }
                     else

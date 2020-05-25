@@ -35,8 +35,7 @@
                     @Html.LabelFor(model => model.KhachHang, htmlAttributes: new { @class = "control-label col-md-2" })
 
                     <div class="col-md-10">
-                        <select class="form-control js-example-tags" name="KhachHang">
-                            <option value="NULL">-- Chọn Loại Cont --</option>
+                        <select class="form-control js-example-tags" name="KhachHang"> 
                             @try
                             {
                                 <option selected value="@Model.DMKhachHang.MaKH">@Model.DMKhachHang.MaKH</option>
@@ -213,8 +212,7 @@
 <hr />
 @using (Html.BeginForm("Create", "PhatSinh", FormMethod.Post))
 {
-    @{Html.RenderAction("ViewPhatSinh", "PhatSinh");}
-
+    Html.RenderAction("ViewPhatSinh", "PhatSinh");
 }
 
 

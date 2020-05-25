@@ -4,10 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
+    <link href="/Content/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="~/Content/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
     <link href="~/Content/css/select2.css" rel="stylesheet" />
     <link href="~/Content/css/Site.css" rel="stylesheet">
@@ -16,6 +14,7 @@
 <body>
     @RenderPage("_Navigation.cshtml")
     <div class="container-fluid">
+        <p>@Html.MvcSiteMap().SiteMapPath()</p>
         @if (TempData["AlertMessage"] != null)
         {
             <div id="AlertBox" class="alert @TempData["AlertType"] hide">
@@ -23,15 +22,11 @@
             </div>
         }
         <div style="padding-left:20px">
-            <p>@Html.MvcSiteMap().SiteMapPath()</p>
+
             @RenderBody()
         </div>
-
-
-        <a class="scroll-to-top rounded" href="#page-top">
-            <i class="fas fa-angle-up"></i>
-        </a>
     </div>
+  
 </body>
 <!-- jQuery library -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

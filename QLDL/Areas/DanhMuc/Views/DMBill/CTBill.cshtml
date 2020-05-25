@@ -4,76 +4,77 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- body -->
-<h4> Bill:  <b>@ViewBag.Bill</b>  @Html.ActionLink("Thêm dữ liệu vào Bill", "CreateCTBill", new{id = @ViewBag.IdBill }, new { @class = "btn btn-primary mb-1" })</h4>
-   
-    <hr />
-    <div class="table-responsive">
-        @using (Html.BeginForm("CTBill", "DMBill", FormMethod.Post))
-        {
-            <table class="table table-bordered table-striped" id="dataTable" width="100%">
-                <thead>
-                    <tr>
-                        <th width="1%"><input type='checkbox' id='check' value='' /></th>
-                        <th>Số Cont</th>
-                        <th>Số DK</th>
-                        <th>Loại</th>
-                        <th>Seal</th>
-                        <th>Mã kho</th>
-                        <th>Hạn lưu Cont</th>
-                        <th>Hạn Lưu Bãi</th>
-                        <th>Hạn Lưu rỗng</th>
-                        <th>Ngày Giao</th>
-                        <th>Ngày gửi</th>
-                        <th>Độ dày</th>
-                        <th>Quy Cách</th>
-                        <th>Số Xe</th>
-                        <th>TT Lưu Bãi</th>
-                        <th>TT Lưu Cont</th>
-                        <th>TT Lưu Rỗng</th>
-                        <th>Ghi Chú</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr id="row_@item.Id">
-
-                            <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                            <td>@item.Cont</td>
-                            <td>@item.SoDK</td>
-                            <td>@item.DMLoai.MaLoai</td>
-                            <td>@item.Seal</td>
-                            <td>@item.DMKho.MaKho</td>
-                            <td>@item.HanLuuCont</td>
-                            <td>@item.HanLuuBai</td>
-                            <td>@item.HanLuuRong</td>
-                            <td>@item.NgayGiao</td>
-                            <td>@item.NgayGui</td>
-                            <td>@item.DoDay</td>
-                            <td>@item.QuyCach</td>
-                            <td>@item.SoXe</td>
-                            <td>@item.TrangThaiLuuBai</td>
-                            <td>@item.TrangThaiLuuCont</td>
-                            <td>@item.TrangThaiLuuRong</td>
-                            <td>@item.GhiChu</td>
-                            <td>
-                                @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                                &ensp;| &ensp;
-                                @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
-                            </td>
+<div class="card h-100">
+    <div class="card-body no-gutters">
+        <h4> Bill:  <b>@ViewBag.Bill</b>  @Html.ActionLink("Thêm dữ liệu vào Bill", "CreateCTBill", new { id = @ViewBag.IdBill }, new { @class = "btn btn-primary mb-1" })</h4>
+        <div class="table-responsive">
+            @using (Html.BeginForm("CTBill", "DMBill", FormMethod.Post))
+            {
+                <table class="table table-bordered table-striped" id="dataTable" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                            <th>Số Cont</th>
+                            <th>Số DK</th>
+                            <th>Loại</th>
+                            <th>Seal</th>
+                            <th>Mã kho</th>
+                            <th>Hạn lưu Cont</th>
+                            <th>Hạn Lưu Bãi</th>
+                            <th>Hạn Lưu rỗng</th>
+                            <th>Ngày Giao</th>
+                            <th>Ngày gửi</th>
+                            <th>Độ dày</th>
+                            <th>Quy Cách</th>
+                            <th>Số Xe</th>
+                            <th>TT Lưu Bãi</th>
+                            <th>TT Lưu Cont</th>
+                            <th>TT Lưu Rỗng</th>
+                            <th>Ghi Chú</th>
                         </tr>
-                    }
-                </tbody>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr id="row_@item.Id">
 
-            </table>
-            <div class="form-group">
-                <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /> |
-                @Html.ActionLink("Trở lại", "CTBill")
+                                <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                                <td>@item.Cont</td>
+                                <td>@item.SoDK</td>
+                                <td>@item.DMLoai.MaLoai</td>
+                                <td>@item.Seal</td>
+                                <td>@item.DMKho.MaKho</td>
+                                <td>@item.HanLuuCont</td>
+                                <td>@item.HanLuuBai</td>
+                                <td>@item.HanLuuRong</td>
+                                <td>@item.NgayGiao</td>
+                                <td>@item.NgayGui</td>
+                                <td>@item.DoDay</td>
+                                <td>@item.QuyCach</td>
+                                <td>@item.SoXe</td>
+                                <td>@item.TrangThaiLuuBai</td>
+                                <td>@item.TrangThaiLuuCont</td>
+                                <td>@item.TrangThaiLuuRong</td>
+                                <td>@item.GhiChu</td>
+                                <td>
+                                    @Html.ActionLink("Chỉnh sửa", "UpdateCTBill", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                    &ensp;| &ensp;
+                                    @Html.ActionLink("Copy", "CreateCTBill", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
 
-            </div>
-        }
+                </table>
+                <div class="form-group">
+                    <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /> |
+                    @Html.ActionLink("Trở lại", "Index")
+                </div>
+            }
+        </div>
     </div>
+</div>
+
 
 
 

@@ -40,7 +40,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
         [ChildActionOnly]
         public PartialViewResult ViewDMMooc()
         {
-            var dao = new DMKhoDao();
+            var dao = new DMMoocDao();
             var model = dao.ListAll();
             return PartialView(model);
         }
