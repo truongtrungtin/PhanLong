@@ -1,4 +1,33 @@
-﻿$("#delete").click(function () {
+﻿// Hide - Show column in table
+$('.hide-column').click(function (e) {
+    var $btn = $(this);
+    var $cell = $btn.closest('th,td')
+    var $table = $btn.closest('table')
+
+    // get cell location - https://stackoverflow.com/a/4999018/1366033
+    var cellIndex = $cell[0].cellIndex + 1;
+
+    $table.find(".show-column-footer").show()
+    $table.find("tbody tr, thead tr")
+        .children(":nth-child(" + cellIndex + ")")
+        .hide()
+})
+
+$(".show-column-footer").click(function (e) {
+    var $table = $(this).closest('table')
+    $table.find(".show-column-footer").hide()
+    $table.find("th, td").show()
+
+})
+
+// xử lý dropboxdown với select2
+$(".js-example-tags").select2({
+    maximumSelectionLength: 2,
+    placeholder: "Select ... ",
+});
+
+// Xóa những hàng được tích ô
+$("#delete").click(function () {
     var checkboxes = document.querySelectorAll('input[name="chkId[]"]:checked').length;
     console.log(checkboxes)
     if (checkboxes > 0) {

@@ -43,7 +43,11 @@
     </mvcSiteMapNode>
     <mvcSiteMapNode title="Danh mục bill" controller="DMBill" action="Index" area="DanhMuc">
       <mvcSiteMapNode title="Thêm" controller="DMBill" action="Create"/>
-      <mvcSiteMapNode title="Sửa" controller="DMBill" action="Update"/>
+      <mvcSiteMapNode title="Sửa" controller="DMBill" action="Update" />
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Hình thức thanh toán" controller="HinhThucTT" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="HinhThucTT" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="HinhThucTT" action="Update" preservedRouteParameters="id"/>
     </mvcSiteMapNode>
     <mvcSiteMapNode title="Phát Sinh" controller="PhatSinh" action="Index" area="NhapLieu">
       <mvcSiteMapNode title="Thêm mới" controller="PhatSinh" action="Create"/>
