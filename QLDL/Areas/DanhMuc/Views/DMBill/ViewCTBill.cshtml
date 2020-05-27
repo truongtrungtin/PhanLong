@@ -73,9 +73,9 @@
                     }
                     <td>@item.GhiChu</td>
                     <td>
-                        @Html.ActionLink("Chỉnh sửa", "UpdateCTBill", new { id = item.Bill }, new { @class = "btn btn-primary mb-1" })
+                        @Html.ActionLink("Chỉnh sửa", "UpdateCTBill", new { id = item.Bill, CTBill = item.Id }, new { @class = "btn btn-primary mb-1" })
                         &ensp;| &ensp;
-                        @Html.ActionLink("Copy", "CreateCTBill", new { id = item.Bill, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
+                        @Html.ActionLink("Copy", "CreateCTBill", new { id = item.Bill, Copy = "Copy", cTBill = item.Id }, new { @class = "btn btn-primary mb-1" })
                     </td>
                 </tr>
                 }

@@ -12,7 +12,7 @@ namespace QLDL.EF
         public long Id { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? Ngay { get; set; }
+        public DateTime Ngay { get; set; }
 
         public long? Loai { get; set; }
 
@@ -31,7 +31,7 @@ namespace QLDL.EF
 
         public decimal? CuocKH { get; set; }
 
-        public decimal? CuocTX { get; set; }
+        public decimal CuocTX { get; set; }
 
         public long? TenTX { get; set; }
 

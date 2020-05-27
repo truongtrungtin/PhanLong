@@ -1,4 +1,14 @@
-﻿// Hide - Show column in table
+﻿// xử lý dropboxdown với select2
+$(".js-example-tags").select2({
+    placeholder: "Select a state",
+    allowClear: true
+    
+
+});
+
+
+
+// Hide - Show column in table
 $('.hide-column').click(function (e) {
     var $btn = $(this);
     var $cell = $btn.closest('th,td')
@@ -20,16 +30,10 @@ $(".show-column-footer").click(function (e) {
 
 })
 
-// xử lý dropboxdown với select2
-$(".js-example-tags").select2({
-    maximumSelectionLength: 2,
-    placeholder: "Select ... ",
-});
 
 // Xóa những hàng được tích ô
 $("#delete").click(function () {
     var checkboxes = document.querySelectorAll('input[name="chkId[]"]:checked').length;
-    console.log(checkboxes)
     if (checkboxes > 0) {
         if (!confirm("Bạn có chắc chắn muốn xóa không?")) {
             return false;

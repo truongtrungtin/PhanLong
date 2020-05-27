@@ -154,6 +154,7 @@
     <Compile Include="Controllers\ThanhToanLuongController.cs" />
     <Compile Include="DAO\CTBillDao.cs" />
     <Compile Include="DAO\CTChiDao.cs" />
+    <Compile Include="DAO\CTTTLuongDao.cs" />
     <Compile Include="DAO\DMBillDao.cs" />
     <Compile Include="DAO\DMCangDao.cs" />
     <Compile Include="DAO\DMKhachHangDao.cs" />
@@ -166,6 +167,7 @@
     <Compile Include="DAO\HinhThucTTDao.cs" />
     <Compile Include="DAO\PhatSinhChiDao.cs" />
     <Compile Include="DAO\PhatSinhDao.cs" />
+    <Compile Include="DAO\ThanhToanLuongDao.cs" />
     <Compile Include="EF\CTBill.cs" />
     <Compile Include="EF\CTChi.cs" />
     <Compile Include="EF\CTHoaDon.cs" />
@@ -187,6 +189,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CTTTLuongModel.cs" />
     <Compile Include="Models\ThanhToanLuongModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -196,6 +199,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\select2.css" />
+    <Content Include="Content\js\ChangeStatus\ChangeStatus.js" />
     <Content Include="Content\js\select2.min.js" />
     <Content Include="Content\js\demo\chart-area-demo.js" />
     <Content Include="Content\js\demo\chart-bar-demo.js" />
@@ -2004,6 +2008,8 @@
     <Content Include="Areas\DanhMuc\Views\HinhThucTT\Update.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\ViewCTBill.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\ViewDMBill.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMBill\UpdateCTBill.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinh\CTPhatSinh.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2053,6 +2059,7 @@
     <Content Include="Areas\DanhMuc\Views\DMBill\CreateCTBill.cshtml" />
     <Content Include="Views\ThanhToanLuong\Index.cshtml" />
     <None Include="Properties\PublishProfiles\QLDL.pubxml" />
+    <Content Include="Views\ThanhToanLuong\CTTTLuong.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

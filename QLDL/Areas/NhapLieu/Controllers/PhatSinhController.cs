@@ -18,6 +18,8 @@ namespace QLDL.Areas.NhapLieu.Controllers
             var model = dao.ListAll();
             return View(model);
         }
+
+        
         [HttpPost]
         public ActionResult Index(int[] chkId, string delete = null, string copy = null)
         {
@@ -35,6 +37,13 @@ namespace QLDL.Areas.NhapLieu.Controllers
                 }
             }
             var model = dao.ListAll();
+            return View(model);
+        }
+
+        public ActionResult CTPhatSinh(long id)
+        {
+            var dao = new PhatSinhDao();
+            var model = dao.GetById(id);
             return View(model);
         }
 

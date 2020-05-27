@@ -79,6 +79,28 @@ namespace QLDL.DAO
                 return false;
             }
         }
+
+        public bool ChangeStatusCont(long id)
+        {
+            var status = db.CTBills.Find(id);
+            status.TrangThaiLuuCont = !status.TrangThaiLuuCont;
+            db.SaveChanges();
+            return status.TrangThaiLuuCont;
+        }
+        public bool ChangeStatusBai(long id)
+        {
+            var status = db.CTBills.Find(id);
+            status.TrangThaiLuuBai = !status.TrangThaiLuuBai;
+            db.SaveChanges();
+            return status.TrangThaiLuuBai;
+        }
+        public bool ChangeStatusRong(long id)
+        {
+            var status = db.CTBills.Find(id);
+            status.TrangThaiLuuRong = !status.TrangThaiLuuRong;
+            db.SaveChanges();
+            return status.TrangThaiLuuRong;
+        }
         public bool Delete(long id)
         {
             try

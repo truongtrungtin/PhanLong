@@ -1,26 +1,33 @@
 ﻿@model IEnumerable<QLDL.EF.PhatSinh>
 
-
-
-<hr />
 <h4><b>Phát Sinh</b></h4>
 <div class="table-responsive">
-    @using (Html.BeginForm("Create", "PhatSinh", FormMethod.Post))
-    {
-
         <table class="table table-bordered table-striped" id="dataTable" width="100%">
             <thead>
                 <tr>
                     <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                    <th></th>
                     <th>Ngày</th>
                     <th>Loại</th>
                     <th>KH</th>
                     <th>Kho</th>
                     <th>Số Bill</th>
                     <th>Số Cont</th>
-
+                    <th>C.Nhận</th>
+                    <th>C.Trả</th>
+                    <th>Cước</th>
+                    <th>Cước TX</th>
                     <th>Tài xế</th>
                     <th>Số Xe</th>
+                    <th>HD Nâng</th>
+                    <th>Tiền Nâng</th>
+                    <th>HD Hạ</th>
+                    <th>Tiền Hạ</th>
+                    <th>Phí KH</th>
+                    <th>Tiền phí KH</th>
+                    <th>Phí CT</th>
+                    <th>Tiền phí CT</th>
+                    <th>Ghi Chú</th>
                     <td>#</td>
                 </tr>
 
@@ -31,17 +38,41 @@
                 {
                 <tr id="row_@item.Id">
 
-                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                    <td>@item.Ngay.Value.ToShortDateString()</td>
-                    <td>@item.DMLoai.MaLoai</td>
-                    <td>@item.DMKhachHang.MaKH</td>
-                    <td>@item.DMKho.MaKho</td>
-                    <td>@item.DMBill.MaBill</td>
+                    <td class="sorting_asc_disabled, sorting_desc_disabled"><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                    <td>@Html.ActionLink("Chi tiết", "CTPhatSinh", new { id = item.Id }, new { @class = "btn btn-primary" })</td>
+                    <td>@item.Ngay.ToShortDateString()</td>
+                    @if (item.Loai != null)
+                    {
+                        <td>@item.DMLoai.MaLoai</td>
+                    }
+                    @if (item.KhachHang != null)
+                    {
+                        <td>@item.DMKhachHang.MaKH</td>
+                    }
+                    @if (item.Kho != null)
+                    {
+                        <td>@item.DMKho.MaKho</td>
+                    }
+                    @if (item.SoBill != null)
+                    {
+                        <td>@item.DMBill.MaBill</td>
+                    }
                     <td>@item.SoCont</td>
-
+                    <td>@item.DMCang.MaCang</td>
+                    <td>@item.DMCang1.MaCang</td>
+                    <td>@item.CuocKH</td>
+                    <td>@item.CuocTX</td>
                     <td>@item.DMNhanVien.MaNV</td>
                     <td>@item.DMXe.MaXe</td>
-
+                    <td>@item.HDNang</td>
+                    <td>@item.TienNang</td>
+                    <td>@item.HDHa</td>
+                    <td>@item.TienHa</td>
+                    <td>@item.DMPhi1.MaPhi</td>
+                    <td>@item.TienPhiKH</td>
+                    <td>@item.DMPhi.MaPhi</td>
+                    <td>@item.TienPhiCT</td>
+                    <td>@item.GhiChu</td>
                     <td>
                         @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
                         &ensp;| &ensp;
@@ -56,7 +87,7 @@
             <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /> 
 
         </div>
-    }
+    
 
 </div>
 

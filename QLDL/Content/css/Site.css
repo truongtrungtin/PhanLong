@@ -16,12 +16,18 @@
 .dl-horizontal dt {
     white-space: normal;
 }
-
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 100%;
+}
+
+.red {
+    color:red;
+}
+.default {
+    color: #337ab7;
 }
 
 .btn {
@@ -35,6 +41,10 @@ textarea {
     margin-bottom: 2px;
     color: #000000;
 }
+th,td {
+    text-align:center;
+}
+
 
 hr {
     margin-top: 5px;

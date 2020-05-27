@@ -48,11 +48,11 @@ namespace QLDL.EF
 
         public long? SoXe { get; set; }
 
-        public bool? TrangThaiLuuCont { get; set; }
+        public bool TrangThaiLuuCont { get; set; }
 
-        public bool? TrangThaiLuuBai { get; set; }
+        public bool TrangThaiLuuBai { get; set; }
 
-        public bool? TrangThaiLuuRong { get; set; }
+        public bool TrangThaiLuuRong { get; set; }
 
         [StringLength(250)]
         public string GhiChu { get; set; }
