@@ -149,7 +149,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                         if (result)
                         {
                             SetAlert("Cập nhật dữ liệu xe thành công!", "success");
-                            return RedirectToAction("Update", "DMMooc");
+                            return RedirectToAction("Index", "DMMooc");
                         }
                         else
                         {
@@ -161,7 +161,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                 SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
 
             }
-            return View("Update");
+            return View("Index");
         }
 
         // Delete

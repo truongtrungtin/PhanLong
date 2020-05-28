@@ -43,6 +43,11 @@ namespace QLDL.DAO
         {
             return db.PhatSinhs.SingleOrDefault(x => x.Id == id);
         }
+
+        public List<PhatSinh> GetLoai(long? id)
+        {
+            return db.PhatSinhs.Where(x => x.TenTX == id).ToList();
+        }
         public long Insert(PhatSinh entity)
         {
             db.PhatSinhs.Add(entity);

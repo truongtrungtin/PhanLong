@@ -148,7 +148,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                         if (result)
                         {
                             SetAlert("Cập nhật dữ liệu xe thành công!", "success");
-                            return RedirectToAction("Update", "DMXe");
+                            return RedirectToAction("Index", "DMXe");
                         }
                         else
                         {
@@ -160,7 +160,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                 SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
 
             }
-            return View("Update");
+            return View("Index");
         }
 
         // Delete

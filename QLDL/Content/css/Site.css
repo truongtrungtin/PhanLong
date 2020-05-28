@@ -75,7 +75,7 @@ hr {
     padding: 2px;
 }
 .form-control {
-    height: 25px;
+    height: 21px;
     padding: 2px 4px;
     font-size: 12px;
     color: #000000;
@@ -115,7 +115,8 @@ hr {
 
 .card-body {
     flex: 1 1 auto;
-    padding: 1.25rem;
+    padding-top: 1.25rem;
+    padding-left: 1.25rem;
 }
 
 .card-title {

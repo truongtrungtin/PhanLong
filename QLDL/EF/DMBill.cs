@@ -23,6 +23,9 @@ namespace QLDL.EF
         [StringLength(250)]
         public string MaBill { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? NgayTauDen { get; set; }
+
         public long? CangNhan { get; set; }
 
         public long? KhachHang { get; set; }

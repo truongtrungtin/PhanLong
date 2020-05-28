@@ -1,9 +1,16 @@
-﻿using QLDL.DAO;
+﻿using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing.LexicalAnalysis.TokenSeparatorHandlers;
+using QLDL.DAO;
 using QLDL.EF;
 using System;
 using System.Collections.Generic;
+using System.Data.OleDb;
+using System.IO;
 using System.Linq;
 using System.Web;
+using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Web.Mvc;
 
 namespace QLDL.Areas.DanhMuc.Controllers
@@ -168,7 +175,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                         if (result)
                         {
                             SetAlert("Cập nhật dữ liệu Bill thành công!", "success");
-                            return RedirectToAction("Update", "DMBill");
+                            return RedirectToAction("Index", "DMBill");
                         }
                         else
                         {
@@ -180,7 +187,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                 SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
 
             }
-            return View("Update");
+            return View("Index");
         }
 
 
@@ -334,7 +341,6 @@ namespace QLDL.Areas.DanhMuc.Controllers
             return View("CTBill");
         }
 
-
         // Delete
         [HttpDelete]
         public ActionResult DeleteCTBill(long id)
@@ -380,5 +386,59 @@ namespace QLDL.Areas.DanhMuc.Controllers
                 status = result
             });
         }
+
+        //SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["QLDLDBContext"].ConnectionString);
+        //OleDbConnection Econ;
+
+        //public ActionResult ImportStatesExcel()
+        //{
+        //    return View();
+        //}
+        //[HttpPost]
+        //public ActionResult ImportStatesExcel(HttpPostedFileBase file)
+        //{
+        //    Guid guidObj = Guid.NewGuid();
+
+        //    string extension = Path.GetExtension(file.FileName);
+        //    string filename = guidObj.ToString() + extension;
+        //    string filepath = "/excelfolder/" + filename;
+        //    file.SaveAs(Path.Combine(Server.MapPath("/excelfolder"), filename));
+        //    InsertExceldata(filepath, filename);
+
+        //    return View();
+        //}
+
+        //private void ExcelConn(string filepath)
+        //{
+        //    string constr = string.Format(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source = {0};Extended Properties=""Excel 12.0 XML;Persist Security Info=False""", filepath);
+        //    Econ = new OleDbConnection(constr);
+        //}
+
+        //private void InsertExceldata(string fileepath, string filename)
+        //{
+        //    string fullpath = Server.MapPath("/excelfolder") + filename;
+        //    ExcelConn(fullpath);
+        //    string query = string.Format("Select * from [{0}]", "Sheet1");
+        //    OleDbCommand Ecom = new OleDbCommand(query, Econ);
+        //    Econ.Open();
+        //    DataSet ds = new DataSet();
+        //    OleDbDataAdapter oda = new OleDbDataAdapter(query, Econ);
+        //    Econ.Close();
+        //    oda.Fill(ds);
+
+        //    DataTable dt = ds.Tables[0];
+        //    SqlBulkCopy objbulk = new SqlBulkCopy(con);
+        //    objbulk.DestinationTableName = "DMBill";
+        //    objbulk.ColumnMappings.Add("MaBill", "MaBill");
+        //    objbulk.ColumnMappings.Add("NgayTauDen", "NgayTauDen");
+        //    objbulk.ColumnMappings.Add("KhachHang", "KhachHang");
+        //    objbulk.ColumnMappings.Add("CangNhan", "CangNhan");
+        //    objbulk.ColumnMappings.Add("CangTra", "CangTra");
+        //    con.Open();
+        //    objbulk.WriteToServer(dt);
+        //    con.Close();
+
+
+        //}
     }
 }

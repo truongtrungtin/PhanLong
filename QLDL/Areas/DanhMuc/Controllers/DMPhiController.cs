@@ -141,7 +141,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                     {
                         SetAlert("Mã Phí này đã tồn tại! " +
                             "Vui lòng nhập mã Phí khác!", "warning");
-                        return RedirectToAction("Update", "DMPhi", new { id = dMPhi.Id });
+                        return RedirectToAction("Index", "DMPhi", new { id = dMPhi.Id });
                     }
                     else
                     {
@@ -161,7 +161,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                 SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
 
             }
-            return View("Update");
+            return View("Index");
         }
 
         // Delete

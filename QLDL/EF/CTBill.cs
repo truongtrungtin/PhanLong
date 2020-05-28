@@ -36,7 +36,7 @@ namespace QLDL.EF
         public DateTime? HanLuuRong { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? NgayGiao { get; set; }
+        public DateTime NgayGiao { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? NgayGui { get; set; }
@@ -53,7 +53,7 @@ namespace QLDL.EF
         public bool TrangThaiLuuBai { get; set; }
 
         public bool TrangThaiLuuRong { get; set; }
-
+                                                               
         [StringLength(250)]
         public string GhiChu { get; set; }
 

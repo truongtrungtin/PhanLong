@@ -1195,10 +1195,10 @@
 			
 				// If aaSorting is not defined, then we use the first indicator in asSorting
 				// in case that has been altered, so the default sort reflects that option
-				if ( oInit.aaSorting === undefined ) {
+				if (oInit.aaSorting === undefined) {
 					var sorting = oSettings.aaSorting;
-					for ( i=0, iLen=sorting.length ; i<iLen ; i++ ) {
-						sorting[i][1] = oSettings.aoColumns[ i ].asSorting[0];
+					for (i = 0, iLen = sorting.length; i < iLen; i++) {
+						sorting[i][1] = oSettings.aoColumns[i].asSorting[0];
 					}
 				}
 			
@@ -14410,15 +14410,7 @@
 		"sProcessing": "dataTables_processing",
 	
 		/* Sorting */
-		"sSortAsc": "sorting_asc",
-		"sSortDesc": "sorting_desc",
-		"sSortable": "sorting", /* Sortable in both directions */
-		"sSortableAsc": "sorting_asc_disabled",
-		"sSortableDesc": "sorting_desc_disabled",
-		"sSortableNone": "sorting_disabled",
-		"sSortColumn": "sorting_", /* Note that an int is postfixed for the sorting order */
-	
-		/* Filtering */
+ 		/* Filtering */
 		"sFilterInput": "",
 	
 		/* Page length */
