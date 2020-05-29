@@ -61,6 +61,8 @@ namespace QLDL.Areas.NhapLieu.Controllers
             var model = dao.ListAll();
             return PartialView(model);
         }
+
+
         [HttpGet]
         public ActionResult Create(long? id = null, string Copy = null)
         {

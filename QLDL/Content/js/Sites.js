@@ -1,4 +1,5 @@
-﻿// xử lý dropboxdown với select2
+﻿
+// xử lý dropboxdown với select2
 $(".js-example-tags").select2({
     placeholder: "Select a state",
     allowClear: true

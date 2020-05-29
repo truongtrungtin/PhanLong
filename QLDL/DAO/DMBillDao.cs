@@ -60,6 +60,7 @@ namespace QLDL.DAO
             {
                 var item = db.DMBills.Find(dMBill.Id);
                 item.MaBill = dMBill.MaBill;
+                item.NgayTauDen = dMBill.NgayTauDen;
                 item.CangNhan = dMBill.CangNhan;
                 item.CangTra = dMBill.CangTra;
                 item.KhachHang = dMBill.KhachHang;

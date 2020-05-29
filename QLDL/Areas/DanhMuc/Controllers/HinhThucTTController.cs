@@ -148,7 +148,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                         if (result)
                         {
                             SetAlert("Cập nhật dữ liệu thành công!", "success");
-                            return RedirectToAction("Update", "HinhThucTT");
+                            return RedirectToAction("Index", "HinhThucTT");
                         }
                         else
                         {
@@ -158,9 +158,8 @@ namespace QLDL.Areas.DanhMuc.Controllers
                     }
                 }
                 SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
-
             }
-            return View("Update");
+            return View("Index");
         }
 
         // Delete

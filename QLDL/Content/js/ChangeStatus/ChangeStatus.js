@@ -57,11 +57,9 @@
                 type: "POST",
                 success: function (response) {
                     if (response.status == true) {
-                        
                         btn.text('Còn');
                         btn.toggleClass("red");
                     } else {
-                        
                         btn.text('Hết');
                         btn.toggleClass("default");
                         

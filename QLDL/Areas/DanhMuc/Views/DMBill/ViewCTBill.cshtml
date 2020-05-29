@@ -33,7 +33,7 @@
                 <tr id="row_@item.Id">
 
                     <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                    <td>@item.NgayGiao.Value.ToShortDateString()</td>
+                    <td>@item.NgayGiao.ToShortDateString()</td>
                     <td>@item.DMLoai.MaLoai</td>
                     <td>@item.DMKho.MaKho</td>
                     <td>@item.Cont</td>
@@ -42,7 +42,7 @@
                     <td>@item.DoDay</td>
                     <td>@item.QuyCach</td>
                     <td>@item.DMXe.MaXe</td>
-                    <td>@item.NgayGui.Value.ToShortDateString()</td>
+                    <td>@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : null)</td>
                     <td>@item.HanLuuCont.Value.ToShortDateString()</td>
                     @if (item.TrangThaiLuuCont == true)
                     {
@@ -83,7 +83,7 @@
         </table>
         <div class="form-group">
             <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /> |
-            @Html.ActionLink("Danh mục", "Index")
+            @Html.ActionLink("Trở lại", "CTBill")
         </div>
 </div>
 

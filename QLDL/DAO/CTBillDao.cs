@@ -66,6 +66,7 @@ namespace QLDL.DAO
                 item.DoDay = cTBill.DoDay;
                 item.QuyCach = cTBill.QuyCach;
                 item.SoXe = cTBill.SoXe;
+                item.NgayGui = cTBill.NgayGui;
                 item.TrangThaiLuuCont = cTBill.TrangThaiLuuCont;
                 item.TrangThaiLuuBai = cTBill.TrangThaiLuuBai;
                 item.TrangThaiLuuRong = cTBill.TrangThaiLuuRong;

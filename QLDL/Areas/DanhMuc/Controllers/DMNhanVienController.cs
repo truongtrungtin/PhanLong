@@ -149,7 +149,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                         if (result)
                         {
                             SetAlert("Cập nhật dữ liệu nhân viên thành công!", "success");
-                            return RedirectToAction("Update", "DMNhanVien");
+                            return RedirectToAction("Index", "DMNhanVien");
                         }
                         else
                         {
@@ -161,7 +161,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                 SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
 
             }
-            return View("Update");
+            return View("Index");
         }
 
         [HttpDelete]
