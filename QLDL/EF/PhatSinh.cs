@@ -58,6 +58,9 @@ namespace QLDL.EF
         [StringLength(250)]
         public string GhiChu { get; set; }
 
+        [StringLength(250)]
+        public string Thoigian { get; set; }
+
         public virtual DMBill DMBill { get; set; }
 
         public virtual DMCang DMCang { get; set; }

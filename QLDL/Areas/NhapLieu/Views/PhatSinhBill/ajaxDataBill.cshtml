@@ -1,0 +1,13 @@
+﻿@model List<QLDL.EF.CTBill>
+@using QLDL.EF
+
+@{
+    QLDLDBContext db = new QLDLDBContext();
+
+}
+@foreach (var item in Model)
+{
+    <option value="@item.Id"> @item.DMBill.MaBill</option>
+}
+
+

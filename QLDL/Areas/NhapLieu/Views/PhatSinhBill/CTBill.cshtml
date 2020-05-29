@@ -1,0 +1,48 @@
+﻿@model IEnumerable<QLDL.EF.CTBill>
+@{
+    ViewBag.Title = "Phát sinh Bill";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+    <div class="container">
+        <h4><b>Phát Sinh Bill</b></h4>
+        <div class="card h-100">
+            <div class="card-body no-gutters">
+                <h4>
+                    <b>Số Bill: @ViewBag.MaBill</b>
+                </h4>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped" id="dataTable" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Số Cont</th>
+                                <th>Ngày gửi</th>
+                                <th>Bãi Gửi</th>
+                                <th>Xe Gửi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                            <tr id="row_@item.Id">
+                                <td>@item.Cont</td>
+                                <td>@item.NgayGui</td>
+                                <td>@item.DMCang.TenCang</td>
+                                <td>@item.DMXe.MaXe</td>
+                            </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                    @Html.ActionLink("Trở lại", "Index")
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+

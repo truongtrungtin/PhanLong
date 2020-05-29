@@ -42,6 +42,11 @@ namespace QLDL.DAO
         {
             return db.CTBills.SingleOrDefault(x => x.Id == id);
         }
+
+        public List<CTBill> getbill(string cont)
+        {
+            return db.CTBills.Where(x => x.Cont == cont).ToList();
+        }
         public long Insert(CTBill entity)
         {
             db.CTBills.Add(entity);
@@ -49,6 +54,23 @@ namespace QLDL.DAO
             return entity.Id;
         }
 
+        public bool UpdateNgayGui(CTBill cTBill)
+        {
+            try
+            {
+                var item = db.CTBills.Find(cTBill.Id);
+                item.NgayGui = cTBill.NgayGui;
+                item.SoXe = cTBill.SoXe;
+                item.BaiGui = cTBill.BaiGui;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
         public bool Update(CTBill cTBill)
         {
             try
@@ -67,9 +89,6 @@ namespace QLDL.DAO
                 item.QuyCach = cTBill.QuyCach;
                 item.SoXe = cTBill.SoXe;
                 item.NgayGui = cTBill.NgayGui;
-                item.TrangThaiLuuCont = cTBill.TrangThaiLuuCont;
-                item.TrangThaiLuuBai = cTBill.TrangThaiLuuBai;
-                item.TrangThaiLuuRong = cTBill.TrangThaiLuuRong;
                 item.GhiChu = cTBill.GhiChu;
                 db.SaveChanges();
                 return true;
@@ -81,27 +100,6 @@ namespace QLDL.DAO
             }
         }
 
-        public bool ChangeStatusCont(long id)
-        {
-            var status = db.CTBills.Find(id);
-            status.TrangThaiLuuCont = !status.TrangThaiLuuCont;
-            db.SaveChanges();
-            return status.TrangThaiLuuCont;
-        }
-        public bool ChangeStatusBai(long id)
-        {
-            var status = db.CTBills.Find(id);
-            status.TrangThaiLuuBai = !status.TrangThaiLuuBai;
-            db.SaveChanges();
-            return status.TrangThaiLuuBai;
-        }
-        public bool ChangeStatusRong(long id)
-        {
-            var status = db.CTBills.Find(id);
-            status.TrangThaiLuuRong = !status.TrangThaiLuuRong;
-            db.SaveChanges();
-            return status.TrangThaiLuuRong;
-        }
         public bool Delete(long id)
         {
             try

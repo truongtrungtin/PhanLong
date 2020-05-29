@@ -34,7 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -152,8 +152,10 @@
     <Compile Include="Areas\DanhMuc\Controllers\DMPhiController.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\DMXeController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\BaseController.cs" />
+    <Compile Include="Areas\NhapLieu\Controllers\PhatSinhBillController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\PhatSinhChiController.cs" />
     <Compile Include="Areas\NhapLieu\NhapLieuAreaRegistration.cs" />
+    <Compile Include="Areas\ThongKe\Controllers\ThongKeBillController.cs" />
     <Compile Include="Areas\ThongKe\ThongKeAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\PhatSinhController.cs" />
@@ -174,6 +176,7 @@
     <Compile Include="DAO\PhatSinhChiDao.cs" />
     <Compile Include="DAO\PhatSinhDao.cs" />
     <Compile Include="DAO\ThanhToanLuongDao.cs" />
+    <Compile Include="DAO\ThongKeBillDao.cs" />
     <Compile Include="EF\CTBill.cs" />
     <Compile Include="EF\CTChi.cs" />
     <Compile Include="EF\CTHoaDon.cs" />
@@ -197,6 +200,7 @@
     </Compile>
     <Compile Include="Models\CTTTLuongModel.cs" />
     <Compile Include="Models\ThanhToanLuongModel.cs" />
+    <Compile Include="Models\ThongKeBillModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -205,7 +209,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\select2.css" />
-    <Content Include="Content\js\ChangeStatus\ChangeStatus.js" />
     <Content Include="Content\js\select2.min.js" />
     <Content Include="Content\js\demo\chart-area-demo.js" />
     <Content Include="Content\js\demo\chart-bar-demo.js" />
@@ -1833,7 +1836,6 @@
     <Folder Include="Areas\DanhMuc\Views\Shared\" />
     <Folder Include="Areas\NhapLieu\Data\" />
     <Folder Include="Areas\NhapLieu\Views\Shared\" />
-    <Folder Include="Areas\ThongKe\Controllers\" />
     <Folder Include="Areas\ThongKe\Data\" />
     <Folder Include="Areas\ThongKe\Views\Shared\" />
     <Folder Include="excelfolder\" />
@@ -2018,6 +2020,12 @@
     <Content Include="Areas\DanhMuc\Views\DMBill\UpdateCTBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinh\CTPhatSinh.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\ImportStatesExcel.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Index.cshtml" />
+    <Content Include="Areas\ThongKe\Views\ThongKeBill\Bill.cshtml" />
+    <Content Include="Areas\ThongKe\Views\ThongKeBill\CTBill.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Create.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\ajaxDataBill.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\CTBill.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

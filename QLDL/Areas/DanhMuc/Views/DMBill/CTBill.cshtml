@@ -14,7 +14,7 @@
                     <thead>
                         <tr>
                             <th width="1%"><input type='checkbox' id='check' value='' /></th>
-                            <th>Ngày Giao</th>
+                            <th>Ngày</th>
                             <th>Loại</th>
                             <th>Mã kho</th>
                             <th>Số Cont</th>
@@ -22,14 +22,9 @@
                             <th>Seal</th>
                             <th>Độ dày</th>
                             <th>Quy Cách</th>
-                            <th>Số Xe</th>
                             <th>Hạn Lưu Bãi</th>
-                            <th>Trạng thái Lưu Bãi</th>
-                            <th>Ngày gửi</th>
                             <th>Hạn lưu Cont</th>
-                            <th>Trạng thái Lưu Cont</th>
                             <th>Hạn Lưu rỗng</th>
-                            <th>Trạng thái Lưu Rỗng</th>
                             <th>Ghi Chú</th>
                             <th>#</th>
                         </tr>
@@ -47,21 +42,13 @@
                             <td>@item.Seal</td>
                             <td>@item.DoDay</td>
                             <td>@item.QuyCach</td>
-                            <td>@item.DMXe.MaXe</td>
 
                             <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : null)</td>
-                            <td>
-                                <a href="#" style="color: @(item.TrangThaiLuuBai ? "red" : "null")" class="btn-bai" data-id="@item.Id">@(item.TrangThaiLuuBai ? "Còn" : "Hết")</a>
-                            </td>
-                            <td>@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : null)</td>
+                            
                             <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : null)</td>
-                            <td>
-                                <a href="#" style="color:@(item.TrangThaiLuuCont ? "red" : "null")" class="btn-cont" data-id="@item.Id">@(item.TrangThaiLuuCont ? "Còn" : "Hết")</a>
-                            </td>
+              
                             <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : null)</td>
-                            <td>
-                                <a href="#" style="color: @(item.TrangThaiLuuRong ? "red" : "null")" class="btn-rong" data-id="@item.Id">@(item.TrangThaiLuuRong ? "Còn" : "Hết")</a>
-                            </td>
+                        
                             <td>@item.GhiChu</td>
                             <td>
                                 @Html.ActionLink("Chỉnh sửa", "UpdateCTBill", new { id = item.Bill, CTBill = item.Id }, new { @class = "btn btn-primary mb-1" })

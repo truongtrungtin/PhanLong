@@ -1,4 +1,23 @@
-﻿
+﻿//Xử lý  dropdown
+$(document).ready(function () {
+    $('#Cont').on('change', function () {
+        var ContId = $(this).val();
+        if (ContId) {
+            $.ajax({
+                type: 'POST',
+                url: 'ajaxDataBill/' + ContId,
+                data: 'Id=' + ContId,
+                success: function (html) {
+                    $('#Bill').html(html);
+
+                }
+            });
+        } else {
+            $('#Bill').html('<option value="">Vui lòng chọn Cont trước </option>')
+        }
+    });
+});
+
 // xử lý dropboxdown với select2
 $(".js-example-tags").select2({
     placeholder: "Select a state",
@@ -6,8 +25,6 @@ $(".js-example-tags").select2({
     
 
 });
-
-
 
 // Hide - Show column in table
 $('.hide-column').click(function (e) {

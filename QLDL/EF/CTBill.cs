@@ -48,16 +48,14 @@ namespace QLDL.EF
 
         public long? SoXe { get; set; }
 
-        public bool TrangThaiLuuCont { get; set; }
-
-        public bool TrangThaiLuuBai { get; set; }
-
-        public bool TrangThaiLuuRong { get; set; }
-                                                               
         [StringLength(250)]
         public string GhiChu { get; set; }
 
+        public long? BaiGui { get; set; }
+
         public virtual DMBill DMBill { get; set; }
+
+        public virtual DMCang DMCang { get; set; }
 
         public virtual DMKho DMKho { get; set; }
 

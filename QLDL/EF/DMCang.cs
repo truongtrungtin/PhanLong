@@ -12,6 +12,7 @@ namespace QLDL.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DMCang()
         {
+            CTBills = new HashSet<CTBill>();
             DMBills = new HashSet<DMBill>();
             DMBills1 = new HashSet<DMBill>();
             PhatSinhs = new HashSet<PhatSinh>();
@@ -25,6 +26,9 @@ namespace QLDL.EF
 
         [StringLength(50)]
         public string TenCang { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<CTBill> CTBills { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DMBill> DMBills { get; set; }

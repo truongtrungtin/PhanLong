@@ -359,33 +359,6 @@ namespace QLDL.Areas.DanhMuc.Controllers
             }
         }
 
-        [HttpPost]
-        public JsonResult ChangeStatusCont(long id)
-        {
-            var result = new CTBillDao().ChangeStatusCont(id);
-            return Json(new
-            {
-                status = result
-            });
-        }
-        [HttpPost]
-        public JsonResult ChangeStatusBai(long id)
-        {
-            var result = new CTBillDao().ChangeStatusBai(id);
-            return Json(new
-            {
-                status = result
-            });
-        }
-        [HttpPost]
-        public JsonResult ChangeStatusRong(long id)
-        {
-            var result = new CTBillDao().ChangeStatusRong(id);
-            return Json(new
-            {
-                status = result
-            });
-        }
 
         //SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["QLDLDBContext"].ConnectionString);
         //OleDbConnection Econ;

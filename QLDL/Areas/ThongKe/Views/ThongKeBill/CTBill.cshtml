@@ -1,0 +1,46 @@
+﻿@model List<QLDL.EF.CTBill>
+@{
+    ViewBag.Title = "Chi tiết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card h-100">
+    <div class="card-body no-gutters">
+        <h4><b>@ViewBag.MaBill</b></h4>
+        <hr />
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" width="100%">
+                <thead>
+                    <tr>
+                        <th>Số Cont</th>
+                        <th>Trạng thái lưu Bãi (Ngày)</th>
+                        <th>Trạng thái lưu Cont (Ngày)</th>
+                        <th>Trạng thái lưu Rỗng (Ngày)</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><a href="/NhapLieu/PhatSinhBill/Create/@item.Id">@item.Cont</a>  </td>
+                            @{
+                                var ngayluubai = (item.HanLuuBai.Value.Date - DateTime.Now.Date).TotalDays;
+                            }
+                            <td style=@(ngayluubai > 0 ? "color:red" : null)> @(ngayluubai > 0 ? "Còn( " + ngayluubai + " Ngày)" : "Hết") </td>
+                            @{ var ngayluucont = (item.HanLuuCont.Value.Date - DateTime.Now.Date).TotalDays; }
+                            <td style=@(ngayluucont > 0 ? "color:red" : null)> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Hết") </td>
+                            @{ var ngayluurong = (item.HanLuuRong.Value.Date - DateTime.Now.Date).TotalDays; }
+                            <td style=@(ngayluurong > 0 ? "color:red" : null)> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Hết") </td>
+
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
