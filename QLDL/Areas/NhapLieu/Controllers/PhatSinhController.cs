@@ -157,7 +157,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
                     if (result)
                     {
                         SetAlert("Cập nhật dữ liệu thành công!", "success");
-                        return RedirectToAction("Update", "PhatSinh");
+                        return RedirectToAction("Index", "PhatSinh");
                     }
                     else
                     {
@@ -167,7 +167,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
                 }
                 SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
             }
-            return View("Update");
+            return View("Index");
         }
 
 

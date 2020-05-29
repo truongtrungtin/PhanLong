@@ -1,0 +1,64 @@
+﻿@model QLDL.EF.CTBill
+@using QLDL.EF
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    QLDLDBContext db = new QLDLDBContext();
+}
+
+
+<div class="container">
+    <div class="card h-100">
+        <div class="card-body no-gutters">
+            @using (Html.BeginForm("Create", "PhatSinhBill", FormMethod.Post))
+            {
+                <input type="hidden" name="Id" value="@ViewBag.Id" readonly/>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label col-md-12" style="text-align:center">Số Cont</label>
+                            <input type="text" readonly class="form-control" name="Cont" value="@ViewBag.Cont" />
+                            
+                        </div>
+                    </div>  
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label col-md-12" style="text-align:center">Số Cont</label>
+                            <input type="date"  class="form-control" name="NgayGui" value="" />
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label col-md-12" style="text-align:center">Bãi Gửi</label>
+                            <select class="form-control  js-example-tags" name="BaiGui">
+                                <option>Chọn Bãi</option>
+                                @foreach (var item in db.DMCangs.ToList())
+                                {
+                                    <option value="@item.Id">@item.TenCang</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="control-label col-md-12" style="text-align:center">Xe Gửi</label>
+                            <select class="form-control  js-example-tags" name="SoXe">
+                                <option>Chọn Xe</option>
+                                @foreach (var item in db.DMXes.ToList())
+                                {
+                                    <option value="@item.Id">@item.MaXe</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <input type="submit" class="btn btn-primary" value="Lưu" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+

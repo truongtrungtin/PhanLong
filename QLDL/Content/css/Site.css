@@ -13,6 +13,8 @@
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
+
+
 .dl-horizontal dt {
     white-space: normal;
 }
@@ -43,6 +45,7 @@ textarea {
 }
 th,td {
     text-align:center;
+    height: 20px
 }
 
 
@@ -71,8 +74,9 @@ hr {
 .navbar-inverse .navbar-nav > li > a {
     color: #ffffff;
 }
-.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
-    padding: 2px;
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td{
+    padding-top: 10px;
+    padding-bottom: 1px;
 }
 .form-control {
     height: 21px;
@@ -331,3 +335,6 @@ hr {
     .accordion > .card .card-header {
         margin-bottom: -1px;
     }
+td a {
+    height: 22px
+}

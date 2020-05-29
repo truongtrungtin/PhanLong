@@ -81,6 +81,11 @@ namespace QLDL.EF
                 .HasForeignKey(e => e.Bill);
 
             modelBuilder.Entity<DMCang>()
+                .HasMany(e => e.CTBills)
+                .WithOptional(e => e.DMCang)
+                .HasForeignKey(e => e.BaiGui);
+
+            modelBuilder.Entity<DMCang>()
                 .HasMany(e => e.DMBills)
                 .WithOptional(e => e.DMCang)
                 .HasForeignKey(e => e.CangNhan);
