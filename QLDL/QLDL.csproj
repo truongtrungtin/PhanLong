@@ -1804,6 +1804,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\css\Site.css" />
+    <Content Include="Images\logo.png" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Web.config" />
@@ -2010,6 +2011,7 @@
     <Content Include="Areas\DanhMuc\Views\DMBill\ViewDMBill.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\UpdateCTBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinh\CTPhatSinh.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinh\KeHoach.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

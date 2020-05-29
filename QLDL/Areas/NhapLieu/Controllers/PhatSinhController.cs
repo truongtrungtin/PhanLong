@@ -47,6 +47,13 @@ namespace QLDL.Areas.NhapLieu.Controllers
             return View(model);
         }
 
+        public ActionResult KeHoach(long id)
+        {
+            var dao = new PhatSinhDao();
+            var model = dao.GetById(id);
+            return View(model);
+        }
+
         [ChildActionOnly]
         public PartialViewResult ViewPhatSinh()
         {

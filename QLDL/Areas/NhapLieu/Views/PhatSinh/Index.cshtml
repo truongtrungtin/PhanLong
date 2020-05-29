@@ -48,7 +48,10 @@
                         <tr id="row_@item.Id">
 
                             <td class="sorting_asc_disabled, sorting_desc_disabled"><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                            <td>@Html.ActionLink("Chi tiết", "CTPhatSinh", new { id = item.Id }, new { @class = "btn btn-primary" })</td>
+                            <td>
+                                @Html.ActionLink("Chi tiết", "CTPhatSinh", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                @Html.ActionLink("Kế hoạch", "KeHoach", new { id = item.Id }, new { @class = "btn btn-primary" })
+                            </td>
                             <td>@item.Ngay.ToShortDateString()</td>
                             @if (item.Loai != null)
                             {
