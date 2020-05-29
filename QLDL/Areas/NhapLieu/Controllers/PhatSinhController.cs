@@ -51,6 +51,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
         {
             var dao = new PhatSinhDao();
             var model = dao.GetById(id);
+            SetViewBag();
             return View(model);
         }
 

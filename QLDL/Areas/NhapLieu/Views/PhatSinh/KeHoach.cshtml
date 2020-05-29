@@ -4,127 +4,118 @@
     ViewBag.Title = "KeHoach";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-    <div style="width:8.27in;height:11.69in" class="container">
-        <br />
-        <br />
-        <table style="width:100%">
-            <tr>
-                <td style="width:10%"><img src="~/Images/logo.png" /></td>
-                <td style="width:60%"><h4 style="text-align:left">Công ty TNHH Phan Long</h4></td>
-                <td style="width:30%">
-                    <h4 style="text-align:right">
-                        @Html.Label("Ngày: ", htmlAttributes: new { @class = "control-label" })
-                        @Model.Ngay.ToShortDateString()
-                    </h4>
-
-                </td>
-            </tr>
-        </table>
-        <br />
-        <br />
-        <h1 style="text-align:center"><b>Kế hoạch giao/nhận container</b></h1>
-
-        <h4 style="text-align:center">
-            @Html.Label("Tài xế: ", htmlAttributes: new { @class = "control-label" })
-            @Model.DMNhanVien.TenNV
-            &emsp;|&emsp;
-            @Html.Label("Số xe: ", htmlAttributes: new { @class = "control-label" })
-            @Model.DMXe.BienSo
-        </h4>
-        <br />
-
-        <br />
-        <br />
-        <div style="border:solid" class="card h-100">
-            <div class="card-body no-gutters">
-                <div class="row">
-                    <div style="border-bottom:solid 1px" class="col-md-12">
-                        <div style="text-align:left" class="form-group">
-                            <br />
-                            <h4>
-                                @Html.Label("Xuất HD: ", htmlAttributes: new { @class = "control-label" })
-                                <input style="width:88%" type="text" name="name" value="" />
-                            </h4>
-                            <br />
-                        </div>
-                    </div>
-                    <div style="border-bottom:dotted 1px;border-right:solid 1px" class="col-md-6">
-                        <div style="text-align:center" class="form-group">
-                            <h4>
-                                @Html.Label("Cảng nhận: ", htmlAttributes: new { @class = "control-label" })
-                            </h4>
-                        </div>
-                    </div>
-                    <div style="border-bottom:dotted 1px" class="col-md-6">
-                        <div style="text-align:center" class="form-group">
-                            <h4>
-                                @Html.Label("Cảng trả: ", htmlAttributes: new { @class = "control-label" })
-                            </h4>
-                        </div>
-                    </div>
-                    <div style="border-bottom:solid 1px;border-right:solid 1px" class="col-md-6">
-                        <div style="text-align:center" class="form-group">
-                            <h4>
-                                @Model.DMCang.TenCang
-                            </h4>
-                        </div>
-                    </div>
-                    <div style="border-bottom:solid 1px;border-right:solid 1px" class="col-md-6">
-                        <div style="text-align:center" class="form-group">
-                            <h4>
-                                @Model.DMCang1.TenCang
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="col-md-12" style="padding-bottom:25px"></div>
-                    <div class="col-md-4">
-                        <div style="text-align:left" class="form-group">
-                            <h4>
-                                @Html.Label("Loại: ", htmlAttributes: new { @class = "control-label" })
-                                <span>@Model.DMLoai.MaLoai</span>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div style="text-align:center" class="form-group">
-                            <h4>
-                                @Html.Label("Số cont: ", htmlAttributes: new { @class = "control-label" })
-                                <span>@Model.SoCont</span>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div style="text-align:right" class="form-group">
-                            <h4>
-                                @Html.Label("Số DK: ", htmlAttributes: new { @class = "control-label" })
-                                <span>@Model.SoCont</span>
-                            </h4>
-                        </div>
-                    </div>
-                    <div style="border:solid 1px;margin-top:10px" class="col-md-12">
-                        <div class="form-group">
-                            <h4>
-                                @Html.Label("Địa chỉ kho: ", htmlAttributes: new { @class = "control-label" })
-                                <span>@Model.DMKho.DiaChi</span>
-                            </h4>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <h4>
-                                @Html.Label("Ghi chú: ", htmlAttributes: new { @class = "control-label" })
-                                <span>@Model.GhiChu</span>
-                            </h4>
-                        </div>
-                    </div>
-                    
-                </div>
+<div style="width:8.27in;height:11.69in;border:solid;padding-left:-20px" class="container">
+    <br />
+    <br />
+    <table style="width:100%">
+        <tr>
+            <td style="width:10%"><img src="~/Images/logo.png" /></td>
+            <td style="width:60%"><h4 style="text-align:left">Công ty TNHH Phan Long</h4></td>
+            <td style="width:30%">
+                <h4 style="text-align:right">
+                    Ngày: <b>@Model.Ngay.ToShortDateString()</b>
+                </h4>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3"><h1><b>Kế hoạch giao/nhận</b></h1></td>
+        </tr>
+        <tr>
+            <td colspan="3"><h3>Tài xế: <b>@Model.DMNhanVien.TenNV</b>&emsp;|&emsp; Số xe: <b>@Model.DMXe.BienSo</b></h3></td>
+        </tr>
+    </table>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="row">
+        <div style="border-bottom:solid 1px" class="col-md-12">
+            <div style="padding-top:5px" class="col-md-3">
+                <h4>TT xuất HD: </h4>
+            </div>
+            <div class="col-md-9">
+                <h5>
+                    <b>
+                        @Html.DropDownListFor(model => model.KhachHang, null, htmlAttributes: new { @class = "form-control js-example-tags" })
+                    </b>
+                </h5>
             </div>
         </div>
-        <div style="width:100%;text-align:right">
-            <button class="btn btn-primary hidden-print" onclick="window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+        <div style="margin-top:10px" class="col-md-12">
+            <div class="col-md-6">
+                <h4>Bill/Booking: <b></b></h4>
+            </div>
+            <div class="col-md-6">
+                <h4>Ngày tàu đến: <b>@Model.DMBill.MaBill</b></h4>
+            </div>
+        </div>
+        <div style="margin-top:10px;margin-bottom:10px" class="col-md-12">
+            <div class="col-md-6">
+                <h4>Hạn lưu bãi: <b>@Model.DMBill.NgayTauDen</b></h4>
+            </div>
+            <div class="col-md-6">
+                <h4>Hạn lưu rỗng: <b>@Model.DMBill.NgayTauDen</b></h4>
+            </div>
+        </div>
+        <div style="border-top:solid 1px;border-bottom:dotted 1px" class="col-md-12">
+            <div style="border-right:solid 1px;text-align:center" class="col-md-4">
+                <h4>Số cont</h4>
+            </div>
+            <div style="border-right:solid 1px;text-align:center" class="col-md-4">
+                <h4>Số DK</h4>
+            </div>
+            <div style="border-right:solid 1px;text-align:center" class="col-md-2">
+                <h4>Kích cỡ</h4>
+            </div>
+            <div style="text-align:center" class="col-md-2">
+                <h4>Loại hàng</h4>
+            </div>
+        </div>
+        <div style="margin-bottom:10px;border-bottom:solid 1px" class="col-md-12">
+            <div style="border-right:solid 1px;text-align:center" class="col-md-4">
+                <h4><b>@Model.SoCont</b></h4>
+            </div>
+            <div style="border-right:solid 1px;text-align:center" class="col-md-4">
+                <h4><b>Số DK</b></h4>
+            </div>
+            <div style="border-right:solid 1px;text-align:center" class="col-md-2">
+                <h4><b>@Model.DMLoai.MaLoai</b></h4>
+            </div>
+            <div style="text-align:center" class="col-md-2">
+                <h4><b>@Model.DMLoai.MaLoai</b></h4>
+            </div>
+        </div>
+        <div style="margin-bottom:10px" class="col-md-12">
+            <div style="text-align:center" class="col-md-6">
+                <h4>Cảng nâng: <b>@Model.DMCang.TenCang</b></h4>
+            </div>
+            <div style="text-align:center" class="col-md-6">
+                <h4>Cảng hạ: <b>@Model.DMCang1.TenCang</b></h4>
+            </div>
+        </div>
+        <div style="margin-bottom:10px" class="col-md-12">
+            <div style="text-align:left" class="col-md-12">
+                <h4>Nơi giao/nhận: <b>@Model.DMKho.DiaChi</b></h4>
+            </div>
+        </div>
+        <div style="margin-bottom:10px" class="col-md-12">
+            <div style="text-align:right" class="col-md-6">
+                <h4>Người liên hệ: <b>@Model.DMKho.NguoiLienHe</b></h4>
+            </div>
+            <div style="text-align:left" class="col-md-6">
+                <h4>Số DT: <b>@Model.DMKho.SoDienThoai</b></h4>
+            </div>
+        </div>
+        <div style="margin-bottom:10px" class="col-md-12">
+            <div style="text-align:left" class="col-md-12">
+                <h4>Ghi chú: <b>@Model.GhiChu</b></h4>
+            </div>
         </div>
     </div>
+
+    @*<div style="width:100%;text-align:right">
+            <button class="btn btn-primary hidden-print" onclick="window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+        </div>*@
+</div>
 
 
