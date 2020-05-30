@@ -180,6 +180,7 @@
     <Compile Include="EF\CTBill.cs" />
     <Compile Include="EF\CTChi.cs" />
     <Compile Include="EF\CTHoaDon.cs" />
+    <Compile Include="EF\CTMenu.cs" />
     <Compile Include="EF\DMBill.cs" />
     <Compile Include="EF\DMCang.cs" />
     <Compile Include="EF\DMKhachHang.cs" />
@@ -188,9 +189,11 @@
     <Compile Include="EF\DMMooc.cs" />
     <Compile Include="EF\DMNhanVien.cs" />
     <Compile Include="EF\DMPhi.cs" />
+    <Compile Include="EF\DMThoiGian.cs" />
     <Compile Include="EF\DMXe.cs" />
     <Compile Include="EF\HinhThucTT.cs" />
     <Compile Include="EF\HoaDon.cs" />
+    <Compile Include="EF\Menu.cs" />
     <Compile Include="EF\PhatSinh.cs" />
     <Compile Include="EF\PhatSinhChi.cs" />
     <Compile Include="EF\PhatSinhThu.cs" />

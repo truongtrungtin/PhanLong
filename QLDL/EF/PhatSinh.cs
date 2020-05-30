@@ -58,8 +58,7 @@ namespace QLDL.EF
         [StringLength(250)]
         public string GhiChu { get; set; }
 
-        [StringLength(250)]
-        public string Thoigian { get; set; }
+        public long? Thoigian { get; set; }
 
         public virtual DMBill DMBill { get; set; }
 
@@ -78,6 +77,8 @@ namespace QLDL.EF
         public virtual DMPhi DMPhi { get; set; }
 
         public virtual DMPhi DMPhi1 { get; set; }
+
+        public virtual DMThoiGian DMThoiGian { get; set; }
 
         public virtual DMXe DMXe { get; set; }
     }

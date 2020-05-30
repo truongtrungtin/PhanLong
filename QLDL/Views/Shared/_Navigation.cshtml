@@ -1,78 +1,34 @@
 ﻿    <!-- Navbar -->
+@using QLDL.EF
+@{ 
+    QLDLDBContext db = new QLDLDBContext();
+
+
+}
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">WebSiteName</a>
         </div>
         <ul class="nav navbar-nav">
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Danh mục
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="/DanhMuc/DMKho">Kho</a></li>
-                    <li><a href="/DanhMuc/DMCang">Cảng</a></li>
-                    <li><a href="/DanhMuc/DMKhachHang">Khách hàng</a></li>
-                    <li><a href="/DanhMuc/DMXe">Xe</a></li>
-                    <li><a href="/DanhMuc/DMMooc">Mooc</a></li>
-                    <li><a href="/DanhMuc/DMLoai">Loai</a></li>
-                    <li><a href="/DanhMuc/DMNhanVien">Nhân viên - Tài Xế</a></li>
-                    <li><a href="/DanhMuc/DMPhi">Phí</a></li>
-                    <li><a href="/DanhMuc/DMBill">Bill</a></li>
-                    <li><a href="/DanhMuc/HinhThucTT">Hình thức thanh toán</a></li>
-                </ul>
-            </li>
+            @foreach (var item in db.Menus)
+            {
+                <li class="dropdown">
 
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Nhập liệu
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="/NhapLieu/PhatSinh">Phát sinh</a></li>
-                    <li><a href="/NhapLieu/PhatSinhChi">Phát Sinh Chi</a></li>
-                    <li><a href="/NhapLieu/PhatSinhThu">Phát Sinh Thu</a></li>
-                    <li><a href="/NhapLieu/PhatSinhBill">Phát Sinh Bill</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Thống kê
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="/ThongKe/ThongKeBill/Bill">Thống kê Bill</a></li>
-                    <li><a href="#">Phát sinh</a></li>
-                    <li><a href="#">Chi phí</a></li>
-                    <li><a href="#">Tạm ứng</a></li>
-                    <li><a href="#">Thu tiền</a></li>
-                    <li><a href="#">Sửa xe</a></li>
-                </ul>
-            </li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    Bảng kê
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Form 1</a></li>
-                    <li><a href="#">Form 2</a></li>
-                    <li><a href="#">Đính kèm</a></li>
-                </ul>
-            </li>
-
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    khác
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="/ThanhToanLuong">Thanh toán lương</a></li>
-                    <li><a href="#">Tra cứu giá cước</a></li>
-                    <li><a href="#">Tổng hợp công nợ</a></li>
-                </ul>
-            </li>
-        </ul>
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        @item.TenMenu
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach (var ct in db.CTMenus.Where(x => x.Menu1.TenMenu == item.TenMenu))
+                        {
+                            <li><a href="/@ct.Url">@ct.Ten</a></li>
+                        }
+                    </ul>
+                </li>
+                
+            }
+            </ul>
+            
     </div>
 </nav>
