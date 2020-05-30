@@ -46,16 +46,14 @@
                         </div>
                         @Html.Label("Đến ngày: ", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
-                            <input type="date" style="text-align:form-control" readonly class="form-control" name="name" value="@ViewBag.NgayKT" />
+                            <input type="date"  readonly class="form-control" name="name" value="@ViewBag.NgayKT" />
                         </div>
                     </div>
                     <div class="col-md-3">
                         @Html.Label("Ngày làm việc", htmlAttributes: new { @class = "control-label col-md-6" })
                         <div class="col-md-6">
-                            @{  DateTime sdate = (ViewBag.NgayBD != "") ? Convert.ToDateTime(ViewBag.NgayBD).Date : new DateTime();
-                                DateTime edate = (ViewBag.NgayKT != "") ? Convert.ToDateTime(ViewBag.NgayKT).Date : new DateTime();
-                                var b = (sdate.Date - edate.Date).TotalDays;}
-                            <input type="text" style="text-align:center" readonly class="form-control" value="@(b > 0 ? b : Model.Count )" />
+                
+                            <input type="text" style="text-align:center" readonly class="form-control" value="@Model.Count" />
                         </div>
                     </div>
                     <div class="col-md-1">
@@ -112,7 +110,7 @@
                                         a += i;
                                     }@a
                                 </td>
-                                <td>@item.Ngay</td>
+                                <td>@item.Ngay.ToShortDateString()</td>
                                 <td>@item.Loai</td>
                                 <td>@item.KhachHang</td>
                                 <td>@item.Kho</td>
@@ -130,7 +128,7 @@
                             <th colspan="8"></th>
                             @foreach (var item in Model)
                             {
-                                tongtien += item.TienCuoc;
+                                tongtien += Convert.ToDecimal(item.TienCuoc);
                             }
                             <th>Tổng tiền: @tongtien</th>
                         </tr>

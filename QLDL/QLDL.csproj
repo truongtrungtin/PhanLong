@@ -2032,6 +2032,9 @@
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Create.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\ajaxDataBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\CTBill.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhChi\Update.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhChi\CreateCTChi.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhChi\UpdateCTChi.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

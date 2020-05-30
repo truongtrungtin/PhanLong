@@ -14,7 +14,7 @@ namespace QLDL.Models
         public string SoCont { get; set; }
         public string CangNhan { get; set; }
         public string CangTra { get; set; }
-        public decimal TienCuoc { get; set; }
+        public decimal? TienCuoc { get; set; }
         public string ghichu { get; set; }
         public virtual ThanhToanLuongModel ThanhToanLuong { get; set; }
 

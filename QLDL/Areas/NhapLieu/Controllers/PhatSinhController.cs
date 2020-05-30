@@ -203,7 +203,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
             ViewBag.CangTra = new SelectList(Cang.ListAll(), "Id", "TenCang", selectedId);
             ViewBag.PhiKH = new SelectList(Phi.ListAll(), "Id", "TenPhi", selectedId);
             ViewBag.PhiCT = new SelectList(Phi.ListAll(), "Id", "TenPhi", selectedId);
-            ViewBag.Kho = new SelectList(Kho.ListAll(), "Id", "MaKho", selectedId);
+            ViewBag.Kho = new SelectList(Kho.ListAll(), "Id", "DiaChi", selectedId);
             ViewBag.Loai = new SelectList(Loai.ListAll(), "Id", "MaLoai", selectedId);
             ViewBag.TenTX = new SelectList(NhanVien.ListAll(), "Id", "TenNV", selectedId);
             ViewBag.Xe = new SelectList(Xe.ListAll(), "Id", "BienSo", selectedId);

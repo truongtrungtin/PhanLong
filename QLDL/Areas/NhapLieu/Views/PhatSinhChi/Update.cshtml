@@ -1,9 +1,9 @@
 ﻿@model QLDL.EF.PhatSinhChi
-
 @{
-    ViewBag.Title = "Tạo mới";
+    ViewBag.Title = "Update";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <h4><b>Phát sinh chi</b></h4>
 
 <div class="card h-90">
@@ -93,17 +93,4 @@
         }
     </div>
 </div>
-<hr />
-<hr />
-<div class="card h-90">
-    <div class="card-body no-gutters">
-        @using (Html.BeginForm("Create", "PhatSinhChi", FormMethod.Post))
-        {
-            Html.RenderAction("ViewPhatSinhChi", "PhatSinhChi");
-        }
-    </div>
-</div>
-
-
-
 

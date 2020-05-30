@@ -74,15 +74,15 @@
                             <td>@item.DMCang1.MaCang</td>
                             <td>@item.CuocKH</td>
                             <td>@item.CuocTX</td>
-                            <td>@item.DMNhanVien.MaNV</td>
-                            <td>@item.DMXe.MaXe</td>
+                            <td>@(item.DMNhanVien != null ? item.DMNhanVien.MaNV : null)</td>
+                            <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
                             <td>@item.HDNang</td>
                             <td>@item.TienNang</td>
                             <td>@item.HDHa</td>
                             <td>@item.TienHa</td>
-                            <td>@item.DMPhi1.MaPhi</td>
+                            <td>@(item.PhiKH != null ? item.DMPhi1.MaPhi : null)</td>
                             <td>@item.TienPhiKH</td>
-                            <td>@item.DMPhi.MaPhi</td>
+                            <td>@(item.PhiKH != null ? item.DMPhi.MaPhi : null)</td>
                             <td>@item.TienPhiCT</td>
                             <td>@item.GhiChu</td>
                             <td>

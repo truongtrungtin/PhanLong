@@ -23,6 +23,8 @@ namespace QLDL.EF
 
         [StringLength(250)]
         public string MoTa { get; set; }
+        [StringLength(250)]
+        public string MoTa1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTBill> CTBills { get; set; }

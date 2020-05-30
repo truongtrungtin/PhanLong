@@ -150,7 +150,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
                 SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
 
             }
-            return View("Update");
+            return View("Index");
         }
 
 
@@ -244,5 +244,115 @@ namespace QLDL.Areas.NhapLieu.Controllers
             var model = dao.ListAll(id);
             return View(model);
         }
+
+        [HttpGet]
+        public ActionResult CreateCTChi(long? id = null, long? cTChi = null, string Copy = null)
+        {
+            var Chi = new CTChiDao().GetById(id);
+            if (cTChi != null && Copy != null)
+            {
+                ViewBag.Chi = Chi.PhatSinhChi;
+                ViewBag.IdChi = Chi.Id;
+                var dao = new CTChiDao();
+                var model = dao.GetById(cTChi);
+                SetViewBag();
+                return View(model);
+            }
+            else
+            {
+
+                SetViewBag();
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult CreateCTChi(CTChi cTChi, int[] chkId, string delete = null)
+        {
+            var ps = new CTChiDao();
+            if (delete != null && chkId != null)
+            {
+                var result = ps.checkbox(chkId);
+                if (result)
+                {
+                    SetAlert("Đã xóa thành công!", "success");
+                }
+                else
+                {
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new CTChiDao();
+                    long result = dao.Insert(cTChi);
+                    if (result > 0)
+                    {
+                        SetAlert("Đã thêm bảng ghi thành công !", "success");
+                        return RedirectToAction("Create", "CTChi");
+                    }
+                    else
+                    {
+                        SetAlert("Thêm bảng ghi không thành công, vui lòng thử lại!", "warning");
+                        return RedirectToAction("Create", "CTChi");
+                    }
+
+                }
+                SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
+
+            }
+            return RedirectToAction("Create", "CTChi");
+
+
+        }
+        [HttpGet]
+        public ActionResult UpdateCTChi(long id)
+        {
+            var dao = new CTChiDao();
+            var model = dao.GetById(id);
+            SetViewBag();
+            return View(model);
+        }
+        [HttpPost]
+        public ActionResult UpdateCTChi(CTChi cTChi, int[] chkId, string delete = null)
+        {
+            var ps = new CTChiDao();
+            if (delete != null && chkId != null)
+            {
+                var result = ps.checkbox(chkId);
+                if (result)
+                {
+                    SetAlert("Đã xóa thành công!", "success");
+                }
+                else
+                {
+                    SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
+                }
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var dao = new CTChiDao();
+                    var result = dao.Update(cTChi);
+                    if (result)
+                    {
+                        SetAlert("Cập nhật dữ liệu thành công!", "success");
+                        return RedirectToAction("Update", "CTChi");
+                    }
+                    else
+                    {
+                        SetAlert("Cập nhật dữ liệu không thành công", "warning");
+                        return RedirectToAction("Update", "CTChi");
+                    }
+                }
+                SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
+
+            }
+            return View("Index");
+        }
+
     }
 }

@@ -31,7 +31,7 @@ namespace QLDL.EF
 
         public decimal? CuocKH { get; set; }
 
-        public decimal CuocTX { get; set; }
+        public decimal? CuocTX { get; set; }
 
         public long? TenTX { get; set; }
 
