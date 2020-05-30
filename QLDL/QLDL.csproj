@@ -156,7 +156,7 @@
     <Compile Include="Areas\NhapLieu\Controllers\PhatSinhChiController.cs" />
     <Compile Include="Areas\NhapLieu\NhapLieuAreaRegistration.cs" />
     <Compile Include="Areas\ThongKe\Controllers\BaseController.cs" />
-    <Compile Include="Areas\ThongKe\Controllers\ThongKeBillController.cs" />
+    <Compile Include="Areas\ThongKe\Controllers\BillController.cs" />
     <Compile Include="Areas\ThongKe\ThongKeAreaRegistration.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\PhatSinhController.cs" />
@@ -202,7 +202,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CTTTLuongModel.cs" />
+    <Compile Include="Models\ChiLuongModel.cs" />
+    <Compile Include="Models\PhatSinhLuongModel.cs" />
     <Compile Include="Models\ThanhToanLuongModel.cs" />
     <Compile Include="Models\ThongKeBillModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -2035,6 +2036,7 @@
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\Update.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\CreateCTChi.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\UpdateCTChi.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhChi\ViewCTChi.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -16,7 +16,7 @@ namespace QLDL.DAO
             db = new QLDLDBContext();
         }
 
-        public List<CTTTLuongModel> ListAll(long id, string ngayBD, string ngayKT)
+        public List<PhatSinhLuongModel> PhatSinhLuong(long id, string ngayBD, string ngayKT)
         {
             DateTime sdate = (ngayBD != "") ? Convert.ToDateTime(ngayBD).Date : new DateTime();
             DateTime edate = (ngayKT != "") ? Convert.ToDateTime(ngayKT).Date : new DateTime();
@@ -28,8 +28,10 @@ namespace QLDL.DAO
                        join loai in db.DMLoais on ps.Loai equals loai.Id
                        join CN in db.DMCangs on ps.CangNhan equals CN.Id
                        join CT in db.DMCangs on ps.CangTra equals CT.Id
+                       join psc in db.PhatSinhChis on nv.Id equals psc.NguoiNhan
+                       join ctc in db.CTChis on psc.Id equals ctc.PhatSinhChi
                        where nv.Id == id
-                       select new CTTTLuongModel()
+                       select new PhatSinhLuongModel()
                        {
                            Ngay = ps.Ngay,
                            Loai = loai.MaLoai,
@@ -39,14 +41,39 @@ namespace QLDL.DAO
                            CangNhan = CN.TenCang,
                            CangTra = CT.TenCang,
                            TienCuoc = ps.CuocTX,
-                           ghichu = ps.GhiChu
+                           ghichu = ps.GhiChu,
                        };
             if (!string.IsNullOrEmpty(ngayBD) && !string.IsNullOrEmpty(ngayKT))
             {
                 var model = data.Where(x => (ngayBD == "" && ngayKT == "") || (x.Ngay >= sdate && x.Ngay <= edate));
                 return model.OrderBy(x => x.Ngay).Distinct().ToList();
             }
-            return data.OrderBy(x => x.Ngay).Distinct().ToList();
+            return data.OrderBy(x => x.Ngay).ToList();
+        }
+
+        public List<ChiLuongModel> ChiLuong(long id, string ngayBD, string ngayKT)
+        {
+            DateTime sdate = (ngayBD != "") ? Convert.ToDateTime(ngayBD).Date : new DateTime();
+            DateTime edate = (ngayKT != "") ? Convert.ToDateTime(ngayKT).Date : new DateTime();
+
+            var data = from nv in db.DMNhanViens
+                       join psc in db.PhatSinhChis on nv.Id equals psc.NguoiNhan
+                       join ctc in db.CTChis on psc.Id equals ctc.PhatSinhChi
+                       where nv.Id == id
+                       select new ChiLuongModel()
+                       {
+                           NgayChi = psc.NgayChi,
+                           NoiDung = ctc.NoiDung,
+                           HinhThucTT = psc.HinhThucTT.MoTa,
+                           TienTru = Convert.ToInt64(ctc.DonGia) * ctc.SoLuong,
+                           ghichu = psc.GhiChu,
+                       };
+            if (!string.IsNullOrEmpty(ngayBD) && !string.IsNullOrEmpty(ngayKT))
+            {
+                var model = data.Where(x => (ngayBD == "" && ngayKT == "") || (x.NgayChi >= sdate && x.NgayChi <= edate));
+                return model.OrderBy(x => x.NgayChi).Distinct().ToList();
+            }
+            return data.OrderBy(x => x.NgayChi).ToList();
         }
 
     }

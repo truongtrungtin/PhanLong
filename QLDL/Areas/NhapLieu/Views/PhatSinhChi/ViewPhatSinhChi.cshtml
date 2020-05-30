@@ -38,10 +38,11 @@
                                 @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
                             </td>
                             <td>@item.NgayChi</td>
-                            <td>@item.DMNhanVien1.MaNV</td>
-                            <td>@item.DMNhanVien.MaNV</td>
-                            <td>@item.HinhThucTT.MaHT</td>
-                            <td>@item.DMKhachHang.MaKH</td>
+                            <td>@(item.NguoiChi != null ? item.DMNhanVien1.MaNV : null)</td>
+                            <td>@(item.NguoiNhan != null ?item.DMNhanVien.MaNV : null)</td>
+                            <td>@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>
+
+                            <td>@(item.KhachHang !=null ? item.DMKhachHang.MaKH: null)</td>
 
                             @if (model.Where(x => x.Xe != null).ToList().Count > 0)
                             {

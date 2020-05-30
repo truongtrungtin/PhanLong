@@ -34,6 +34,11 @@ namespace QLDL.DAO
             }
 
         }
+
+        public List<CTChi> listBill(long? bill)
+        {
+            return db.CTChis.Where(x => x.PhatSinhChi1.Bill == bill).OrderByDescending(x => x.Id).ToList();
+        }
         public List<CTChi> ListAll(long phatSinhChi)
         {
             return db.CTChis.Where(x => x.PhatSinhChi == phatSinhChi).OrderByDescending(x => x.Id).ToList();
