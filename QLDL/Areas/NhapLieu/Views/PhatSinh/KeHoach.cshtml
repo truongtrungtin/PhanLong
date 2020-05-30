@@ -4,7 +4,7 @@
     ViewBag.Title = "KeHoach";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div style="width:8.27in;height:11.69in;border:solid;padding-left:-20px" class="container">
+<div style="width:8.27in;height:8.69in;border:solid 1px;padding-left:-20px" class="container">
     <br />
     <br />
     <table style="width:100%">
@@ -46,7 +46,7 @@
                 <h4>Bill/Booking: <b></b></h4>
             </div>
             <div class="col-md-6">
-                <h4>Ngày tàu đến: <b>@Model.DMBill.MaBill</b></h4>
+                <h4>Ngày tàu đến: <b>@Model.DMBill.NgayTauDen</b></h4>
             </div>
         </div>
         <div style="margin-top:10px;margin-bottom:10px" class="col-md-12">
@@ -73,7 +73,11 @@
         </div>
         <div style="margin-bottom:10px;border-bottom:solid 1px" class="col-md-12">
             <div style="border-right:solid 1px;text-align:center" class="col-md-4">
-                <h4><b>@Model.SoCont</b></h4>
+                @if (@Model.SoCont != null)
+                {
+                    <h4><b>@Model.SoCont</b></h4>
+                }
+                <h4><b>|</b></h4>
             </div>
             <div style="border-right:solid 1px;text-align:center" class="col-md-4">
                 <h4><b>Số DK</b></h4>
