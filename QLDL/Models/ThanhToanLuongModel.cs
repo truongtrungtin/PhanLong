@@ -11,13 +11,17 @@ namespace QLDL.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ThanhToanLuongModel()
         {
-            CTTTLuong = new HashSet<CTTTLuongModel>();
+            PhatSinhLuongs = new HashSet<PhatSinhLuongModel>();
+            ChiLuongs = new HashSet<ChiLuongModel>();
         }
         public long Id { get; set; }
         public string MaTX { get; set; }
         public string TaiXe { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTTTLuongModel> CTTTLuong { get; set; }
+        public virtual ICollection<PhatSinhLuongModel> PhatSinhLuongs { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiLuongModel> ChiLuongs { get; set; }
     }
 }

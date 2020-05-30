@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace QLDL.Areas.ThongKe.Controllers
 {
-    public class ThongKeBillController : Controller
+    public class BillController : Controller
     {
         // GET: ThongKe/ThongKeBill
         public ActionResult Index()

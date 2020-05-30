@@ -18,7 +18,7 @@ namespace QLDL.EF
         public long Id { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime? NgayChi { get; set; }
+        public DateTime NgayChi { get; set; }
 
         public long? NguoiChi { get; set; }
 

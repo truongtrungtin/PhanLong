@@ -1,8 +1,12 @@
-﻿@model List<QLDL.Models.CTTTLuongModel>
+﻿@model List<QLDL.Models.PhatSinhLuongModel>
 @{
     ViewBag.Title = "CTTTLuong";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    
     int a = 0;
+    decimal tiencuoc = 0;
+    decimal tientru = 0;
     decimal tongtien = 0;
 }
 
@@ -46,37 +50,37 @@
                         </div>
                         @Html.Label("Đến ngày: ", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
-                            <input type="date"  readonly class="form-control" name="name" value="@ViewBag.NgayKT" />
+                            <input type="date" readonly class="form-control" name="name" value="@ViewBag.NgayKT" />
                         </div>
                     </div>
                     <div class="col-md-3">
                         @Html.Label("Ngày làm việc", htmlAttributes: new { @class = "control-label col-md-6" })
                         <div class="col-md-6">
-                
+
                             <input type="text" style="text-align:center" readonly class="form-control" value="@Model.Count" />
                         </div>
                     </div>
                     <div class="col-md-1">
                         @Html.Label("20N", htmlAttributes: new { @class = "control-label col-md-12" })
-                        <input type="text"  style="text-align:center" readonly class="form-control" value="@ViewBag.N20" />
+                        <input type="text" style="text-align:center" readonly class="form-control" value="@ViewBag.N20" />
                     </div>
                     <div class="col-md-1">
                         @Html.Label("40N", htmlAttributes: new { @class = "control-label col-md-12" })
-                        <input type="text"  style="text-align:center" readonly class="form-control" value="@ViewBag.N40" />
+                        <input type="text" style="text-align:center" readonly class="form-control" value="@ViewBag.N40" />
                     </div>
                     <div class="col-md-1">
                         @Html.Label("20X", htmlAttributes: new { @class = "control-label col-md-12" })
-                        <input type="text"  style="text-align:center" readonly class="form-control" value="@ViewBag.X20" />
+                        <input type="text" style="text-align:center" readonly class="form-control" value="@ViewBag.X20" />
                     </div>
                     <div class="col-md-1">
                         @Html.Label("40X", htmlAttributes: new { @class = "control-label col-md-12" })
                         <input type="text" style="text-align:center" readonly class="form-control" value="@ViewBag.X40" />
                     </div>
                     <div class="col-md-1">
-                        <label class="control-label">Tổng cộng </label>   
-                            <input type="text"  style="text-align:center" readonly class="form-control" value="@ViewBag.Tong" />            
+                        <label class="control-label">Tổng cộng </label>
+                        <input type="text" style="text-align:center" readonly class="form-control" value="@ViewBag.Tong" />
                     </div>
- 
+
                 </div>
             </div>
             <br />
@@ -88,7 +92,7 @@
                     <thead>
                         <tr>
                             <th>Stt</th>
-                            <th>Ngay</th>
+                            <th>Ngày</th>
                             <th>Loại</th>
                             <th>Khách Hàng</th>
                             <th>Kho</th>
@@ -120,23 +124,72 @@
                                 <td>@item.TienCuoc</td>
                                 <td>@item.ghichu</td>
                             </tr>
+
+                        }
+                    </tbody>
+                    @foreach (var item in Model)
+                    {
+                        tiencuoc += Convert.ToDecimal(item.TienCuoc);
+
+                    }
+                </table>
+                <table class="table table-bordered table-striped" width="100%">
+                    <thead>
+                        <tr>
+                            <th>Stt</th>
+                            <th>Ngày Chi</th>
+                            <th></th>
+                            <th></th>
+                            <th>Nội dung</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Ghi Chú</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        @foreach (var item in ViewBag.ChiLuong)
+                        {
+                            <tr>
+                                <td>
+                                    @for (int i = 1; i <= Model.Count; i++)
+                                    {
+                                        a += i;
+                                    }@a
+                                </td>
+                                <td>@item.NgayChi.ToShortDateString()</td>
+                                <td></td>
+                                <td></td>
+                                <td>@item.NoiDung</td>
+                                <td>@item.HinhThucTT</td>
+                                <td></td>
+                                <td></td>
+                                <td>@item.TienTru</td>
+                                <td>@item.ghichu</td>
+                            </tr>
                         }
                     </tbody>
                     <tfoot>
                         <tr>
 
                             <th colspan="8"></th>
-                            @foreach (var item in Model)
+                            @foreach (var item in ViewBag.ChiLuong)
                             {
-                                tongtien += Convert.ToDecimal(item.TienCuoc);
+                    
+                                tientru += Convert.ToDecimal(item.TienTru);
+                               
                             }
+                            @{  tongtien = tiencuoc - tientru;}
                             <th>Tổng tiền: @tongtien</th>
                         </tr>
                     </tfoot>
                 </table>
 
-
             </div>
+            
         </div>
     </div>
 </div>

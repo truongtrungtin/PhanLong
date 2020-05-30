@@ -20,8 +20,10 @@ namespace QLDL.Areas.ThongKe.Controllers
         public ActionResult CTTTLuong(long id, string NgayBD, string NgayKT)
         {
             var tx = new DMNhanVienDao().GetById(id);
-            var model = new CTTTLuongDao().ListAll(id, NgayBD, NgayKT);
+            var model = new CTTTLuongDao().PhatSinhLuong(id, NgayBD, NgayKT);
+            var ChiLuong = new CTTTLuongDao().ChiLuong(id, NgayBD, NgayKT);
             var Loai = new PhatSinhDao().GetLoai(tx.Id);
+            ViewBag.ChiLuong = ChiLuong;
             ViewBag.tx = tx.TenNV;
             ViewBag.NgayBD = NgayBD;
             ViewBag.NgayKT = NgayKT;

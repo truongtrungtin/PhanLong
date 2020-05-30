@@ -5,116 +5,123 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-<h4>
-    Phát Sinh Chi @Html.ActionLink("Tạo Mới", "Create", null, new { @class = "btn btn-primary mb-1" })
-</h4>
-<div class="table-responsive">
-    @using (Html.BeginForm("Index", "PhatSinhChi", FormMethod.Post))
-    {
-        <table class="table table-bordered table-striped" id="dataTable" width="100%">
-            <thead>
-                <tr>
-                    <th width="1%"><input type='checkbox' id='check' value='' /></th>
-                    <th  width="1%"></th>
-                    <th>Ngày chi</th>
-                    <th>Người chi</th>
-                    <th>Người nhận</th>
-                    <th>HTTT</th>
-                    <th>Khách Hàng</th>
-                    <th>Xe</th>
-                    <th>Mooc</th>
-                    <th>Số HD</th>
-                    <th>Số Bill</th>
-                    <th>Tổng Tiền</th>
-                    <th>Ghi Chú</th>
-                    <th>#</th>
-                </tr>
 
-            </thead>
-            <tbody>
+<div class="card h-100">
+    <div class="card-body no-gutters">
+        <h4>
+            Phát Sinh Chi @Html.ActionLink("Tạo Mới", "Create", null, new { @class = "btn btn-primary mb-1" })
+        </h4>
+        <div class="table-responsive">
+            @using (Html.BeginForm("Index", "PhatSinhChi", FormMethod.Post))
+            {
+                <table class="table table-bordered table-striped" id="dataTable" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                            <th width="1%"></th>
+                            <th>Ngày chi</th>
+                            <th>Người chi</th>
+                            <th>Người nhận</th>
+                            <th>HTTT</th>
+                            <th>Khách Hàng</th>
+                            <th>Xe</th>
+                            <th>Mooc</th>
+                            <th>Số HD</th>
+                            <th>Số Bill</th>
+                            <th>Tổng Tiền</th>
+                            <th>Ghi Chú</th>
+                            <th>#</th>
+                        </tr>
 
-                @foreach (var item in Model)
-                {
-                    {
-                        var model = new CTChiDao().ListAll(item.Id);
-                <tr id="row_@item.Id">
+                    </thead>
+                    <tbody>
 
-                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                    <td>
-                        @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                    </td>
-                    <td>@item.NgayChi</td>
-                    <td>@item.DMNhanVien1.MaNV</td>
-                    <td>@item.DMNhanVien.MaNV</td>
-                    <td>@item.HinhThucTT.MaHT</td>
-                    <td>@item.DMKhachHang.MaKH</td>
-
-                    @if (model.Where(x => x.Xe != null).ToList().Count > 0)
-                    {
-                        <td>
-                            @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id })
-                        </td>
-                    }
-                    else
-                    {
-                        <td>
-                            Null
-                        </td>
-                    }
-
-                    @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
-                    {
-                        <td>
-                            @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id })
-                        </td>
-                    }
-                    else
-                    {
-                        <td>
-                            Null
-                        </td>
-                    }
-                    <td>@item.SoHD</td>
-                    @if (item.Bill != null)
-                    {
-                        <td>
-                            @Html.ActionLink(item.DMBill.MaBill, "CTChi", new { id = item.Id })
-                        </td>
-                    }
-                    else
-                    {
-                        <td>
-                            Null
-                        </td>
-                    }
-                    <td>
-                        @{ var a = 0;
-                            var tongtien = 0;
-                            foreach (var tien in item.CTChis)
+                        @foreach (var item in Model)
+                        {
                             {
-                                tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                a += tongtien;
+                                var model = new CTChiDao().ListAll(item.Id);
+                        <tr id="row_@item.Id">
+
+                            <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                            <td>
+                                @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                            </td>
+                            <td>@item.NgayChi</td>
+                            <td>@(item.NguoiChi != null ? item.DMNhanVien1.MaNV : null)</td>
+                            <td>@(item.NguoiNhan != null ?item.DMNhanVien.MaNV : null)</td>
+                            <td>@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>
+
+                            <td>@(item.KhachHang !=null ? item.DMKhachHang.MaKH: null)</td>
+
+                            @if (model.Where(x => x.Xe != null).ToList().Count > 0)
+                            {
+                                <td>
+                                    @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id })
+                                </td>
                             }
-                        }@a
-                    </td>
-                    <td>@item.GhiChu</td>
-                    <td>
-             
-                        @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                        &ensp;| &ensp;
-                        @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
-                    </td>
-                </tr>
-                    }
-                }
-            </tbody>
+                            else
+                            {
+                                <td>
+                                    Null
+                                </td>
+                            }
 
-        </table>
-        <div class="form-group">
-            <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+                            @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
+                            {
+                                <td>
+                                    @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id })
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    Null
+                                </td>
+                            }
+                            <td>@item.SoHD</td>
+                            @if (item.Bill != null)
+                            {
+                                <td>
+                                    @Html.ActionLink(item.DMBill.MaBill, "CTChi", new { id = item.Id })
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    Null
+                                </td>
+                            }
+                            <td>
+                                @{ var a = 0;
+                                    var tongtien = 0;
+                                    foreach (var tien in item.CTChis)
+                                    {
+                                        tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                        a += tongtien;
+                                    }
+                                }@a
+                            </td>
+                            <td>@item.GhiChu</td>
+                            <td>
+
+                                @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                &ensp;| &ensp;
+                                @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
+                            </td>
+                        </tr>
+                            }
+                        }
+                    </tbody>
+
+                </table>
+                <div class="form-group">
+                    <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+                </div>
+            }
+
         </div>
-    }
-
+    </div>
 </div>
+
 
 

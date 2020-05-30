@@ -5,7 +5,7 @@ using System.Web;
 
 namespace QLDL.Models
 {
-    public   class CTTTLuongModel
+    public   class PhatSinhLuongModel
     {
         public DateTime Ngay { get; set; }
         public string Loai { get; set; }
