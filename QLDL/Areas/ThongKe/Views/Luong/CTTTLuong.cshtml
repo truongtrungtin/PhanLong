@@ -12,12 +12,12 @@
             <h4><b>Filter</b></h4>
             <div class="row">
                 <div class="col-md-6">
-                    @using (Html.BeginForm("CTTTLuong", "ThanhToanLuong", FormMethod.Get, new { @class = "form-inline" }))
+                    @using (Html.BeginForm("CTTTLuong", "Luong", FormMethod.Get, new { @class = "form-inline" }))
                     {
                         <label> Từ ngày </label>
-                        <input type="text" class="form-control" name="NgayBD" value="@ViewBag.NgayBD" />
+                        <input type="date" class="form-control" name="NgayBD" value="@ViewBag.NgayBD" />
                         <label> Đến ngày </label>
-                        <input type="text" class="form-control" name="NgayKT" value="@ViewBag.NgayKT" />
+                        <input type="date" class="form-control" name="NgayKT" value="@ViewBag.NgayKT" />
                         <button type="submit" class="btn btn-primary"> Search </button>
                     }
                 </div>
@@ -42,17 +42,20 @@
                     <div class="col-md-6">
                         @Html.Label("Từ ngày: ", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
-                            <input type="text" readonly class="form-control" name="name" value="@ViewBag.NgayBD" />
+                            <input type="date" readonly class="form-control" name="name" value="@ViewBag.NgayBD" />
                         </div>
                         @Html.Label("Đến ngày: ", htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-4">
-                            <input type="text" style="text-align:center" readonly class="form-control" name="name" value="@ViewBag.NgayKT" />
+                            <input type="date" style="text-align:form-control" readonly class="form-control" name="name" value="@ViewBag.NgayKT" />
                         </div>
                     </div>
                     <div class="col-md-3">
-                        @Html.Label("Ngày làm việc", htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            <input type="text"  style="text-align:center" readonly class="form-control" value="@Model." />
+                        @Html.Label("Ngày làm việc", htmlAttributes: new { @class = "control-label col-md-6" })
+                        <div class="col-md-6">
+                            @{  DateTime sdate = (ViewBag.NgayBD != "") ? Convert.ToDateTime(ViewBag.NgayBD).Date : new DateTime();
+                                DateTime edate = (ViewBag.NgayKT != "") ? Convert.ToDateTime(ViewBag.NgayKT).Date : new DateTime();
+                                var b = (sdate.Date - edate.Date).TotalDays;}
+                            <input type="text" style="text-align:center" readonly class="form-control" value="@(b > 0 ? b : Model.Count )" />
                         </div>
                     </div>
                     <div class="col-md-1">

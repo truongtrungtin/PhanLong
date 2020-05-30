@@ -5,14 +5,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using QLDL.Models;
-namespace QLDL.Controllers
+namespace QLDL.Areas.ThongKe.Controllers
 {
-    public class ThanhToanLuongController : Controller
+    public class LuongController : BaseController
     {
         // GET: ThanhToanLuong
         public ActionResult Index()
         {
-            var model = new ThanhToanLuongDao().ListAll();
+            var model = new ThongKeLuong().ListAll();
             return View(model);
         }
 

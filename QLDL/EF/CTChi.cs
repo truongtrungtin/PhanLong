@@ -25,7 +25,7 @@ namespace QLDL.EF
 
         public decimal? DonGia { get; set; }
 
-        public int? SoLuong { get; set; }
+        public int SoLuong { get; set; }
 
         [StringLength(250)]
         public string Garage { get; set; }

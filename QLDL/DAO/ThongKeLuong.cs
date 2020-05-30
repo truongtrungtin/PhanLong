@@ -7,10 +7,10 @@ using System.Web;
 
 namespace QLDL.DAO
 {
-    public class ThanhToanLuongDao
+    public class ThongKeLuong
     {
         QLDLDBContext db = null;
-        public ThanhToanLuongDao()
+        public ThongKeLuong()
         {
             db = new QLDLDBContext();
         }
