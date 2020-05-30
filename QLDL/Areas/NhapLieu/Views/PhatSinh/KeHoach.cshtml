@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     QLDLDBContext db = new QLDLDBContext();
-    var data = db.CTBills.Where(x => x.Bill == Model.DMBill.Id && x.Cont == Model.SoCont).FirstOrDefault(); 
+    var data = db.CTBills.Where(x => x.Bill == Model.DMBill.Id && x.Cont == Model.SoCont).FirstOrDefault();
 }
 <div style="width:8.27in;height:8.69in;border:solid 1px;padding-left:-20px" class="container">
     <br />
@@ -68,38 +68,34 @@
                 <h4>Hạn lưu rỗng: <b>@(data != null ? data.HanLuuRong.Value.ToShortDateString() : null)</b></h4>
             </div>
         </div>
-        <div style="border-top:solid 1px;border-bottom:dotted 1px" class="col-md-12">
-            <div style="border-right:solid 1px;text-align:center" class="col-md-4">
-                <h4>Số cont</h4>
-            </div>
-            <div style="border-right:solid 1px;text-align:center" class="col-md-4">
-                <h4>Số DK</h4>
-            </div>
-            <div style="border-right:solid 1px;text-align:center" class="col-md-2">
-                <h4>Kích cỡ</h4>
-            </div>
-            <div style="text-align:center" class="col-md-2">
-                <h4>Loại hàng</h4>
-            </div>
-        </div>
-        <div style="margin-bottom:10px;border-bottom:solid 1px" class="col-md-12">
-            <div style="border-right:solid 1px;text-align:center" class="col-md-4">
-                @if (@Model.SoCont != null)
-                {
-                    <h4><b>@Model.SoCont</b></h4>
-                }
+        <table class="dataTable table-bordered" width="100%">
+            <thead>
+                <tr>
+                    <th>
+                        <h4><b>Số cont</b></h4>
+                    </th>
+                    <th>
+                        <h4><b>Số DK</b></h4>
+                    </th>
+                    <th>
+                        <h4><b>Kích cỡ</b></h4>
+                    </th>
+                    <th>
+                        <h4><b>Loại hàng</b></h4>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <Td> <h4>@(Model.SoCont != null ? Model.SoCont : null)</h4></Td>
+                    <Td>     <h4>@(data != null ? data.SoDK : null)</h4></Td>
+                    <Td>      <h4>@Model.DMLoai.MaLoai</h4></Td>
+                    <Td> <h4>@Model.DMLoai.MaLoai</h4></Td>
+                </tr>
 
-            </div>
-            <div style="border-right:solid 1px;text-align:center" class="col-md-4">
-                <h4><b>@(@data != null ? data.SoDK : null)</b></h4>
-            </div>
-            <div style="border-right:solid 1px;text-align:center" class="col-md-2">
-                <h4><b>@Model.DMLoai.MaLoai</b></h4>
-            </div>
-            <div style="text-align:center" class="col-md-2">
-                <h4><b>@Model.DMLoai.MaLoai</b></h4>
-            </div>
-        </div>
+            </tbody>
+
+        </table>
         <div style="margin-bottom:10px" class="col-md-12">
             <div style="text-align:center" class="col-md-6">
                 <h4>Cảng nâng: <b>@Model.DMCang.TenCang</b></h4>
