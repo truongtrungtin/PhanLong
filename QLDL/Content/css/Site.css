@@ -36,6 +36,7 @@ textarea {
     font-weight: 300;
     padding: 3px 5px;
     font-size: 12px;
+    margin-bottom:5px;
 }
 
 .h1, .h2, .h3, h1, h2, h3 {
@@ -76,7 +77,7 @@ hr {
 }
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td {
     padding-top: 10px;
-    padding-bottom: 1px;
+
 }
 .form-control {
     height: 21px;
@@ -345,12 +346,3 @@ td a {
 
 }
 
-table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable td:last-child, table.table-bordered.dataTable td:last-child {
-    border-right-width: 1px;
-    border-left-width: 1px;
-}
-
-table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td {
-    border-right-width: 1px;
-    border-left-width: 1px;
-}

@@ -4,10 +4,9 @@
 @{
     ViewBag.Title = "Thêm mới";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    QLDLDBContext db = new QLDLDBContext();
 
 }
-
-
 <h4><b>Chi tiết Bill: @ViewBag.Bill</b></h4>
 <div class="card h-100">
     <div class="card-body no-gutters">
@@ -21,119 +20,117 @@
 
                 <input type="hidden" class="form-control" readonly name="Bill" value="@ViewBag.IdBill" />
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-2">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Cont, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.Cont, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Cont, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.SoDK, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.SoDK, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.SoDK, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Loai, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.DropDownListFor(model => model.Loai, null, htmlAttributes: new { @class = "form-control js-example-tags" })
-                                @Html.ValidationMessageFor(model => model.Loai, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Seal, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.Seal, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Seal, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Kho, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.DropDownListFor(model => model.Kho, null, htmlAttributes: new { @class = "form-control js-example-tags" })
-                                @Html.ValidationMessageFor(model => model.Kho, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.HanLuuCont, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.HanLuuCont, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.HanLuuCont, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.HanLuuBai, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.HanLuuBai, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.HanLuuBai, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.HanLuuRong, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.HanLuuRong, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.HanLuuRong, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.NgayGiao, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.NgayGiao, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.NgayGiao, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.NgayGui, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.NgayGui, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.NgayGui, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.DoDay, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.DoDay, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.DoDay, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.QuyCach, htmlAttributes: new { @class = "control-label col-md-3" })
-                            <div class="col-md-9">
-                                @Html.EditorFor(model => model.QuyCach, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.QuyCach, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.SoXe, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <label class="control-label col-md-4" for="NgayGiao">Ngày</label>
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.SoXe, null, htmlAttributes: new { @class = "form-control js-example-tags" })
-                                @Html.ValidationMessageFor(model => model.SoXe, "", new { @class = "text-danger" })
+                                <input type="text" name="NgayGiao" class="form-control" value="@DateTime.Now.ToShortDateString()" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label  col-md-4" for="Kho"><b>Kho</b></label>
+                            <div class="col-md-8">
+                                <select name="Kho" class="form-control js-example-tags" required>
+                                    <option>--- Chọn Kho ---</option>
+                                    @foreach (var item in db.DMKhoes)
+                                    {
+                                        <option value="@item.Id">@item.DiaChi</option>
+                                    }
+                                </select>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-3">
-                        @Html.LabelFor(model => model.GhiChu, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-9">
-                            @Html.TextAreaFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="Cont"><b>Cont</b> </label>
+                            <div class="col-md-9">
+                                <input type="text" name="Cont" class="form-control" value="" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3" for="Loai"><b>Loại</b></label>
+                            <div class="col-md-9">
+                                <select name="Loai" class="form-control js-example-tags" required>
+                                    <option>Chọn Loại cont</option>
+                                    @foreach (var item in db.DMLoais)
+                                    {
+                                        <option value="@item.Id">@item.MaLoai</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="DoDay">Độ dày</label>
+                            <div class="col-md-8">
+                                <input type="text" name="DoDay" class="form-control" value="" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="SoDK"><b>Số Đăng Ký</b></label>
+                            <div class="col-md-8">
+                                <input type="text" name="SoDK" class="form-control" value="" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="Seal"><b>Seal</b></label>
+                            <div class="col-md-8">
+                                <input type="date" name="SoDK" class="form-control" value="" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="QuyCach">Quy cách</label>
+                            <div class="col-md-8">
+                                <input type="text" name="QuyCach" class="form-control" value="" />
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label col-md-4" for="SoXe">Số Xe</label>
+                            <div class="col-md-8">
+                                <select name="SoXe" class="form-control js-example-tags" required>
+                                    <option>Chọn số xe</option>
+                                    @foreach (var item in db.DMXes)
+                                    {
+                                        <option value="@item.Id">@item.BienSo</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-5" for="HanLuuBai">Hạn Lưu Bãi</label>
+                            <div class="col-md-7">
+                                <input type="date" name="HanLuuBai" class="form-control" value="" />
+                            </div>
                         </div>
                     </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <label class="control-label col-md-5" for="HanLuuCont">Hạn Lưu Cont</label>
+                            <div class="col-md-7">
+                                <input type="date" name="HanLuuCont" class="form-control" value="" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-5" for="HanLuuRong">Hạn Lưu Rỗng</label>
+                            <div class="col-md-7">
+                                <input type="date" name="HanLuuRong" class="form-control" value="" />
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label" style="margin-left:40px" for="GhiChu">Ghi chú</label>
+                <textarea type="text" style="margin-left:40px; width:50%;" name="GhiChu" class="form-control" value=""></textarea>
             </div>
             <div class="form-group">
                 <div class="col-md-9">

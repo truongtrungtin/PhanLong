@@ -15,6 +15,7 @@
                     <th>Seal</th>
                     <th>Độ dày</th>
                     <th>Quy Cách</th>
+                    <th>Số Xe</th>
                     <th>Hạn Lưu Bãi</th>
                     <th>Hạn lưu Cont</th>
                     <th>Hạn Lưu rỗng</th>
@@ -26,24 +27,21 @@
                 @foreach (var item in Model)
                 {
                 <tr id="row_@item.Id">
-
                     <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                    <td>@item.NgayGiao.ToShortDateString()</td>
-                    <td>@item.DMLoai.MaLoai</td>
-                    <td>@item.DMKho.MaKho</td>
+                    <td>@(item.NgayGiao != null ? item.NgayGiao.ToShortDateString() : null)</td>
+                    <td>@(item.Loai != null ? item.DMLoai.MaLoai: null)</td>
+                    <td>@(item.Kho != null ? item.DMKho.MaKho : null )</td>
                     <td>@item.Cont</td>
                     <td>@item.SoDK</td>
                     <td>@item.Seal</td>
                     <td>@item.DoDay</td>
                     <td>@item.QuyCach</td>
-                    <td>@item.DMXe.MaXe</td>
-
+                    <td>@(item.SoXe != null ? item.DMXe.MaXe : null )</td>
                     <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : null)</td>
 
                     <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : null)</td>
 
                     <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : null)</td>
-                   
                     <td>@item.GhiChu</td>
                     <td>
                         @Html.ActionLink("Chỉnh sửa", "UpdateCTBill", new { id = item.Bill, CTBill = item.Id }, new { @class = "btn btn-primary mb-1" })

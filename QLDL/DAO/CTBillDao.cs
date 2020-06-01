@@ -53,6 +53,20 @@ namespace QLDL.DAO
             db.SaveChanges();
             return entity.Id;
         }
+        
+        public DMBill GetLastIdBill()
+        {
+            return db.DMBills.OrderByDescending(x => x.Id).FirstOrDefault();
+        }
+
+        public long InsertCTBill (CTBill entity)
+        {
+            var item = db.CTBills.Add(entity);
+            item.Bill = GetLastIdBill().Id;
+            db.SaveChanges();
+            return entity.Id;
+        }
+
 
         public bool UpdateNgayGui(CTBill cTBill)
         {

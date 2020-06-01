@@ -6,7 +6,10 @@
 
 <div class="card h-100">
     <div class="card-body no-gutters">
-        <h4> Bill:  <b>@ViewBag.Bill</b>  @Html.ActionLink("Thêm dữ liệu vào Bill", "CreateCTBill", new { id = @ViewBag.IdBill }, new { @class = "btn btn-primary mb-1" })</h4>
+        <h4> Bill:  <b>@ViewBag.Bill</b></h4>
+        <h5>Khách hàng: @ViewBag.KH | Cảng Nhận: @ViewBag.CN | Cảng Tra: @ViewBag.CT  </h5>
+        @Html.ActionLink("Thêm dữ liệu vào Bill", "CreateCTBill", new { id = @ViewBag.IdBill }, new { @class = "btn btn-primary mb-1" })
+        <hr />
         <div class="table-responsive">
             @using (Html.BeginForm("CTBill", "DMBill", FormMethod.Post))
             {
@@ -22,6 +25,7 @@
                             <th>Seal</th>
                             <th>Độ dày</th>
                             <th>Quy Cách</th>
+                            <th>Số Xe</th>
                             <th>Hạn Lưu Bãi</th>
                             <th>Hạn lưu Cont</th>
                             <th>Hạn Lưu rỗng</th>
@@ -32,30 +36,30 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr id="row_@item.Id">
-                            <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                            <td>@item.NgayGiao.ToShortDateString()</td>
-                            <td>@item.DMLoai.MaLoai</td>
-                            <td>@item.DMKho.MaKho</td>
-                            <td>@item.Cont</td>
-                            <td>@item.SoDK</td>
-                            <td>@item.Seal</td>
-                            <td>@item.DoDay</td>
-                            <td>@item.QuyCach</td>
+                            <tr id="row_@item.Id">
+                                <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                                <td>@(item.NgayGiao != null ? item.NgayGiao.ToShortDateString() : null)</td>
+                                <td>@(item.Loai != null ? item.DMLoai.MaLoai: null)</td>
+                                <td>@(item.Kho != null ? item.DMKho.MaKho : null )</td>
+                                <td>@item.Cont</td>
+                                <td>@item.SoDK</td>
+                                <td>@item.Seal</td>
+                                <td>@item.DoDay</td>
+                                <td>@item.QuyCach</td>
+                                <td>@(item.SoXe != null ? item.DMXe.MaXe : null )</td>
+                                <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : null)</td>
 
-                            <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : null)</td>
-                            
-                            <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : null)</td>
-              
-                            <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : null)</td>
-                        
-                            <td>@item.GhiChu</td>
-                            <td>
-                                @Html.ActionLink("Chỉnh sửa", "UpdateCTBill", new { id = item.Bill, CTBill = item.Id }, new { @class = "btn btn-primary mb-1" })
-                                &ensp;| &ensp;
-                                @Html.ActionLink("Copy", "CreateCTBill", new { id = item.Bill, Copy = "Copy", cTBill = item.Id }, new { @class = "btn btn-primary mb-1" })
-                            </td>
-                        </tr>
+                                <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : null)</td>
+
+                                <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : null)</td>
+
+                                <td>@item.GhiChu</td>
+                                <td>
+                                    @Html.ActionLink("Chỉnh sửa", "UpdateCTBill", new { id = item.Bill, CTBill = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                    &ensp;| &ensp;
+                                    @Html.ActionLink("Copy", "CreateCTBill", new { id = item.Bill, Copy = "Copy", cTBill = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                </td>
+                            </tr>
                         }
                     </tbody>
 
