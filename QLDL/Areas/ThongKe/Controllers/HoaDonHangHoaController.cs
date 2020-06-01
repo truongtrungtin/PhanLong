@@ -17,6 +17,7 @@ namespace QLDL.Areas.ThongKe.Controllers
             return View();
         }
         // GET: ThongKe/HoaDonHangHoa
+        [HttpPost]
         public ActionResult HoaDon(long id, string SHD = null, string ND = null, string month = null)
         {
             var dao = new DMKhachHangDao().GetById(id);

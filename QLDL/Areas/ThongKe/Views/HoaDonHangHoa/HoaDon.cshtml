@@ -24,7 +24,7 @@
             <td colspan="3"><h4><b>Của Hoá Đơn GTGT</b></h4> </td>
         </tr>
         <tr>
-            <td colspan="3"><h5><b>Hoá Đơn Số:</b> 0000421&emsp;|&emsp; <b>Ngày</b>: @DateTime.Now.ToShortDateString()</h5></td>
+            <td colspan="3"><h5><b>Hoá Đơn Số:</b> @ViewBag.SHD  &emsp;|&emsp; <b>Ngày</b>: @DateTime.Now.ToShortDateString()</h5></td>
         </tr>
     </table>
     <div>
@@ -44,7 +44,7 @@
         </div>
         <div style="margin-bottom:10px" class="col-md-12">
             <div style="text-align:left" class="col-md-12">
-                <h5><b>Nội Dung</b>: Cước Dịch Vụ Vận Chuyển Tháng 04/2020</h5>
+                <h5><b>Nội Dung</b>: @ViewBag.ND </h5>
             </div>
         </div>
     </div>
