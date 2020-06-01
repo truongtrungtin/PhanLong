@@ -34,6 +34,12 @@ namespace QLDL.DAO
             }
             
         }
+
+        public List<PhatSinh> listKH(long id)
+        {
+            return db.PhatSinhs.Where(x => x.KhachHang == id).ToList();
+        }
+
         public List<PhatSinh> ListAll()
         {
             return db.PhatSinhs.OrderByDescending(x => x.Ngay).ToList();
