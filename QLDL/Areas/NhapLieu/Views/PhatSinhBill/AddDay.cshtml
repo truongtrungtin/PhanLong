@@ -1,30 +1,35 @@
-﻿@model QLDL.EF.CTBill
-@using QLDL.EF
+﻿@using QLDL.EF
 @{
-    ViewBag.Title = "Thêm";
+    ViewBag.Title = "Thêm ngày";
     Layout = "~/Views/Shared/_Layout.cshtml";
     QLDLDBContext db = new QLDLDBContext();
+    var i = 0;
 }
-
-
 <div class="container">
     <div class="card h-100">
         <div class="card-body no-gutters">
-            @using (Html.BeginForm("Create", "PhatSinhBill", FormMethod.Post))
+            <h4><b>Thêm ngày gửi bãi vào Cont</b></h4>
+            @using (Html.BeginForm("AddDay", "PhatSinhBill", FormMethod.Post))
             {
-                <input type="hidden" name="Id" value="@ViewBag.Id" readonly/>
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label col-md-12" style="text-align:center">Số Cont</label>
-                            <input type="text" readonly class="form-control" name="Cont" value="@ViewBag.Cont" />
-                            
+                            <select class="form-control  js-example-tags" name="Cont">
+                                <option value=null>Chọn cont</option>
+                                @foreach (var item in db.CTBills.Where(x => x.NgayGui == null))
+                                {
+                                    <option value="@item.Cont">@item.Cont</option>
+                                }
+
+                            </select>
+
                         </div>
-                    </div>  
+                    </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label col-md-12" style="text-align:center">Số Cont</label>
-                            <input type="date"  class="form-control" name="NgayGui" value="" />
+                            <input type="date" class="form-control" name="NgayGui" value="" />
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -60,5 +65,34 @@
             }
         </div>
     </div>
+    <hr />
+    <div class="card h-100">
+        <div class="card-body no-gutters">
+            <h4><b>Danh sách <b>cont</b> chưa gửi bãi</b></h4>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped" id="dataTable" width="100%">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Cont</th>
+                            <th>Hạn lưu bãi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in db.CTBills.Where(x => x.NgayGui == null))
+                        {
+                            { i += 1; }
+                            <tr>
+                                <td>@i</td>
+                                <td>@item.Cont</td>
+                                <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : null)</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
 

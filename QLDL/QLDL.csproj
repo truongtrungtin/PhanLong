@@ -2042,6 +2042,7 @@
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\ViewCTChi.cshtml" />
     <Content Include="Areas\ThongKe\Views\HoaDonHangHoa\HoaDon.cshtml" />
     <Content Include="Areas\ThongKe\Views\HoaDonHangHoa\Index.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\AddDay.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
