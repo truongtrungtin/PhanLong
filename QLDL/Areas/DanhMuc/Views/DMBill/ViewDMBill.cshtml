@@ -15,11 +15,8 @@
                     <th>Cảng Nhận</th>
                     <th>Cảng Trả</th>
                     <th>Hạn Lưu Bãi</th>
-                    <th>Trạng thái lưu bãi</th>
                     <th>Hạn Lưu Cont</th>
-                    <th>Trạng thái lưu Cont</th>
                     <th>Hạn Lưu Rỗng</th>
-                    <th>Trạng thái rỗng</th>
                     <th>#</th>
                 </tr>
             </thead>
@@ -38,16 +35,10 @@
                     <td>@item.DMCang1.TenCang</td>
                     @{ var hanluubai = item.CTBills.Where(x => x.Bill == item.Id).FirstOrDefault();}
                     <td> @(hanluubai != null ? hanluubai.HanLuuBai.Value.ToShortDateString() : null)</td>
-                    @{ var b = item.CTBills.Where(x => x.TrangThaiLuuBai == true).ToList(); }
-                    <td style=@( b.Count > 0 ? "color:red" : null)> @( b.Count > 0 ? "Còn"  : "Hết" )</td>
                     @{ var hanluucont = item.CTBills.Where(x => x.Bill == item.Id).FirstOrDefault();}
                     <td> @(hanluucont != null ? hanluucont.HanLuuCont.Value.ToShortDateString() : null)</td>
-                    @{ var c = item.CTBills.Where(x => x.TrangThaiLuuCont == true).ToList(); }
-                    <td style=@( c.Count > 0 ? "color:red" : null)> @( c.Count > 0 ? "Còn"  : "Hết" )</td>
                     @{ var hanluurong = item.CTBills.Where(x => x.Bill == item.Id).FirstOrDefault();}
                     <td> @(hanluurong != null ? hanluurong.HanLuuRong.Value.ToShortDateString() : null)</td>
-                    @{ var r = item.CTBills.Where(x => x.TrangThaiLuuRong == true).ToList(); }
-                    <td style=@( r.Count > 0 ? "color:red" : null)> @( r.Count > 0 ? "Còn"  : "Hết" )</td>
                     <td>
                         @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
                     </td>

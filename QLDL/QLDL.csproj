@@ -2028,8 +2028,8 @@
     <Content Include="Areas\DanhMuc\Views\DMBill\ImportStatesExcel.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinh\KeHoach.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Index.cshtml" />
-    <Content Include="Areas\ThongKe\Views\ThongKeBill\Bill.cshtml" />
-    <Content Include="Areas\ThongKe\Views\ThongKeBill\CTBill.cshtml" />
+    <Content Include="Areas\ThongKe\Views\Bill\Bill.cshtml" />
+    <Content Include="Areas\ThongKe\Views\Bill\CTBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Create.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\ajaxDataBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\CTBill.cshtml" />
