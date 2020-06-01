@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div style="width:8in;height:5.5in" class="container">
+<div style="width:10in;height:5.5in" class="container">
     <br />
     <br />
     <table style="width:100%">
@@ -67,7 +67,7 @@
                     <td>
                         <h5><b>Số Container</b></h5>
                     </td>
-                    <td>
+                    <td style="width:40%" >
                         <h5><b> Nơi Giao Cont</b></h5>
                     </td>
                     <td>
@@ -90,14 +90,14 @@
                 {
                     <tr>
                         <td><h5>1</h5></td>
-                        <td><h5>@item.Ngay</h5></td>
+                        <td><h5>@item.Ngay.ToShortDateString()</h5></td>
                         <td><h5>@item.DMLoai.MaLoai</h5></td>
                         <td><h5>@item.SoCont</h5></td>
                         <td><h5>@item.DMKho.DiaChi</h5></td>
                         <td><h5>Chuyến</h5></td>
                         <td><h5>1</h5></td>
-                        <td><h5>@item.CuocKH</h5></td>
-                        <td><h5>@( item.CuocKH )</h5></td>
+                        <td style="text-align:right"><h5>@String.Format("{0:0,0}", (item.CuocKH))</h5></td>
+                        <td style="text-align:right"><h5>@( String.Format("{0:0,0}", (item.CuocKH * 1)) )</h5></td>
                     </tr>
                 }
 
@@ -106,13 +106,13 @@
             <tfoot>
                 <tr>
                     <td style="text-align:left;" rowspan="0" colspan="3">
-                        Tổng số: @Model.Count Cont
+                        <b>Tổng số: </b> @Model.Count Cont
                 </tr>
                 <tr>
                     <td style="text-align:left" colspan="5">
                         Cộng:
                     </td>
-                    <td>
+                    <td style="text-align:right">
                         @{ decimal tien;
                             decimal truocthue = 0;
                             decimal thue = 0;}
@@ -121,16 +121,17 @@
                             tien = Convert.ToDecimal(item.CuocKH * 1);
 
                             truocthue += tien;
-                        }@truocthue
-                        </td>
+                        } @String.Format("{0:0,0}", (truocthue))
+                    </td>
                 </tr>
                 <tr>
                     <td style="text-align:left" colspan="5">
                         Thuế GTGT: 10%
                     </td>
-                    <td>
+                    <td style="text-align:right">
                         @{ thue = truocthue * 10 / 100;}
-                        @thue
+                        @String.Format("{0:0,0}", (thue))
+
                     </td>
 
                 </tr>
@@ -138,8 +139,9 @@
                     <td style="text-align:left" colspan="5">
                         Tổng cộng:
                     </td>
-                    <td>
-                        @( truocthue + thue)
+                    <td style="text-align:right">
+                        @{ var tongtien = String.Format("{0:0,0}", (truocthue + thue));}
+                        @tongtien
                     </td>
                 </tr>
             </tfoot>

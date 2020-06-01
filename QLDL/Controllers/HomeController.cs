@@ -31,7 +31,6 @@ namespace QLDL.Areas.DanhMuc.Controllers
             decimal thue = truocthue*10/100;
 
             decimal tong = thue + truocthue;
-
             var nb = new NumberToText();
             var doctien = nb.DocTienBangChu(Convert.ToInt32(tong), "VNĐ");
             ViewBag.DocTien = doctien;
