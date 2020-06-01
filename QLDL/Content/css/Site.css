@@ -74,7 +74,7 @@ hr {
 .navbar-inverse .navbar-nav > li > a {
     color: #ffffff;
 }
-.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td{
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td {
     padding-top: 10px;
     padding-bottom: 1px;
 }
@@ -342,4 +342,15 @@ td a {
 
 .table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
     border: 1px solid black;
+
+}
+
+table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable th:last-child, table.table-bordered.dataTable td:last-child, table.table-bordered.dataTable td:last-child {
+    border-right-width: 1px;
+    border-left-width: 1px;
+}
+
+table.table-bordered.dataTable tbody th, table.table-bordered.dataTable tbody td {
+    border-right-width: 1px;
+    border-left-width: 1px;
 }
