@@ -12,7 +12,7 @@
         <div class="table-responsive">
             @using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post))
             {
-                <table class="table table-hover table-bordered" id="editable" width="100%">
+                <table class="table table-hover table-bordered table-striped" id="dataTable" width="100%">
                     <thead>
                         <tr>
                             <th width="1%"><input type='checkbox' id='check' value='' /></th>
@@ -37,7 +37,8 @@
                             <th>Tiền phí KH</th>
                             <th>Phí Công Ty</th>
                             <th>Tiền phí Công Ty</th>
-                            <th style="cursor:w-resize" width="15%">Ghi Chú</th>
+                            <th>Thời gian</th>
+                            <th >Ghi Chú</th>
                             <td>#</td>
                         </tr>
                     </thead>
@@ -69,8 +70,8 @@
                                 <td>@item.DMBill.MaBill</td>
                             }
                             <td>@item.SoCont</td>
-                            <td>@item.DMCang.MaCang</td>
-                            <td>@item.DMCang1.MaCang</td>
+                            <td>@(item.CangNhan != null ? item.DMCang.MaCang: null)</td>
+                            <td>@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
                             <td>@item.CuocKH</td>
                             <td>@item.CuocTX</td>
                             <td>@(item.DMNhanVien != null ? item.DMNhanVien.MaNV : null)</td>
@@ -83,6 +84,7 @@
                             <td>@item.TienPhiKH</td>
                             <td>@(item.PhiKH != null ? item.DMPhi.MaPhi : null)</td>
                             <td>@item.TienPhiCT</td>
+                            <td></td>
                             <td>@item.GhiChu</td>
                             <td>
                                 @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })

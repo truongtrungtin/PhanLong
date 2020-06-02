@@ -1,36 +1,44 @@
 ﻿@model IEnumerable<QLDL.EF.DMBill>
+@using QLDL.EF
 @{
     ViewBag.Title = "Phát sinh Bill";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    QLDLDBContext db = new QLDLDBContext();
 }
-    <div class="container">
-        <div class="card h-100">
-            <div class="card-body no-gutters">
-                <h4>
-                    <b>Phát Sinh Bill</b>
-                </h4>
-                <div class="table-responsive">
+<div class="container">
+    <div class="card h-100">
+        <div class="card-body no-gutters">
+            <h4>
+                <b>Phát Sinh Bill</b>
+                @Html.ActionLink("Thêm ngày gửi", "AddDay", null,new { @class = "btn btn-primary" })
+            </h4>
+            <div class="table-responsive">
 
-                    <table class="table table-bordered table-striped" id="dataTable" width="100%">
-                        <thead>
+                <table class="table table-bordered table-striped" id="dataTable" width="100%">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Mã Bill</th>
+                            <th>Số Cont đã gửi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{ var data = db.CTBills.Where(x => x.NgayGui != null).OrderByDescending(x => x.NgayGui).ToList(); }
+                        @foreach (var item in Model)
+                        {
+
+
                             <tr>
-                                <th></th>
-                                <th>Mã Bill</th>
-                                <th>Số Cont đã gửi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                                <td width="1%">@Html.ActionLink("Chi tiết", "CTBill", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })</td>
+                                <td>@item.MaBill</td>
+                                @{var songay = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGui != null).ToList();}
+                                <td>@songay.Count</td>
 
-                            @foreach (var item in Model)
-                            { 
-                                <tr >
-                                    <td width="1%">@Html.ActionLink("Chi tiết", "CTBill", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })</td>
-                                    <td>@item.MaBill</td>
-                                    @{var songay = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGui != null).ToList();}
-                                    <td>@songay.Count</td>
+
                                 </tr>
-                            }
+
+                                }
                         </tbody>
 
                     </table>

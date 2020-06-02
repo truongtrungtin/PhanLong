@@ -2048,6 +2048,7 @@
     <Content Include="Areas\DanhMuc\Views\DMThoiGian\ViewDMThoiGian.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMThoiGian\Create.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMThoiGian\Update.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\AddDay.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

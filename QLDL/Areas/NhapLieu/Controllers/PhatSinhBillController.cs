@@ -18,6 +18,26 @@ namespace QLDL.Areas.NhapLieu.Controllers
             return View(model);
         }
 
+        public ActionResult AddDay()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult AddDay(CTBill cTBill)
+        {
+            var dao = new CTBillDao();
+            var resutl = dao.UpdateNGui(cTBill);
+            if (resutl)
+            {
+                SetAlert("Thêm ngày gửi thành công", "success");
+            }
+            else
+            {
+                SetAlert("Thêm ngày gửi không thành công", "warning");
+            }
+            return RedirectToAction("Index", "PhatSinhBill");
+        }
+
         public ActionResult Create(long id)
         {
             var dao = new CTBillDao().GetById(id);
@@ -26,13 +46,6 @@ namespace QLDL.Areas.NhapLieu.Controllers
             return View();
         }
 
-        public ActionResult ajaxDataBill(long Id)
-        {
-            var dao = new CTBillDao();
-            var cont = dao.GetById(Id).Cont;
-            var model = dao.getbill(cont);
-            return View(model);
-        }
 
         [HttpPost]
         public ActionResult Create(CTBill cTBill)
@@ -57,7 +70,5 @@ namespace QLDL.Areas.NhapLieu.Controllers
             var model = dao.ListAll(id).Where(x => x.NgayGui != null);
             return View(model);
         }
-
-
     }
 }

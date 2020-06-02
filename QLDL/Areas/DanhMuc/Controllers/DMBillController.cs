@@ -250,7 +250,6 @@ namespace QLDL.Areas.DanhMuc.Controllers
         [HttpGet]
         public ActionResult CreateCTBill(long? id, long? cTBill = null, string Copy = null)
         {
-
             var Bill = new DMBillDao().GetById(id);
             if (cTBill != null && Copy == "Copy")
             {
