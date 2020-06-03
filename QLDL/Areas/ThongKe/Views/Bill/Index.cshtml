@@ -1,0 +1,106 @@
+﻿@model IEnumerable<QLDL.EF.DMBill>
+@{
+    ViewBag.Title = "Tổng hợp phát sinh Bill";
+    ViewBag.Style = "/Content/css/sb-admin-2.css";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var billton = 0;
+    var billbai = 0;
+}
+<h3><b>Thống kê Bill</b></h3>
+
+<div class="row">
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-2 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-lg font-weight-bold text-primary text-uppercase mb-1">Tổng Bill</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Count()</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-lg font-weight-bold text-warning text-uppercase mb-1">Bill chưa gửi bãi</div>
+                        @foreach (var item in Model)
+                        {
+                            var songay = item.CTBills.Where(x => x.Bill == item.Id && (x.HanLuuBai.Value.Date < DateTime.Now.Date || x.HanLuuCont.Value.Date < DateTime.Now.Date || x.HanLuuRong < DateTime.Now) && x.NgayGui == null).ToList();
+                            if (songay.Count() > 0)
+                            {
+                                billbai += 1;
+                            }
+                        }
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@billbai</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-2 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-lg font-weight-bold text-success text-uppercase mb-1">Bill tồn</div>
+
+                        @foreach (var item in Model)
+                        {
+                            var songay = item.CTBills.Where(x => x.Bill == item.Id && (x.HanLuuBai.Value.Date < DateTime.Now.Date || x.HanLuuCont.Value.Date < DateTime.Now.Date || x.HanLuuRong < DateTime.Now) && x.NgayGiao == null).ToList();
+                            if (songay.Count() > 0)
+                            {
+                                billton += 1;
+                            }
+                        }
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@billton</div>
+
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-2 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-lg font-weight-bold text-info text-uppercase mb-1">Bill đã gửi bãi</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                            </div>
+                            <div class="col">
+                                <div class="progress progress-sm mr-2">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

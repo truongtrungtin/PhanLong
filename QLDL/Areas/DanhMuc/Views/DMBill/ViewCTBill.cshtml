@@ -7,10 +7,9 @@
             <thead>
                 <tr>
                     <th width="1%"><input type='checkbox' id='check' value='' /></th>
-                    <th>Ngày</th>
+                    <th>Số Cont</th>
                     <th>Loại</th>
                     <th>Mã kho</th>
-                    <th>Số Cont</th>
                     <th>Số DK</th>
                     <th>Seal</th>
                     <th>Độ dày</th>
@@ -28,10 +27,9 @@
                 {
                 <tr id="row_@item.Id">
                     <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                    <td>@(item.NgayGiao != null ? item.NgayGiao.ToShortDateString() : null)</td>
+                    <td>@item.Cont</td>
                     <td>@(item.Loai != null ? item.DMLoai.MaLoai: null)</td>
                     <td>@(item.Kho != null ? item.DMKho.MaKho : null )</td>
-                    <td>@item.Cont</td>
                     <td>@item.SoDK</td>
                     <td>@item.Seal</td>
                     <td>@item.DoDay</td>
@@ -42,11 +40,11 @@
                     <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : null)</td>
 
                     <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : null)</td>
-                    <td>@item.GhiChu</td>
+                    <td class="cell expand-maximum-on-hover">@item.GhiChu</td>
                     <td>
                         @Html.ActionLink("Chỉnh sửa", "UpdateCTBill", new { id = item.Bill, CTBill = item.Id }, new { @class = "btn btn-primary mb-1" })
                         @*&ensp;| &ensp;
-                        @Html.ActionLink("Copy", "CreateCTBill", new { id = item.Bill, Copy = "Copy", cTBill = item.Id }, new { @class = "btn btn-primary mb-1" })*@
+            @Html.ActionLink("Copy", "CreateCTBill", new { id = item.Bill, Copy = "Copy", cTBill = item.Id }, new { @class = "btn btn-primary mb-1" })*@
                     </td>
                 </tr>
                 }

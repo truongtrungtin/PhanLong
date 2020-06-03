@@ -9,7 +9,6 @@ $(document).ready(function () {
                 data: 'Id=' + ContId,
                 success: function (html) {
                     $('#Bill').html(html);
-
                 }
             });
         } else {
@@ -22,8 +21,6 @@ $(document).ready(function () {
 $(".js-example-tags").select2({
     placeholder: "Select a state",
     allowClear: true
-    
-
 });
 
 // Hide - Show column in table

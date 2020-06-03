@@ -13,20 +13,31 @@ namespace QLDL.Areas.ThongKe.Controllers
         // GET: ThongKe/ThongKeBill
         public ActionResult Index()
         {
-            return View();
+            var dao = new DMBillDao();
+            var model = dao.ListAll();
+            return View(model);
         }
         [HttpPost]
         public ActionResult Index(string searchString)
         {
             return View();
         }
-        public ActionResult Bill()
+        //Bill Tồn
+        public ActionResult BillTon()
         {
             var dao = new DMBillDao();
             var model = dao.ListAll();
             return View(model);
         }
-        
+
+        //Bill chưa gửi bãi
+        public ActionResult BillBai()
+        {
+            var dao = new DMBillDao();
+            var model = dao.ListAll();
+            return View(model);
+        }
+
         public ActionResult CTBill(long id)
         {
             var dao = new CTBillDao();

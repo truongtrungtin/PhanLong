@@ -30,9 +30,15 @@
                             <td style=@(ngayluubai > 0 ? "color:red" : null)> @(ngayluubai > 0 ? "Còn( " + ngayluubai + " Ngày)" : "Hết") </td>
                             @{ var ngayluucont = (item.HanLuuCont.Value.Date - DateTime.Now.Date).TotalDays; }
                             <td style=@(ngayluucont > 0 ? "color:red" : null)> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Hết") </td>
-                            @{ var ngayluurong = (item.HanLuuRong.Value.Date - DateTime.Now.Date).TotalDays; }
-                            <td style=@(ngayluurong > 0 ? "color:red" : null)> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Hết") </td>
-
+                            @if (item.HanLuuRong != null)
+                            {
+                                 var ngayluurong = (item.HanLuuRong.Value.Date - DateTime.Now.Date).TotalDays; 
+                                <td style=@(ngayluurong > 0 ? "color:red" : null)> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Hết") </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
                         </tr>
                     }
                 </tbody>

@@ -26,8 +26,9 @@ textarea {
 }
 
 .red {
-    color:red;
+    color: red;
 }
+
 .default {
     color: #337ab7;
 }
@@ -36,17 +37,13 @@ textarea {
     font-weight: 300;
     padding: 3px 5px;
     font-size: 12px;
-    margin-bottom:5px;
+    margin-bottom: 5px;
 }
 
 .h1, .h2, .h3, h1, h2, h3 {
     margin-top: 5px;
     margin-bottom: 2px;
     color: #000000;
-}
-th,td {
-    text-align:center;
-    height: 20px
 }
 
 
@@ -75,10 +72,6 @@ hr {
 .navbar-inverse .navbar-nav > li > a {
     color: #ffffff;
 }
-.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td {
-    padding-top: 10px;
-
-}
 .form-control {
     height: 21px;
     padding: 2px 4px;
@@ -87,7 +80,7 @@ hr {
 }
 
 .card-body {
-    background-color:white;
+    background-color: white;
 }
 
 
@@ -337,12 +330,38 @@ hr {
     .accordion > .card .card-header {
         margin-bottom: -1px;
     }
+
 td a {
     height: 22px
 }
 
 .table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
     border: 1px solid black;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    text-align: center;
+    padding: 1px;
+    vertical-align: middle;
+    border-top: 1px solid #000000;
 
 }
 
+.table > tbody > tr > td, .table > tfoot > tr > td, .table > thead > tr > td {
+    line-height: 20px;
+
+}
+.cell {
+  max-width: 50px; /* tweak me please */
+  white-space : nowrap;
+  overflow : hidden;
+}
+
+.expand-small-on-hover:hover {
+  max-width : 200px; 
+  text-overflow: ellipsis;
+}
+
+.expand-maximum-on-hover:hover {
+    max-width: initial;
+}

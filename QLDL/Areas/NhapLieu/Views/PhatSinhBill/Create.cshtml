@@ -23,8 +23,16 @@
                     </div>  
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="control-label col-md-12" style="text-align:center">Số Cont</label>
-                            <input type="date"  class="form-control" name="NgayGui" value="" />
+                            <label class="control-label col-md-12" style="text-align:center">Ngày gửi</label>
+                            @if (Model.NgayGui != null)
+                            {
+                                <input type="text" readonly class="form-control" name="NgayGui" value="@Model.NgayGui.Value.ToShortDateString()" />
+                            }
+                            else
+                            {
+                                <input type="date" class="form-control" name="NgayGui" value="" />
+                            }
+
                         </div>
                     </div>
                     <div class="col-md-3">

@@ -23,6 +23,7 @@ namespace QLDL.EF
 
         [StringLength(250)]
         public string MoTa { get; set; }
+
         [StringLength(250)]
         public string MoTa1 { get; set; }
 

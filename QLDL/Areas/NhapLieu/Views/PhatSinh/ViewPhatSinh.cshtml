@@ -74,7 +74,7 @@
                     <td>@(item.PhiKH != null ? item.DMPhi.MaPhi : null)</td>
                     <td>@item.TienPhiCT</td>
                     <td></td>
-                    <td>@item.GhiChu</td>
+                    <td class="cell expand-maximum-on-hover">@item.GhiChu</td>
                     <td>
                         @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
 

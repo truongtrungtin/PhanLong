@@ -40,15 +40,15 @@
                             <td width="1%">@Html.ActionLink("Chi tiết", "CTBill", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })</td>
                             <td>@Html.ActionLink(item.MaBill, "CTBill", new { id = item.Id })</td>
                             <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null)</td>
-                            <td>@item.DMKhachHang.TenCongTy</td>
-                            <td>@item.DMCang.TenCang</td>
-                            <td>@item.DMCang1.TenCang</td>
+                            <td>@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)</td>
+                            <td>@(item.CangNhan != null ? item.DMCang.TenCang : null)</td>
+                            <td>@(item.CangTra != null ? item.DMCang1.TenCang : null)</td>
                             @{ var hanluubai = item.CTBills.Where(x => x.Bill == item.Id).FirstOrDefault();}
-                            <td> @(hanluubai != null ? hanluubai.HanLuuBai.Value.ToShortDateString() : null)</td>
+                            <td> @(hanluubai.HanLuuBai != null ? hanluubai.HanLuuBai.Value.ToShortDateString() : "Chưa nhập Cont")</td>
                             @{ var hanluucont = item.CTBills.Where(x => x.Bill == item.Id).FirstOrDefault();}
-                            <td> @(hanluucont != null ? hanluucont.HanLuuCont.Value.ToShortDateString() : null)</td>
+                            <td> @(hanluucont.HanLuuCont != null ? hanluucont.HanLuuCont.Value.ToShortDateString() : null)</td>
                             @{ var hanluurong = item.CTBills.Where(x => x.Bill == item.Id).FirstOrDefault();}
-                            <td> @(hanluurong != null ? hanluurong.HanLuuRong.Value.ToShortDateString() : null)</td>
+                            <td> @(hanluurong.HanLuuRong != null ? hanluurong.HanLuuRong.Value.ToShortDateString() : null)</td>
                             <td>
                                 @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
                             </td>

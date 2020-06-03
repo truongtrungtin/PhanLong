@@ -112,8 +112,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                             {
                                 SetAlert("Cont " + cTBill.Cont + " chưa thêm thành công!", "warning");
                             }
-                            
-                            return RedirectToAction("CTBill", "DMBill", new { id = ctbill.GetLastIdBill() });
+                            return RedirectToAction("CTBill", "DMBill", new { id = ctbill.GetLastIdBill().Id });
                         }
                         else
                         {
@@ -142,6 +141,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
             ViewBag.Loai = new SelectList(Loai.ListAll(), "Id", "MaLoai", selectedId);
             ViewBag.Kho = new SelectList(Kho.ListAll(), "Id", "MaKho", selectedId);
         }
+
         [HttpGet]
         public ActionResult Update(long id)
         {
@@ -150,6 +150,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
             SetViewBag();
             return View(model);
         }
+
         [HttpPost]
         public ActionResult Update(DMBill dMBill, int[] chkId, string delete = null)
         {
@@ -236,13 +237,13 @@ namespace QLDL.Areas.DanhMuc.Controllers
                 }
             }
             var Bill = new DMBillDao().GetById(id);
-            
+
             var model = dao.ListAll(id);
             ViewBag.Bill = Bill.MaBill;
             ViewBag.IdBill = Bill.Id;
             ViewBag.KH = Bill.DMKhachHang.MaKH;
-            ViewBag.CN = Bill.DMCang1.MaCang;
-            ViewBag.CT = Bill.DMCang.MaCang;
+            ViewBag.CN = Bill.DMCang.MaCang;
+            ViewBag.CT = Bill.DMCang1.MaCang;
             return View(model);
         }
 
@@ -286,24 +287,20 @@ namespace QLDL.Areas.DanhMuc.Controllers
             }
             else
             {
-                if (ModelState.IsValid)
-                {
-                    var dao = new CTBillDao();
+                var dao = new CTBillDao();
 
-                    long id = dao.Insert(dMBill);
-                    if (id > 0)
-                    {
-                        SetAlert("Đã thêm giá trị thành công !", "success");
-                        return RedirectToAction("CreateCTBill", "DMBill");
-                    }
-                    else
-                    {
-                        SetAlert("Thêm giá trị không thành công, vui lòng thử lại!", "warning");
-                        return RedirectToAction("CreateCTBill", "DMBill");
-                    }
+                long id = dao.Insert(dMBill);
+                if (id > 0)
+                {
+                    SetAlert("Đã thêm giá trị thành công !", "success");
+                    return RedirectToAction("CreateCTBill", "DMBill");
+                }
+                else
+                {
+                    SetAlert("Thêm giá trị không thành công, vui lòng thử lại!", "warning");
+                    return RedirectToAction("CreateCTBill", "DMBill");
                 }
 
-                SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
             }
             return RedirectToAction("CreateCTBill", "DMBill");
         }
@@ -350,7 +347,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
             }
             SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
 
-            return View("CTBill");
+            return RedirectToAction("CTBill", "DMBill", new { id = cTBill.Bill });
         }
 
         // Delete

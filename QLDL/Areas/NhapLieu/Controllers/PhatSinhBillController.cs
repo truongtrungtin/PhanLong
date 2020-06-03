@@ -43,7 +43,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
             var dao = new CTBillDao().GetById(id);
             ViewBag.Id = dao.Id;
             ViewBag.Cont = dao.Cont;
-            return View();
+            return View(dao);
         }
 
 
