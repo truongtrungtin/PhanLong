@@ -7,124 +7,121 @@
     QLDLDBContext db = new QLDLDBContext();
     var data = db.CTBills.Where(x => x.Bill == Model.DMBill.Id && x.Cont == Model.SoCont).FirstOrDefault();
 }
-<div style="width:8in;height:5.5in" class="container">
-    <br />
-    <br />
-    <table class="table" style="width:100%">
-        <tr>
-            <td style="width:10%; border-top: 0px;"><img style="width:50px;height:50px" src="~/Images/logo.png" /></td>
-            <td style="width:60%; border-top: 0px;"><h5 style="text-align:left">Công ty TNHH Phan Long</h5></td>
-            <td style="width:30%; border-top: 0px;">
-                <h5 style="text-align:right">
-                    Ngày: <b>@Model.Ngay</b>
-                </h5>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3" style="border-top: 0px;"><h4 style="text-align:center"><b>Kế hoạch giao/nhận</b></h4></td>
-        </tr>
-        <tr>
-            <td colspan="3" style="border-top: 0px;"><h5 style="text-align:center">Tài xế: <b>@Model.DMNhanVien.TenNV</b>&emsp;|&emsp; Số xe: <b>@Model.DMXe.BienSo</b></h5></td>
-        </tr>
-    </table>
-    <br />
-    <table width="100%">
-        <tr>
-            <td width="15%"><h5>TT xuất HD: </h5></td>
-            <td width="85%">
-                <h5>
-                    <b>
-                        <select class="form-control js-example-tags">
-                            @foreach (var item in db.DMKhachHangs)
-                            {
-                                <option>@item.MST - @item.TenCongTy</option>
-                            }
-                        </select>
-                    </b>
-                </h5>
-            </td>
-        </tr>
-    </table>
-    <div style="border: solid 1px;height:139px">
-        <table class="table" width="100%">
+    <div style="width:8in;height:5.5in" class="container">
+        <br />
+        <br />
+        <table style="width:100%">
             <tr>
-                <td width="50%" style="text-align:left">
-                    <h5>Bill/Booking: <b>@(data != null ? data.DMBill.MaBill : null)</b></h5>
-                </td>
-                <td width="50%" style="text-align:left">
-                    <h5>Ngày tàu đến: <b>@Model.DMBill.NgayTauDen</b></h5>
-                </td>
-            </tr>
-            <tr>
-                <td style="border-top: 0px;text-align:left">
-                    <h5>
-                        Hạn lưu bãi:<b>@(data != null ? data.HanLuuBai.Value.ToShortDateString() : null)</b>
+                <td style="width:10%"><img style="width:50px;height:50px" src="~/Images/logo.png" /></td>
+                <td style="width:60%"><h5 style="text-align:left">Công ty TNHH Phan Long</h5></td>
+                <td style="width:30%">
+                    <h5 style="text-align:right">
+                        Ngày: <b>@Model.Ngay</b>
                     </h5>
                 </td>
-                <td style="border-top: 0px;text-align:left">
-                    <h5>Hạn lưu rỗng: <b>@(data != null ? data.HanLuuRong.Value.ToShortDateString() : null)</b></h5>
+            </tr>
+            <tr>
+                <td colspan="3"><h4><b>Kế hoạch giao/nhận</b></h4></td>
+            </tr>
+            <tr>
+                <td colspan="3"><h5>Tài xế: <b>@Model.DMNhanVien.TenNV</b>&emsp;|&emsp; Số xe: <b>@Model.DMXe.BienSo</b></h5></td>
+            </tr>
+        </table>
+        <br />
+        <table width="100%">
+            <tr>
+                <td width="15%"><h5>TT xuất HD: </h5></td>
+                <td width="85%">
+                    <h5>
+                        <b>
+                            <select class="form-control js-example-tags">
+                                @foreach (var item in db.DMKhachHangs)
+                                {
+                                    <option>@item.MST - @item.TenCongTy</option>
+                                }
+                            </select>
+                        </b>
+                    </h5>
                 </td>
             </tr>
         </table>
-        <table class="dataTable table-bordered" width="100%">
-            <thead>
+        <div style="border: solid 1px;height:139px">
+            <table class="dataTable" width="100%">
                 <tr>
-                    <td>
-                        <h5><b>Số cont</b></h5>
+                    <td width="20%">
+                        <h5>Bill/Booking:</h5>
                     </td>
-                    <td>
-                        <h5><b>Số DK</b></h5>
+                    <td width="30%">
+                        <h5><b>@(data != null ? data.DMBill.MaBill : null)</b></h5>
                     </td>
-                    <td>
-                        <h5><b>Kích cỡ</b></h5>
+                    <td width="20%">
+                        <h5>Ngày tàu đến:</h5>
                     </td>
-                    <td>
-                        <h5><b>Loại hàng</b></h5>
+                    <td width="30%">
+                        <h5><b>@Model.DMBill.NgayTauDen</b></h5>
                     </td>
                 </tr>
-            </thead>
-            <tbody>
                 <tr>
-                    <Td><h5>@(Model.SoCont != null ? Model.SoCont : null)</h5></Td>
-                    <Td><h5>@(data != null ? data.SoDK : null)</h5></Td>
-                    <Td><h5>@Model.DMLoai.MaLoai</h5></Td>
-                    <Td> <h5>@Model.DMLoai.MaLoai</h5></Td>
+                    <td>
+                        <h5>Hạn lưu bãi:</h5>
+                    </td>
+                    <td>
+                        <b>@(data != null ? data.HanLuuBai.Value.ToShortDateString() : null)</b>
+                    </td>
+                    <td>
+                        <h5>Hạn lưu rỗng:</h5>
+                    </td>
+                    <td>
+                        <b>@(data != null ? data.HanLuuRong.Value.ToShortDateString() : null)</b>
+                    </td>
                 </tr>
-            </tbody>
+            </table>
+            <table class="dataTable table-bordered" width="100%">
+                <thead>
+                    <tr>
+                        <td>
+                            <h5><b>Số cont</b></h5>
+                        </td>
+                        <td>
+                            <h5><b>Số DK</b></h5>
+                        </td>
+                        <td>
+                            <h5><b>Kích cỡ</b></h5>
+                        </td>
+                        <td>
+                            <h5><b>Loại hàng</b></h5>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><h5>@(Model.SoCont != null ? Model.SoCont : null)</h5></td>
+                        <td><h5>@(data != null ? data.SoDK : null)</h5></td>
+                        <td><h5>@Model.DMLoai.MoTa</h5></td>
+                        <td><h5>@Model.DMLoai.MoTa1</h5></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <table width="100%">
+            <tr>
+                <td width="50%"><h5>Cảng nâng: <b>@Model.DMCang.TenCang</b></h5></td>
+                <td width="50%"><h5>Cảng hạ: <b>@Model.DMCang1.TenCang</b></h5></td>
+            </tr>
+            <tr>
+                <td width="100%" colspan="2" style="text-align:left"><h5>Địa chỉ giao/nhận: <b>@Model.DMKho.DiaChi</b></h5></td>
+            </tr>
+            <tr>
+                <td width="100%" colspan="2"><h5>Người liên hệ: <b>@Model.DMKho.NguoiLienHe</b> - Số DT: <b>@Model.DMKho.SoDienThoai</b></h5></td>
+            </tr>
+            <tr>
+                <td width="100%" colspan="2" style="text-align:left"><h5>Ghi chú: <b>@Model.GhiChu</b></h5></td>
+            </tr>
         </table>
-    </div>
-    <div>
-        <div style="margin-bottom:10px" class="col-md-12">
-            <div style="text-align:center" class="col-md-6">
-                <h5>Cảng nâng: <b>@Model.DMCang.TenCang</b></h5>
-            </div>
-            <div style="text-align:center" class="col-md-6">
-                <h5>Cảng hạ: <b>@Model.DMCang1.TenCang</b></h5>
-            </div>
-        </div>
-        <div style="margin-bottom:10px" class="col-md-12">
-            <div style="text-align:left" class="col-md-12">
-                <h5>Nơi giao/nhận: <b>@Model.DMKho.DiaChi</b></h5>
-            </div>
-        </div>
-        <div style="margin-bottom:10px" class="col-md-12">
-            <div style="text-align:right" class="col-md-6">
-                <h5>Người liên hệ: <b>@Model.DMKho.NguoiLienHe</b></h5>
-            </div>
-            <div style="text-align:left" class="col-md-6">
-                <h5>Số DT: <b>@Model.DMKho.SoDienThoai</b></h5>
-            </div>
-        </div>
-        <div style="margin-bottom:10px" class="col-md-12">
-            <div style="text-align:left" class="col-md-12">
-                <h5>Ghi chú: <b>@Model.GhiChu</b></h5>
-            </div>
-        </div>
-    </div>
-
-    @*<div style="width:100%;text-align:right">
+        
+        <div style="width:100%;text-align:right">
             <button class="btn btn-primary hidden-print" onclick="window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
-        </div>*@
-</div>
+        </div>
+    </div>
 
 

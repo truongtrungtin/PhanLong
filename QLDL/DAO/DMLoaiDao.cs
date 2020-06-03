@@ -61,6 +61,7 @@ namespace QLDL.DAO
                 var item = db.DMLoais.Find(dMLoai.Id);
                 item.MaLoai = dMLoai.MaLoai;
                 item.MoTa = dMLoai.MoTa;
+                item.MoTa1 = dMLoai.MoTa1;
                 db.SaveChanges();
                 return true;
             }
