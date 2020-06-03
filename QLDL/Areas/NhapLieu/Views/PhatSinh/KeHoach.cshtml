@@ -16,7 +16,7 @@
                 <td style="width:60%"><h5 style="text-align:left">Công ty TNHH Phan Long</h5></td>
                 <td style="width:30%">
                     <h5 style="text-align:right">
-                        Ngày: <b>@Model.Ngay.ToShortDateString()</b>
+                        Ngày: <b>@Model.Ngay</b>
                     </h5>
                 </td>
             </tr>
@@ -95,47 +95,33 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <Td> <h5>@(Model.SoCont != null ? Model.SoCont : null)</h5></Td>
-                        <Td>     <h5>@(data != null ? data.SoDK : null)</h5></Td>
-                        <Td>      <h5>@Model.DMLoai.MaLoai</h5></Td>
-                        <Td> <h5>@Model.DMLoai.MaLoai</h5></Td>
+                        <td> <h5>@(Model.SoCont != null ? Model.SoCont : null)</h5></td>
+                        <td>     <h5>@(data != null ? data.SoDK : null)</h5></td>
+                        <td>      <h5>@Model.DMLoai.MoTa</h5></td>
+                        <td> <h5>@Model.DMLoai.MoTa1</h5></td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <div>
-
-            <div style="margin-bottom:10px" class="col-md-12">
-                <div style="text-align:center" class="col-md-6">
-                    <h5>Cảng nâng: <b>@Model.DMCang.TenCang</b></h5>
-                </div>
-                <div style="text-align:center" class="col-md-6">
-                    <h5>Cảng hạ: <b>@Model.DMCang1.TenCang</b></h5>
-                </div>
-            </div>
-            <div style="margin-bottom:10px" class="col-md-12">
-                <div style="text-align:left" class="col-md-12">
-                    <h5>Nơi giao/nhận: <b>@Model.DMKho.DiaChi</b></h5>
-                </div>
-            </div>
-            <div style="margin-bottom:10px" class="col-md-12">
-                <div style="text-align:right" class="col-md-6">
-                    <h5>Người liên hệ: <b>@Model.DMKho.NguoiLienHe</b></h5>
-                </div>
-                <div style="text-align:left" class="col-md-6">
-                    <h5>Số DT: <b>@Model.DMKho.SoDienThoai</b></h5>
-                </div>
-            </div>
-            <div style="margin-bottom:10px" class="col-md-12">
-                <div style="text-align:left" class="col-md-12">
-                    <h5>Ghi chú: <b>@Model.GhiChu</b></h5>
-                </div>
-            </div>
-        </div>
-
-        @*<div style="width:100%;text-align:right">
+        <table width="100%">
+            <tr>
+                <td width="50%"><h5>Cảng nâng: <b>@Model.DMCang.TenCang</b></h5></td>
+                <td width="50%"><h5>Cảng hạ: <b>@Model.DMCang1.TenCang</b></h5></td>
+            </tr>
+            <tr>
+                <td width="100%" colspan="2" style="text-align:left"><h5>Địa chỉ giao/nhận: <b>@Model.DMKho.DiaChi</b></h5></td>
+            </tr>
+            <tr>
+                <td width="100%" colspan="2"><h5>Người liên hệ: <b>@Model.DMKho.NguoiLienHe</b> - Số DT: <b>@Model.DMKho.SoDienThoai</b></h5></td>
+            </tr>
+            <tr>
+                <td width="100%" colspan="2" style="text-align:left"><h5>Ghi chú: <b>@Model.GhiChu</b></h5></td>
+            </tr>
+        </table>
+        
+        <div style="width:100%;text-align:right">
             <button class="btn btn-primary hidden-print" onclick="window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
-        </div>*@
+        </div>
     </div>
 
 
