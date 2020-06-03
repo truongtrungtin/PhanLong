@@ -1,0 +1,29 @@
+﻿@using QLDL.EF
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    QLDLDBContext db = new QLDLDBContext();
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm("HoaDon", "HoaDonHangHoa", FormMethod.Post))
+{
+    <select class="js-example-tags" name="Id">
+        <option>Chọn đơn vị</option>
+        @foreach (var item in db.DMKhachHangs)
+        {
+            <option value="@item.Id">@item.TenCongTy</option>
+        }
+    </select>
+    <label>Số hoá đơn</label>
+    <input type="text" name="SHD" value="" />
+
+    <label>Nội Dung</label>
+    <input type="text" name="ND" value="" />
+
+    <label>Tháng</label>
+    <input type="text" name="month" value="" />
+
+    <button type="submit"> gửi</button>
+}    

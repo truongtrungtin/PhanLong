@@ -46,7 +46,7 @@
                             <td>
                                 @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
                             </td>
-                            <td>@item.NgayChi</td>
+                            <td>@item.NgayChi.ToShortDateString()</td>
                             <td>@(item.NguoiChi != null ? item.DMNhanVien1.MaNV : null)</td>
                             <td>@(item.NguoiNhan != null ?item.DMNhanVien.MaNV : null)</td>
                             <td>@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>

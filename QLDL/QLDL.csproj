@@ -139,6 +139,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\BangKe\BangKeAreaRegistration.cs" />
+    <Compile Include="Areas\DanhMuc\Controllers\DMThoiGianController.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\HinhThucTTController.cs" />
     <Compile Include="Areas\DanhMuc\DanhMucAreaRegistration.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\BaseController.cs" />
@@ -157,7 +158,9 @@
     <Compile Include="Areas\NhapLieu\NhapLieuAreaRegistration.cs" />
     <Compile Include="Areas\ThongKe\Controllers\BaseController.cs" />
     <Compile Include="Areas\ThongKe\Controllers\BillController.cs" />
+    <Compile Include="Areas\ThongKe\Controllers\HoaDonHangHoaController.cs" />
     <Compile Include="Areas\ThongKe\ThongKeAreaRegistration.cs" />
+    <Compile Include="Common\NumberToText.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\PhatSinhController.cs" />
     <Compile Include="Areas\ThongKe\Controllers\LuongController.cs" />
@@ -172,6 +175,7 @@
     <Compile Include="DAO\DMNhanVienDao.cs" />
     <Compile Include="DAO\DMPhiDao.cs" />
     <Compile Include="DAO\DMLoaiDao.cs" />
+    <Compile Include="DAO\DMThoiGianDao.cs" />
     <Compile Include="DAO\DmXeDao.cs" />
     <Compile Include="DAO\HinhThucTTDao.cs" />
     <Compile Include="DAO\PhatSinhChiDao.cs" />
@@ -214,6 +218,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\select2.css" />
+    <Content Include="Content\js\jquery.tabledit.js" />
     <Content Include="Content\js\select2.min.js" />
     <Content Include="Content\js\demo\chart-area-demo.js" />
     <Content Include="Content\js\demo\chart-bar-demo.js" />
@@ -2028,8 +2033,8 @@
     <Content Include="Areas\DanhMuc\Views\DMBill\ImportStatesExcel.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinh\KeHoach.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Index.cshtml" />
-    <Content Include="Areas\ThongKe\Views\ThongKeBill\Bill.cshtml" />
-    <Content Include="Areas\ThongKe\Views\ThongKeBill\CTBill.cshtml" />
+    <Content Include="Areas\ThongKe\Views\Bill\Bill.cshtml" />
+    <Content Include="Areas\ThongKe\Views\Bill\CTBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Create.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\ajaxDataBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\CTBill.cshtml" />
@@ -2037,6 +2042,13 @@
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\CreateCTChi.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\UpdateCTChi.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\ViewCTChi.cshtml" />
+    <Content Include="Areas\ThongKe\Views\HoaDonHangHoa\HoaDon.cshtml" />
+    <Content Include="Areas\ThongKe\Views\HoaDonHangHoa\Index.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMThoiGian\Index.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMThoiGian\ViewDMThoiGian.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMThoiGian\Create.cshtml" />
+    <Content Include="Areas\DanhMuc\Views\DMThoiGian\Update.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\AddDay.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

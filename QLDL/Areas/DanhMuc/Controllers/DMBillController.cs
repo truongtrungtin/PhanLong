@@ -70,7 +70,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Create(DMBill dMBill, int[] chkId, string delete = null)
+        public ActionResult Create(DMBill dMBill, CTBill cTBill, int[] chkId, string delete = null)
         {
             var ps = new DMBillDao();
             if (delete != null && chkId != null)
@@ -90,6 +90,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
                 if (ModelState.IsValid)
                 {
                     var dao = new DMBillDao();
+                    var ctbill = new CTBillDao();
                     var Check = dao.Check(dMBill.MaBill);
                     if (Check.Count > 0)
                     {
@@ -103,7 +104,16 @@ namespace QLDL.Areas.DanhMuc.Controllers
                         if (id > 0)
                         {
                             SetAlert("Đã thêm Bill thành công !", "success");
-                            return RedirectToAction("Index", "DMBill");
+                            if (ctbill.InsertCTBill(cTBill) > 0)
+                            {
+                                SetAlert("Cont " + cTBill.Cont + " đã thêm thành công!", "success");
+                            }
+                            else
+                            {
+                                SetAlert("Cont " + cTBill.Cont + " chưa thêm thành công!", "warning");
+                            }
+                            
+                            return RedirectToAction("CTBill", "DMBill", new { id = ctbill.GetLastIdBill() });
                         }
                         else
                         {
@@ -230,6 +240,9 @@ namespace QLDL.Areas.DanhMuc.Controllers
             var model = dao.ListAll(id);
             ViewBag.Bill = Bill.MaBill;
             ViewBag.IdBill = Bill.Id;
+            ViewBag.KH = Bill.DMKhachHang.MaKH;
+            ViewBag.CN = Bill.DMCang1.MaCang;
+            ViewBag.CT = Bill.DMCang.MaCang;
             return View(model);
         }
 
@@ -237,7 +250,6 @@ namespace QLDL.Areas.DanhMuc.Controllers
         [HttpGet]
         public ActionResult CreateCTBill(long? id, long? cTBill = null, string Copy = null)
         {
-
             var Bill = new DMBillDao().GetById(id);
             if (cTBill != null && Copy == "Copy")
             {

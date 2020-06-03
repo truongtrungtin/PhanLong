@@ -36,6 +36,7 @@ textarea {
     font-weight: 300;
     padding: 3px 5px;
     font-size: 12px;
+    margin-bottom:5px;
 }
 
 .h1, .h2, .h3, h1, h2, h3 {
@@ -74,9 +75,9 @@ hr {
 .navbar-inverse .navbar-nav > li > a {
     color: #ffffff;
 }
-.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td{
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td {
     padding-top: 10px;
-    padding-bottom: 1px;
+
 }
 .form-control {
     height: 21px;
@@ -342,4 +343,6 @@ td a {
 
 .table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
     border: 1px solid black;
+
 }
+

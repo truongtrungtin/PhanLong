@@ -38,6 +38,7 @@ namespace QLDL.DAO
             return db.CTBills.Where(x => x.Bill == bill).OrderByDescending(x => x.NgayGiao).ToList();
         }
 
+
         public CTBill GetById(long? id)
         {
             return db.CTBills.SingleOrDefault(x => x.Id == id);
@@ -53,6 +54,20 @@ namespace QLDL.DAO
             db.SaveChanges();
             return entity.Id;
         }
+        
+        public DMBill GetLastIdBill()
+        {
+            return db.DMBills.OrderByDescending(x => x.Id).FirstOrDefault();
+        }
+
+        public long InsertCTBill (CTBill entity)
+        {
+            var item = db.CTBills.Add(entity);
+            item.Bill = GetLastIdBill().Id;
+            db.SaveChanges();
+            return entity.Id;
+        }
+
 
         public bool UpdateNgayGui(CTBill cTBill)
         {
@@ -71,6 +86,24 @@ namespace QLDL.DAO
                 return false;
             }
         }
+        public bool UpdateNGui(CTBill cTBill)
+        {
+            try
+            {
+                var item = db.CTBills.SingleOrDefault(x=> x.Cont == cTBill.Cont);
+                item.NgayGui = cTBill.NgayGui;
+                item.SoXe = cTBill.SoXe;
+                item.BaiGui = cTBill.BaiGui;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
         public bool Update(CTBill cTBill)
         {
             try
