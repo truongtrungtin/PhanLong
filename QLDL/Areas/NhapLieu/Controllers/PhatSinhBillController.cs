@@ -17,27 +17,37 @@ namespace QLDL.Areas.NhapLieu.Controllers
             var model = dao.ListAll();
             return View(model);
         }
-
-        public ActionResult Themngayguibai(int[] chkId, string delete = null)
+        [HttpGet]
+        public ActionResult Themngayguibai(int[] chkId)
         {
             var dao = new PhatSinhBillDao();
-            return View();
+            var model = dao.ListCheck(chkId);
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult Themngayguibai(CTBill cTBill, int[] chkId, string delete = null)
+        public ActionResult Themngayguibai(CTBill cTBill, int[] chkId, string themngayguibai = null)
         {
-            var dao = new PhatSinhBillDao();
-            var resutl = dao.checkboxguibai(cTBill, chkId);
-            if (resutl)
+            if (themngayguibai != null)
             {
-                SetAlert("Thêm ngày gửi thành công", "success");
+                var dao = new PhatSinhBillDao();
+                var model = dao.ListCheck(chkId);
+                return View(model);
             }
             else
             {
-                SetAlert("Thêm ngày gửi không thành công", "warning");
+                var dao = new PhatSinhBillDao();
+                var resutl = dao.checkboxguibai(cTBill, chkId);
+                if (resutl)
+                {
+                    SetAlert("Thêm ngày gửi thành công", "success");
+                }
+                else
+                {
+                    SetAlert("Thêm ngày gửi không thành công", "warning");
+                }
+                return RedirectToAction("CTBill", "PhatSinhBill", new { id = cTBill.Bill });
             }
-            return RedirectToAction("Index", "PhatSinhBill");
         }
 
         public ActionResult Create(long id)

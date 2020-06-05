@@ -46,46 +46,48 @@
 
                         @foreach (var item in Model)
                         {
-                            <tr id="row_@item.Id">
+                            if ((DateTime.Now - item.Ngay).TotalDays < 90)
+                            {
+                                <tr id="row_@item.Id">
 
-                                <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                                <td>
-                                    @Html.ActionLink("Kế hoạch", "KeHoach", new { id = item.Id }, new { @class = "btn btn-primary" })
-                                </td>
-                                <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                                    <td>
+                                        @Html.ActionLink("Kế hoạch", "KeHoach", new { id = item.Id }, new { @class = "btn btn-primary" })
+                                    </td>
+                                    <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
 
-                                <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
+                                    <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
 
-
-
-                                <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH: null )</td>
+                                    <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH: null )</td>
 
 
-                                <td>@(item.Kho != null ? item.DMKho.MaKho : null)</td>
+                                    <td>@(item.Kho != null ? item.DMKho.MaKho : null)</td>
 
-                                <td>@(item.SoBill != null ? item.DMBill.MaBill: null)</td>
+                                    <td>@(item.SoBill != null ? item.DMBill.MaBill: null)</td>
 
-                                <td>@(item.SoCont != null ? item.SoCont : null)</td>
-                                <td>@(item.CangNhan != null ? item.DMCang.MaCang: null)</td>
-                                <td>@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
-                                <td>@(item.CuocKH != null ? item.CuocKH : null)</td>
-                                <td>@(item.CuocTX != null ? item.CuocTX : null)</td>
-                                <td>@(item.DMNhanVien != null ? item.DMNhanVien.MaNV : null)</td>
-                                <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
-                                <td>@(item.HDNang != null ? item.HDNang : null)</td>
-                                <td>@(item.TienNang != null ? item.TienNang : null)</td>
-                                <td>@(item.HDHa != null ? item.HDHa : null)</td>
-                                <td>@(item.TienHa != null ? item.TienHa : null )</td>
-                                <td>@(item.PhiKH != null ? item.DMPhi1.MaPhi : null)</td>
-                                <td>@(item.TienPhiKH != null ? item.TienPhiKH : null)</td>
-                                <td>@(item.PhiCT != null ? item.DMPhi.MaPhi : null)</td>
-                                <td>@(item.TienPhiCT != null ? item.TienPhiCT: null )</td>
-                                <td>@(item.Thoigian != null ? item.DMThoiGian.ThoiGian : null)</td>
-                                <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
-                                <td>
-                                    @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                                </td>
-                            </tr>
+                                    <td>@(item.SoCont != null ? item.SoCont : null)</td>
+                                    <td>@(item.CangNhan != null ? item.DMCang.MaCang: null)</td>
+                                    <td>@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
+                                    <td>@(item.CuocKH != null ? item.CuocKH : null)</td>
+                                    <td>@(item.CuocTX != null ? item.CuocTX : null)</td>
+                                    <td>@(item.DMNhanVien != null ? item.DMNhanVien.MaNV : null)</td>
+                                    <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                                    <td>@(item.HDNang != null ? item.HDNang : null)</td>
+                                    <td>@(item.TienNang != null ? item.TienNang : null)</td>
+                                    <td>@(item.HDHa != null ? item.HDHa : null)</td>
+                                    <td>@(item.TienHa != null ? item.TienHa : null )</td>
+                                    <td>@(item.PhiKH != null ? item.DMPhi1.MaPhi : null)</td>
+                                    <td>@(item.TienPhiKH != null ? item.TienPhiKH : null)</td>
+                                    <td>@(item.PhiCT != null ? item.DMPhi.MaPhi : null)</td>
+                                    <td>@(item.TienPhiCT != null ? item.TienPhiCT: null )</td>
+                                    <td>@(item.Thoigian != null ? item.DMThoiGian.ThoiGian : null)</td>
+                                    <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                                    <td>
+                                        @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                    </td>
+                                </tr>
+                            }
+
                         }
                     </tbody>
 

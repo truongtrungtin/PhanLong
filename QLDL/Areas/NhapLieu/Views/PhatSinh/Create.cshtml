@@ -1,10 +1,11 @@
 ﻿@model QLDL.EF.PhatSinh
-@using QLDL.DAO;
+    @using QLDL.EF
+@using QLDL.DAO
 @{
 
     ViewBag.Title = "Thêm mới";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    QLDLDBContext db = new QLDLDBContext();
     var KH = new DMKhachHangDao().ListAll();
 }
 <h4><b>Phát sinh</b></h4>
@@ -28,8 +29,14 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Loai, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.Loai, null, htmlAttributes: new { @class = "form-control js-example-tags" })
-                                @Html.ValidationMessageFor(model => model.Loai, "", new { @class = "text-danger" })
+                                <select class="form-control js-example-tags" name="Loai">
+                                    <option value="">-- Chọn Loại -- </option>
+                                    @foreach (var item in db.DMLoais)
+                                    {
+                                        <option value="@item.Id">@item.MaLoai</option>
+                                    }
+
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
@@ -37,15 +44,27 @@
 
                             <div class="col-md-8">
 
-                                @Html.DropDownListFor(model => model.KhachHang, null, htmlAttributes: new { @class = " form-control js-example-tags" })
-                                @Html.ValidationMessageFor(model => model.KhachHang, "", new { @class = "text-danger" })
+                                <select class="form-control js-example-tags" name="KhachHang">
+                                    <option value="">-- Chọn Khách hàng -- </option>
+                                    @foreach (var item in db.DMKhachHangs)
+                                    {
+                                        <option value="@item.Id">@item.MaKH - @item.TenCongTy</option>
+                                    }
+
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Kho, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.Kho, null, htmlAttributes: new { @class = "form-control js-example-tags" })
-                                @Html.ValidationMessageFor(model => model.Kho, "", new { @class = "text-danger" })
+                                <select class="form-control js-example-tags" name="Kho">
+                                    <option value="">-- Chọn Kho -- </option>
+                                    @foreach (var item in db.DMKhoes)
+                                    {
+                                        <option value="@item.Id">@item.MaKho - @item.DiaChi</option>
+                                    }
+
+                                </select>
                             </div>
                         </div>
 
@@ -61,33 +80,49 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.SoBill, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.SoBill, null, htmlAttributes: new { @class = "form-control js-example-tags" })
+                                <select class="form-control js-example-tags" name="SoBill">
+                                    <option value="">-- Chọn Bill -- </option>
+                                    @foreach (var item in db.DMBills)
+                                    {
+                                        <option value="@item.Id">@item.MaBill</option>
+                                    }
 
-                                @Html.ValidationMessageFor(model => model.SoBill, "", new { @class = "text-danger" })
+                                </select>
                             </div>
 
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.SoCont, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
-                                @Html.EditorFor(model => model.SoCont, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.SoCont, "", new { @class = "text-danger" })
+                                <input type="text" class="form-control" name="SoCont" value="" />
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.CangNhan, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.CangNhan, null, htmlAttributes: new { @class = "form-control js-example-tags" })
-                                @Html.ValidationMessageFor(model => model.CangNhan, "", new { @class = "text-danger" })
+                                <select class="form-control js-example-tags" name="CangNhan">
+                                    <option value="">-- Chọn Cảng nhận -- </option>
+                                    @foreach (var item in db.DMCangs)
+                                    {
+                                        <option value="@item.Id">@item.MaCang - @item.TenCang</option>
+                                    }
+
+                                </select>
                             </div>
                         </div>
 
                         <div class="form-group">
                             @Html.LabelFor(model => model.CangTra, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.CangTra, null, htmlAttributes: new { @class = "form-control js-example-tags" })
-                                @Html.ValidationMessageFor(model => model.CangTra, "", new { @class = "text-danger" })
+                                <select class="form-control js-example-tags" name="CangTra">
+                                    <option value="">-- Chọn cảng trả -- </option>
+                                    @foreach (var item in db.DMCangs)
+                                    {
+                                        <option value="@item.Id">@item.MaCang - @item.TenCang</option>
+                                    }
+
+                                </select>
                             </div>
                         </div>
 
@@ -112,15 +147,27 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.TenTX, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.TenTX, null, htmlAttributes: new { @class = "form-control js-example-tags" })
-                                @Html.ValidationMessageFor(model => model.TenTX, "", new { @class = "text-danger" })
+                                <select class="form-control js-example-tags" name="TenTX">
+                                    <option value="">-- Chọn tài xế -- </option>
+                                    @foreach (var item in db.DMNhanViens)
+                                    {
+                                        <option value="@item.Id">@item.MaNV - @item.TenNV</option>
+                                    }
+
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(model => model.Xe, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.Xe, null, htmlAttributes: new { @class = "form-control js-example-tags" })
-                                @Html.ValidationMessageFor(model => model.Xe, "", new { @class = "text-danger" })
+                                <select class="form-control js-example-tags" name="Xe">
+                                    <option value="">-- Chọn Xe -- </option>
+                                    @foreach (var item in db.DMXes)
+                                    {
+                                        <option value="@item.Id">@item.BienSo</option>
+                                    }
+
+                                </select>
                             </div>
                         </div>
                        
@@ -161,8 +208,14 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.PhiKH, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.PhiKH, null, htmlAttributes: new { @class = "form-control js-example-tags" })
-                                @Html.ValidationMessageFor(model => model.PhiKH, "", new { @class = "text-danger" })
+                                <select class="form-control js-example-tags" name="PhiKH">
+                                    <option value="">-- Chọn Phí khách hàng -- </option>
+                                    @foreach (var item in db.DMPhis)
+                                    {
+                                        <option value="@item.Id">@item.MaPhi</option>
+                                    }
+
+                                </select>
                             </div>
                         </div>
 
@@ -177,8 +230,14 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.PhiCT, htmlAttributes: new { @class = "control-label col-md-4 " })
                             <div class="col-md-8">
-                                @Html.DropDownListFor(model => model.PhiCT, null, htmlAttributes: new { @class = "form-control js-example-tags" })
-                                @Html.ValidationMessageFor(model => model.PhiCT, "", new { @class = "text-danger" })
+                                <select class="form-control js-example-tags" name="PhiCT">
+                                    <option value="">-- Chọn Phí công ty -- </option>
+                                    @foreach (var item in db.DMPhis)
+                                    {
+                                        <option value="@item.Id">@item.MaPhi</option>
+                                    }
+
+                                </select>
                             </div>
                         </div>
 

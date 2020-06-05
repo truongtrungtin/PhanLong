@@ -14,9 +14,9 @@ namespace QLDL.DAO
         {
             try
             {
-                foreach (var item in chkId)
+                for (int i = 0; i < chkId.Length; i++)
                 {
-                    int temp = chkId[item];
+                    int temp = chkId[i];
                     var article = db.CTBills.Where(x => x.Id == temp).SingleOrDefault();
                     article.NgayGui = cTBill.NgayGui;
                     article.BaiGui = cTBill.BaiGui;
@@ -33,10 +33,17 @@ namespace QLDL.DAO
 
         }
 
-        public CTBill GetById(int[] chkId)
+        public List<CTBill> ListCheck(int[] chkId)
         {
+            var model = new List<CTBill>();
 
+            foreach (var item in chkId)
+            {
+                var a = db.CTBills.Find(item);
+                model.Add(a);
+            }
+            return model.ToList();
         }
-
+        
     }
 }
