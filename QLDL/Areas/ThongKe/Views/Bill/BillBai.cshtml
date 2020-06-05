@@ -5,41 +5,41 @@
 <div class="card h-100">
     <div class="card-body no-gutters">
         <div class="table-responsive">
-            <h4><b>Bill có cont chưa giao</b></h4>
-            <table class="table table-bordered table-striped" id="table"
-                   data-toggle="table"
+            <h4><b>Bill có cont chưa gửi bãi</b></h4>
+            <table class="table table-bordered table-striped" id="dataTable" data-toggle="table"
                    data-search="true"
-                     data-pagination="true"
+                   data-pagination="true"
                    data-method="post"
                    width="100%">
                 <thead>
                     <tr>
                         <th></th>
-                        <th data-field="stt" data-sortable="true">STT</th>
+                        <th>STT</th>
                         <th>Mã Bill</th>
-                        <th data-field="Cont" data-sortable="true">Tổng Cont</th>
-                        <th data-sortable="true">Số cont chưa giao</th>
-                        <th data-sortable="true">Trạng thái Lưu Bãi (Ngày)</th>
-                        <th data-sortable="true">Trạng thái Lưu Cont (Ngày)</th>
-                        <th data-sortable="true">Trạng thái Lưu Rỗng (Ngày)</th>
+                        <th>Tổng Cont</th>
+                        <th>Số cont chưa gửi bãi</th>
+                        <th>Trạng thái Lưu Bãi (Ngày)</th>
+                        <th>Trạng thái Lưu Cont (Ngày)</th>
+                        <th>Trạng thái Lưu Rỗng (Ngày)</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     @foreach (var item in Model)
                     {
-                        var songay = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGiao == null).ToList();
+                        var songay = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGui == null).ToList();
                         if (songay.Count() > 0 || item.CTBills.Count() == 0)
                         {
                             stt += 1;
                     <tr>
-                        <td>@Html.ActionLink("Chi tiết", "CTBillTon", new { id = item.Id }, new { @class = "btn btn-primary" })</td>
+                        <td>@Html.ActionLink("Chi tiết", "CTBillBai", new { id = item.Id }, new { @class = "btn btn-primary" })</td>
                         <td>@stt</td>
                         <td>@item.MaBill</td>
                         <td>@item.CTBills.Where(x => x.Bill == item.Id).ToList().Count()</td>
                         <td>@songay.Count()</td>
-                        @{ var day = item.CTBills.Where(x => x.Bill == item.Id).OrderByDescending(x => x.NgayGiao).FirstOrDefault();}
-                        @if (item.CTBills.Count() > 0)
+
+                        @{ var day = item.CTBills.Where(x => x.Bill == item.Id).FirstOrDefault();}
+                        @if (item.CTBills.Count > 0)
                         {
                             if (day.HanLuuBai != null)
                             {
@@ -57,7 +57,9 @@
                             }
                             else
                             {
-                                <td>Chưa có hạn lưu Bãi</td>
+                                <td>
+                                    Chưa có hạn lưu Bãi
+                                </td>
                             }
 
                             if (day.HanLuuCont != null)
@@ -83,7 +85,7 @@
                                 var ngayluurong = (day.HanLuuRong.Value.Date - DateTime.Now.Date).TotalDays;
                                 if (ngayluurong == 0)
                                 {
-                                    <td style="color:red ">Tới hạn</td>
+                                    <td style="color:red">Tới hạn</td>
 
                                 }
                                 else
@@ -94,7 +96,7 @@
                             }
                             else
                             {
-                                <td>chưa có hạn lưu rỗng</td>
+                                <td>Chưa có hạn lưu rỗng</td>
                             }
                         }
                         else

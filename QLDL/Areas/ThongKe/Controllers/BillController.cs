@@ -22,26 +22,43 @@ namespace QLDL.Areas.ThongKe.Controllers
         {
             return View();
         }
-        //Bill Tồn
-        public ActionResult BillTon()
-        {
-            var dao = new DMBillDao();
-            var model = dao.ListAll();
-            return View(model);
-        }
-
         //Bill chưa gửi bãi
-        public ActionResult BillBai()
+        [ChildActionOnly]
+        public PartialViewResult BillBai()
         {
             var dao = new DMBillDao();
             var model = dao.ListAll();
-            return View(model);
+            return PartialView(model);
         }
 
-        public ActionResult CTBill(long id)
+        //Bill chưa giao
+        [ChildActionOnly]
+        public PartialViewResult BillTon()
+        {
+            var dao = new DMBillDao();
+            var model = dao.ListAll();
+            return PartialView(model);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult ViewBill()
+        {
+            var dao = new DMBillDao();
+            var model = dao.ListAll();
+            return PartialView(model);
+        }
+
+        public ActionResult CTBillBai(long id)
         {
             var dao = new CTBillDao();
             var model = dao.ListAll(id).Where(x => x.NgayGui == null).ToList();
+            ViewBag.MaBill = new DMBillDao().GetById(id).MaBill;
+            return View(model);
+        }
+        public ActionResult CTBillTon(long id)
+        {
+            var dao = new CTBillDao();
+            var model = dao.ListAll(id).Where(x => x.NgayGiao == null).ToList();
             ViewBag.MaBill = new DMBillDao().GetById(id).MaBill;
             return View(model);
         }

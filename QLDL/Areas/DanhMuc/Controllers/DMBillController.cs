@@ -103,15 +103,19 @@ namespace QLDL.Areas.DanhMuc.Controllers
                         long id = dao.Insert(dMBill);
                         if (id > 0)
                         {
+                            if (cTBill.Cont != null)
+                            {
+                                if (ctbill.InsertCTBill(cTBill) > 0)
+                                {
+                                    SetAlert("Cont " + cTBill.Cont + " đã thêm thành công!", "success");
+                                }
+                                else
+                                {
+                                    SetAlert("Cont " + cTBill.Cont + " chưa thêm thành công!", "warning");
+                                }
+                            }
+                           
                             SetAlert("Đã thêm Bill thành công !", "success");
-                            if (ctbill.InsertCTBill(cTBill) > 0)
-                            {
-                                SetAlert("Cont " + cTBill.Cont + " đã thêm thành công!", "success");
-                            }
-                            else
-                            {
-                                SetAlert("Cont " + cTBill.Cont + " chưa thêm thành công!", "warning");
-                            }
                             return RedirectToAction("CTBill", "DMBill", new { id = ctbill.GetLastIdBill().Id });
                         }
                         else
@@ -241,9 +245,9 @@ namespace QLDL.Areas.DanhMuc.Controllers
             var model = dao.ListAll(id);
             ViewBag.Bill = Bill.MaBill;
             ViewBag.IdBill = Bill.Id;
-            ViewBag.KH = Bill.DMKhachHang.MaKH;
-            ViewBag.CN = Bill.DMCang.MaCang;
-            ViewBag.CT = Bill.DMCang1.MaCang;
+            ViewBag.KH = (Bill.KhachHang != null ? Bill.DMKhachHang.MaKH: null);
+            ViewBag.CN = (Bill.CangNhan != null ? Bill.DMCang.MaCang: null);
+            ViewBag.CT = (Bill.CangTra != null ? Bill.DMCang1.MaCang: null);
             return View(model);
         }
 
@@ -310,7 +314,7 @@ namespace QLDL.Areas.DanhMuc.Controllers
             var dao = new CTBillDao();
             var Bill = new DMBillDao().GetById(id);
             var model = dao.ListAll(Bill.Id);
-
+            ViewBag.IdBill = Bill.Id;
             return PartialView(model);
         }
 

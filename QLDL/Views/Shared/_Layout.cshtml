@@ -45,6 +45,19 @@
     <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/extensions/resizable/bootstrap-table-resizable.min.js"></script>
     <script src="~/Content/js/select2.min.js"></script>
     <script src="~/Content/js/Sites.js"></script>
+    <script>
+        var $table = $('#table')
+
+   
+
+        function expandTable($detail, cells) {
+            buildTable($detail.html('<table></table>').find('table'), cells, 1)
+        }
+
+        $(function () {
+            buildTable($table, 8, 1)
+        })
+    </script>
     <script src="~/Content/js/demo/table-bootstrap.js"></script>
 </body>
 

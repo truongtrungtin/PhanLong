@@ -2031,12 +2031,11 @@
     <Content Include="Areas\DanhMuc\Views\DMBill\ViewCTBill.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\ViewDMBill.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\UpdateCTBill.cshtml" />
-    <Content Include="Areas\NhapLieu\Views\PhatSinh\CTPhatSinh.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\ImportStatesExcel.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinh\KeHoach.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Index.cshtml" />
-    <Content Include="Areas\ThongKe\Views\Bill\BillTon.cshtml" />
-    <Content Include="Areas\ThongKe\Views\Bill\CTBill.cshtml" />
+    <Content Include="Areas\ThongKe\Views\Bill\BillBai.cshtml" />
+    <Content Include="Areas\ThongKe\Views\Bill\CTBillBai.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Create.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\ajaxDataBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\CTBill.cshtml" />
@@ -2052,6 +2051,9 @@
     <Content Include="Areas\DanhMuc\Views\DMThoiGian\Update.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\AddDay.cshtml" />
     <Content Include="Areas\ThongKe\Views\Bill\Index.cshtml" />
+    <Content Include="Areas\ThongKe\Views\Bill\BillTon.cshtml" />
+    <Content Include="Areas\ThongKe\Views\Bill\CTBillTon.cshtml" />
+    <Content Include="Areas\ThongKe\Views\Bill\ViewBill.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

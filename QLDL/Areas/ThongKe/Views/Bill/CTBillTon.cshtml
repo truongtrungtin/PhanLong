@@ -1,0 +1,100 @@
+﻿@model List<QLDL.EF.CTBill>
+@{
+    ViewBag.Title = "Chi tiết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card h-100">
+    <div class="card-body no-gutters">
+        <h4><b>@ViewBag.MaBill</b></h4>
+        <hr />
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped" id="dataTable" width="100%">
+                <thead>
+                    <tr>
+                        <th>Số Cont</th>
+                        <th>Độ dày</th>
+                        <th>Quy cách</th>
+                        <th>Trạng thái lưu Bãi (Ngày)</th>
+                        <th>Trạng thái lưu Cont (Ngày)</th>
+                        <th>Trạng thái lưu Rỗng (Ngày)</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        if (item.NgayGiao == null)
+                        {
+                            <tr>
+
+                                <td><a href="/NhapLieu/PhatSinhBill/Create/@item.Id">@item.Cont</a>  </td>
+                                <td>@item.DoDay</td>
+                                <td>@item.QuyCach</td>
+                                @if (item.HanLuuBai != null)
+                                {
+                                    var ngayluubai = (item.HanLuuBai.Value.Date - DateTime.Now.Date).TotalDays;
+                                    if (ngayluubai == 0)
+                                    {
+                                    }
+                                    else
+                                    {
+                                        <td style="color:red"> @(ngayluubai == 0 ? "Còn( " + ngayluubai + " Ngày)"  : "Quá hạn ( " + Math.Abs(ngayluubai) + " Ngày)") </td>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <td>Chưa có hạn lưu bãi</td>
+                                }
+                                @if (item.HanLuuCont != null)
+                                {
+                                    var ngayluucont = (item.HanLuuCont.Value.Date - DateTime.Now.Date).TotalDays;
+                                    if (ngayluucont == 0)
+                                    {
+                                        <td style="color:red"> Tới hạn </td>
+                                    }
+                                    else
+                                    {
+                                        <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <td>Chưa có hạn lưu cont</td>
+                                }
+                                @if (item.HanLuuRong != null)
+                                {
+
+                                    var ngayluurong = (item.HanLuuRong.Value.Date - DateTime.Now.Date).TotalDays;
+                                    if (ngayluurong == 0)
+                                    {
+                                        <td style="color:red"> Tới hạn </td>
+                                    }
+                                    else
+                                    {
+                                        <td style="color:red"> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <td>Chưa có hạn lưu rỗng</td>
+                                }
+                            </tr>
+                        }
+                        else
+                        {
+
+                        }
+
+                    }
+                </tbody>
+
+            </table>
+
+
+        </div>
+    </div>
+</div>
+
