@@ -18,15 +18,17 @@ namespace QLDL.Areas.NhapLieu.Controllers
             return View(model);
         }
 
-        public ActionResult AddDay()
+        public ActionResult Themngayguibai(int[] chkId, string delete = null)
         {
+            var dao = new PhatSinhBillDao();
             return View();
         }
+
         [HttpPost]
-        public ActionResult AddDay(CTBill cTBill)
+        public ActionResult Themngayguibai(CTBill cTBill, int[] chkId, string delete = null)
         {
-            var dao = new CTBillDao();
-            var resutl = dao.UpdateNGui(cTBill);
+            var dao = new PhatSinhBillDao();
+            var resutl = dao.checkboxguibai(cTBill, chkId);
             if (resutl)
             {
                 SetAlert("Thêm ngày gửi thành công", "success");
@@ -67,7 +69,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
         {
             ViewBag.MaBill = new DMBillDao().GetById(id).MaBill;
             var dao = new CTBillDao();
-            var model = dao.ListAll(id).Where(x => x.NgayGui != null);
+            var model = dao.ListAll(id);
             return View(model);
         }
     }

@@ -45,6 +45,14 @@ $(".show-column-footer").click(function (e) {
 
 })
 
+$(document).ready(function () {
+
+    var $submit = $("#ThemNgayLuuBai").hide(),
+        $cbs = $('input[name="checkbox"]').click(function () {
+            $submit.toggle($cbs.is(":checked"));
+        });
+
+});
 
 // Xóa những hàng được tích ô
 $("#delete").click(function () {

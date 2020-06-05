@@ -87,7 +87,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-4" for="HanLuuBai">Hạn Lưu Bãi</label>
                             <div class="col-md-8">
-                                <input type="text" name="HanLuuBai" class="form-control" value="@(Model.HanLuuBai != null ? Model.HanLuuBai.Value.ToShortDateString() : null)" />
+                                <input type="@(Model.HanLuuBai != null ? "text" : "date")" name="HanLuuBai" class="form-control" value="@(Model.HanLuuBai != null ? Model.HanLuuBai.Value.ToShortDateString() : null)" />
                             </div>
                         </div>
                     </div>
@@ -95,13 +95,13 @@
                         <div class="form-group">
                             <label class="control-label col-md-5" for="HanLuuCont">Hạn Lưu Cont</label>
                             <div class="col-md-7">
-                                <input type="text" name="HanLuuCont" class="form-control" value="@(Model.HanLuuCont != null ? Model.HanLuuCont.Value.ToShortDateString() : null)" />
+                                <input type="@(Model.HanLuuCont != null ? "text" : "date")" name="HanLuuCont" class="form-control" value="@(Model.HanLuuCont != null ? Model.HanLuuCont.Value.ToShortDateString() : null)" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-5" for="HanLuuRong">Hạn Lưu Rỗng</label>
                             <div class="col-md-7">
-                                <input type="text" name="HanLuuRong" class="form-control" value="@(Model.HanLuuRong != null ? Model.HanLuuRong.Value.ToShortDateString() : null)" />
+                                <input type="@(Model.HanLuuRong != null ? "text" : "date")" name="HanLuuRong" class="form-control" value="@(Model.HanLuuRong != null ? Model.HanLuuRong.Value.ToShortDateString() : null)" />
                             </div>
                         </div>
 

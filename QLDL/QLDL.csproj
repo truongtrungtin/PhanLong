@@ -178,6 +178,7 @@
     <Compile Include="DAO\DMThoiGianDao.cs" />
     <Compile Include="DAO\DmXeDao.cs" />
     <Compile Include="DAO\HinhThucTTDao.cs" />
+    <Compile Include="DAO\PhatSinhBillDao.cs" />
     <Compile Include="DAO\PhatSinhChiDao.cs" />
     <Compile Include="DAO\PhatSinhDao.cs" />
     <Compile Include="DAO\ThongKeLuong.cs" />
@@ -2049,7 +2050,7 @@
     <Content Include="Areas\DanhMuc\Views\DMThoiGian\ViewDMThoiGian.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMThoiGian\Create.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMThoiGian\Update.cshtml" />
-    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\AddDay.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Themngayguibai.cshtml" />
     <Content Include="Areas\ThongKe\Views\Bill\Index.cshtml" />
     <Content Include="Areas\ThongKe\Views\Bill\BillTon.cshtml" />
     <Content Include="Areas\ThongKe\Views\Bill\CTBillTon.cshtml" />

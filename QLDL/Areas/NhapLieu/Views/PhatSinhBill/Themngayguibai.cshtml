@@ -1,6 +1,6 @@
 ﻿@using QLDL.EF
 @{
-    ViewBag.Title = "Thêm ngày";
+    ViewBag.Title = "Thêm ngày gửi bãi";
     Layout = "~/Views/Shared/_Layout.cshtml";
     QLDLDBContext db = new QLDLDBContext();
     var i = 0;
@@ -9,26 +9,13 @@
     <div class="card h-100">
         <div class="card-body no-gutters">
             <h4><b>Thêm ngày gửi bãi vào Cont</b></h4>
-            @using (Html.BeginForm("AddDay", "PhatSinhBill", FormMethod.Post))
+            @using (Html.BeginForm("Themngayguibai", "PhatSinhBill", FormMethod.Post))
             {
                 <div class="row">
+                
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="control-label col-md-12" style="text-align:center">Số Cont</label>
-                            <select class="form-control  js-example-tags" name="Cont">
-                                <option value=null>Chọn cont</option>
-                                @foreach (var item in db.CTBills.Where(x => x.NgayGui == null))
-                                {
-                                    <option value="@item.Cont">@item.Cont</option>
-                                }
-
-                            </select>
-
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="control-label col-md-12" style="text-align:center">Số Cont</label>
+                            <label class="control-label col-md-12" style="text-align:center">Ngày gửi bãi</label>
                             <input type="date" class="form-control" name="NgayGui" value="" />
                         </div>
                     </div>
@@ -68,9 +55,9 @@
     <hr />
     <div class="card h-100">
         <div class="card-body no-gutters">
-            <h4><b>Danh sách <b>cont</b> chưa gửi bãi</b></h4>
+            <h4><b>Cont được chọn</b></h4>
             <div class="table-responsive">
-                <table class="table table-bordered table-striped" id="dataTable" width="100%">
+                <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
                     <thead>
                         <tr>
                             <th>STT</th>

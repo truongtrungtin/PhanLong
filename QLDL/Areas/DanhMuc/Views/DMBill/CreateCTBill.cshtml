@@ -76,7 +76,7 @@
                         </div>
 
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label col-md-4" for="Seal"><b>Seal</b></label>
                             <div class="col-md-8">
@@ -84,48 +84,31 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-4" for="SoXe">Số Xe</label>
+                            <label class="control-label col-md-4" for="HanLuuBai">Hạn Lưu Bãi</label>
                             <div class="col-md-8">
-                                <select name="SoXe" class="form-control js-example-tags" required>
-                                    <option value="NULL">Chọn số xe</option>
-                                    @foreach (var item in db.DMXes)
-                                    {
-                                        <option value="@item.Id">@item.BienSo</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-md-2">
-                        <div class="form-group">
-                            <label class="control-label col-md-5" for="HanLuuBai">Hạn Lưu Bãi</label>
-                            <div class="col-md-7">
                                 <input type="date" name="HanLuuBai" class="form-control" value="" />
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group">
                             <label class="control-label col-md-5" for="HanLuuCont">Hạn Lưu Cont</label>
                             <div class="col-md-7">
                                 <input type="date" name="HanLuuCont" class="form-control" value="" />
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-2">
-
                         <div class="form-group">
                             <label class="control-label col-md-5" for="HanLuuRong">Hạn Lưu Rỗng</label>
                             <div class="col-md-7">
                                 <input type="date" name="HanLuuRong" class="form-control" value="" />
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3" style="margin-left:40px" for="GhiChu">Ghi chú</label>
-                            <div class="col-md-7">
-                                <textarea type="text" name="GhiChu" class="form-control" value=""></textarea>
-                            </div>
-                        </div>
                     </div>
+
+                </div>
+                <div class="form-group">
+                    <label class="control-label" style="margin-left:40px" for="GhiChu">Ghi chú</label>
+                    <textarea type="text" style="margin-left:40px; width:50%;" name="GhiChu" class="form-control" value=""></textarea>
                 </div>
             </div>
 

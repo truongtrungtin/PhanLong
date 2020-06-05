@@ -2,104 +2,110 @@
 @{
     ViewBag.Title = "Chi tiết";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var stt = 0;
 }
+
+<h4><b>Cont chưa gửi bãi</b></h4>
+<span><b>Khách hàng: </b> @(ViewBag.KH != null ? ViewBag.KH : "Chưa có") </span> | <span><b>Cảng nhận: </b> @(ViewBag.CN != null ? ViewBag.CN : "Chưa có") </span> | <span><b>Cảng trả: </b> @(ViewBag.CT != null ? ViewBag.CT : "Chưa có") </span> | <span><b>Ngày tàu đến: </b> @(ViewBag.TD != null ? ViewBag.TD : "Chưa có") </span>
 <div class="card h-100">
     <div class="card-body no-gutters">
         <h4><b>@ViewBag.MaBill</b></h4>
         <hr />
         <div class="table-responsive">
-            <table class="table table-bordered table-striped" id="dataTable" width="100%">
-                <thead>
-                    <tr>
-                        <th>Số Cont</th>
-                        <th>Độ dày</th>
-                        <th>Quy cách</th>
-                        <th>Trạng thái lưu Bãi (Ngày)</th>
-                        <th>Trạng thái lưu Cont (Ngày)</th>
-                        <th>Trạng thái lưu Rỗng (Ngày)</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                    @foreach (var item in Model)
-                    {
-                        if (item.NgayGui == null)
+                <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Số Cont</th>
+                            <th>Độ dày</th>
+                            <th>Quy cách</th>
+                            <th>Trạng thái lưu Bãi (Ngày)</th>
+                            <th>Trạng thái lưu Cont (Ngày)</th>
+                            <th>Trạng thái lưu Rỗng (Ngày)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
                         {
-                            <tr>
-
-                                <td><a href="/NhapLieu/PhatSinhBill/Create/@item.Id">@item.Cont</a>  </td>
-                                <td>@item.DoDay</td>
-                                <td>@item.QuyCach</td>
-                                @if (item.HanLuuBai != null)
-                                {
-                                    var ngayluubai = (item.HanLuuBai.Value.Date - DateTime.Now.Date).TotalDays;
-                                    if (ngayluubai == 0)
+                            stt += 1;
+                            if (item.NgayGui == null)
+                            {
+                                <tr>
+                                    <td>@stt</td>
+                                    <td><a href="/NhapLieu/PhatSinhBill/Create/@item.Id">@item.Cont</a>  </td>
+                                    <td>@item.DoDay</td>
+                                    <td>@item.QuyCach</td>
+                                    @if (item.HanLuuBai != null)
                                     {
-                                        <td style="color:red"> Tới hạn </td>
+                                        var ngayluubai = (item.HanLuuBai.Value.Date - DateTime.Now.Date).TotalDays;
+                                        if (ngayluubai == 0)
+                                        {
+                                            <td style="color:red"> Tới hạn </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluubai > 0 ? "Còn( " + ngayluubai + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluubai) + " Ngày)"  ) </td>
+
+                                        }
                                     }
                                     else
                                     {
-                                        <td style="color:red"> @(ngayluubai > 0 ? "Còn( " + ngayluubai + " Ngày)" : "Quá hạn ( " +  Math.Abs(ngayluubai) + " Ngày)"  ) </td>
-
+                                        <td>
+                                            Chưa có ngày lưu bãi
+                                        </td>
                                     }
-                                }
-                                else
-                                {
-                                    <td>
-                                        Chưa có ngày lưu bãi
-                                    </td>
-                                }
-                                @if (item.HanLuuCont != null)
-                                {
-                                    var ngayluucont = (item.HanLuuCont.Value.Date - DateTime.Now.Date).TotalDays;
-                                    if (ngayluucont == 0)
+                                    @if (item.HanLuuCont != null)
                                     {
-                                        <td style="color:red"> Tới hạn </td>
+                                        var ngayluucont = (item.HanLuuCont.Value.Date - DateTime.Now.Date).TotalDays;
+                                        if (ngayluucont == 0)
+                                        {
+                                            <td style="color:red"> Tới hạn </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
+
+                                        }
                                     }
                                     else
                                     {
-                                        <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
-
+                                        <td>
+                                            Chưa có ngày lưu cont
+                                        </td>
                                     }
-                                }
-                                else
-                                {
-                                    <td>
-                                        Chưa có ngày lưu cont
-                                    </td>
-                                }
 
-                                @if (item.HanLuuRong != null)
-                                {
-                                    var ngayluurong = (item.HanLuuRong.Value.Date - DateTime.Now.Date).TotalDays;
-                                    if (ngayluurong == 0)
+                                    @if (item.HanLuuRong != null)
                                     {
-                                        <td style="color:red"> Tới hạn </td>
+                                        var ngayluurong = (item.HanLuuRong.Value.Date - DateTime.Now.Date).TotalDays;
+                                        if (ngayluurong == 0)
+                                        {
+                                            <td style="color:red"> Tới hạn </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
+                                        }
                                     }
                                     else
                                     {
-                                        <td style="color:red"> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
+                                        <td>
+                                            Chưa có ngày lưu rỗng
+                                        </td>
                                     }
-                                }
-                                else
-                                {
-                                    <td>
-                                        Chưa có ngày lưu rỗng
-                                    </td>
-                                }
-                            </tr>
+                                </tr>
+                            }
+                            else
+                            {
+
+                            }
+
                         }
-                        else
-                        {
+                    </tbody>
 
-                        }
-
-                    }
-                </tbody>
-
-            </table>
-
-
+                </table>
+                
+            
+            <a class="btn btn-warning" href="/ThongKe/Bill">Trở lại</a>
         </div>
     </div>
 </div>

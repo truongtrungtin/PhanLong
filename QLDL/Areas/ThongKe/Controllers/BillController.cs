@@ -51,15 +51,25 @@ namespace QLDL.Areas.ThongKe.Controllers
         public ActionResult CTBillBai(long id)
         {
             var dao = new CTBillDao();
+            var bill = new DMBillDao().GetById(id);
+            ViewBag.MaBill = bill.MaBill;
+            ViewBag.KH = (bill.KhachHang != null ? bill.DMKhachHang.TenCongTy : null);
+            ViewBag.TD = (bill.NgayTauDen != null ? bill.NgayTauDen.Value.ToShortDateString() : null);
+            ViewBag.CN = (bill.CangNhan != null ? bill.DMCang.TenCang : null);
+            ViewBag.CT = (bill.CangTra != null ? bill.DMCang1.TenCang : null);
             var model = dao.ListAll(id).Where(x => x.NgayGui == null).ToList();
-            ViewBag.MaBill = new DMBillDao().GetById(id).MaBill;
             return View(model);
         }
         public ActionResult CTBillTon(long id)
         {
             var dao = new CTBillDao();
+            var bill = new DMBillDao().GetById(id);
+            ViewBag.MaBill = bill.MaBill;
+            ViewBag.KH = (bill.KhachHang != null ? bill.DMKhachHang.TenCongTy : null);
+            ViewBag.TD = (bill.NgayTauDen != null ? bill.NgayTauDen.Value.ToShortDateString() : null);
+            ViewBag.CN = (bill.CangNhan != null ? bill.DMCang.TenCang : null);
+            ViewBag.CT = (bill.CangTra != null ? bill.DMCang1.TenCang : null);
             var model = dao.ListAll(id).Where(x => x.NgayGiao == null).ToList();
-            ViewBag.MaBill = new DMBillDao().GetById(id).MaBill;
             return View(model);
         }
     }

@@ -35,7 +35,7 @@ namespace QLDL.DAO
         }
         public List<CTBill> ListAll(long? bill)
         {
-            return db.CTBills.Where(x => x.Bill == bill).OrderByDescending(x => x.NgayGiao).ToList();
+            return db.CTBills.Where(x => x.Bill == bill).OrderByDescending(x => (x.NgayGiao != null ? x.NgayGiao : x.NgayGui)).ToList();
         }
 
 
