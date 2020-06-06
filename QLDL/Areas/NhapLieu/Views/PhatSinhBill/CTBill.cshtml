@@ -5,7 +5,7 @@
     var stt = 0;
 }
 
-@using (Html.BeginForm("Themngayguibai", "PhatSinhBill", FormMethod.Post))
+@using (Html.BeginForm("Create", "PhatSinhBill", FormMethod.Post))
 {
     <h4><b>Phát Sinh Bill</b></h4>
     <div class="card h-100">
@@ -14,7 +14,7 @@
                 <b>Số Bill: @ViewBag.MaBill</b>
                 <input type="submit" value="Thêm ngày gửi bãi" name="themngayguibai" id="themngayguibai" class="btn btn-primary" />
                 <input type="submit" value="Thêm ngày giao" name="themngaygiao" id="themngaygiao" class="btn btn-primary" />
-
+                <input type="hidden" name="Bill" value="@ViewBag.IdBill" />
             </h4>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">

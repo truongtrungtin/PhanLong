@@ -62,6 +62,7 @@ namespace QLDL.DAO
                 item.DiaChi = dMKho.DiaChi;
                 item.NguoiLienHe = dMKho.NguoiLienHe;
                 item.SoDienThoai = dMKho.SoDienThoai;
+                item.DiaChiChiTiet = dMKho.DiaChiChiTiet;
                 db.SaveChanges();
                 return true;
             }

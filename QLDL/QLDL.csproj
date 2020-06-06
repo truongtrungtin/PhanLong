@@ -2037,7 +2037,6 @@
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Index.cshtml" />
     <Content Include="Areas\ThongKe\Views\Bill\BillBai.cshtml" />
     <Content Include="Areas\ThongKe\Views\Bill\CTBillBai.cshtml" />
-    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Create.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\ajaxDataBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\CTBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\Update.cshtml" />
@@ -2050,11 +2049,12 @@
     <Content Include="Areas\DanhMuc\Views\DMThoiGian\ViewDMThoiGian.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMThoiGian\Create.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMThoiGian\Update.cshtml" />
-    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Themngayguibai.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Create.cshtml" />
     <Content Include="Areas\ThongKe\Views\Bill\Index.cshtml" />
     <Content Include="Areas\ThongKe\Views\Bill\BillTon.cshtml" />
     <Content Include="Areas\ThongKe\Views\Bill\CTBillTon.cshtml" />
     <Content Include="Areas\ThongKe\Views\Bill\ViewBill.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Filter.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

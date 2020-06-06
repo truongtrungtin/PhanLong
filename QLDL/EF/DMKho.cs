@@ -25,6 +25,9 @@ namespace QLDL.EF
         public string DiaChi { get; set; }
 
         [StringLength(250)]
+        public string DiaChiChiTiet { get; set; }
+
+        [StringLength(250)]
         public string NguoiLienHe { get; set; }
 
         [StringLength(11)]

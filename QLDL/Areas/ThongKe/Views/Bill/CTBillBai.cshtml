@@ -5,16 +5,25 @@
     var stt = 0;
 }
 
+
 <h4><b>Cont chưa gửi bãi</b></h4>
 <span><b>Khách hàng: </b> @(ViewBag.KH != null ? ViewBag.KH : "Chưa có") </span> | <span><b>Cảng nhận: </b> @(ViewBag.CN != null ? ViewBag.CN : "Chưa có") </span> | <span><b>Cảng trả: </b> @(ViewBag.CT != null ? ViewBag.CT : "Chưa có") </span> | <span><b>Ngày tàu đến: </b> @(ViewBag.TD != null ? ViewBag.TD : "Chưa có") </span>
-<div class="card h-100">
-    <div class="card-body no-gutters">
-        <h4><b>@ViewBag.MaBill</b></h4>
-        <hr />
-        <div class="table-responsive">
+@using (Html.BeginForm("Create", "PhatSinhBill", new { area = "NhapLieu" }, FormMethod.Post))
+{
+    <input type="hidden" name="Bill" value="@ViewBag.IdBill" />
+    <div class="card h-100">
+        <div class="card-body no-gutters">
+            <h4>
+                <b>@ViewBag.MaBill</b>
+                <input type="submit" value="Thêm ngày gửi bãi" name="themngayguibai" id="themngayguibai" class="btn btn-primary" />
+            </h4>
+
+            <hr />
+            <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
                     <thead>
                         <tr>
+                            <th width="1%"><input type='checkbox' id='check' value='' /></th>
                             <th>STT</th>
                             <th>Số Cont</th>
                             <th>Độ dày</th>
@@ -31,6 +40,7 @@
                             if (item.NgayGui == null)
                             {
                                 <tr>
+                                    <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
                                     <td>@stt</td>
                                     <td><a href="/NhapLieu/PhatSinhBill/Create/@item.Id">@item.Cont</a>  </td>
                                     <td>@item.DoDay</td>
@@ -103,10 +113,11 @@
                     </tbody>
 
                 </table>
-                
-            
-            <a class="btn btn-warning" href="/ThongKe/Bill">Trở lại</a>
+
+
+                <a class="btn btn-warning" href="/ThongKe/Bill">Trở lại</a>
+            </div>
         </div>
     </div>
-</div>
 
+}

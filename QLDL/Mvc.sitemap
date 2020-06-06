@@ -61,9 +61,7 @@
       <mvcSiteMapNode title="Chỉnh sửa chi tiết" controller="PhatSinhChi" action="UpdateCTChi" preservedRouteParameters="id"/>
     </mvcSiteMapNode>
     <mvcSiteMapNode title="Phát Sinh Bill" controller="PhatSinhBill" action="Index" area="NhapLieu">
-      <mvcSiteMapNode title="Thêm mới" controller="PhatSinhBill" action="Create" preservedRouteParameters="id" />
-      <mvcSiteMapNode title="Thêm mới" controller="PhatSinhBill" action="AddDay" preservedRouteParameters="id" />
-      <mvcSiteMapNode title="Sửa" controller="PhatSinhBill" action="Update" preservedRouteParameters="id"/>
+      <mvcSiteMapNode title="Thêm" controller="PhatSinhBill" action="Create" preservedRouteParameters="id" />
       <mvcSiteMapNode title="Chi tiết" controller="PhatSinhBill" action="CTBill" preservedRouteParameters="id"/>
     </mvcSiteMapNode>
     <mvcSiteMapNode title="Thống Kê Bill" controller="Bill" action="Index" area="ThongKe">

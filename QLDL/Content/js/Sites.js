@@ -1,4 +1,7 @@
-﻿//Xử lý  dropdown
+﻿var $ngayguibai = $('#themngayguibai')
+
+
+//Xử lý  dropdown
 $(document).ready(function () {
     $('#Cont').on('change', function () {
         var ContId = $(this).val();
@@ -45,12 +48,26 @@ $(".show-column-footer").click(function (e) {
 
 })
 
-$(document).ready(function () {
 
-    var $submit = $("#ThemNgayLuuBai").hide(),
-        $cbs = $('input[name="checkbox"]').click(function () {
-            $submit.toggle($cbs.is(":checked"));
-        });
+$("#themngayguibai").click(function () {
+    var checkboxes = document.querySelectorAll('input[name="chkId[]"]:checked').length;
+    if (checkboxes > 0) {
+        return true;
+    } else {
+        alert("không có cont nào được chọn!!");
+        return false;
+    }
+
+});
+
+$("#themngaygiao").click(function () {
+    var checkboxes = document.querySelectorAll('input[name="chkId[]"]:checked').length;
+    if (checkboxes > 0) {
+        return true;
+    } else {
+        alert("không có cont nào được chọn!!");
+        return false;
+    }
 
 });
 

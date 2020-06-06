@@ -20,6 +20,8 @@ namespace QLDL.Areas.ThongKe.Controllers
         [HttpPost]
         public ActionResult Index(string searchString)
         {
+            var dao = new DMBillDao();
+            var model = dao.ListAll();
             return View();
         }
         //Bill chưa gửi bãi
@@ -53,6 +55,7 @@ namespace QLDL.Areas.ThongKe.Controllers
             var dao = new CTBillDao();
             var bill = new DMBillDao().GetById(id);
             ViewBag.MaBill = bill.MaBill;
+            ViewBag.IdBill = bill.Id;
             ViewBag.KH = (bill.KhachHang != null ? bill.DMKhachHang.TenCongTy : null);
             ViewBag.TD = (bill.NgayTauDen != null ? bill.NgayTauDen.Value.ToShortDateString() : null);
             ViewBag.CN = (bill.CangNhan != null ? bill.DMCang.TenCang : null);
@@ -65,6 +68,7 @@ namespace QLDL.Areas.ThongKe.Controllers
             var dao = new CTBillDao();
             var bill = new DMBillDao().GetById(id);
             ViewBag.MaBill = bill.MaBill;
+            ViewBag.IdBill = bill.Id;
             ViewBag.KH = (bill.KhachHang != null ? bill.DMKhachHang.TenCongTy : null);
             ViewBag.TD = (bill.NgayTauDen != null ? bill.NgayTauDen.Value.ToShortDateString() : null);
             ViewBag.CN = (bill.CangNhan != null ? bill.DMCang.TenCang : null);
