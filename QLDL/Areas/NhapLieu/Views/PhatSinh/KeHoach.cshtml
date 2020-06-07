@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     QLDLDBContext db = new QLDLDBContext();
-    var data = db.CTBills.Where(x => x.Bill == Model.DMBill.Id && x.Cont == Model.SoCont).FirstOrDefault();
+    var data = db.CTBills.Where(x => x.Loai == Model.Loai && x.Cont == Model.SoCont).FirstOrDefault();
 }
     <div style="width:8in;height:5.5in" class="container">
         <br />
@@ -58,7 +58,7 @@
                         <h5>Ngày tàu đến:</h5>
                     </td>
                     <td width="30%">
-                        <h5><b>@Model.DMBill.NgayTauDen</b></h5>
+                        <h5><b>@(Model.DMBill != null ? Model.DMBill.NgayTauDen : null)</b></h5>
                     </td>
                 </tr>
                 <tr>
@@ -97,22 +97,22 @@
                     <tr>
                         <td><h5>@(Model.SoCont != null ? Model.SoCont : null)</h5></td>
                         <td><h5>@(data != null ? data.SoDK : null)</h5></td>
-                        <td><h5>@Model.DMLoai.MoTa</h5></td>
-                        <td><h5>@Model.DMLoai.MoTa1</h5></td>
+                        <td><h5>@(Model.Loai != null ? Model.DMLoai.MoTa : null)</h5></td>
+                        <td><h5>@(Model.Loai != null ? Model.DMLoai.MoTa1 : null)</h5></td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <table width="100%">
             <tr>
-                <td width="50%"><h5>Cảng nâng: <b>@Model.DMCang.TenCang</b></h5></td>
-                <td width="50%"><h5>Cảng hạ: <b>@Model.DMCang1.TenCang</b></h5></td>
+                <td width="50%"><h5>Cảng nâng: <b>@(Model.CangNhan != null ? Model.DMCang.TenCang : null)</b></h5></td>
+                <td width="50%"><h5>Cảng hạ: <b>@(Model.CangTra != null ? Model.DMCang1.TenCang : null)</b></h5></td>
             </tr>
             <tr>
-                <td width="100%" colspan="2" style="text-align:left"><h5>Địa chỉ giao/nhận: <b>@Model.DMKho.DiaChi</b></h5></td>
+                <td width="100%" colspan="2" style="text-align:left"><h5>Địa chỉ giao/nhận: <b>@(Model.Kho != null  ? Model.DMKho.DiaChi : null) </b></h5></td>
             </tr>
             <tr>
-                <td width="100%" colspan="2"><h5>Người liên hệ: <b>@Model.DMKho.NguoiLienHe</b> - Số DT: <b>@Model.DMKho.SoDienThoai</b></h5></td>
+                <td width="100%" colspan="2"><h5>Người liên hệ: <b>@(Model.Kho != null ? Model.DMKho.NguoiLienHe : null)</b> - Số DT: <b>@(Model.Kho != null ? Model.DMKho.SoDienThoai : null)</b></h5></td>
             </tr>
             <tr>
                 <td width="100%" colspan="2" style="text-align:left"><h5>Ghi chú: <b>@Model.GhiChu</b></h5></td>
