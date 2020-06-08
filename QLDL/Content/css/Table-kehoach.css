@@ -1,6 +1,10 @@
-﻿.tg {
+﻿body {
+    line-height: 15px;
+}
+.tg {
     border-collapse: collapse;
     border-spacing: 0;
+    
 }
 
     .tg td {

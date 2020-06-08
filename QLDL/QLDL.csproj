@@ -158,6 +158,7 @@
     <Compile Include="Areas\NhapLieu\NhapLieuAreaRegistration.cs" />
     <Compile Include="Areas\ThongKe\Controllers\BaseController.cs" />
     <Compile Include="Areas\ThongKe\Controllers\BillController.cs" />
+    <Compile Include="Areas\ThongKe\Controllers\ChiTietController.cs" />
     <Compile Include="Areas\ThongKe\Controllers\HoaDonHangHoaController.cs" />
     <Compile Include="Areas\ThongKe\ThongKeAreaRegistration.cs" />
     <Compile Include="Common\NumberToText.cs" />
@@ -2057,6 +2058,7 @@
     <Content Include="Areas\ThongKe\Views\Bill\ViewBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Filter.cshtml" />
     <Content Include="Areas\ThongKe\Views\Bill\CTBill.cshtml" />
+    <Content Include="Areas\ThongKe\Views\ChiTiet\Index.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
