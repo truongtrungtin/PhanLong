@@ -2,37 +2,37 @@
 @using QLDL.EF
 @{
     ViewBag.Title = "KeHoach";
+    ViewBag.Style = "/Content/css/Table-kehoach.css";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     QLDLDBContext db = new QLDLDBContext();
     var data = db.CTBills.Where(x => x.Loai == Model.Loai && x.Cont == Model.SoCont).FirstOrDefault();
 }
     <div style="width:8in;height:5.5in" class="container">
-        <br />
-        <br />
-        <table class="table" style="width:100%">
-            <tr>
-                <td style="width:10%"><img style="width:50px;height:50px" src="~/Images/logo.png" /></td>
-                <td style="width:60%"><h5 style="text-align:left">Công ty TNHH Phan Long</h5></td>
-                <td style="width:30%">
-                    <h5 style="text-align:right">
-                        Ngày: <b>@Model.Ngay</b>
-                    </h5>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3"><h4><b>Kế hoạch giao/nhận</b></h4></td>
-            </tr>
-            <tr>
-                <td colspan="3"><h5>Tài xế: <b>@Model.DMNhanVien.TenNV</b>&emsp;|&emsp; Số xe: <b>@Model.DMXe.BienSo</b></h5></td>
-            </tr>
-        </table>
-        <br />
-        <table width="100%">
-            <tr>
-                <td width="15%"><h5>TT xuất HD: </h5></td>
-                <td width="85%">
-                    <h5>
+        <table class="tg" style="table-layout: fixed; width:8in;height:5.5in">
+            <colgroup>
+                <col style="width: 106px">
+                <col style="width: 197px">
+                <col style="width: 140px">
+                <col style="width: 141px">
+                <col style="width: 128px">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th class="tg-8n49" colspan="2"><img style="width:50px;height:50px" src="~/Images/logo.png" /><b>Công ty TNHH Phan Long</b></th>
+                    <th class="tg-clnv" colspan="3"><b>Ngày:</b> @Model.Ngay</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="tg-7eit" colspan="5"><h4><b>Kế hoạch giao/nhận</b></h4></td>
+                </tr>
+                <tr>
+                    <td class="tg-7eit" colspan="5"><h5> <b>Tài xế:</b> @(Model.TenTX != null ? Model.DMNhanVien.TenNV : null)&emsp;|&emsp; <b>Số xe: </b>@(Model.Xe != null ? Model.DMXe.BienSo: null)</h5></td>
+                </tr>
+                <tr>
+                    <td class="tg-8n48"><h5>TT xuất HD: </h5></td>
+                    <td class="tg-7eiz" colspan="4">
                         <b>
                             <select class="form-control js-example-tags">
                                 @foreach (var item in db.DMKhachHangs)
@@ -41,87 +41,51 @@
                                 }
                             </select>
                         </b>
-                    </h5>
-                </td>
-            </tr>
-        </table>
-        <div style="border: solid 1px;height:139px">
-            <table class="dataTable" width="100%">
-                <tr>
-                    <td width="20%">
-                        <h5>Bill/Booking:</h5>
-                    </td>
-                    <td width="30%">
-                        <h5><b>@(Model.DMBill != null ? Model.DMBill.MaBill : null)</b></h5>
-                    </td>
-                    <td width="20%">
-                        <h5>Ngày tàu đến:</h5>
-                    </td>
-                    <td width="30%">
-                        <h5><b>@(Model.DMBill != null ? Model.DMBill.NgayTauDen : null)</b></h5>
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <h5>Hạn lưu bãi:</h5>
-                    </td>
-                    <td>
-                        <b>@(data != null ? data.HanLuuBai.Value.ToShortDateString() : null)</b>
-                    </td>
-                    <td>
-                        <h5>Hạn lưu rỗng:</h5>
-                    </td>
-                    <td>
-                        <b>@(data != null ? data.HanLuuRong.Value.ToShortDateString() : null)</b>
-                    </td>
+                    <td class="tg-9wq7" colspan="2"><b>Bill/Booking:</b> @(Model.DMBill != null ? Model.DMBill.MaBill : null)</td>
+                    <td class="tg-9wq6" colspan="3"><b>Ngày tàu đến:</b> @(Model.DMBill != null ? Model.DMBill.NgayTauDen : null)</td>
                 </tr>
-            </table>
-            <table class="dataTable table-bordered" width="100%">
-                <thead>
-                    <tr>
-                        <td>
-                            <h5><b>Số cont</b></h5>
-                        </td>
-                        <td>
-                            <h5><b>Số DK</b></h5>
-                        </td>
-                        <td>
-                            <h5><b>Kích cỡ</b></h5>
-                        </td>
-                        <td>
-                            <h5><b>Loại hàng</b></h5>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><h5>@(Model.SoCont != null ? Model.SoCont : null)</h5></td>
-                        <td><h5>@(data != null ? data.SoDK : null)</h5></td>
-                        <td><h5>@(Model.Loai != null ? Model.DMLoai.MoTa : null)</h5></td>
-                        <td><h5>@(Model.Loai != null ? Model.DMLoai.MoTa1 : null)</h5></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <table width="100%">
-            <tr>
-                <td width="50%"><h5>Cảng nâng: <b>@(Model.CangNhan != null ? Model.DMCang.TenCang : null)</b></h5></td>
-                <td width="50%"><h5>Cảng hạ: <b>@(Model.CangTra != null ? Model.DMCang1.TenCang : null)</b></h5></td>
-            </tr>
-            <tr>
-                <td width="100%" colspan="2" style="text-align:left"><h5>Địa chỉ giao/nhận: <b>@(Model.Kho != null  ? Model.DMKho.DiaChi : null) </b></h5></td>
-            </tr>
-            <tr>
-                <td width="100%" colspan="2"><h5>Người liên hệ: <b>@(Model.Kho != null ? Model.DMKho.NguoiLienHe : null)</b> - Số DT: <b>@(Model.Kho != null ? Model.DMKho.SoDienThoai : null)</b></h5></td>
-            </tr>
-            <tr>
-                <td width="100%" colspan="2" style="text-align:left"><h5>Ghi chú: <b>@Model.GhiChu</b></h5></td>
-            </tr>
-        </table>
-        
-        <div style="width:100%;text-align:right">
-            <button class="btn btn-primary hidden-print" onclick="window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
-        </div>
-    </div>
+                <tr>
+                    <td class="tg-81u1" colspan="2"><b>Hạn lưu bãi: </b> @(data != null ? data.HanLuuBai.Value.ToShortDateString() : null)</td>
+                    <td class="tg-81u0" colspan="3"><b>Hạn lưu rỗng: </b> @(data != null ? data.HanLuuRong.Value.ToShortDateString() : null)</td>
+                </tr>
+                <tr>
+                    <td class="tg-vhtn" colspan="2"><b>Số Cont</b></td>
+                    <td class="tg-vhtn"><b>Số đăng ký</b></td>
+                    <td class="tg-vhtn"><b>Kích cỡ</b></td>
+                    <td class="tg-vhtn"><b>loại hàng</b></td>
+                </tr>
+                <tr>
+                    <td class="tg-vhtn" colspan="2">@(Model.SoCont != null ? Model.SoCont : null)</td>
+                    <td class="tg-vhtn">@(data != null ? data.SoDK : null)</td>
+                    <td class="tg-vhtn">@(Model.Loai != null ? Model.DMLoai.MoTa : null)</td>
+                    <td class="tg-vhtn">@(Model.Loai != null ? Model.DMLoai.MoTa1 : null)</td>
+                </tr>
+                <tr>
+                    <td class="tg-8n49" colspan="2"><b>Cảng nâng:  </b>@(Model.CangNhan != null ? Model.DMCang.TenCang : null)</td>
+                    <td class="tg-8n49" colspan="3"><b>Cảng hạ:  </b>@(Model.CangTra != null ? Model.DMCang1.TenCang : null)</td>
+                </tr>
+                <tr>
+                    <td class="tg-8n49" colspan="5"><b>Địa chỉ giao/nhận:  </b>@(Model.Kho != null  ? Model.DMKho.DiaChi : null) </td>
+                </tr>
+                <tr>
+                    <td class="tg-8n49" colspan="2"><b>Người liên hệ: </b>@(Model.Kho != null ? Model.DMKho.NguoiLienHe : null)</td>
+                    <td class="tg-8n49" colspan="3"><b>Số DT: </b>@(Model.Kho != null ? Model.DMKho.SoDienThoai : null)</td>
+                </tr>
+                <tr>
+                    <td class="tg-8n49" colspan="5"> <b>Ghi chú: </b>@Model.GhiChu</td>
+                </tr>
+                <tr>
+                    <td class="tg-8n49" colspan="4"></td>
+                    <td class="tg-8n49">
+                        <button class="btn btn-primary hidden-print" onclick="window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
+                    </td>
 
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
 
