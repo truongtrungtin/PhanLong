@@ -2055,6 +2055,7 @@
     <Content Include="Areas\ThongKe\Views\Bill\CTBillTon.cshtml" />
     <Content Include="Areas\ThongKe\Views\Bill\ViewBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Filter.cshtml" />
+    <Content Include="Areas\ThongKe\Views\Bill\CTBill.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

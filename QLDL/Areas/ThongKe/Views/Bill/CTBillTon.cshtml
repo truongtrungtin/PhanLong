@@ -4,7 +4,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     var stt = 0;
 }
-<h4><b>Cont chưa giao</b></h4>
+<h4>
+    <b>@ViewBag.MaBill</b>
+</h4>
 <span><b>Khách hàng: </b> @(ViewBag.KH != null ? ViewBag.KH : "Chưa có") </span> | <span><b>Cảng nhận: </b> @(ViewBag.CN != null ? ViewBag.CN : "Chưa có") </span> | <span><b>Cảng trả: </b> @(ViewBag.CT != null ? ViewBag.CT : "Chưa có") </span> | <span><b>Ngày tàu đến: </b> @(ViewBag.TD != null ? ViewBag.TD : "Chưa có") </span>
 @using (Html.BeginForm("Create", "PhatSinhBill", new { area = "NhapLieu" }, FormMethod.Post))
 {
@@ -12,7 +14,7 @@
     <div class="card h-100">
         <div class="card-body no-gutters">
             <h4>
-                <b>@ViewBag.MaBill</b>
+                <b>Cont chưa giao</b>
                 <input type="submit" value="Thêm ngày giao" name="themngaygiao" id="themngaygiao" class="btn btn-primary" />
             </h4>
             <hr />
@@ -106,8 +108,7 @@
                     </tbody>
 
                 </table>
-
-
+                <a class="btn btn-warning" href="/ThongKe/Bill">Trở lại</a>
             </div>
         </div>
     </div>

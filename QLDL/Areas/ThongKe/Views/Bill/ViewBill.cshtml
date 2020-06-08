@@ -17,11 +17,12 @@
                         <th></th>
                         <th data-field="stt" data-sortable="true">STT</th>
                         <th>Mã Bill</th>
-                        <th>Ngày Tàu Đến</th>
+                        <th>Tổng Cont</th>
+                        <th data-sortable="true">Ngày Tàu Đến</th>
                         <th>Khách hàng</th>
                         <th>Cảng nhận</th>
                         <th>Cảng trả</th>
-                        <th>Ngày hoàn tất</th>
+                        <th data-sortable="true">Ngày hoàn tất</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,9 +34,10 @@
                         {
                             stt += 1;
                             <tr>
-                                <td>@Html.ActionLink("Chi tiết", "CTBillTon", new { id = item.Id }, new { @class = "btn btn-primary" })</td>
+                                <td>@Html.ActionLink("Chi tiết", "CTBill", new { id = item.Id }, new { @class = "btn btn-primary" })</td>
                                 <td>@stt</td>
                                 <td>@item.MaBill</td>
+                                <td>@item.CTBills.Count</td>
                                 <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString(): null )</td>
                                 <td>@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)</td>
                                 <td>@(item.CangNhan != null ? item.DMCang.TenCang : null)</td>
