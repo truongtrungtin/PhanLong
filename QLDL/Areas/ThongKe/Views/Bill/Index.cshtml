@@ -7,6 +7,9 @@
     var billbai = 0;
     var bill = 0;
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 <h3><b>Thống kê Bill</b></h3>
 
 <div class="row">
@@ -16,7 +19,7 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-lg font-weight-bold text-primary text-uppercase mb-1"><a href="#" data-toggle="collapse" data-target="#tongbill">Tổng Bill</a></div>
+                        <div class="text-lg font-weight-bold text-primary text-uppercase mb-1"><a  data-toggle="tab" href="#tongbill">Tổng Bill</a></div>
                         <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.Count()</div>
                     </div>
                     <div class="col-auto">
@@ -31,11 +34,11 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-lg font-weight-bold text-info text-uppercase mb-1"><a href="#" data-toggle="collapse" data-target="#bill">Bill hoàn tất</a></div>
+                        <div class="text-lg font-weight-bold text-info text-uppercase mb-1"><a  data-toggle="tab" href="#bill">Bill hoàn tất</a></div>
                         @foreach (var item in Model)
                         {
                             var songay = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGiao != null && x.NgayGui != null).ToList();
-                            if (songay.Count() == item.CTBills.Count() && songay.Count()> 0)
+                            if (songay.Count() == item.CTBills.Count() && songay.Count() > 0)
                             {
                                 bill += 1;
                             }
@@ -55,10 +58,10 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-lg font-weight-bold text-warning text-uppercase mb-1"><a href="#" data-toggle="collapse" data-target="#billbai">Bill chưa gửi bãi</a></div>
+                        <div class="text-lg font-weight-bold text-warning text-uppercase mb-1"><a data-toggle="tab" href="#billbai" >Bill chưa gửi bãi</a></div>
                         @foreach (var item in Model)
                         {
-                            var songay = item.CTBills.Where(x => x.Bill == item.Id  && x.NgayGui == null).ToList();
+                            var songay = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGui == null).ToList();
                             if (songay.Count() > 0 || item.CTBills.Count() == 0)
                             {
                                 billbai += 1;
@@ -79,7 +82,7 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-lg font-weight-bold text-success text-uppercase mb-1"><a href="#" data-toggle="collapse" data-target="#billton">Bill chưa giao</a></div>
+                        <div class="text-lg font-weight-bold text-success text-uppercase mb-1"><a data-toggle="tab" href="#billton">Bill chưa giao</a></div>
 
                         @foreach (var item in Model)
                         {
@@ -101,38 +104,29 @@
     </div>
 </div>
 
-<div class="container-fluid">
-    <div id="tongbill" class="collapse">
+<div class="tab-content">
+    <div id="tongbill" class="tab-pane ">
         <div class="card h-100">
             <div class="card-body no-gutters">
                 @{Html.RenderAction("ViewDMBill", "DMBill", new { area = "DanhMuc" });}
             </div>
         </div>
     </div>
-</div>
-
-<div class="container-fluid">
-    <div id="bill" class="collapse">
+    <div id="bill" class="tab-pane">
         <div class="card h-100">
             <div class="card-body no-gutters">
                 @{Html.RenderAction("ViewBill", "Bill");}
             </div>
         </div>
     </div>
-</div>
-
-<div class="container-fluid">
-    <div id="billbai" class="collapse">
+    <div id="billbai" class="tab-pane">
         <div class="card h-100">
             <div class="card-body no-gutters">
                 @{Html.RenderAction("BillBai", "Bill");}
             </div>
         </div>
     </div>
-</div>
-
-<div class="container-fluid">
-    <div id="billton" class="collapse">
+    <div id="billton" class="tab-pane">
         <div class="card h-100">
             <div class="card-body no-gutters">
                 @{Html.RenderAction("BillTon", "Bill");}

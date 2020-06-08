@@ -26,7 +26,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach (var item in Model)
                     {
                         var songay = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGui != null && x.NgayGiao != null).ToList();
@@ -53,13 +52,10 @@
 
                             </tr>
                         }
-
                     }
                 </tbody>
 
             </table>
-
-
         </div>
     </div>
 </div>
