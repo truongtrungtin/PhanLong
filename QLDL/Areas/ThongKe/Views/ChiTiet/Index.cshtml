@@ -1,19 +1,121 @@
 ﻿@model IEnumerable<QLDL.EF.PhatSinh>
+@using QLDL.EF
 @{
     ViewBag.Title = "Thống kê Phát Sinh";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Style = "/Content/css/filterChitiet.css";
+    QLDLDBContext db = new QLDLDBContext();
     var stt = 0;
     decimal? chiho = 0;
+    decimal? tongchi = 0;
+    decimal cuoc = 0;
+    decimal nang = 0;
+    decimal ha = 0;
+    decimal khac = 0;
+    decimal chirieng = 0;
+    foreach (var item in Model)
+    {
+        cuoc += Convert.ToDecimal(item.CuocKH);
+        nang += Convert.ToDecimal(item.TienNang);
+        ha += Convert.ToDecimal(item.TienHa);
+        khac += Convert.ToDecimal(item.TienPhiKH);
+        chirieng += Convert.ToDecimal(item.TienPhiCT);
+    }
+
 }
+
 
 <div class="card h-100">
     <div class="card-body no-gutters">
-        <h4><b>Thống Kê Phát Sinh</b></h4>
+        @using (Html.BeginForm("Index", "ChiTiet", FormMethod.Post))
+        {
+            <h4><b>Bộ lọc</b></h4>
+            <div class="form-group">
+                <table class="tg" style="table-layout: fixed; width: auto">   
+                    <colgroup>
+                        <col style="width: 70px">
+                        <col style="width: 150px">
+                        <col style="width: 244px">
+                        <col style="width: 244px">
+                        <col style="width: 270px">
+                        <col style="width: 226px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="tg-msvo">Từ ngày: </th>
+                            <th class="tg-z2w3"><input class="form-control" type="date" name="sday" value="@ViewBag.sday" /></th>
+                            <th class="tg-msvo">Khách hàng</th>
+                            <th class="tg-msvo">Kho</th>
+                            <th class="tg-msvo">Loại</th>
+                            <th class="tg-msvo">Xe</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="tg-msvo">Đến ngày:</td>
+                            <td class="tg-z2w3"><input class="form-control" type="date" name="eday" value="@ViewBag.eday" /></td>
+                            <td class="tg-msvo">
+                                <select class="form-control js-example-tags" style="width:100%" name="KhachHang">
+                                    <option value="">-- Chọn Khách hàng -- </option>
+
+
+
+                                    @foreach (var item in db.DMKhachHangs)
+                                    {
+                                        <option value="@item.Id">@item.MaKH - @item.TenCongTy</option>
+                                    }
+                                </select>
+                            </td>
+                            <td class="tg-msvo">
+                                <select class="form-control js-example-tags" style="width:100%" name="Kho">
+                                    <option value="">-- Chọn Kho --</option>
+
+
+                                    @foreach (var item in db.DMKhoes)
+                                    {
+                                        <option value="@item.Id">@item.MaKho - @item.DiaChi</option>
+                                    }
+
+                                </select>
+                            </td>
+                            <td class="tg-msvo">
+                                <select class="form-control js-example-tags" style="width:100%" name="Loai">
+
+                                    <option value="">-- Chọn Loại --</option>
+
+                                    @foreach (var item in db.DMLoais)
+                                    {
+                                        <option value="@item.Id">@item.MaLoai</option>
+                                    }
+
+                                </select>
+                            </td>
+                            <td class="tg-msvo">
+                                <select class="form-control js-example-tags" style="width:100%" name="Xe">
+                                    <option value="">-- Chọn Xe --</option>
+
+                                    @foreach (var item in db.DMXes)
+                                    {
+                                        <option value="@item.Id">@item.BienSo</option>
+                                    }
+                                </select>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="submit" class="btn btn-success" value="Lọc" />
+            </div>
+        }
+    </div>
+</div>
+<div class="card h-100">
+    <div class="card-body no-gutters">
+        <h4><b>Thống Kê chi tiết</b></h4>
         <div class="table-responsive">
             @using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post))
             {
                 <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="max-width:100%">
-                    <thead>
+                    <thead style="background-color:lightsalmon">
                         <tr>
                             <th title="Số thứ tự">STT</th>
                             <th title="Ngày giao">Ngày</th>
@@ -21,23 +123,23 @@
                             <th title="Khách hàng">Khách hàng</th>
                             <th title="Kho">Kho</th>
                             <th title="Số Cont">Số Cont</th>
-                            <th title="Cước">Cước</th>
+                            <th title="Cước">Cước (VNĐ)</th>
                             <th title="Số Xe">Xe</th>
                             <th title="Hoá đơn nâng">Hoá đơn nâng</th>
-                            <th title="Tiền nâng">Tiền nâng</th>
+                            <th title="Tiền nâng">Tiền nâng (VNĐ)</th>
                             <th title="Hoá đơn Hạ">Hoá đơn Hạ</th>
-                            <th title="Tiền hạ">Tiền Hạ</th>
+                            <th title="Tiền hạ">Tiền Hạ (VNĐ)</th>
                             <th title="Phí Khách hàng">Hoá đơn khác</th>
-                            <th title="Tiền Phí khách hàng">Tiền khác</th>
-                            <th title="Tiền Phí khách hàng">Tổng chi hộ</th>
+                            <th title="Tiền Phí khách hàng">Tiền khác (VNĐ)</th>
+                            <th title="Tiền Phí khách hàng">Tổng chi hộ (VNĐ)</th>
                             <th title="Phí công ty">Chi phí riêng TX</th>
-                            <th title="Tiền phí công ty">Tiền phí riêng</th>
-                            <th title="Thời gian">Tổng chi</th>
+                            <th title="Tiền phí công ty">Tiền phí riêng (VNĐ)</th>
+                            <th title="Thời gian">Tổng chi (VNĐ)</th>
                             <th title="Ghi chú">Ghi Chú</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.OrderBy(x => x.Ngay))
                         {
                             stt += 1;
                             <tr id="row_@item.Id">
@@ -47,38 +149,48 @@
                                 <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH: null )</td>
                                 <td>@(item.Kho != null ? item.DMKho.MaKho : null)</td>
                                 <td>@(item.SoCont != null ? item.SoCont : null)</td>
-                                <td>@(item.CuocKH != null ? item.CuocKH : null)</td>
+                                <td style="text-align:right">@(item.CuocKH != null ? String.Format("{0:0,0}", (item.CuocKH)) : null)</td>
                                 <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
                                 <td>@(item.HDNang != null ? item.HDNang : null)</td>
-                                <td>@(item.TienNang != null ? item.TienNang : null)</td>
+                                <td style="text-align:right">@(item.TienNang != null ? String.Format("{0:0,0}", (item.TienNang)) : null)</td>
                                 <td>@(item.HDHa != null ? item.HDHa : null)</td>
-                                <td>@(item.TienHa != null ? item.TienHa : null )</td>
+                                <td style="text-align:right">@(item.TienHa != null ? String.Format("{0:0,0}", (item.TienHa)) : null )</td>
                                 <td>@(item.PhiKH != null ? item.DMPhi1.MaPhi : null)</td>
-                                <td>@(item.TienPhiKH != null ? item.TienPhiKH : null)</td>
-                                @if (item.TienNang != null && item.TienHa != null)
-                                {
-                                    <td>@{ chiho = (item.TienNang + item.TienHa);}</td>
-
-                                }
-                                else if (item.TienNang != null)
-                                {
-                                    <td>@{ chiho = item.TienNang;}</td>
-                                }
-                                else if (item.TienHa != null)
-                                {
-                                    <td>@{chiho = item.TienHa;}</td>
-                                }
-                                else
-                                {
-                                    <td></td>
-                                }
+                                <td style="text-align:right">@(item.TienPhiKH != null ? String.Format("{0:0,0}", (item.TienPhiKH)) : null)</td>
+                                <td style="text-align:right">@{ chiho = Convert.ToDecimal(item.TienNang) + Convert.ToDecimal(item.TienHa) + Convert.ToDecimal(item.TienPhiKH);}@String.Format("{0:0,0}", (chiho))</td>
                                 <td>@(item.PhiCT != null ? item.DMPhi.MaPhi : null)</td>
-                                <td>@(item.TienPhiCT != null ? item.TienPhiCT: null )</td>
-                                <td>@(item.TienPhiCT != null ? (chiho + item.TienPhiCT) : chiho )</td>
+                                <td style="text-align:right">@(item.TienPhiCT != null ? String.Format("{0:0,0}", (item.TienPhiCT)): null )</td>
+                                @{tongchi = Convert.ToDecimal(chiho) + Convert.ToDecimal(item.TienPhiCT);}
+                                <td style="text-align:right">@(item.TienPhiCT != null ? (String.Format("{0:0,0}",(tongchi))) : String.Format("{0:0,0}", (chiho)) )</td>
                                 <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
                             </tr>
+
                         }
                     </tbody>
+                    <tfoot style="background-color:lightsalmon">
+                        <tr>
+                            @{var total = Model.Select(x => x.Ngay).Distinct().Count();}
+                            <th colspan="2"><b>Tổng:</b> @(total) ngày</th>
+                            <th>@ViewBag.Loai</th>
+                            <th>@ViewBag.KH</th>
+                            <th>@ViewBag.Kho</th>
+                            @{ var cont = Model.Select(x => x.SoCont).Distinct().Count();}
+                            <th>@cont cont</th>
+                            <th style="text-align:right">@(cuoc != null ? String.Format("{0:0,0}", (cuoc)): null)</th>
+                            <th>@ViewBag.Xe</th>
+                            <th></th>
+                            <th style="text-align:right">@(nang != null ? String.Format("{0:0,0}", (nang)): null)</th>
+                            <th></th>
+                            <th style="text-align:right">@(ha != null ? String.Format("{0:0,0}", (ha)): null)</th>
+                            <th></th>
+                            <th style="text-align:right">@(khac != null ? String.Format("{0:0,0}", (khac)): null)</th>
+                            <th style="text-align:right">@String.Format("{0:0,0}", (nang + ha + khac))</th>
+                            <th></th>
+                            <th style="text-align:right">@String.Format("{0:0,0}", (chirieng))</th>
+                            <th style="text-align:right">@String.Format("{0:0,0}", (nang + ha + khac + chirieng))</th>
+                            <th class="cell expand-maximum-on-hover"></th>
+                        </tr>
+                    </tfoot>
                 </table>
             }
         </div>

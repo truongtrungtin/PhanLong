@@ -65,7 +65,7 @@
             </div>
             <div class="row">
                 <div class="col-md-8">
-                   
+
                 </div>
                 <div class="col-md-3">
                     <div class="col-md-1">
@@ -99,72 +99,40 @@
                         <thead>
                             <tr>
                                 <th width="1%"><input type='checkbox' id='check' value='' /></th>
-                                @if (Model.Where(x => x.Xe != null).ToList().Count > 0)
-                                {
-                                    <th>
-                                        Xe
-                                        <button type="button" class="pull-right btn btn-default btn-condensed hide-column"
-                                                data-toggle="tooltip" data-placement="bottom" title="Hide Column">
-                                            <i class="fa fa-eye-slash"></i>
-                                        </button>
-                                    </th>
-                                }
-                                @if (Model.Where(x => x.Mooc != null).ToList().Count > 0)
-                                {
-                                    <th>
-                                        Mooc
-                                        <button type="button" class="pull-right btn btn-default btn-condensed hide-column"
-                                                data-toggle="tooltip" data-placement="bottom" title="Hide Column">
-                                            <i class="fa fa-eye-slash"></i>
-                                        </button>
-                                    </th>
-                                }
-                                @if (ViewBag.Bill != null)
-                                {
-                                    <th>
-                                        Số Cont
-                                        <button type="button" class="pull-right btn btn-default btn-condensed hide-column"
-                                                data-toggle="tooltip" data-placement="bottom" title="Hide Column">
-                                            <i class="fa fa-eye-slash"></i>
-                                        </button>
-                                    </th>
-                                }
+
+                                <th>
+                                    Xe
+
+                                </th>
+
+                                <th>
+                                    Mooc
+
+                                </th>
+
+                                <th>
+                                    Số Cont
+
+                                </th>
+
                                 <th>
                                     Nội Dung
-                                    <button type="button" class="pull-right btn btn-default btn-condensed hide-column"
-                                            data-toggle="tooltip" data-placement="bottom" title="Hide Column">
-                                        <i class="fa fa-eye-slash"></i>
-                                    </button>
+
                                 </th>
                                 <th>
-                                    Phí <button type="button" class="pull-right btn btn-default btn-condensed hide-column"
-                                                data-toggle="tooltip" data-placement="bottom" title="Hide Column">
-                                        <i class="fa fa-eye-slash"></i>
-                                    </button>
+                                    Phí
                                 </th>
                                 <th>
-                                    Đơn giá <button type="button" class="pull-right btn btn-default btn-condensed hide-column"
-                                                    data-toggle="tooltip" data-placement="bottom" title="Hide Column">
-                                        <i class="fa fa-eye-slash"></i>
-                                    </button>
+                                    Đơn giá (VNĐ)
                                 </th>
                                 <th>
-                                    Số lượng <button type="button" class="pull-right btn btn-default btn-condensed hide-column"
-                                                     data-toggle="tooltip" data-placement="bottom" title="Hide Column">
-                                        <i class="fa fa-eye-slash"></i>
-                                    </button>
+                                    Số lượng
                                 </th>
                                 <th>
-                                    Tiền Chi <button type="button" class="pull-right btn btn-default btn-condensed hide-column"
-                                                     data-toggle="tooltip" data-placement="bottom" title="Hide Column">
-                                        <i class="fa fa-eye-slash"></i>
-                                    </button>
+                                    Tiền Chi (VNĐ)
                                 </th>
                                 <th>
-                                    # <button type="button" class="pull-right btn btn-default btn-condensed hide-column"
-                                              data-toggle="tooltip" data-placement="bottom" title="Hide Column">
-                                        <i class="fa fa-eye-slash "></i>
-                                    </button>
+                                    #
                                 </th>
                             </tr>
                         </thead>
@@ -175,42 +143,21 @@
                                 <tr id="row_@item.Id">
 
                                     <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                                    @if (item.Xe != null)
-                                    {
-                                        <td>@item.DMXe.BienSo</td>
-                                    }
-                                    @if (item.Mooc != null)
-                                    {
-                                        <td>@item.DMMooc.BienSo</td>
-                                    }
-                                    @if (ViewBag.Bill != null)
-                                    {
-                                        <td>@item.Cont</td>
-                                    }
+                                    <td>@(item.Xe != null ? item.DMXe.BienSo: "NULL")</td>
+                                    <td>@(item.Mooc != null ? item.DMMooc.BienSo : "NULL")</td>
+                                    <td>@(item.Cont != null ? item.Cont : "NULL")</td>
                                     <td>@item.NoiDung</td>
-                                    @if (@item.DMPhi != null)
-                                    {
-                                        <td>@item.DMPhi.TenPhi</td>
-                                    }
-                                    else
-                                    {
-                                        <td>null</td>
-                                    }
-                                    <td>@item.DonGia</td>
+                                    <td>@(item.Phi != null ? item.DMPhi.TenPhi : "NULL")</td>
+                                    <td>@String.Format("{0:0,0}", (item.DonGia))</td>
                                     <td>@item.SoLuong</td>
-                                    <td> @{ var tien = Convert.ToInt64(item.DonGia) * item.SoLuong;} @tien VNĐ</td>
-
+                                    <td> @{ var tien = Convert.ToInt64(item.DonGia) * item.SoLuong;} @String.Format("{0:0,0}", (tien))</td>
                                     <td>
                                         @Html.ActionLink("Chỉnh sửa", "UpdateCTChi", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
                                     </td>
                                 </tr>
                             }
                         </tbody>
-                        <tfoot class="show-column-footer">
-                            <tr>
-                                <th colspan="8"><a class="show-column" href="#">Hiển thị các cột đã ẩn</a></th>
-                            </tr>
-                        </tfoot>
+                        
                     </table>
                     <div class="form-group">
                         <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /> |

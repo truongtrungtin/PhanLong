@@ -59,18 +59,18 @@
                     <td>@(item.SoCont != null ? item.SoCont : null)</td>
                     <td>@(item.CangNhan != null ? item.DMCang.MaCang: null)</td>
                     <td>@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
-                    <td>@(item.CuocKH != null ? item.CuocKH : null)</td>
-                    <td>@(item.CuocTX != null ? item.CuocTX : null)</td>
+                    <td style="text-align:right">@(item.CuocKH != null ? String.Format("{0:0,0}", (item.CuocKH)) : null)</td>
+                    <td style="text-align:right">@(item.CuocTX != null ? String.Format("{0:0,0}", (item.CuocTX)) : null)</td>
                     <td>@(item.DMNhanVien != null ? item.DMNhanVien.MaNV : null)</td>
                     <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
                     <td>@(item.HDNang != null ? item.HDNang : null)</td>
-                    <td>@(item.TienNang != null ? item.TienNang : null)</td>
+                    <td style="text-align:right">@(item.TienNang != null ? String.Format("{0:0,0}", (item.TienNang)) : null)</td>
                     <td>@(item.HDHa != null ? item.HDHa : null)</td>
-                    <td>@(item.TienHa != null ? item.TienHa : null )</td>
+                    <td style="text-align:right">@(item.TienHa != null ? String.Format("{0:0,0}", (item.TienHa)) : null )</td>
                     <td>@(item.PhiKH != null ? item.DMPhi1.MaPhi : null)</td>
-                    <td>@(item.TienPhiKH != null ? item.TienPhiKH : null)</td>
+                    <td style="text-align:right">@(item.TienPhiKH != null ? String.Format("{0:0,0}", (item.TienPhiKH)) : null)</td>
                     <td>@(item.PhiCT != null ? item.DMPhi.MaPhi : null)</td>
-                    <td>@(item.TienPhiCT != null ? item.TienPhiCT: null )</td>
+                    <td style="text-align:right">@(item.TienPhiCT!= null ? String.Format("{0:0,0}", (item.TienPhiCT)): null )</td>
                     <td>@(item.Thoigian != null ? item.DMThoiGian.ThoiGian : null)</td>
                     <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
                     <td>

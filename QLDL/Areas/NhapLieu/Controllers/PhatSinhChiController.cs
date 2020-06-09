@@ -66,12 +66,14 @@ namespace QLDL.Areas.NhapLieu.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(PhatSinhChi phatSinhChi, int[] chkId, string delete = null)
+        public ActionResult Create(PhatSinhChi phatSinhChi, CTChi cTChi, int[] chkId, string delete = null)
         {
-            var ps = new PhatSinhChiDao();
+            
+            var dao = new PhatSinhChiDao();
+            var ctChi = new CTChiDao();
             if (delete != null && chkId != null)
             {
-                var result = ps.checkbox(chkId);
+                var result = dao.checkbox(chkId);
                 if (result)
                 {
                     SetAlert("Đã xóa thành công!", "success");
@@ -83,22 +85,31 @@ namespace QLDL.Areas.NhapLieu.Controllers
             }
             else
             {
-
-                var dao = new PhatSinhChiDao();
-                long result = dao.Insert(phatSinhChi);
-                if (result > 0)
+                if (ModelState.IsValid)
                 {
-                    SetAlert("Đã thêm bảng ghi thành công !", "success");
-                    return RedirectToAction("Create", "PhatSinhChi");
+                    long result = dao.Insert(phatSinhChi);
+
+                    if (result > 0)
+                    {
+                        if (ctChi.Insert(cTChi, result) > 0)
+                        {
+                            SetAlert("Đã thêm bảng ghi thành công !", "success");
+                            return RedirectToAction("Create", "PhatSinhChi");
+                        }
+                        SetAlert("Thêm phí không thành công, vui lòng truy cập chi tiết để thêm phí!", "warning");
+                        return RedirectToAction("Create", "PhatSinhChi"); ;
+                    }
+                    else
+                    {
+                        SetAlert("Thêm bảng ghi không thành công, vui lòng thử lại!", "warning");
+                        return RedirectToAction("Create", "PhatSinhChi");
+                    }
                 }
                 else
                 {
                     SetAlert("Thêm bảng ghi không thành công, vui lòng thử lại!", "warning");
                     return RedirectToAction("Create", "PhatSinhChi");
                 }
-
-
-
             }
             return RedirectToAction("Create", "PhatSinhChi");
 

@@ -26,9 +26,10 @@
                             <th>Khách Hàng</th>
                             <th>Xe</th>
                             <th>Mooc</th>
-                            <th>Số HD</th>
+                            <th>Tên phí</th>
                             <th>Số Bill</th>
-                            <th>Tổng Tiền</th>
+                            <th>Số HD</th>
+                            <th>Tiền Chi (VNĐ)</th>
                             <th>Ghi Chú</th>
                             <th>#</th>
                         </tr>
@@ -48,10 +49,9 @@
                             </td>
                             <td>@item.NgayChi.ToShortDateString()</td>
                             <td>@(item.NguoiChi != null ? item.DMNhanVien1.MaNV : null)</td>
-                            <td>@(item.NguoiNhan != null ?item.DMNhanVien.MaNV : null)</td>
+                            <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null)</td>
                             <td>@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>
-
-                            <td>@(item.KhachHang !=null ? item.DMKhachHang.MaKH: null)</td>
+                            <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
 
                             @if (model.Where(x => x.Xe != null).ToList().Count > 0)
                             {
@@ -78,7 +78,8 @@
                                     Null
                                 </td>
                             }
-                            <td>@item.SoHD</td>
+                            @{var maphi = item.CTChis.Where(x => x.PhatSinhChi == item.Id).FirstOrDefault();}
+                            <td> @(maphi.Phi != null ? maphi.DMPhi.MaPhi : null)</td>
                             @if (item.Bill != null)
                             {
                                 <td>
@@ -90,8 +91,10 @@
                                 <td>
                                     Null
                                 </td>
+
                             }
-                            <td>
+                            <td>@item.SoHD</td>
+                            <td style="text-align: right">
                                 @{ var a = 0;
                                     var tongtien = 0;
                                     foreach (var tien in item.CTChis)
@@ -99,14 +102,11 @@
                                         tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
                                         a += tongtien;
                                     }
-                                }@a
+                                }@String.Format("{0:0,0}", (a))
                             </td>
                             <td>@item.GhiChu</td>
                             <td>
-
                                 @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                                &ensp;| &ensp;
-                                @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
                             </td>
                         </tr>
                             }

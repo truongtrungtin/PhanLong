@@ -4,111 +4,111 @@
     <hr />  
 <h4><b>Phát Sinh Chi </b></h4>
 <div class="table-responsive">
-  
-        <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
-            <thead>
-                <tr>
-                    <th width="1%"><input type='checkbox' id='check' value='' /></th>
-                    <th width="1%"></th>
-                    <th>Ngày chi</th>
-                    <th>Người chi</th>
-                    <th>Người nhận</th>
-                    <th>HTTT</th>
-                    <th>Khách Hàng</th>
-                    <th>Xe</th>
-                    <th>Mooc</th>
-                    <th>Số HD</th>
-                    <th>Số Bill</th>
-                    <th>Tổng Tiền</th>
-                    <th>Ghi Chú</th>
-                    <th>#</th>
-                </tr>
 
-            </thead>
-            <tbody>
+    <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
+        <thead>
+            <tr>
+                <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                <th width="1%"></th>
+                <th>Ngày chi</th>
+                <th>Người chi</th>
+                <th>Người nhận</th>
+                <th>HTTT</th>
+                <th>Khách Hàng</th>
+                <th>Xe</th>
+                <th>Mooc</th>
+                <th>Tên phí</th>
+                <th>Số Bill</th>
+                <th>Số HD</th>
+                <th>Tiền Chi (VNĐ)</th>
+                <th>Ghi Chú</th>
+                <th>#</th>
+            </tr>
 
-                @foreach (var item in Model)
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
                 {
-                    {
-                        var model = new CTChiDao().ListAll(item.Id);
-                        <tr id="row_@item.Id">
+                    var model = new CTChiDao().ListAll(item.Id);
+            <tr id="row_@item.Id">
 
-                            <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                            <td>
-                                @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                            </td>
-                            <td>@item.NgayChi</td>
-                            <td>@(item.NguoiChi != null ? item.DMNhanVien1.MaNV : null)</td>
-                            <td>@(item.NguoiNhan != null ?item.DMNhanVien.MaNV : null)</td>
-                            <td>@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>
+                <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                <td>
+                    @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                </td>
+                <td>@item.NgayChi.ToShortDateString()</td>
+                <td>@(item.NguoiChi != null ? item.DMNhanVien1.MaNV : null)</td>
+                <td>@(item.NguoiNhan != null ?item.DMNhanVien.MaNV : null)</td>
+                <td>@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>
+                <td>@(item.KhachHang !=null ? item.DMKhachHang.MaKH: null)</td>
 
-                            <td>@(item.KhachHang !=null ? item.DMKhachHang.MaKH: null)</td>
-
-                            @if (model.Where(x => x.Xe != null).ToList().Count > 0)
-                            {
-                                <td>
-                                    @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id })
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    Null
-                                </td>
-                            }
-
-                            @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
-                            {
-                                <td>
-                                    @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id })
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    Null
-                                </td>
-                            }
-                            <td>@item.SoHD</td>
-                            @if (item.Bill != null)
-                            {
-                                <td>
-                                    @Html.ActionLink(item.DMBill.MaBill, "CTChi", new { id = item.Id })
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    Null
-                                </td>
-                            }
-                            <td>
-                                @{ var a = 0;
-                                    var tongtien = 0;
-                                    foreach (var tien in item.CTChis)
-                                    {
-                                        tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                        a += tongtien;
-                                    }
-                                }@a
-                            </td>
-                            <td>@item.GhiChu</td>
-                            <td>
-
-                                @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                                &ensp;| &ensp;
-                                @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
-                            </td>
-                        </tr>
-                    }
+                @if (model.Where(x => x.Xe != null).ToList().Count > 0)
+                {
+                    <td>
+                        @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id })
+                    </td>
                 }
-            </tbody>
+                else
+                {
+                    <td>
+                        Null
+                    </td>
+                }
 
-        </table>
-        <div class="form-group">
-            <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
-        </div>
-    
+                @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
+                {
+                    <td>
+                        @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Null
+                    </td>
+                }
+
+                @{var maphi = item.CTChis.Where(x => x.PhatSinhChi == item.Id).FirstOrDefault();}
+                <td> @(maphi != null ? maphi.DMPhi.MaPhi : null)</td>
+                @if (item.Bill != null)
+                {
+                    <td>
+                        @Html.ActionLink(item.DMBill.MaBill, "CTChi", new { id = item.Id })
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        Null
+                    </td>
+                }
+                <td>@item.SoHD</td>
+                <td style="text-align: right">
+                    @{ var a = 0;
+                        var tongtien = 0;
+                        foreach (var tien in item.CTChis)
+                        {
+                            tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                            a += tongtien;
+                        }
+                    }@String.Format("{0:0,0}", (a))
+                </td>
+                <td>@item.GhiChu</td>
+                <td>
+                    @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                </td>
+            </tr>
+                }
+            }
+        </tbody>
+
+    </table>
+    <div class="form-group">
+        <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+    </div>
+
 
 </div>
 

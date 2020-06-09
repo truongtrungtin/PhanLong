@@ -48,9 +48,14 @@ namespace QLDL.DAO
         {
             return db.CTChis.SingleOrDefault(x => x.Id == id);
         }
-        public long Insert(CTChi entity)
+
+        public long Insert(CTChi entity, long? idChi = null)
         {
-            db.CTChis.Add(entity);
+            var item = db.CTChis.Add(entity);
+            if (idChi != null)
+            {
+                item.PhatSinhChi = idChi;
+            }
             db.SaveChanges();
             return entity.Id;
         }
