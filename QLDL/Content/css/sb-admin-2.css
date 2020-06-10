@@ -85,7 +85,7 @@ pre,
 code,
 kbd,
 samp {
-    font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: 'Tahoma', Geneva, Verdana, sans-serif;
     font-size: 1em;
 }
 

@@ -222,6 +222,7 @@
     <Content Include="Content\css\filterChitiet.css" />
     <Content Include="Content\css\sb-admin-2.css" />
     <Content Include="Content\css\select2.css" />
+    <Content Include="Content\css\table-ctttluong.css" />
     <Content Include="Content\css\Table-kehoach.css" />
     <Content Include="Content\js\demo\table-bootstrap.js" />
     <Content Include="Content\js\jquery.tabledit.js" />

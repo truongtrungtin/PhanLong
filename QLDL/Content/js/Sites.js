@@ -1,4 +1,12 @@
-﻿var $ngayguibai = $('#themngayguibai')
+﻿$(document).ready(function () {
+    $('#dataTable').DataTable({
+        "scrollY": "200px",
+        "scrollCollapse": true,
+    });
+    $('.dataTables_length').addClass('bs-select');
+});
+
+var $ngayguibai = $('#themngayguibai')
 
 
 //Xử lý  dropdown

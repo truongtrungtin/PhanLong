@@ -112,10 +112,54 @@
     <div class="card-body no-gutters">
         <h4><b>Thống Kê chi tiết</b></h4>
         <div class="table-responsive">
+            <div style="text-align: center;">
+                <table class="tg" style="table-layout: fixed; width: 20%">
+                    <colgroup>
+                        <col style="width: 16px">
+                        <col style="width: 16px">
+                        <col style="width: 16px">
+                        <col style="width: 16px">
+                        <col style="width: 31px">
+                        <col style="width: 18px">
+                        <col style="width: 24px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="tg-rfhg">Từ:</th>
+                            <th class="tg-eam2" colspan="2"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.sday" /></th>
+                            <th class="tg-rfhg">Đến:</th>
+                            <th class="tg-eam2"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.eday" /></th>
+                            <th class="tg-koqh">Tổng:</th>
+                            <th class="tg-eam2"><input class="form-control" type="text" readonly value="@ViewBag.TongNgay ngày" /> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="tg-t8ut">20N</td>
+                            <td class="tg-t8ut">40N</td>
+                            <td class="tg-t8ut">20X</td>
+                            <td class="tg-t8ut">40X</td>
+                            <td class="tg-pz0h"></td>
+                            <td class="tg-pz0h"></td>
+                            <td class="tg-qj9o"></td>
+                        </tr>
+                        <tr>
+                            <td class="tg-7eit"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.N20" /></td>
+                            <td class="tg-7eit"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.N40" /></td>
+                            <td class="tg-7eit"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.X20" /></td>
+                            <td class="tg-7eit"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.X40" /></td>
+                            <td class="tg-7eit"></td>
+                            <td class="tg-7eit"></td>
+                            <td class="tg-7eit"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr />
             @using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post))
             {
                 <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="max-width:100%">
-                    <thead style="background-color:lightsalmon">
+                    <thead style="background-color:#d1cbc3">
                         <tr>
                             <th title="Số thứ tự">STT</th>
                             <th title="Ngày giao">Ngày</th>
@@ -167,7 +211,7 @@
 
                         }
                     </tbody>
-                    <tfoot style="background-color:lightsalmon">
+                    <tfoot style="background-color:#d1cbc3">
                         <tr>
                             @{var total = Model.Select(x => x.Ngay).Distinct().Count();}
                             <th colspan="2"><b>Tổng:</b> @(total) ngày</th>

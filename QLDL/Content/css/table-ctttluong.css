@@ -10,7 +10,7 @@
         font-family: Tahoma, Geneva, sans-serif !important;
         font-size: 12px;
         overflow: hidden;
-        padding: 5px 5px;
+        padding: 10px 5px;
         word-break: normal;
     }
 
@@ -22,69 +22,67 @@
         font-size: 12px;
         font-weight: normal;
         overflow: hidden;
-        padding: 5px 5px;
+        padding: 10px 5px;
         word-break: normal;
     }
 
-    .tg .tg-vxga {
-        background-color: #ffffff;
-        text-align: center;
-        vertical-align: middle
+    .tg .tg-zv4m {
+        border-color: #ffffff;
+        text-align: left;
+        vertical-align: top
     }
 
-    .tg .tg-msvo {
-        background-color: #FFF;
-        border-color: #ffffff;
-        font-size: 12px;
+    .tg .tg-c3ow {
+        border-color: inherit;
+        padding-left: 5px;
+        padding-right: 5px;
+        vertical-align: top
+    }
+
+    .tg .tg-w3ps {
+        background-color: #d1cbc3;
+        border-color: inherit;
         font-weight: bold;
         text-align: center;
-        vertical-align: middle
+        vertical-align: top
     }
-
-    .tg .tg-z2w3 {
-        background-color: #FFF;
-        border-color: #ffffff;
-        font-size: 12px;
-        text-align: center;
-        vertical-align: middle
-    }
-
-    .tg .tg-nrix {
-        text-align: center;
-        vertical-align: middle
-    }
-
-    .tg .tg-7eit {
+    .tg .tg-w3pd {
         background-color: #ffffff;
-        border-color: #ffffff;
-        text-align: center;
-        vertical-align: middle
+        border-color: inherit;
+        padding-left: 10px;
+        vertical-align: top
     }
 
-    .tg .tg-pz0h {
-        background-color: #ffffff;
-        border-color: #ffffff;
-        font-family: Tahoma, Geneva, sans-serif !important;
-        font-weight: bold;
-        text-align: center;
-        vertical-align: middle
-    }
-
-    .tg .tg-eam2 {
-        background-color: #ffffff;
-        border-color: #ffffff;
-        font-family: Tahoma, Geneva, sans-serif !important;
-        font-size: 12px;
+    .tg .tg-t1ow {
+        background-color: #F5F5F5;
+        border-color: inherit;
         text-align: center;
         vertical-align: top
     }
 
-    .tg .tg-koqh {
+    .tg .tg-0lax {
+        text-align: left;
+        vertical-align: top
+    }
+
+    .tg .tg-ofj5 {
+        border-color: #ffffff;
+        text-align: right;
+        vertical-align: top
+    }
+
+    .tg .tg-vhuu {
         background-color: #ffffff;
         border-color: #ffffff;
         font-family: Tahoma, Geneva, sans-serif !important;
         font-size: 12px;
-        font-weight: bold;
+        text-align: center;
+        vertical-align: middle
+    }
+
+    .tg .tg-oe15 {
+        background-color: #ffffff;
+        border-color: #ffffff;
         text-align: left;
         vertical-align: top
     }
@@ -99,20 +97,21 @@
         vertical-align: middle
     }
 
-    .tg .tg-rfhg {
+    .tg .tg-je0s {
         background-color: #ffffff;
         border-color: #ffffff;
         font-family: Tahoma, Geneva, sans-serif !important;
         font-size: 12px;
         font-weight: bold;
         text-align: right;
-        vertical-align: top
+        vertical-align: middle
     }
 
-    .tg .tg-qj9o {
-        background-color: #ffffff;
+    .tg .tg-c74o {
+        background-color: #FFF;
         border-color: #ffffff;
-        font-weight: bold;
-        text-align: center;
-        vertical-align: middle
+        font-family: Tahoma, Geneva, sans-serif !important;
+        font-size: 12px;
+        text-align: left;
+        vertical-align: top
     }

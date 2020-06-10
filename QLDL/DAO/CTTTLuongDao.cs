@@ -48,7 +48,7 @@ namespace QLDL.DAO
                 var model = data.Where(x => (ngayBD == "" && ngayKT == "") || (x.Ngay >= sdate && x.Ngay <= edate));
                 return model.OrderBy(x => x.Ngay).Distinct().ToList();
             }
-            return data.OrderBy(x => x.Ngay).ToList();
+            return data.OrderBy(x => x.Ngay).Distinct().ToList();
         }
 
         public List<ChiLuongModel> ChiLuong(long id, string ngayBD, string ngayKT)
@@ -59,13 +59,13 @@ namespace QLDL.DAO
             var data = from nv in db.DMNhanViens
                        join psc in db.PhatSinhChis on nv.Id equals psc.NguoiNhan
                        join ctc in db.CTChis on psc.Id equals ctc.PhatSinhChi
-                       where nv.Id == id
+                       where nv.Id == id where ctc.DMPhi.Id == 49
                        select new ChiLuongModel()
                        {
                            NgayChi = psc.NgayChi,
                            NoiDung = ctc.NoiDung,
                            HinhThucTT = psc.HinhThucTT.MoTa,
-                           TienTru = Convert.ToInt64(ctc.DonGia) * ctc.SoLuong,
+                           TienTru = ctc.DonGia * ctc.SoLuong,
                            ghichu = psc.GhiChu,
                        };
             if (!string.IsNullOrEmpty(ngayBD) && !string.IsNullOrEmpty(ngayKT))
@@ -73,7 +73,7 @@ namespace QLDL.DAO
                 var model = data.Where(x => (ngayBD == "" && ngayKT == "") || (x.NgayChi >= sdate && x.NgayChi <= edate));
                 return model.OrderBy(x => x.NgayChi).Distinct().ToList();
             }
-            return data.OrderBy(x => x.NgayChi).ToList();
+            return data.OrderBy(x => x.NgayChi).Distinct().ToList();
         }
 
     }

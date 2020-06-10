@@ -1,13 +1,13 @@
 ﻿@model List<QLDL.Models.PhatSinhLuongModel>
 @{
     ViewBag.Title = "CTTTLuong";
+    ViewBag.Style = "/Content/css/table-ctttluong.css";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
-    
-    int a = 0;
-    decimal tiencuoc = 0;
-    decimal tientru = 0;
-    decimal tongtien = 0;
+    int sttc = 0;
+    int sttt = 0;
+    Decimal tiencuoc = 0;
+    Decimal tientru = 0;
 }
 
 <div class="container">
@@ -34,162 +34,148 @@
             <h4 style="text-align:center"><b>THANH TOÁN LƯƠNG TÀI XẾ</b></h4>
             <hr />
             <div class="form-horizontal">
-
-                <div class="row">
-
-                    <div class="col-md-3">
-                        @Html.Label("Tài Xế", htmlAttributes: new { @class = "control-label col-md-4" })
-                        <div class="col-md-8">
-                            <input type="text" readonly class="form-control col-md-4" name="name" value="@ViewBag.tx" />
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        @Html.Label("Từ ngày: ", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            <input type="date" readonly class="form-control" name="name" value="@ViewBag.NgayBD" />
-                        </div>
-                        @Html.Label("Đến ngày: ", htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-4">
-                            <input type="date" readonly class="form-control" name="name" value="@ViewBag.NgayKT" />
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        @Html.Label("Ngày làm việc", htmlAttributes: new { @class = "control-label col-md-6" })
-                        <div class="col-md-6">
-
-                            <input type="text" style="text-align:center" readonly class="form-control" value="@Model.Count" />
-                        </div>
-                    </div>
-                    <div class="col-md-1">
-                        @Html.Label("20N", htmlAttributes: new { @class = "control-label col-md-12" })
-                        <input type="text" style="text-align:center" readonly class="form-control" value="@ViewBag.N20" />
-                    </div>
-                    <div class="col-md-1">
-                        @Html.Label("40N", htmlAttributes: new { @class = "control-label col-md-12" })
-                        <input type="text" style="text-align:center" readonly class="form-control" value="@ViewBag.N40" />
-                    </div>
-                    <div class="col-md-1">
-                        @Html.Label("20X", htmlAttributes: new { @class = "control-label col-md-12" })
-                        <input type="text" style="text-align:center" readonly class="form-control" value="@ViewBag.X20" />
-                    </div>
-                    <div class="col-md-1">
-                        @Html.Label("40X", htmlAttributes: new { @class = "control-label col-md-12" })
-                        <input type="text" style="text-align:center" readonly class="form-control" value="@ViewBag.X40" />
-                    </div>
-                    <div class="col-md-1">
-                        <label class="control-label">Tổng cộng </label>
-                        <input type="text" style="text-align:center" readonly class="form-control" value="@ViewBag.Tong" />
-                    </div>
-
-                </div>
+                <table class="tg" style="undefined;table-layout: fixed; width: 100%">
+                    <colgroup>
+                        <col style="width: 30px">
+                        <col style="width: 30px">
+                        <col style="width: 30px">
+                        <col style="width: 30px">
+                        <col style="width: 40px">
+                        <col style="width: 56px">
+                        <col style="width: 19px">
+                        <col style="width: 66px">
+                        <col style="width: 90px">
+                        <col style="width: 40px">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="tg-je0s">Tài xế:</th>
+                            <th class="tg-c74o" colspan="3"><input type="text" readonly class="form-control col-md-4" name="name" value="@ViewBag.tx" /></th>
+                            <th class="tg-je0s">Từ:</th>
+                            <th class="tg-vhuu"><input type="date" readonly class="form-control" name="name" value="@ViewBag.NgayBD" /></th>
+                            <th class="tg-t8ut">Đến:</th>
+                            <th class="tg-vhuu"><input type="date" readonly class="form-control" name="name" value="@ViewBag.NgayKT" /></th>
+                            <th class="tg-je0s">Ngày làm việc:</th>
+                            <th class="tg-vhuu"><input type="text" readonly style="width: 55px;" class="form-control" value="@Model.Count" /></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="tg-t8ut"></td>
+                            <td class="tg-t8ut">20N</td>
+                            <td class="tg-t8ut">40N</td>
+                            <td class="tg-t8ut">20X</td>
+                            <td class="tg-t8ut">40X</td>
+                            <td class="tg-t8ut">Tổng</td>
+                            <td class="tg-vhuu" colspan="4" rowspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td class="tg-oe15">
+                            </td>
+                            <td class="tg-oe15">
+                                <input type="text" readonly style="text-align:center" class="form-control" value="@ViewBag.N20" />
+                            </td>
+                            <td class="tg-oe15">
+                                <input type="text" readonly style="text-align:center" class="form-control" value="@ViewBag.N40" />
+                            </td>
+                            <td class="tg-oe15">
+                                <input type="text" readonly style="text-align:center" class="form-control" value="@ViewBag.X20" />
+                            </td>
+                            <td class="tg-oe15">
+                                <input type="text" readonly style="text-align:center" class="form-control" value="@ViewBag.X40" />
+                            </td>
+                            <td class="tg-oe15">
+                                <input type="text" style="text-align:center" readonly class="form-control" value="@ViewBag.Tong" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <br />
             <br />
             <hr />
             <div class="table-responsive">
-
-                <table class="table table-bordered table-hover table-striped" width="100%">
+                <table class="tg table table-bordered table-hover table-striped" id="" width="100%">
                     <thead>
                         <tr>
-                            <th>Stt</th>
-                            <th>Ngày</th>
-                            <th>Loại</th>
-                            <th>Khách Hàng</th>
-                            <th>Kho</th>
-                            <th>Số Cont</th>
-                            <th>Cảng Nhận</th>
-                            <th>Cảng Trả</th>
-                            <th>Tiền Cước</th>
-                            <th>Ghi Chú</th>
+                            <th class="tg-w3ps">STT</th>
+                            <th class="tg-w3ps">Ngày giao</th>
+                            <th class="tg-w3ps">Loại</th>
+                            <th class="tg-w3ps">Khách hàng</th>
+                            <th class="tg-w3ps">Kho</th>
+                            <th class="tg-w3ps">Số Cont</th>
+                            <th class="tg-w3ps">Cảng nhận</th>
+                            <th class="tg-w3ps">Cảng trả</th>
+                            <th class="tg-w3ps">Tiền cước (VNĐ) </th>
+                            <th class="tg-w3ps">Ghi chú</th>
                         </tr>
                     </thead>
                     <tbody>
-
                         @foreach (var item in Model)
                         {
+                            sttc += 1;
+                            tiencuoc += Convert.ToDecimal(item.TienCuoc);
                             <tr>
-                                <td>
-                                    @for (int i = 1; i <= Model.Count; i++)
-                                    {
-                                        a += i;
-                                    }@a
-                                </td>
-                                <td>@item.Ngay.ToShortDateString()</td>
-                                <td>@item.Loai</td>
-                                <td>@item.KhachHang</td>
-                                <td>@item.Kho</td>
-                                <td>@item.SoCont</td>
-                                <td>@item.CangNhan</td>
-                                <td>@item.CangTra</td>
-                                <td>@item.TienCuoc</td>
-                                <td>@item.ghichu</td>
+                                <td class="tg-c3ow">@sttc</td>
+                                <td class="tg-c3ow">@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                                <td class="tg-c3ow">@(item.Loai != null ? item.Loai : null)</td>
+                                <td class="tg-c3ow">@(item.KhachHang != null ? item.KhachHang : null)</td>
+                                <td class="tg-c3ow" style="text-align:left">@(item.Kho != null ? item.Kho : null)</td>
+                                <td class="tg-c3ow" style="text-align:left">@(item.SoCont != null ? item.SoCont : null)</td>
+                                <td class="tg-c3ow">@(item.CangNhan != null ? item.CangNhan : null)</td>
+                                <td class="tg-c3ow">@(item.CangTra != null ? item.CangTra : null)</td>
+                                <td class="tg-t1ow" style="text-align:right">@(item.TienCuoc != null ? String.Format("{0:0,0}", (item.TienCuoc)) : null)</td>
+                                <td class="tg-c3ow" style="text-align:left">@(item.ghichu != null ? item.ghichu : null)</td>
                             </tr>
 
                         }
                     </tbody>
-                    @foreach (var item in Model)
-                    {
-                        tiencuoc += Convert.ToDecimal(item.TienCuoc);
-
-                    }
-                </table>
-                <table class="table table-bordered table-hover table-striped" width="100%">
                     <thead>
                         <tr>
-                            <th>Stt</th>
-                            <th>Ngày Chi</th>
-                            <th></th>
-                            <th></th>
-                            <th>Nội dung</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>Ghi Chú</th>
+                            <td class="tg-w3ps">STT</td>
+                            <td class="tg-w3ps">Ngày chi</td>
+                            <td class="tg-w3ps" colspan="4">Nội dung</td>
+                            <td class="tg-w3ps" colspan="2">Hình thức thanh toán</td>
+                            <td class="tg-w3ps">Tiền trừ (VNĐ)</td>
+                            <td class="tg-w3ps">Ghi chú</td>
                         </tr>
                     </thead>
-
                     <tbody>
-
                         @foreach (var item in ViewBag.ChiLuong)
                         {
+                            sttt += 1;
+                            tientru += Convert.ToDecimal(item.TienTru);
                             <tr>
-                                <td>
-                                    @for (int i = 1; i <= Model.Count; i++)
-                                    {
-                                        a += i;
-                                    }@a
-                                </td>
-                                <td>@item.NgayChi.ToShortDateString()</td>
-                                <td></td>
-                                <td></td>
-                                <td>@item.NoiDung</td>
-                                <td>@item.HinhThucTT</td>
-                                <td></td>
-                                <td></td>
-                                <td>@item.TienTru</td>
-                                <td>@item.ghichu</td>
+                                <td class="tg-w3pd">@sttt</td>
+                                <td class="tg-w3pd">@(item.NgayChi != null ? item.NgayChi.ToShortDateString() : null)</td>
+                                <td class="tg-w3pd" colspan="4" style="text-align:left">@(item.NoiDung != null ? item.NoiDung : null)</td>
+                                <td class="tg-w3pd" colspan="2">@(item.HinhThucTT != null ? item.HinhThucTT : null )</td>
+                                <td class="tg-w3pd" style="text-align:right">@(item.TienTru != null ? String.Format("{0:0,0}", (item.TienTru)) : null )</td>
+                                <td class="tg-w3pd" style="text-align:left">@(item.ghichu != null ? item.ghichu : null )</td>
                             </tr>
                         }
                     </tbody>
                     <tfoot>
                         <tr>
-
-                            <th colspan="8"></th>
-                            @foreach (var item in ViewBag.ChiLuong)
-                            {
-                    
-                                tientru += Convert.ToDecimal(item.TienTru);
-                               
-                            }
-                            @{  tongtien = tiencuoc - tientru;}
-                            <th>Tổng tiền: @tongtien</th>
+                            <td class="tg-ofj5" colspan="8" style=" border-top-color: black;"><b>Tổng tiền cước (60%):</b></td>
+                            <td class="tg-zv4m" style="text-align:right;border-top-color: black;">@String.Format("{0:0,0}", (tiencuoc * 60 / 100))</td>
+                            <td class="tg-zv4m" style="text-align:left;border-top-color: black;">&nbsp;VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-ofj5" colspan="8"><b>Tổng tiền trừ:</b></td>
+                            <td class="tg-zv4m" style="text-align:right">@String.Format("{0:0,0}", (tientru))</td>
+                            <td class="tg-zv4m" style="text-align:left">&nbsp;VNĐ</td>
+                        </tr>
+                        <tr>
+                            <td class="tg-ofj5" colspan="8" style=" border-top-color: black;"><b>Còn lại:</b></td>
+                            <td class="tg-zv4m" style="border-top-color: black; text-align: right">@String.Format("{0:0,0}", (tiencuoc * 60 / 100 - tientru))</td>
+                            <td class="tg-zv4m" style="border-top-color: black; text-align: left">&nbsp;VNĐ</td>
                         </tr>
                     </tfoot>
-                </table>
 
+                </table>
+                @Html.ActionLink("Trở lại", "Index")
             </div>
-            
         </div>
     </div>
 </div>

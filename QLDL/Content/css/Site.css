@@ -1,4 +1,5 @@
 ﻿body {
+    font-family: 'Tahoma';
     background-color: #f7f7f7;
     font-size: 12px;
     color: #000000;
@@ -72,6 +73,7 @@ hr {
 .navbar-inverse .navbar-nav > li > a {
     color: #ffffff;
 }
+
 .form-control {
     height: 21px;
     padding: 2px 4px;
@@ -344,22 +346,21 @@ td a {
     padding: 1px;
     vertical-align: middle;
     border-top: 1px solid #000000;
-
 }
 
 .table > tbody > tr > td, .table > tfoot > tr > td, .table > thead > tr > td {
     line-height: 20px;
-
 }
+
 .cell {
-  max-width: 50px; /* tweak me please */
-  white-space : nowrap;
-  overflow : hidden;
+    max-width: 50px; /* tweak me please */
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .expand-small-on-hover:hover {
-  max-width : 200px; 
-  text-overflow: ellipsis;
+    max-width: 200px;
+    text-overflow: ellipsis;
 }
 
 .expand-maximum-on-hover:hover {
