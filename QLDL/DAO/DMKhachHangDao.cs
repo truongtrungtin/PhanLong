@@ -1,9 +1,8 @@
 ﻿using QLDL.EF;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
+using System.Data;
 using System.Linq;
-using System.Web;
 
 namespace QLDL.DAO
 {
@@ -34,6 +33,64 @@ namespace QLDL.DAO
             }
 
         }
+
+        public bool importData(DataTable dt, DMKhachHang dMKhachHang)
+        {
+            try
+            {
+                if ((dt as System.Data.DataTable).Rows.Count > 0)
+                {
+                    foreach (DataRow dr in (dt as System.Data.DataTable).Rows)
+                    {
+                        foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
+                        {
+
+                            if (column.ColumnName == "Mã khách hàng")
+                            {
+                                dMKhachHang.MaKH = dr["Mã khách hàng"].ToString();
+                            }
+                            else if (column.ColumnName == "Tên công ty")
+                            {
+
+                                dMKhachHang.TenCongTy = dr["Tên công ty"].ToString();
+
+                            }
+                            else if (column.ColumnName == "Mã số thuế")
+                            {
+
+                                dMKhachHang.MST = dr["Mã số thuế"].ToString();
+
+                            }
+                            else if (column.ColumnName == "Địa chỉ")
+                            {
+
+                                dMKhachHang.DiaChi = dr["Địa chỉ"].ToString();
+
+                            }
+                            else if (column.ColumnName == "Người liên hệ")
+                            {
+
+                                dMKhachHang.NguoiLienHe = dr["Người liên hệ"].ToString();
+
+                            }
+                            else if (column.ColumnName == "Số điện thoại")
+                            {
+
+                                dMKhachHang.SoDienThoai = dr["Số điện thoại"].ToString();
+
+                            }
+                        }
+                        var data = db.DMKhachHangs.Add(dMKhachHang);
+                        db.SaveChanges();
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         public List<DMKhachHang> ListAll()
         {
             return db.DMKhachHangs.OrderByDescending(x => x.Id).ToList();
@@ -48,6 +105,14 @@ namespace QLDL.DAO
         }
         public long Insert(DMKhachHang entity)
         {
+            db.DMKhachHangs.Add(entity);
+            db.SaveChanges();
+            return entity.Id;
+        }
+
+        public long InsertKhachHang(DMKhachHang entity, string kh)
+        {
+            entity.MaKH = kh;
             db.DMKhachHangs.Add(entity);
             db.SaveChanges();
             return entity.Id;

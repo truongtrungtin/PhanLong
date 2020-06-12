@@ -16,6 +16,9 @@
                     <th>Địa chỉ chi tiết</th>
                     <th>Người liên hệ</th>
                     <th>Số điện thoại</th>
+                    <th>Lộ trình</th>
+                    <th>Giờ cấm</th>
+                    <th>Ghi chú</th>
                     <td>#</td>
                 </tr>
             </thead>
@@ -30,6 +33,9 @@
                     <td>@item.DiaChiChiTiet</td>
                     <td>@item.NguoiLienHe</td>
                     <td>@item.SoDienThoai</td>
+                    <td>@item.LoTrinh </td>
+                    <td>@item.GioCam</td>
+                    <td>@item.GhiChu</td>
                     <td>
                         @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
                     </td>

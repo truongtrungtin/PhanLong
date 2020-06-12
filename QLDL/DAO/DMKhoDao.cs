@@ -1,9 +1,8 @@
 ﻿using QLDL.EF;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
 
 namespace QLDL.DAO
 {
@@ -14,6 +13,15 @@ namespace QLDL.DAO
         {
             db = new QLDLDBContext();
         }
+        public long InsertKho(DMKho entity, string kho)
+        {
+            entity.MaKho = kho;
+            entity.DiaChi = kho;
+            db.DMKhoes.Add(entity);
+            db.SaveChanges();
+            return entity.Id;
+        }
+
         public List<DMKho> ListAll()
         {
             return db.DMKhoes.OrderByDescending(x => x.Id).ToList();
@@ -38,6 +46,82 @@ namespace QLDL.DAO
             }
 
         }
+
+        public bool importData(DataTable dt, DMKho dMKho)
+        {
+            try
+            {
+                if ((dt as System.Data.DataTable).Rows.Count > 0)
+                {
+                    foreach (DataRow dr in (dt as System.Data.DataTable).Rows)
+                    {
+                        foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
+                        {
+
+                            if (column.ColumnName == "Mã kho")
+                            {
+                                dMKho.MaKho = dr["Mã kho"].ToString();
+                            }
+                            else if (column.ColumnName == "Địa chỉ")
+                            {
+
+                                dMKho.DiaChi = dr["Địa chỉ"].ToString();
+
+                            }
+                            else if (column.ColumnName == "Địa chỉ chi tiết")
+                            {
+
+                                dMKho.DiaChiChiTiet = dr["Địa chỉ chi tiết"].ToString();
+
+                            }
+                            else if (column.ColumnName == "Người liên hệ")
+                            {
+
+                                dMKho.NguoiLienHe = dr["Người liên hệ"].ToString();
+
+                            }
+                            else if (column.ColumnName == "Số điện thoại")
+                            {
+
+                                dMKho.SoDienThoai = dr["Số điện thoại"].ToString();
+
+                            }
+                            else if (column.ColumnName == "Lộ trình")
+                            {
+
+                                dMKho.LoTrinh = dr["Lộ trình"].ToString();
+
+                            }
+                            else if (column.ColumnName == "Giờ cấm")
+                            {
+
+                                dMKho.GioCam = dr["Giờ cấm"].ToString();
+
+                            }
+                            else if (column.ColumnName == "Ghi chú")
+                            {
+
+                                dMKho.GhiChu = dr["Ghi chú"].ToString();
+
+                            }
+
+                        }
+                        var data = db.DMKhoes.Add(dMKho);
+                        db.SaveChanges();
+                    }
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+               
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
         public List<DMKho> Check(string MaKho)
         {
             return db.DMKhoes.Where(x => x.MaKho == MaKho).ToList();
@@ -54,6 +138,9 @@ namespace QLDL.DAO
             return entity.Id;
         }
 
+
+
+
         public bool Update(DMKho dMKho)
         {
             try
@@ -63,6 +150,9 @@ namespace QLDL.DAO
                 item.NguoiLienHe = dMKho.NguoiLienHe;
                 item.SoDienThoai = dMKho.SoDienThoai;
                 item.DiaChiChiTiet = dMKho.DiaChiChiTiet;
+                item.LoTrinh = dMKho.LoTrinh;
+                item.GioCam = dMKho.GioCam;
+                item.GhiChu = dMKho.GhiChu;
                 db.SaveChanges();
                 return true;
             }

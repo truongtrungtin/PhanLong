@@ -1,9 +1,8 @@
 ﻿using QLDL.EF;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Web;
 
 namespace QLDL.DAO
 {
@@ -13,6 +12,14 @@ namespace QLDL.DAO
         public DMXeDao()
         {
             db = new QLDLDBContext();
+        }
+        public long InsertXe(DMXe entity, string xe)
+        {
+            entity.MaXe = xe;
+            entity.BienSo = xe;
+            db.DMXes.Add(entity);
+            db.SaveChanges();
+            return entity.Id;
         }
         public bool checkbox(int[] chkId)
         {
@@ -33,6 +40,40 @@ namespace QLDL.DAO
                 return false;
             }
 
+        }
+
+        public bool importData(DataTable dt, DMXe dMXe)
+        {
+            try
+            {
+                if ((dt as System.Data.DataTable).Rows.Count > 0)
+                {
+                    foreach (DataRow dr in (dt as System.Data.DataTable).Rows)
+                    {
+                        foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
+                        {
+
+                            if (column.ColumnName == "Mã Xe")
+                            {
+                                dMXe.MaXe = dr["Mã Xe"].ToString();
+                            }
+                            else if (column.ColumnName == "Biển số")
+                            {
+
+                                dMXe.BienSo = dr["Biển số"].ToString();
+
+                            }
+                        }
+                        var data = db.DMXes.Add(dMXe);
+                        db.SaveChanges();
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         public List<DMXe> ListAll()
         {

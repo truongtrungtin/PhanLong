@@ -1,8 +1,8 @@
 ﻿using QLDL.EF;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Web;
 
 namespace QLDL.DAO
 {
@@ -13,6 +13,14 @@ namespace QLDL.DAO
         {
             db = new QLDLDBContext();
         }
+        public long InsertPhi(DMPhi entity, string phi)
+        {
+            entity.MaPhi = phi;
+            db.DMPhis.Add(entity);
+            db.SaveChanges();
+            return entity.Id;
+        }
+
         public bool checkbox(int[] chkId)
         {
             try
@@ -32,6 +40,40 @@ namespace QLDL.DAO
                 return false;
             }
 
+        }
+
+        public bool importData(DataTable dt, DMPhi dMPhi)
+        {
+            try
+            {
+                if ((dt as System.Data.DataTable).Rows.Count > 0)
+                {
+                    foreach (DataRow dr in (dt as System.Data.DataTable).Rows)
+                    {
+                        foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
+                        {
+
+                            if (column.ColumnName == "Mã phí")
+                            {
+                                dMPhi.MaPhi = dr["Mã phí"].ToString();
+                            }
+                            else if (column.ColumnName == "Tên phí")
+                            {
+
+                                dMPhi.TenPhi = dr["Tên phí"].ToString();
+
+                            }
+                        }
+                        var data = db.DMPhis.Add(dMPhi);
+                        db.SaveChanges();
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         public List<DMPhi> ListAll()
         {

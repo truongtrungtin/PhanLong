@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "ImportExcel";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ImportExcel</h2>
+
+@{Html.BeginForm("CreateDocument", "DMKho", FormMethod.Get);
+    {
+        <div>
+            <input type="submit" value="Create Document" style="width:150px;height:27px" />
+        </div>
+    }
+    Html.EndForm();
+}

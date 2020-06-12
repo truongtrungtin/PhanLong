@@ -40,8 +40,8 @@ namespace QLDL.EF
 
         [Column(TypeName = "date")]
         public DateTime? NgayGui { get; set; }
-
-        public int? DoDay { get; set; }
+        [StringLength(20)]
+        public string DoDay { get; set; }
 
         [StringLength(50)]
         public string QuyCach { get; set; }

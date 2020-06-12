@@ -1,10 +1,14 @@
-﻿using QLDL.DAO;
+﻿using QLDL.Common;
+using QLDL.DAO;
 using QLDL.EF;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace QLDL.Areas.DanhMuc.Controllers
 {
@@ -163,22 +167,6 @@ namespace QLDL.Areas.DanhMuc.Controllers
             }
             return View("Index");
         }
-
-        // Delete
-        [HttpDelete]
-        public ActionResult Delete(long id)
-        {
-            var result = new DMMoocDao().Delete(id);
-            if (result)
-            {
-                SetAlert("Xóa mooc thành công", "success");
-                return RedirectToAction("Index", "DMXe");
-            }
-            else
-            {
-                SetAlert("Xóa mooc không thành công", "warning");
-                return RedirectToAction("Index", "DMXe");
-            }
-        }
+ 
     }
 }

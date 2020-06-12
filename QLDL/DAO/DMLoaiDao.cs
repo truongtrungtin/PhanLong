@@ -54,6 +54,14 @@ namespace QLDL.DAO
             return entity.Id;
         }
 
+        public long InsertMaLoai(DMLoai entity,string maloai)
+        {
+            entity.MaLoai = maloai;
+            db.DMLoais.Add(entity);
+            db.SaveChanges();
+            return entity.Id;
+        }
+
         public bool Update(DMLoai dMLoai)
         {
             try

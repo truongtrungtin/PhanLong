@@ -1,8 +1,8 @@
 ﻿using QLDL.EF;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Web;
 
 namespace QLDL.DAO
 {
@@ -12,6 +12,13 @@ namespace QLDL.DAO
         public DMThoiGianDao()
         {
             db = new QLDLDBContext();
+        }
+        public long InsertThoigian(DMThoiGian entity, string thoigian)
+        {
+            entity.MaTG = thoigian;
+            db.DMThoiGians.Add(entity);
+            db.SaveChanges();
+            return entity.Id;
         }
         public List<DMThoiGian> ListAll()
         {
@@ -36,6 +43,40 @@ namespace QLDL.DAO
                 return false;
             }
 
+        }
+
+        public bool importData(DataTable dt, DMCang dMCang)
+        {
+            try
+            {
+                if ((dt as System.Data.DataTable).Rows.Count > 0)
+                {
+                    foreach (DataRow dr in (dt as System.Data.DataTable).Rows)
+                    {
+                        foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
+                        {
+
+                            if (column.ColumnName == "Mã cảng")
+                            {
+                                dMCang.MaCang = dr["Tên cảng"].ToString();
+                            }
+                            else if (column.ColumnName == "Tên cảng")
+                            {
+
+                                dMCang.TenCang = dr["Tên cảng"].ToString();
+
+                            }
+                        }
+                        var data = db.DMCangs.Add(dMCang);
+                        db.SaveChanges();
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         public List<DMThoiGian> Check(string MaThoiGian)
         {

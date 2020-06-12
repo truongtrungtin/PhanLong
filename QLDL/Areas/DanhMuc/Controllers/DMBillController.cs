@@ -1,17 +1,14 @@
-﻿using OfficeOpenXml;
-using OfficeOpenXml.FormulaParsing.LexicalAnalysis.TokenSeparatorHandlers;
+﻿using QLDL.Common;
 using QLDL.DAO;
 using QLDL.EF;
 using System;
 using System.Collections.Generic;
-using System.Data.OleDb;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
 using System.Web.Mvc;
+
 
 namespace QLDL.Areas.DanhMuc.Controllers
 {
@@ -372,59 +369,142 @@ namespace QLDL.Areas.DanhMuc.Controllers
             }
         }
 
+        [ActionName("Importexcel")]
+        [HttpPost]
+        public ActionResult ImportExcel(DMBill dMBill, DMKhachHang dMKhachHang, DMCang dMCang, string sheet)
+        {
+            if (Request.Files["FileUpload"].ContentLength > 0)
+            {
+                string extension = System.IO.Path.GetExtension(Request.Files["FileUpload"].FileName).ToLower();
+                string query = null;
+                string connString = "";
+                string[] validFileTypes = { ".xls", ".xlsx", ".csv" };
 
-        //SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["QLDLDBContext"].ConnectionString);
-        //OleDbConnection Econ;
+                string path1 = string.Format("{0}/{1}", Server.MapPath("~/Content/Uploads"), Request.Files["FileUpload"].FileName);
+                if (!Directory.Exists(path1))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/Content/Uploads"));
+                }
+                if (validFileTypes.Contains(extension))
+                {
+                    DataTable dt;
+                    if (System.IO.File.Exists(path1))
+                    { System.IO.File.Delete(path1); }
+                    Request.Files["FileUpload"].SaveAs(path1);
+                    if (extension == ".csv")
+                    {
+                        dt = ExcelUpload.ConvertCSVtoDataTable(path1);
+                        ViewBag.Data = dt;
+                    }
+                    //Connection String to Excel Workbook  
+                    else if (extension.Trim() == ".xls")
+                    {
+                        connString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path1 + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                        dt = ExcelUpload.ConvertXSLXtoDataTable(path1, connString, sheet);
+                        ViewBag.Data = dt;
+                        var dao = new DMBillDao();
 
-        //public ActionResult ImportStatesExcel()
-        //{
-        //    return View();
-        //}
-        //[HttpPost]
-        //public ActionResult ImportStatesExcel(HttpPostedFileBase file)
-        //{
-        //    Guid guidObj = Guid.NewGuid();
+                        if (dao.importData(dt, dMBill,dMKhachHang,dMCang))
+                        {
+                            SetAlert("Thêm thành công!", "success");
+                        }
+                        else
+                        {
+                            SetAlert("Thêm không thành công!", "warning");
+                        }
+                    }
+                    else if (extension.Trim() == ".xlsx")
+                    {
+                        connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path1 + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                        dt = ExcelUpload.ConvertXSLXtoDataTable(path1, connString, sheet);
+                        ViewBag.Data = dt;
+                        var dao = new DMBillDao();
 
-        //    string extension = Path.GetExtension(file.FileName);
-        //    string filename = guidObj.ToString() + extension;
-        //    string filepath = "/excelfolder/" + filename;
-        //    file.SaveAs(Path.Combine(Server.MapPath("/excelfolder"), filename));
-        //    InsertExceldata(filepath, filename);
+                        if (dao.importData(dt, dMBill, dMKhachHang, dMCang))
+                        {
+                            SetAlert("Thêm thành công!", "success");
+                        }
+                        else
+                        {
+                            SetAlert("Thêm không thành công!", "warning");
+                        }
+                    }
+                }
+                else
+                {
+                    ViewBag.Error = "Please Upload Files in .xls, .xlsx or .csv format";
+                }
+            }
+            return RedirectToAction("Index", "DMBill");
+        }
 
-        //    return View();
-        //}
+        [ActionName("ImportExcelCTBill")]
+        [HttpPost]
+        public ActionResult ImportExcelCTBill(DMLoai dMLoai, DMKhachHang dMKhachHang, DMKho dMKho, DMXe dMXe, DMNhanVien dMNhanVien, DMPhi dMPhi, DMThoiGian dMThoiGian, DMCang dMCang, DMBill dMBill, string sheet)
+        {
+            if (Request.Files["FileUpload"].ContentLength > 0)
+            {
+                string extension = System.IO.Path.GetExtension(Request.Files["FileUpload"].FileName).ToLower();
+                string query = null;
+                string connString = "";
+                string[] validFileTypes = { ".xls", ".xlsx", ".csv" };
 
-        //private void ExcelConn(string filepath)
-        //{
-        //    string constr = string.Format(@"Provider = Microsoft.ACE.OLEDB.12.0; Data Source = {0};Extended Properties=""Excel 12.0 XML;Persist Security Info=False""", filepath);
-        //    Econ = new OleDbConnection(constr);
-        //}
+                string path1 = string.Format("{0}/{1}", Server.MapPath("~/Content/Uploads/DMBill/CTBill"), Request.Files["FileUpload"].FileName);
+                if (!Directory.Exists(path1))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/Content/Uploads/DMBill/CTBill"));
+                }
+                if (validFileTypes.Contains(extension))
+                {
+                    DataTable dt;
+                    if (System.IO.File.Exists(path1))
+                    { System.IO.File.Delete(path1); }
+                    Request.Files["FileUpload"].SaveAs(path1);
+                    if (extension == ".csv")
+                    {
+                        dt = ExcelUpload.ConvertCSVtoDataTable(path1);
+                        ViewBag.Data = dt;
+                    }
+                    //Connection String to Excel Workbook  
+                    else if (extension.Trim() == ".xls")
+                    {
+                        connString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path1 + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
+                        dt = ExcelUpload.ConvertXSLXtoDataTable(path1, connString, sheet);
+                        ViewBag.Data = dt;
+                        var dao = new CTBillDao();
 
-        //private void InsertExceldata(string fileepath, string filename)
-        //{
-        //    string fullpath = Server.MapPath("/excelfolder") + filename;
-        //    ExcelConn(fullpath);
-        //    string query = string.Format("Select * from [{0}]", "Sheet1");
-        //    OleDbCommand Ecom = new OleDbCommand(query, Econ);
-        //    Econ.Open();
-        //    DataSet ds = new DataSet();
-        //    OleDbDataAdapter oda = new OleDbDataAdapter(query, Econ);
-        //    Econ.Close();
-        //    oda.Fill(ds);
+                        if (dao.importData(dt, dMLoai, dMKho, dMXe, dMCang, dMBill))
+                        {
+                            SetAlert("Thêm thành công!", "success");
+                        }
+                        else
+                        {
+                            SetAlert("Thêm không thành công!", "warning");
+                        }
+                    }
+                    else if (extension.Trim() == ".xlsx")
+                    {
+                        connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path1 + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
+                        dt = ExcelUpload.ConvertXSLXtoDataTable(path1, connString, sheet);
+                        ViewBag.Data = dt;
+                        var dao = new CTBillDao();
 
-        //    DataTable dt = ds.Tables[0];
-        //    SqlBulkCopy objbulk = new SqlBulkCopy(con);
-        //    objbulk.DestinationTableName = "DMBill";
-        //    objbulk.ColumnMappings.Add("MaBill", "MaBill");
-        //    objbulk.ColumnMappings.Add("NgayTauDen", "NgayTauDen");
-        //    objbulk.ColumnMappings.Add("KhachHang", "KhachHang");
-        //    objbulk.ColumnMappings.Add("CangNhan", "CangNhan");
-        //    objbulk.ColumnMappings.Add("CangTra", "CangTra");
-        //    con.Open();
-        //    objbulk.WriteToServer(dt);
-        //    con.Close();
-
-
-        //}
+                        if (dao.importData(dt, dMLoai, dMKho, dMXe, dMCang, dMBill))
+                        {
+                            SetAlert("Thêm thành công!", "success");
+                        }
+                        else
+                        {
+                            SetAlert("Thêm không thành công!", "warning");
+                        }
+                    }
+                }
+                else
+                {
+                    ViewBag.Error = "Please Upload Files in .xls, .xlsx or .csv format";
+                }
+            }
+            return RedirectToAction("CTBill", "DMBill");
+        }
     }
 }

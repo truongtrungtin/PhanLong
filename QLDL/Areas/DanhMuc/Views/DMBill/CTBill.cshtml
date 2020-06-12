@@ -34,28 +34,28 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
-                        <tr id="row_@item.Id">
-                            <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                            <td>@item.Cont</td>
-                            <td>@(item.Loai != null ? item.DMLoai.MaLoai: null)</td>
-                            <td>@(item.Kho != null ? item.DMKho.MaKho : null )</td>
-                            <td>@item.SoDK</td>
-                            <td>@item.Seal</td>
-                            <td>@item.DoDay</td>
-                            <td>@item.QuyCach</td>
-                            <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : null)</td>
+                            <tr id="row_@item.Id">
+                                <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                                <td>@item.Cont</td>
+                                <td>@(item.Loai != null ? item.DMLoai.MaLoai: null)</td>
+                                <td>@(item.Kho != null ? item.DMKho.MaKho : null )</td>
+                                <td>@item.SoDK</td>
+                                <td>@item.Seal</td>
+                                <td>@item.DoDay</td>
+                                <td>@item.QuyCach</td>
+                                <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : null)</td>
 
-                            <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : null)</td>
+                                <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : null)</td>
 
-                            <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : null)</td>
+                                <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : null)</td>
 
-                            <td class="cell expand-maximum-on-hover">@item.GhiChu</td>
-                            <td>
-                                @Html.ActionLink("Chỉnh sửa", "UpdateCTBill", new { id = item.Bill, CTBill = item.Id }, new { @class = "btn btn-primary mb-1" })
-                                @*&ensp;| &ensp;
-            @Html.ActionLink("Copy", "CreateCTBill", new { id = item.Bill, Copy = "Copy", cTBill = item.Id }, new { @class = "btn btn-primary mb-1" })*@
-                            </td>
-                        </tr>
+                                <td class="cell expand-maximum-on-hover">@item.GhiChu</td>
+                                <td>
+                                    @Html.ActionLink("Chỉnh sửa", "UpdateCTBill", new { id = item.Bill, CTBill = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                    @*&ensp;| &ensp;
+                                @Html.ActionLink("Copy", "CreateCTBill", new { id = item.Bill, Copy = "Copy", cTBill = item.Id }, new { @class = "btn btn-primary mb-1" })*@
+                                </td>
+                            </tr>
                         }
                     </tbody>
 
@@ -65,6 +65,16 @@
                     @Html.ActionLink("Trở lại", "Index")
                 </div>
             }
+            <div style="text-align:right">
+                @using (Html.BeginForm("ImportExcelCTBill", "DMBill", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" name="Sheet" value="CTBill$" />
+                    <input type="submit" id="Submit" name="Submit" value="Import Excel" class="btn btn-success" />
+                    <label>
+                        <input type="file" id="FileUpload" name="FileUpload" aria-label="EXCEL" />
+                    </label>
+                }
+            </div>
         </div>
     </div>
 </div>

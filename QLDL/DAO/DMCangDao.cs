@@ -1,8 +1,8 @@
 ﻿using QLDL.EF;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Web;
 
 namespace QLDL.DAO
 {
@@ -32,6 +32,47 @@ namespace QLDL.DAO
                 return false;
             }
 
+        }
+        public long InsertCang(DMCang entity, string cang)
+        {
+            entity.MaCang = cang;
+            entity.TenCang = cang;
+            db.DMCangs.Add(entity);
+            db.SaveChanges();
+            return entity.Id;
+        }
+        public bool importData(DataTable dt, DMCang dMCang)
+        {
+            try
+            {
+                if ((dt as System.Data.DataTable).Rows.Count > 0)
+                {
+                    foreach (DataRow dr in (dt as System.Data.DataTable).Rows)
+                    {
+                        foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
+                        {
+                           
+                            if (column.ColumnName == "Mã cảng")
+                            {
+                                dMCang.MaCang = dr["Mã cảng"].ToString();
+                            }
+                            else if (column.ColumnName == "Tên cảng")
+                            {
+
+                                dMCang.TenCang = dr["Tên cảng"].ToString();
+
+                            }
+                        }
+                        db.DMCangs.Add(dMCang);
+                        db.SaveChanges();
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
         public List<DMCang> ListAll()
         {

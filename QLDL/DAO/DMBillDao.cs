@@ -1,8 +1,8 @@
 ﻿using QLDL.EF;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
-using System.Web;
 
 namespace QLDL.DAO
 {
@@ -32,6 +32,129 @@ namespace QLDL.DAO
                 return false;
             }
 
+        }
+
+        public bool importData(DataTable dt, DMBill dMBill, DMKhachHang dMKhachHang,DMCang dMCang)
+        {
+            try
+            {
+                if ((dt as System.Data.DataTable).Rows.Count > 0)
+                {
+                    foreach (DataRow dr in (dt as System.Data.DataTable).Rows)
+                    {
+                        var MaKH = dr["khách hàng"].ToString();
+                        var MaCangNhan = dr["Cảng nhận"].ToString();
+                        var MaCangTra = dr["Cảng trả"].ToString();
+                        long? KH = null;
+                        long? CangNhan = null;
+                        long? CangTra = null;
+                        if (MaKH != null)
+                        {
+                            foreach (var item in db.DMKhachHangs)
+                            {
+                                if (item.MaKH == MaKH)
+                                {
+                                    KH = item.Id;
+                                }
+
+                            }
+                            if (KH == null)
+                            {
+                                var dao = new DMKhachHangDao().InsertKhachHang(dMKhachHang, MaKH);
+                                KH = dao;
+                            }
+                        }
+
+                        if (MaCangNhan != null)
+                        {
+                            foreach (var item in db.DMCangs)
+                            {
+                                if (item.MaCang == MaCangNhan || item.TenCang == MaCangNhan)
+                                {
+                                    CangNhan = item.Id;
+                                }
+
+                            }
+                            if (CangNhan == null)
+
+                            {
+                                var dao = new DMCangDao().InsertCang(dMCang, MaCangNhan);
+                                CangNhan = dao;
+                            }
+                        }
+                        if (MaCangTra != null)
+                        {
+                            foreach (var item in db.DMCangs)
+                            {
+                                if (item.MaCang == MaCangTra)
+                                {
+                                    CangTra = item.Id;
+                                }
+
+                            }
+                            if (CangTra == null)
+                            {
+                                var dao = new DMCangDao().InsertCang(dMCang, MaCangTra);
+                                CangTra = dao;
+                            }
+                        }
+
+                        foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
+                        {
+
+                            if (column.ColumnName == "Mã bill")
+                            {
+                                dMBill.MaBill = dr["Mã bill"].ToString();
+                            }
+                            else if (column.ColumnName == "Ngày tàu đến")
+                            {
+                                var day = dr["Ngày tàu đến"].ToString();
+                                if (day != "")
+                                {
+                                    var a = Convert.ToDateTime(day).ToShortDateString();
+                                    dMBill.NgayTauDen = Convert.ToDateTime(a);
+                                }     
+                            }
+                            else if (column.ColumnName == "khách hàng")
+                            {
+                                if (KH != null)
+                                {
+                                    dMBill.KhachHang = KH;
+                                }
+                            }
+                            else if (column.ColumnName == "Cảng nhận")
+                            {
+                                if (CangNhan != null)
+                                {
+                                    dMBill.CangNhan = CangNhan;
+                                }
+                            }
+                            else if (column.ColumnName == "Cảng trả")
+                            {
+                                if (CangTra != null)
+                                {
+                                    dMBill.CangTra = CangTra;
+                                }
+                            }
+
+                        }
+                        var data = db.DMBills.Add(dMBill);
+                        db.SaveChanges();
+                    }
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        public long InsertBill(DMBill entity, string bill)
+        {
+            entity.MaBill = bill;
+            db.DMBills.Add(entity);
+            db.SaveChanges();
+            return entity.Id;
         }
         public IEnumerable<DMBill> ListAll(int? Bill = null, int? KhachHang = null, string ToDate = null, string FromDate = null)
         {

@@ -46,6 +46,18 @@
                     <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
                 </div>
             }
+            <div style="text-align:right">
+                @using (Html.BeginForm("ImportExcel", "DMCang", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" name="Sheet" value="DMCang$" />
+                    <input type="submit" id="Submit" name="Submit" value="Import Excel" class="btn btn-success" />
+                    <label>
+
+                        <input type="file" id="FileUpload" name="FileUpload" aria-label="EXCEL" />
+
+                    </label>
+                }
+            </div>
         </div>
     </div>
 </div>

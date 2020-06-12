@@ -32,6 +32,13 @@ namespace QLDL.EF
 
         [StringLength(11)]
         public string SoDienThoai { get; set; }
+        [StringLength(50)]
+        public string LoTrinh { get; set; }
+        [StringLength(50)]
+        public string GioCam { get; set; }
+        [StringLength(255)]
+        public string GhiChu { get; set; }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTBill> CTBills { get; set; }

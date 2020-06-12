@@ -14,6 +14,13 @@ namespace QLDL.DAO
         {
             db = new QLDLDBContext();
         }
+        public long InsertMooc(DMMooc entity, string mooc)
+        {
+            entity.MaMooc = mooc;
+            db.DMMoocs.Add(entity);
+            db.SaveChanges();
+            return entity.Id;
+        }
         public bool checkbox(int[] chkId)
         {
             try
