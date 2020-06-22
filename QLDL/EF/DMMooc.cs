@@ -1,4 +1,4 @@
-namespace QLDL.EF
+﻿namespace QLDL.EF
 {
     using System;
     using System.Collections.Generic;
@@ -12,18 +12,20 @@ namespace QLDL.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public DMMooc()
         {
-            CTChis = new HashSet<CTChi>();
+            CTChiThus = new HashSet<CTChiThu>();
         }
 
         public long Id { get; set; }
 
         [StringLength(50)]
+        [Required, Display(Name = "Mã: ")]
         public string MaMooc { get; set; }
 
         [StringLength(50)]
+        [Required, Display(Name = "Biển số: ")]
         public string BienSo { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTChi> CTChis { get; set; }
+        public virtual ICollection<CTChiThu> CTChiThus { get; set; }
     }
 }

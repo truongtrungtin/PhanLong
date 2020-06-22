@@ -9,6 +9,7 @@
                 <tr>
                     <th width="1%"><input type='checkbox' id='check' value='' /></th>
                     <th></th>
+                    <th>Số tờ khai</th>
                     <th>Mã Bill</th>
                     <th>Số lượng cont</th>
                     <th>Tàu đến</th>
@@ -28,7 +29,9 @@
                 <tr id="row_@item.Id">
 
                     <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+
                     <td width="1%">@Html.ActionLink("Chi tiết", "CTBill", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })</td>
+                    <td>@(item.SoToKhai != null ? Html.ActionLink(item.SoToKhai, "CTBill", new { id = item.Id }) : null)</td>
                     <td>@Html.ActionLink(item.MaBill, "CTBill", new { id = item.Id })</td>
                     @{ var cont = item.CTBills.Where(x => x.Bill == item.Id).ToList();}
                     <td>@cont.Count()</td>

@@ -1,4 +1,4 @@
-namespace QLDL.EF
+﻿namespace QLDL.EF
 {
     using System;
     using System.Collections.Generic;
@@ -22,9 +22,11 @@ namespace QLDL.EF
         public long Id { get; set; }
 
         [StringLength(50)]
+        [Required, Display(Name = "Mã: ")]
         public string MaCang { get; set; }
 
         [StringLength(50)]
+        [Required, Display(Name = "Tên cảng: ")]
         public string TenCang { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,4 +1,4 @@
-namespace QLDL.EF
+﻿namespace QLDL.EF
 {
     using System;
     using System.Collections.Generic;
@@ -13,23 +13,25 @@ namespace QLDL.EF
         public DMXe()
         {
             CTBills = new HashSet<CTBill>();
-            CTChis = new HashSet<CTChi>();
+            CTChiThus = new HashSet<CTChiThu>();
             PhatSinhs = new HashSet<PhatSinh>();
         }
 
         public long Id { get; set; }
 
         [StringLength(50)]
+        [Required, Display(Name = "Mã: ")]
         public string MaXe { get; set; }
 
         [StringLength(50)]
+        [Required, Display(Name = "Biển số: ")]
         public string BienSo { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTBill> CTBills { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTChi> CTChis { get; set; }
+        public virtual ICollection<CTChiThu> CTChiThus { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinh> PhatSinhs { get; set; }

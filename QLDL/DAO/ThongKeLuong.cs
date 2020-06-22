@@ -25,7 +25,6 @@ namespace QLDL.DAO
                            MaTX = nv.MaNV,
                            TaiXe = nv.TenNV
                        };
-
             return data.OrderBy(x => x.Id).Distinct().ToList();
         }
     }

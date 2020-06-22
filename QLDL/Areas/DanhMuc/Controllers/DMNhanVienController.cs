@@ -191,7 +191,6 @@ namespace QLDL.Areas.DanhMuc.Controllers
             if (Request.Files["FileUpload"].ContentLength > 0)
             {
                 string extension = System.IO.Path.GetExtension(Request.Files["FileUpload"].FileName).ToLower();
-                string query = null;
                 string connString = "";
                 string[] validFileTypes = { ".xls", ".xlsx", ".csv" };
 

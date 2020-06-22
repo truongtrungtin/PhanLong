@@ -21,12 +21,8 @@ namespace QLDL.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Index(int[] chkId, string delete = null, string importexcel = null)
+        public ActionResult Index(int[] chkId, string delete = null)
         {
-            if (importexcel != null)
-            {
-
-            }
             var dao = new DMCangDao();
             if (delete != null && chkId != null)
             {
@@ -193,7 +189,6 @@ namespace QLDL.Areas.DanhMuc.Controllers
             if (Request.Files["FileUpload"].ContentLength > 0)
             {
                 string extension = System.IO.Path.GetExtension(Request.Files["FileUpload"].FileName).ToLower();
-                string query = null;
                 string connString = "";
                 string[] validFileTypes = { ".xls", ".xlsx", ".csv" };
 

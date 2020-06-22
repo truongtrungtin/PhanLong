@@ -13,7 +13,6 @@ namespace QLDL.DAO
         {
             db = new QLDLDBContext();
         }
-
         public bool checkbox(int[] chkId)
         {
             try
@@ -21,8 +20,8 @@ namespace QLDL.DAO
                 for (int i = 0; i < chkId.Length; i++)
                 {
                     int temp = chkId[i];
-                    var article = db.CTChis.Where(x => x.Id == temp).SingleOrDefault();
-                    db.CTChis.Remove(article);
+                    var article = db.CTChiThus.Where(x => x.Id == temp).SingleOrDefault();
+                    db.CTChiThus.Remove(article);
                 }
                 db.SaveChanges();
                 return true;
@@ -35,36 +34,35 @@ namespace QLDL.DAO
 
         }
 
-        public List<CTChi> listBill(long? bill)
+        public List<CTChiThu> listBill(long? bill)
         {
-            return db.CTChis.Where(x => x.PhatSinhChi1.Bill == bill).OrderByDescending(x => x.Id).ToList();
+            return db.CTChiThus.Where(x => x.PhatSinhChiThu1.Bill == bill).OrderByDescending(x => x.Id).ToList();
         }
-        public List<CTChi> ListAll(long phatSinhChi)
+        public List<CTChiThu> ListAll(long phatSinhChi)
         {
-            return db.CTChis.Where(x => x.PhatSinhChi == phatSinhChi).OrderByDescending(x => x.Id).ToList();
-        }
-
-        public CTChi GetById(long? id)
-        {
-            return db.CTChis.SingleOrDefault(x => x.Id == id);
+            return db.CTChiThus.Where(x => x.PhatSinhChiThu == phatSinhChi).OrderByDescending(x => x.Id).ToList();
         }
 
-        public long Insert(CTChi entity, long? idChi = null)
+        public CTChiThu GetById(long? id)
         {
-            var item = db.CTChis.Add(entity);
+            return db.CTChiThus.SingleOrDefault(x => x.Id == id);
+        }
+
+        public long Insert(CTChiThu entity, long? idChi = null)
+        {
+            var item = db.CTChiThus.Add(entity);
             if (idChi != null)
             {
-                item.PhatSinhChi = idChi;
+                item.PhatSinhChiThu = idChi;
             }
             db.SaveChanges();
             return entity.Id;
         }
-
-        public bool Update(CTChi cTChi)
+        public bool Update(CTChiThu cTChi)
         {
             try
             {
-                var item = db.CTChis.Find(cTChi.Id);
+                var item = db.CTChiThus.Find(cTChi.Id);
                 item.Mooc = cTChi.Mooc;
                 item.Xe = cTChi.Xe;
                 item.Cont = cTChi.Cont;
@@ -86,8 +84,8 @@ namespace QLDL.DAO
         {
             try
             {
-                var item = db.CTChis.Find(id);
-                db.CTChis.Remove(item);
+                var item = db.CTChiThus.Find(id);
+                db.CTChiThus.Remove(item);
                 db.SaveChanges();
                 return true;
             }

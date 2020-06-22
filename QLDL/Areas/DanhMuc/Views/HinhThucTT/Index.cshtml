@@ -16,6 +16,7 @@
                 @using (Html.BeginForm("Index", "HinhThucTT", FormMethod.Post))
                 {
                     <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
+                        
                         <thead>
                             <tr>
                                 <th class="sorting_asc_disabled sorting_desc_disabled" width="5px"><input type='checkbox' id='check' value='' /></th>
@@ -33,26 +34,18 @@
                                     <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
                                     <td>
                                         @item.MaHT
-
                                     </td>
                                     <td>@item.MoTa</td>
                                     <td>
                                         @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                                        &ensp;| &ensp;
-                                        @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
                                     </td>
                                 </tr>
                             }
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <th colspan="8">
-                                    <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
-
-                                </th>
-                            </tr>
-                        </tfoot>
                     </table>
+                    <div>
+                        <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+                    </div>
                 }
             </div>
         </div>

@@ -64,6 +64,10 @@ namespace QLDL.DAO
                                 KH = dao;
                             }
                         }
+                        else
+                        {
+                            KH = null;
+                        }
 
                         if (MaCangNhan != null)
                         {
@@ -82,6 +86,10 @@ namespace QLDL.DAO
                                 CangNhan = dao;
                             }
                         }
+                        else
+                        {
+                            CangNhan = null;
+                        }
                         if (MaCangTra != null)
                         {
                             foreach (var item in db.DMCangs)
@@ -97,6 +105,10 @@ namespace QLDL.DAO
                                 var dao = new DMCangDao().InsertCang(dMCang, MaCangTra);
                                 CangTra = dao;
                             }
+                        }
+                        else
+                        {
+                            CangTra = null;
                         }
 
                         foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
@@ -149,9 +161,12 @@ namespace QLDL.DAO
                 return false;
             }
         }
-        public long InsertBill(DMBill entity, string bill)
+        public long InsertBill(DMBill entity, string bill, long? KH = null, long? CangNhan = null, long? CangTra = null)
         {
             entity.MaBill = bill;
+            entity.KhachHang = KH;
+            entity.CangNhan = CangNhan;
+            entity.CangTra = CangTra;
             db.DMBills.Add(entity);
             db.SaveChanges();
             return entity.Id;
@@ -233,8 +248,9 @@ namespace QLDL.DAO
         public bool Update(DMBill dMBill)
         {
             try
-            {
+            { 
                 var item = db.DMBills.Find(dMBill.Id);
+                item.SoToKhai = dMBill.SoToKhai;
                 item.MaBill = dMBill.MaBill;
                 item.NgayTauDen = dMBill.NgayTauDen;
                 item.CangNhan = dMBill.CangNhan;

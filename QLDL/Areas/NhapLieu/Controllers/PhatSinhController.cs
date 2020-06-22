@@ -24,7 +24,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
 
         
         [HttpPost]
-        public ActionResult Index(int[] chkId, string delete = null, string copy = null)
+        public ActionResult Index(int[] chkId, string delete = null, string update = null)
         {
             var dao = new PhatSinhDao();
             if (delete != null && chkId != null)
@@ -38,6 +38,9 @@ namespace QLDL.Areas.NhapLieu.Controllers
                 {
                     SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
                 }
+            }else if(update != null && chkId.Length == 1)
+            {
+                return RedirectToAction("Update", "PhatSinh",new { id = chkId[0] });
             }
             var model = dao.ListAll();
             return View(model);
@@ -213,7 +216,6 @@ namespace QLDL.Areas.NhapLieu.Controllers
             if (Request.Files["FileUpload"].ContentLength > 0)
             {
                 string extension = System.IO.Path.GetExtension(Request.Files["FileUpload"].FileName).ToLower();
-                string query = null;
                 string connString = "";
                 string[] validFileTypes = { ".xls", ".xlsx", ".csv" };
 

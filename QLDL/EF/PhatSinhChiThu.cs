@@ -6,21 +6,21 @@ namespace QLDL.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("PhatSinhChi")]
-    public partial class PhatSinhChi
+    [Table("PhatSinhChiThu")]
+    public partial class PhatSinhChiThu
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PhatSinhChi()
+        public PhatSinhChiThu()
         {
-            CTChis = new HashSet<CTChi>();
+            CTChiThus = new HashSet<CTChiThu>();
         }
 
         public long Id { get; set; }
 
         [Column(TypeName = "date")]
-        public DateTime NgayChi { get; set; }
+        public DateTime Ngay { get; set; }
 
-        public long? NguoiChi { get; set; }
+        public long? NguoiChiThu { get; set; }
 
         public long? NguoiNhan { get; set; }
 
@@ -37,7 +37,7 @@ namespace QLDL.EF
         public string GhiChu { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTChi> CTChis { get; set; }
+        public virtual ICollection<CTChiThu> CTChiThus { get; set; }
 
         public virtual DMBill DMBill { get; set; }
 

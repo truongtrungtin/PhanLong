@@ -6,8 +6,8 @@
 
 <div class="card h-100">
     <div class="card-body no-gutters">
-        <h4> Bill:  <b>@ViewBag.Bill</b></h4>
-        <h5>Khách hàng: @ViewBag.KH | Cảng Nhận: @ViewBag.CN | Cảng Tra: @ViewBag.CT  </h5>
+        <h4> Bill:  <b>@ViewBag.Bill</b> | Số tờ khai: <b>@ViewBag.SoTK</b></h4>
+        <h5>Khách hàng: @ViewBag.KH | Cảng Nhận: @ViewBag.CN | Cảng Tra: @ViewBag.CT </h5>
         @Html.ActionLink("Thêm cont", "CreateCTBill", new { id = @ViewBag.IdBill }, new { @class = "btn btn-primary mb-1" })
         <hr />
         <div class="table-responsive">
@@ -68,7 +68,7 @@
             <div style="text-align:right">
                 @using (Html.BeginForm("ImportExcelCTBill", "DMBill", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
-                    <input type="hidden" name="Sheet" value="CTBill$" />
+                    <input type="hidden" name="Sheet" value="CTB$" />
                     <input type="submit" id="Submit" name="Submit" value="Import Excel" class="btn btn-success" />
                     <label>
                         <input type="file" id="FileUpload" name="FileUpload" aria-label="EXCEL" />

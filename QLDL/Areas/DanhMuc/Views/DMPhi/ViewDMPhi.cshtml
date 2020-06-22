@@ -12,6 +12,7 @@
                 <th width="1%"><input type='checkbox' id='check' value='' /></th>
                 <th>Mã Phí</th>
                 <th>Tên Phí</th>
+                <th>Loại</th>
                 <td>#</td>
             </tr>
         </thead>
@@ -19,15 +20,16 @@
 
             @foreach (var item in Model)
             {
-                <tr id="row_@item.Id">
+            <tr id="row_@item.Id">
 
-                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                    <td>@item.MaPhi</td>
-                    <td>@item.TenPhi</td>
-                    <td>
-                        @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                    </td>
-                </tr>
+                <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                <td>@item.MaPhi</td>
+                <td>@item.TenPhi</td>
+                <td>@(item.LoaiPhi != null ? item.LoaiPhi1.Loai : null)</td>
+                <td>
+                    @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                </td>
+            </tr>
             }
         </tbody>
 

@@ -25,7 +25,14 @@
                             <label class="control-label  col-md-4" for="Kho"><b>Kho</b></label>
                             <div class="col-md-8">
                                 <select name="Kho" class="form-control js-example-tags">
-                                    <option value=" @(Model.Kho != null? Model.Kho: null)"> @(Model.Kho != null? Model.DMKho.DiaChi : "--- Chọn Kho ---")</option>
+                                    @if (Model.Kho != null)
+                                    {
+                                        <option value="@Model.Kho">@Model.DMKho.MaKho - @Model.DMKho.DiaChi</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=""></option>
+                                    }
                                     @foreach (var item in db.DMKhoes)
                                     {
                                         <option value="@item.Id">@item.DiaChi</option>
@@ -51,8 +58,14 @@
                             <label class="control-label col-md-3" for="Loai"><b>Loại</b></label>
                             <div class="col-md-9">
                                 <select name="Loai" class="form-control js-example-tags">
-                                    <option value=" @(Model.Loai != null ? Model.Loai: null)"> @(Model.Loai != null ? Model.DMLoai.MaLoai : "--- Chọn Loại ---")</option>
-                                    @foreach (var item in db.DMLoais)
+                                    @if (Model.Loai != null)
+                                    {
+                                        <option value="@Model.Loai">@Model.DMLoai.MaLoai</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=""></option>
+                                    }@foreach (var item in db.DMLoais)
                                     {
                                         <option value="@item.Id">@item.MaLoai</option>
                                     }

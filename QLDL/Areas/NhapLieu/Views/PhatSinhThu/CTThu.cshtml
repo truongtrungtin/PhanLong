@@ -1,0 +1,175 @@
+﻿@model IEnumerable<QLDL.EF.CTChiThu>
+
+@{
+    ViewBag.Title = "Chi tiết thu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    DateTime date = @ViewBag.Ngay;
+
+    var a = 0;
+    var tongtien = 0;
+
+}
+
+<div class="container">
+    <div class="card h-100">
+        <div class="card-body no-gutters">
+            <h4 style="text-align:center"><b>  Phát Sinh Thu </b></h4>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        @Html.Label("Ngày thu", htmlAttributes: new { @class = "control-label" })
+                        <input type="text" readonly value="@date.ToShortDateString()" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        @Html.Label("Người thu", htmlAttributes: new { @class = "control-label" })
+                        <input type="text" readonly value="@ViewBag.NguoiChi" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        @Html.Label("Người nhận", htmlAttributes: new { @class = "control-label" })
+                        <input type="text" readonly value="@ViewBag.NguoiNhan" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        @Html.Label("Hình thức thanh toán", htmlAttributes: new { @class = "control-label" })
+                        <input type="text" readonly value="@ViewBag.HinhThucTT" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        @Html.Label("Khách hàng", htmlAttributes: new { @class = "control-label" })
+                        <input type="text" readonly value="@ViewBag.MaKH" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="form-group">
+                        @Html.Label("Số Hoá đơn", htmlAttributes: new { @class = "control-label" })
+                        <input type="text" readonly value="@ViewBag.SoHD" class="form-control" />
+                    </div>
+                </div>
+                @if (ViewBag.Bill != null)
+                {
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.Label("Số Bill", htmlAttributes: new { @class = "control-label" })
+                            <input type="text" readonly value="@ViewBag.Bill" class="form-control" />
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-1">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            @foreach (var item in Model)
+                            {
+                                tongtien = Convert.ToInt32(item.DonGia) * item.SoLuong;
+                                a += tongtien;
+                            }
+                            @Html.Label("Tổng tiền Thu", htmlAttributes: new { @class = "control-label" })
+                            <input type="text" style="text-align:right" readonly value="@String.Format("{0:0,0}", (a)) VNĐ" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+    <hr />
+    <div class="card h-100">
+        <div class="card-body no-gutters">
+            <div class="table-responsive">
+                <a href="/NhapLieu/PhatSinhThu/CreateCTChi/@ViewBag.IdChi" class="btn btn-primary">Thêm mới</a>
+                <br />
+                @using (Html.BeginForm("CTThu", "PhatSinhThu", FormMethod.Post))
+                {
+                    <table class="table table-bordered table-hover table-striped" width="100%">
+                        <thead>
+                            <tr>
+                                <th width="1%"><input type='checkbox' id='check' value='' /></th>
+
+                                <th>
+                                    Xe
+
+                                </th>
+
+                                <th>
+                                    Mooc
+
+                                </th>
+
+                                <th>
+                                    Số Cont
+
+                                </th>
+
+                                <th>
+                                    Nội Dung
+
+                                </th>
+                                <th>
+                                    Phí
+                                </th>
+                                <th>
+                                    Đơn giá (VNĐ)
+                                </th>
+                                <th>
+                                    Số lượng
+                                </th>
+                                <th>
+                                    Tiền Thu (VNĐ)
+                                </th>
+                                <th>
+                                    #
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.Id">
+
+                                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                                    <td>@(item.Xe != null ? item.DMXe.BienSo: "NULL")</td>
+                                    <td>@(item.Mooc != null ? item.DMMooc.BienSo : "NULL")</td>
+                                    <td>@(item.Cont != null ? item.Cont : "NULL")</td>
+                                    <td>@item.NoiDung</td>
+                                    <td>@(item.Phi != null ? item.DMPhi.TenPhi : "NULL")</td>
+                                    <td>@String.Format("{0:0,0}", (item.DonGia))</td>
+                                    <td>@item.SoLuong</td>
+                                    <td> @{ var tien = Convert.ToInt64(item.DonGia) * item.SoLuong;} @String.Format("{0:0,0}", (tien))</td>
+                                    <td>
+                                        @Html.ActionLink("Chỉnh sửa", "UpdateCTChi", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                        
+                    </table>
+                    <div class="form-group">
+                        <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /> |
+                        @Html.ActionLink("Trở lại", "Index")
+
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

@@ -10,7 +10,8 @@
             <tr>
                 <th width="1%"><input type='checkbox' id='check' value='' /></th>
                 <th>Mã loại</th>
-                <th>Mô tả</th>
+                <th>Loại cont</th>
+                <th>Loại hàng</th>
                 <td>#</td>
             </tr>
         </thead>
@@ -23,6 +24,7 @@
                     <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
                     <td>@item.MaLoai</td>
                     <td>@item.MoTa</td>
+                    <td>@item.MoTa1</td>
                     <td>
                         @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
                     </td>

@@ -1,8 +1,11 @@
-﻿@model IEnumerable<QLDL.EF.PhatSinhChi>
+﻿@model IEnumerable<QLDL.EF.PhatSinhChiThu>
 @using QLDL.DAO
+@using QLDL.EF
 @{
     ViewBag.Title = "Phát Sinh Chi";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    QLDLDBContext db = new QLDLDBContext();
 
 }
 
@@ -28,7 +31,7 @@
                             <th>Mooc</th>
                             <th>Tên phí</th>
                             <th>Số Bill</th>
-                            <th>Số HD</th>
+                            <th>Số hoá đơn</th>
                             <th>Tiền Chi (VNĐ)</th>
                             <th>Ghi Chú</th>
                             <th>#</th>
@@ -36,81 +39,90 @@
 
                     </thead>
                     <tbody>
-
                         @foreach (var item in Model)
                         {
+                            var ct = db.CTChiThus.Where(x => x.DMPhi.LoaiPhi == 1 && x.PhatSinhChiThu == item.Id).FirstOrDefault();
+                            if ((ct != null ? item.Id == ct.PhatSinhChiThu : false))
                             {
                                 var model = new CTChiDao().ListAll(item.Id);
-                        <tr id="row_@item.Id">
+                                <tr id="row_@item.Id">
 
-                            <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                            <td>
-                                @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                            </td>
-                            <td>@item.NgayChi.ToShortDateString()</td>
-                            <td>@(item.NguoiChi != null ? item.DMNhanVien1.MaNV : null)</td>
-                            <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null)</td>
-                            <td>@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>
-                            <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                                    <td>
+                                        @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                    </td>
+                                    <td>@(item.Ngay != null? item.Ngay.ToShortDateString(): null)</td>
+                                    <td>@(item.NguoiChiThu != null ? item.DMNhanVien1.MaNV : null)</td>
+                                    <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null)</td>
+                                    <td>@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>
+                                    <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
 
-                            @if (model.Where(x => x.Xe != null).ToList().Count > 0)
-                            {
-                                <td>
-                                    @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id })
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    Null
-                                </td>
-                            }
-
-                            @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
-                            {
-                                <td>
-                                    @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id })
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    Null
-                                </td>
-                            }
-                            @{var maphi = item.CTChis.Where(x => x.PhatSinhChi == item.Id).FirstOrDefault();}
-                            <td> @(maphi.Phi != null ? maphi.DMPhi.MaPhi : null)</td>
-                            @if (item.Bill != null)
-                            {
-                                <td>
-                                    @Html.ActionLink(item.DMBill.MaBill, "CTChi", new { id = item.Id })
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    Null
-                                </td>
-
-                            }
-                            <td>@item.SoHD</td>
-                            <td style="text-align: right">
-                                @{ var a = 0;
-                                    var tongtien = 0;
-                                    foreach (var tien in item.CTChis)
+                                    @if (model.Where(x => x.Xe != null).ToList().Count > 0)
                                     {
-                                        tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                        a += tongtien;
+                                        <td>
+                                            @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id })
+                                        </td>
                                     }
-                                }@String.Format("{0:0,0}", (a))
-                            </td>
-                            <td>@item.GhiChu</td>
-                            <td>
-                                @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                            </td>
-                        </tr>
+                                    else
+                                    {
+                                        <td>
+                                            Null
+                                        </td>
+                                    }
+
+                                    @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
+                                    {
+                                        <td>
+                                            @Html.ActionLink("Chi tiết", "CTChi", new { id = item.Id })
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            Null
+                                        </td>
+                                    }
+                                    @{var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();}
+                                    <td> @(maphi.Phi != null ? maphi.DMPhi.MaPhi : null)</td>
+                                    @if (item.Bill != null)
+                                    {
+                                        <td>
+                                            @Html.ActionLink(item.DMBill.MaBill, "CTChi", new { id = item.Id })
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            Null
+                                        </td>
+
+                                    }
+                                    <td>@item.SoHD</td>
+                                    <td style="text-align: right">
+                                        @{ var a = 0;
+                                            var tongtien = 0;
+                                            foreach (var tien in item.CTChiThus)
+                                            {
+                                                tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                                a += tongtien;
+                                            }
+                                        }@String.Format("{0:0,0}", (a))
+                                    </td>
+
+                                    <td>@item.GhiChu</td>
+
+                                    <td>
+                                        @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                    </td>
+
+                                </tr>
+
+
+
                             }
+
                         }
+
                     </tbody>
 
                 </table>

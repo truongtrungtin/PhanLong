@@ -1,4 +1,5 @@
-﻿using QLDL.EF;
+﻿using DocumentFormat.OpenXml.Drawing.Diagrams;
+using QLDL.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,8 +22,8 @@ namespace QLDL.DAO
                 for (int i = 0; i < chkId.Length; i++)
                 {
                     int temp = chkId[i];
-                    var article = db.PhatSinhChis.Where(x => x.Id == temp).SingleOrDefault();
-                    db.PhatSinhChis.Remove(article);
+                    var article = db.PhatSinhChiThus.Where(x => x.Id == temp).SingleOrDefault();
+                    db.PhatSinhChiThus.Remove(article);
                 }
                 db.SaveChanges();
                 return true;
@@ -34,31 +35,33 @@ namespace QLDL.DAO
             }
 
         }
-        public List<PhatSinhChi> ListAll()
+        public List<PhatSinhChiThu> ListAll()
         {
-            return db.PhatSinhChis.OrderByDescending(x => x.NgayChi).ToList();
+            var model = db.PhatSinhChiThus.OrderByDescending(x => x.Ngay).ToList();
+            
+            return model;
         }
 
-        public PhatSinhChi GetById(long? id)
+        public PhatSinhChiThu GetById(long? id)
         {
-            return db.PhatSinhChis.SingleOrDefault(x => x.Id == id);
+            return db.PhatSinhChiThus.SingleOrDefault(x => x.Id == id);
         }
-        public long Insert(PhatSinhChi entity)
+        public long Insert(PhatSinhChiThu entity)
         {
-            db.PhatSinhChis.Add(entity);
+            db.PhatSinhChiThus.Add(entity);
             db.SaveChanges();
             return entity.Id;
         }
 
-        public bool Update(PhatSinhChi phatSinhChi)
+        public bool Update(PhatSinhChiThu phatSinhChi)
         {
             try
             {
-                var item = db.PhatSinhChis.Find(phatSinhChi.Id);
-                item.NgayChi = phatSinhChi.NgayChi;
-                item.NguoiChi = phatSinhChi.NguoiChi;
-                item.NguoiNhan = phatSinhChi.KhachHang;
-                item.HinhThucTT = phatSinhChi.HinhThucTT;
+                var item = db.PhatSinhChiThus.Find(phatSinhChi.Id);
+                item.Ngay = phatSinhChi.Ngay;
+                item.NguoiChiThu = phatSinhChi.NguoiChiThu;
+                item.NguoiNhan = phatSinhChi.NguoiNhan;
+                item.HTTT = phatSinhChi.HTTT;
                 item.KhachHang = phatSinhChi.KhachHang;
                 item.Bill = phatSinhChi.Bill;
                 item.SoHD = phatSinhChi.SoHD;
@@ -76,8 +79,8 @@ namespace QLDL.DAO
         {
             try
             {
-                var item = db.PhatSinhChis.Find(id);
-                db.PhatSinhChis.Remove(item);
+                var item = db.PhatSinhChiThus.Find(id);
+                db.PhatSinhChiThus.Remove(item);
                 db.SaveChanges();
                 return true;
             }

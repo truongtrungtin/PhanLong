@@ -7,6 +7,7 @@ namespace QLDL.Models
 {
     public   class PhatSinhLuongModel
     {
+        public long id { get; set; }
         public DateTime Ngay { get; set; }
         public string Loai { get; set; }
         public string KhachHang { get; set; }

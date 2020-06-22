@@ -1,4 +1,4 @@
-namespace QLDL.EF
+﻿namespace QLDL.EF
 {
     using System;
     using System.Collections.Generic;
@@ -12,23 +12,22 @@ namespace QLDL.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public HinhThucTT()
         {
-            PhatSinhChis = new HashSet<PhatSinhChi>();
-            PhatSinhThus = new HashSet<PhatSinhThu>();
+            PhatSinhChiThus = new HashSet<PhatSinhChiThu>();
         }
 
         public long Id { get; set; }
 
         [Required]
+        [Display(Name = "Mã: ")]
         [StringLength(50)]
         public string MaHT { get; set; }
 
+        [Required]
+        [Display(Name = "Mô tả: ")]
         [StringLength(50)]
         public string MoTa { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhatSinhChi> PhatSinhChis { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhatSinhThu> PhatSinhThus { get; set; }
+        public virtual ICollection<PhatSinhChiThu> PhatSinhChiThus { get; set; }
     }
 }

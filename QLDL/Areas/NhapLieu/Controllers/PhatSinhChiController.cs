@@ -66,7 +66,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(PhatSinhChi phatSinhChi, CTChi cTChi, int[] chkId, string delete = null)
+        public ActionResult Create(PhatSinhChiThu phatSinhChi, CTChiThu cTChi, int[] chkId, string delete = null)
         {
             
             var dao = new PhatSinhChiDao();
@@ -124,7 +124,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Update(PhatSinhChi phatSinhChi, int[] chkId, string delete = null)
+        public ActionResult Update(PhatSinhChiThu phatSinhChi, int[] chkId, string delete = null)
         {
             var ps = new PhatSinhChiDao();
             if (delete != null && chkId != null)
@@ -214,8 +214,8 @@ namespace QLDL.Areas.NhapLieu.Controllers
         {
             var dao = new PhatSinhChiDao().GetById(id);
             ViewBag.IdChi = dao.Id;
-            ViewBag.NgayChi = dao.NgayChi;
-            ViewBag.NguoiChi = (dao.NguoiChi != null ? dao.DMNhanVien1.TenNV: null);
+            ViewBag.Ngay = dao.Ngay;
+            ViewBag.NguoiChi = (dao.NguoiChiThu != null ? dao.DMNhanVien1.TenNV: null);
             ViewBag.NguoiNhan = (dao.NguoiNhan != null ? dao.DMNhanVien.TenNV: null);
             ViewBag.HinhThucTT = (dao.HTTT != null ? dao.HinhThucTT.MoTa: null);
             ViewBag.SoHD = (dao.SoHD != null ? dao.SoHD : null);
@@ -243,8 +243,8 @@ namespace QLDL.Areas.NhapLieu.Controllers
             }
             var psc = new PhatSinhChiDao().GetById(id);
             ViewBag.IdChi = psc.Id;
-            ViewBag.NgayChi = psc.NgayChi;
-            ViewBag.NguoiChi = (psc.NguoiChi != null ? psc.DMNhanVien1.TenNV : null);
+            ViewBag.Ngay = psc.Ngay;
+            ViewBag.NguoiChi = (psc.NguoiChiThu != null ? psc.DMNhanVien1.TenNV : null);
             ViewBag.NguoiNhan = (psc.NguoiNhan != null ? psc.DMNhanVien.TenNV : null);
             ViewBag.HinhThucTT = (psc.HTTT != null ? psc.HinhThucTT.MoTa : null);
             ViewBag.SoHD = (psc.SoHD != null ? psc.SoHD : null);
@@ -259,8 +259,8 @@ namespace QLDL.Areas.NhapLieu.Controllers
         {
             var dao = new PhatSinhChiDao().GetById(id);
             ViewBag.IdChi = dao.Id;
-            ViewBag.NgayChi = dao.NgayChi;
-            ViewBag.NguoiChi = (dao.NguoiChi != null ? dao.DMNhanVien1.TenNV : null);
+            ViewBag.Ngay = dao.Ngay;
+            ViewBag.NguoiChi = (dao.NguoiChiThu != null ? dao.DMNhanVien1.TenNV : null);
             ViewBag.NguoiNhan = (dao.NguoiNhan != null ? dao.DMNhanVien.TenNV : null);
             ViewBag.HinhThucTT = (dao.HTTT != null ? dao.HinhThucTT.MoTa : null);
             ViewBag.SoHD = (dao.SoHD != null ? dao.SoHD : null);
@@ -297,7 +297,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateCTChi(CTChi cTChi, int[] chkId, string delete = null)
+        public ActionResult CreateCTChi(CTChiThu cTChi, int[] chkId, string delete = null)
         {
             var ps = new CTChiDao();
             if (delete != null && chkId != null)
@@ -321,19 +321,19 @@ namespace QLDL.Areas.NhapLieu.Controllers
                     if (result > 0)
                     {
                         SetAlert("Đã thêm bảng ghi thành công !", "success");
-                        return RedirectToAction("CTChi", "PhatSinhChi", new { id = cTChi.PhatSinhChi });
+                        return RedirectToAction("CTChi", "PhatSinhChi", new { id = cTChi.PhatSinhChiThu });
                     }
                     else
                     {
                         SetAlert("Thêm bảng ghi không thành công, vui lòng thử lại!", "warning");
-                        return RedirectToAction("CreateCTChi", "PhatSinhChi", new { id = cTChi.PhatSinhChi1.Id });
+                        return RedirectToAction("CreateCTChi", "PhatSinhChi", new { id = cTChi.PhatSinhChiThu1.Id });
                     }
 
                 }
                 SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
 
             }
-            return RedirectToAction("CTChi", "PhatSinhChi", new { id = cTChi.PhatSinhChi1.Id });
+            return RedirectToAction("CTChi", "PhatSinhChi", new { id = cTChi.PhatSinhChiThu1.Id });
 
         }
 
@@ -347,7 +347,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult UpdateCTChi(CTChi cTChi, int[] chkId, string delete = null)
+        public ActionResult UpdateCTChi(CTChiThu cTChi, int[] chkId, string delete = null)
         {
             var ps = new CTChiDao();
             if (delete != null && chkId != null)
@@ -382,7 +382,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
                 SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
 
             }
-            return RedirectToAction("CTChi", "PhatSinhChi", new { id = cTChi.PhatSinhChi1.Id });
+            return RedirectToAction("CTChi", "PhatSinhChi", new { id = cTChi.PhatSinhChiThu1.Id });
         }
 
     }

@@ -15,36 +15,22 @@
         @using (Html.BeginForm("Create", "PhatSinh", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
-
             <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" })
                 <div class="row">
                     <div class="col-md-2">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Ngay, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
-                                <input type="datetime-local" name="Ngay" class="form-control" value="" />
+                                <input type="date" name="Ngay" class="form-control" value="" required />
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-3">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Loai, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                <select class="form-control js-example-tags" name="Loai">
-                                    <option value="">-- Chọn Loại -- </option>
-                                    @foreach (var item in db.DMLoais)
-                                    {
-                                        <option value="@item.Id">@item.MaLoai</option>
-                                    }
-
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.KhachHang, htmlAttributes: new { @class = "control-label col-md-4" })
-
-                            <div class="col-md-8">
-
-                                <select class="form-control js-example-tags" name="KhachHang">
+                            @Html.LabelFor(model => model.KhachHang, htmlAttributes: new { @class = "control-label col-md-3" })
+                            <div class="col-md-9">
+                                <select class="form-control js-example-tags" name="KhachHang" required>
                                     <option value="">-- Chọn Khách hàng -- </option>
                                     @foreach (var item in db.DMKhachHangs)
                                     {
@@ -54,10 +40,12 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Kho, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
-                                <select class="form-control js-example-tags" name="Kho">
+                                <select class="form-control js-example-tags" name="Kho" required>
                                     <option value="">-- Chọn Kho -- </option>
                                     @foreach (var item in db.DMKhoes)
                                     {
@@ -67,16 +55,31 @@
                                 </select>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="col-md-1">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.GhiChu, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                @Html.TextAreaFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
+                            @Html.LabelFor(model => model.Loai, htmlAttributes: new { @class = "control-label col-md-5" })
+                            <div class="col-md-7">
+                                <select class="form-control" name="Loai" required>
+                                    <option value=""></option>
+                                    @foreach (var item in db.DMLoais)
+                                    {
+                                        <option value="@item.Id">@item.MaLoai</option>
+                                    }
+
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SoCont, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" name="SoCont" value="" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             @Html.LabelFor(model => model.SoBill, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
@@ -91,13 +94,11 @@
                             </div>
 
                         </div>
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.SoCont, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
-                                <input type="text" class="form-control" name="SoCont" value="" />
-                            </div>
-                        </div>
+                    </div>
+                </div>
+                <div class="row">
 
+                    <div class="col-md-2">
                         <div class="form-group">
                             @Html.LabelFor(model => model.CangNhan, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
@@ -111,7 +112,8 @@
                                 </select>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             @Html.LabelFor(model => model.CangTra, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
@@ -125,25 +127,26 @@
                                 </select>
                             </div>
                         </div>
-
-
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.CuocKH, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
+                            @Html.LabelFor(model => model.CuocKH, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="col-md-6">
                                 @Html.EditorFor(model => model.CuocKH, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.CuocKH, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.CuocTX, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
+                            @Html.LabelFor(model => model.CuocTX, htmlAttributes: new { @class = "control-label col-md-6" })
+                            <div class="col-md-6">
                                 @Html.EditorFor(model => model.CuocTX, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.CuocTX, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             @Html.LabelFor(model => model.TenTX, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
@@ -157,6 +160,8 @@
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             @Html.LabelFor(model => model.Xe, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
@@ -174,12 +179,14 @@
                     </div>
                     <div class="col-md-2">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.HDNang, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
+                            @Html.LabelFor(model => model.HDNang, htmlAttributes: new { @class = "control-label col-md-5" })
+                            <div class="col-md-7">
                                 @Html.EditorFor(model => model.HDNang, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.HDNang, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             @Html.LabelFor(model => model.TienNang, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
@@ -187,6 +194,8 @@
                                 @Html.ValidationMessageFor(model => model.TienNang, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             @Html.LabelFor(model => model.HDHa, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
@@ -194,6 +203,8 @@
                                 @Html.ValidationMessageFor(model => model.HDHa, "", new { @class = "text-danger" })
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             @Html.LabelFor(model => model.TienHa, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
@@ -201,13 +212,11 @@
                                 @Html.ValidationMessageFor(model => model.TienHa, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                     </div>
                     <div class="col-md-2">
-
                         <div class="form-group">
-                            @Html.LabelFor(model => model.PhiKH, htmlAttributes: new { @class = "control-label col-md-4" })
-                            <div class="col-md-8">
+                            @Html.LabelFor(model => model.PhiKH, htmlAttributes: new { @class = "control-label col-md-5" })
+                            <div class="col-md-7">
                                 <select class="form-control js-example-tags" name="PhiKH">
                                     <option value="">-- Chọn Phí khách hàng -- </option>
                                     @foreach (var item in db.DMPhis)
@@ -218,7 +227,8 @@
                                 </select>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             @Html.LabelFor(model => model.TienPhiKH, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
@@ -226,7 +236,8 @@
                                 @Html.ValidationMessageFor(model => model.TienPhiKH, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             @Html.LabelFor(model => model.PhiCT, htmlAttributes: new { @class = "control-label col-md-4 " })
                             <div class="col-md-8">
@@ -240,7 +251,8 @@
                                 </select>
                             </div>
                         </div>
-
+                    </div>
+                    <div class="col-md-2">
                         <div class="form-group">
                             @Html.LabelFor(model => model.TienPhiCT, htmlAttributes: new { @class = "control-label col-md-4" })
                             <div class="col-md-8">
@@ -249,6 +261,29 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Thoigian, htmlAttributes: new { @class = "control-label col-md-4" })
+                            <div class="col-md-8">
+                                <select class="form-control js-example-tags" name="Thoigian">
+                                    <option value=""></option>
+                                    @foreach (var item in db.DMThoiGians)
+                                    {
+                                        <option value="@item.Id">@item.ThoiGian</option>
+                                    }
+
+                                </select>
+                                @Html.ValidationMessageFor(model => model.Thoigian, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-1" style="margin-left:-20px" for="GhiChu">Ghi chú:</label>
+                            <textarea type="text" style="margin-left:40px; width:50%;" name="GhiChu" class="form-control" value=""></textarea>
+                        </div>
+                    </div>
+
                 </div>
 
                 <div class="form-group">

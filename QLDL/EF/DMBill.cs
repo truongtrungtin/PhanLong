@@ -1,4 +1,4 @@
-namespace QLDL.EF
+﻿namespace QLDL.EF
 {
     using System;
     using System.Collections.Generic;
@@ -14,22 +14,27 @@ namespace QLDL.EF
         {
             CTBills = new HashSet<CTBill>();
             PhatSinhs = new HashSet<PhatSinh>();
-            PhatSinhChis = new HashSet<PhatSinhChi>();
-            PhatSinhThus = new HashSet<PhatSinhThu>();
+            PhatSinhChiThus = new HashSet<PhatSinhChiThu>();
         }
 
         public long Id { get; set; }
 
+        [StringLength(20)]
+        [Required, Display(Name = "Số tờ khai: ")]
+        public string SoToKhai { get; set; }
+
         [StringLength(250)]
+        [Required, Display(Name = "Mã Bill: ")]
         public string MaBill { get; set; }
 
         [Column(TypeName = "date")]
+        [Display(Name = "Tàu đến: ")]
         public DateTime? NgayTauDen { get; set; }
-
+        [Display(Name = "Cảng nhận: ")]
         public long? CangNhan { get; set; }
-
+        [Display(Name = "Khách hàng: ")]
         public long? KhachHang { get; set; }
-
+        [Display(Name = "Cảng trả: ")]
         public long? CangTra { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -45,9 +50,6 @@ namespace QLDL.EF
         public virtual ICollection<PhatSinh> PhatSinhs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhatSinhChi> PhatSinhChis { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhatSinhThu> PhatSinhThus { get; set; }
+        public virtual ICollection<PhatSinhChiThu> PhatSinhChiThus { get; set; }
     }
 }

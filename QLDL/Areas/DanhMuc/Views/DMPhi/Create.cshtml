@@ -1,57 +1,77 @@
 ﻿@model QLDL.EF.DMPhi
+@using QLDL.EF
 @{
     ViewBag.Title = "Thêm phí mới";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    QLDLDBContext db = new QLDLDBContext();
 }
-<h4><b>Danh mục Phí</b></h4>
-<div class="card h-100">
-    <div class="card-body no-gutters">
-        <h4><b>Thêm mới</b></h4>
-        @using (Html.BeginForm("Create", "DMPhi", FormMethod.Post))
-        {
-            @Html.AntiForgeryToken()
-            <div class="form-horizontal">
-                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <div class="row">
-                    <div class="col-md-3">
+    <div class="container">
+        <h4><b>Danh mục Phí</b></h4>
+        <div class="card h-100">
+            <div class="card-body no-gutters">
+                <h4><b>Thêm mới</b></h4>
+                @using (Html.BeginForm("Create", "DMPhi", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.MaPhi, htmlAttributes: new { @class = "control-label col-md-3" })
+                                    <div class="col-md-9">
+                                        @Html.EditorFor(model => model.MaPhi, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.MaPhi, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TenPhi, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        @Html.EditorFor(model => model.TenPhi, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.TenPhi, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.LoaiPhi, htmlAttributes: new { @class = "control-label col-md-4" })
+                                    <div class="col-md-8">
+                                        <select name="LoaiPhi" class="form-control js-example-tags">
+                                            <option value=""></option>
+                                            @foreach (var item in db.LoaiPhis)
+                                            {
+                                                <option value="@item.Id">@item.Loai</option>
+                                            }
+                                        </select>
+                                        @Html.ValidationMessageFor(model => model.LoaiPhi, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.MaPhi, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.MaPhi, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.MaPhi, "", new { @class = "text-danger" })
+                            <div class=" col-md-10">
+                                <input type="submit" value="Ghi ( Lưu )" class="btn btn-primary" />
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.TenPhi, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.TenPhi, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.TenPhi, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class=" col-md-10">
-                        <input type="submit" value="Ghi ( Lưu )" class="btn btn-primary" />
-                    </div>
-                </div>
+                }
             </div>
-        }
-    </div>
-</div>
-<hr />
-<hr />
-<div class="card h-100">
-    <div class="card-body no-gutters">
-        @using (Html.BeginForm("Create", "DMPhi", FormMethod.Post))
-        {
-            Html.RenderAction("ViewDMPhi", "DMPhi");
+        </div>
+        <hr />
+        <hr />
+        <div class="card h-100">
+            <div class="card-body no-gutters">
+                @using (Html.BeginForm("Create", "DMPhi", FormMethod.Post))
+                {
+                    Html.RenderAction("ViewDMPhi", "DMPhi");
 
-        }
+                }
+            </div>
+        </div>
     </div>
-</div>
+
 
 
 

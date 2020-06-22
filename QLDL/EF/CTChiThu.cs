@@ -6,12 +6,12 @@ namespace QLDL.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("CTChi")]
-    public partial class CTChi
+    [Table("CTChiThu")]
+    public partial class CTChiThu
     {
         public long Id { get; set; }
 
-        public long? PhatSinhChi { get; set; }
+        public long? PhatSinhChiThu { get; set; }
 
         public long? Mooc { get; set; }
 
@@ -38,6 +38,6 @@ namespace QLDL.EF
 
         public virtual DMXe DMXe { get; set; }
 
-        public virtual PhatSinhChi PhatSinhChi1 { get; set; }
+        public virtual PhatSinhChiThu PhatSinhChiThu1 { get; set; }
     }
 }

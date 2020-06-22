@@ -1,4 +1,4 @@
-﻿@model QLDL.EF.CTChi
+﻿@model QLDL.EF.CTChiThu
 @using QLDL.EF
 @{
     ViewBag.Title = "Chỉnh sửa tiết chi";
@@ -24,7 +24,14 @@
                             @Html.LabelFor(model => model.Xe, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 <select name="Xe" class="form-control js-example-tags">
-                                    <option value="@(Model.Xe != null ? Model.Xe : null )">@(Model.Xe != null ? Model.DMXe.BienSo : "--- Chọn xe ---" ) </option>
+                                    @if (Model.Xe != null)
+                                    {
+                                        <option value="@Model.Xe">@Model.DMXe.BienSo</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=""></option>
+                                    }
                                     @foreach (var item in db.DMXes)
                                     {
                                         <option value="@item.Id">@item.BienSo</option>
@@ -36,7 +43,14 @@
                             @Html.LabelFor(model => model.Mooc, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 <select name="Mooc" class="form-control js-example-tags">
-                                    <option value="@(Model.Mooc != null ? Model.Mooc : null )">@(Model.Mooc != null ? Model.DMMooc.BienSo : "--- Chọn Mooc ---" ) </option>
+                                    @if (Model.Mooc != null)
+                                    {
+                                        <option value="@Model.Mooc">@Model.DMMooc.BienSo</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=""></option>
+                                    }
                                     @foreach (var item in db.DMMoocs)
                                     {
                                         <option value="@item.Id">@item.BienSo</option>
@@ -70,7 +84,23 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Phi, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                @Html.DropDownListFor(model => model.Phi, null, htmlAttributes: new { @class = "form-control js-example-tags" })
+                                <select name="Phi" class="form-control js-example-tags">
+                                    @if (Model.Phi != null)
+                                    {
+                                        <option value="@Model.Phi">@Model.DMPhi.TenPhi</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=""></option>
+                                    }
+                                    @foreach (var item in db.DMPhis)
+                                    {
+                                        if (item.LoaiPhi == 1)
+                                        {
+                                            <option value="@item.Id">@item.TenPhi</option>
+                                        }
+                                    }
+                                </select>
                                 @Html.ValidationMessageFor(model => model.Phi, "", new { @class = "text-danger" })
                             </div>
                         </div>

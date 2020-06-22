@@ -25,7 +25,7 @@
                             <label class="control-label  col-md-4" for="Kho"><b>Kho</b></label>
                             <div class="col-md-8">
                                 <select name="Kho" class="form-control js-example-tags" required>
-                                    <option value="NULL">--- Chọn Kho ---</option>
+                                    <option value="">--- Chọn Kho ---</option>
                                     @foreach (var item in db.DMKhoes)
                                     {
                                         <option value="@item.Id">@item.DiaChi</option>
@@ -51,7 +51,7 @@
                             <label class="control-label col-md-3" for="Loai"><b>Loại</b></label>
                             <div class="col-md-9">
                                 <select name="Loai" class="form-control js-example-tags" required>
-                                    <option value="NULL">Chọn Loại cont</option>
+                                    <option value="">Chọn Loại cont</option>
                                     @foreach (var item in db.DMLoais)
                                     {
                                         <option value="@item.Id">@item.MaLoai</option>

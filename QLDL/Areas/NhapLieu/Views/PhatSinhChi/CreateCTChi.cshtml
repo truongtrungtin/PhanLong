@@ -1,4 +1,4 @@
-﻿@model QLDL.EF.CTChi
+﻿@model QLDL.EF.CTChiThu
 @using QLDL.EF
 @{
     ViewBag.Title = "Tạo chi tiết chi";
@@ -16,7 +16,7 @@
 
             <div class="form-horizontal">
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                <input type="hidden" readonly name="PhatSinhChi" value="@ViewBag.IdChi" />
+                <input type="hidden" readonly name="PhatSinhChiThu" value="@ViewBag.IdChi" />
 
                 <div class="row">
                     <div class="col-md-3">
@@ -42,10 +42,8 @@
                                         <option value="@item.Id">@item.BienSo</option>
                                     }
                                 </select>
-
                             </div>
                         </div>
-
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
@@ -74,7 +72,10 @@
                                     <option value="">--- Chọn Phí ---</option>
                                     @foreach (var item in db.DMPhis)
                                     {
-                                        <option value="@item.Id">@item.TenPhi</option>
+                                        if (item.LoaiPhi1.Loai == "Chi")
+                                        {
+                                            <option value="@item.Id">@item.TenPhi</option>
+                                        }
                                     }
                                 </select>
                             </div>

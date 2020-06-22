@@ -3,46 +3,48 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>Index</h2>
-<div class="card h-100">
-    <div class="card-body no-gutters">
+    <div class="container">
         <h4>
             <b>Danh mục Thời Gian</b>
             @Html.ActionLink("Thêm Thời Gian", "Create", null, new { @class = "btn btn-primary mb-1" })
         </h4>
-        <div class="table-responsive">
-            @using (Html.BeginForm("Index", "DMThoiGian", FormMethod.Post))
-            {
-                <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
-                    <thead>
-                        <tr>
-                            <th width="1%"><input type='checkbox' id='check' value='' /></th>
-                            <th>Mã Thời Gian</th>
-                            <th>Thời Gian</th>
-                            <td>#</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr id="row_@item.Id">
+        <div class="card h-100">
+            <div class="card-body no-gutters">
 
-                                <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                                <td>@item.MaTG</td>
-                                <td>@item.ThoiGian</td>
-                                <td>
-                                    @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
+                <div class="table-responsive">
+                    @using (Html.BeginForm("Index", "DMThoiGian", FormMethod.Post))
+                    {
+                        <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
+                            <thead>
+                                <tr>
+                                    <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                                    <th>Mã Thời Gian</th>
+                                    <th>Thời Gian</th>
+                                    <td>#</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr id="row_@item.Id">
 
-                </table>
-                <div class="form-group">
-                    <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+                                        <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                                        <td>@item.MaTG</td>
+                                        <td>@item.ThoiGian</td>
+                                        <td>
+                                            @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                        <div class="form-group">
+                            <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+                        </div>
+                    }
                 </div>
-            }
+            </div>
         </div>
     </div>
-</div>
+

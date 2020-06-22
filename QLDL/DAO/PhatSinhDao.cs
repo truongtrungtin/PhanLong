@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Web;
 
 namespace QLDL.DAO
@@ -65,7 +66,7 @@ namespace QLDL.DAO
                         long? phikh = null;
                         long? phict = null;
                         long? thoigian = null;
-                        if (MaLoai != null)
+                        if (MaLoai != "")
                         {
                             foreach (var item in db.DMLoais)
                             {
@@ -81,7 +82,11 @@ namespace QLDL.DAO
 
                             }
                         }
-                        if (MaKH != null)
+                        else
+                        {
+                            Loai = null;
+                        }
+                        if (MaKH != "")
                         {
                             foreach (var item in db.DMKhachHangs)
                             {
@@ -97,7 +102,11 @@ namespace QLDL.DAO
                                 KH = dao;
                             }
                         }
-                        if (MaKho != null)
+                        else
+                        {
+                            KH = null;
+                        }
+                        if (MaKho != "")
                         {
                             foreach (var item in db.DMKhoes)
                             {
@@ -113,23 +122,12 @@ namespace QLDL.DAO
                                 Kho = dao;
                             }
                         }
-                        if (MaBill != null)
+                        else
                         {
-                            foreach (var item in db.DMBills)
-                            {
-                                if (item.MaBill == MaBill)
-                                {
-                                    Bill = item.Id;
-                                }
-
-                            }
-                            if (Bill == null)
-                            {
-                                var dao = new DMBillDao().InsertBill(dMBill, MaBill);
-                                Bill = dao;
-                            }
+                            Kho = null;
                         }
-                        if (MaCangNhan != null)
+                        
+                        if (MaCangNhan != "")
                         {
                             foreach (var item in db.DMCangs)
                             {
@@ -140,29 +138,36 @@ namespace QLDL.DAO
 
                             }
                             if (CangNhan == null)
-
                             {
                                 var dao = new DMCangDao().InsertCang(dMCang, MaCangNhan);
                                 CangNhan = dao;
                             }
                         }
-                        if (MaCangTra != null)
+                        else
+                        {
+                            CangNhan = null;
+                        }
+                        if (MaCangTra != "")
                         {
                             foreach (var item in db.DMCangs)
                             {
-                                if (item.MaCang == MaCangTra || item.TenCang == MaCangNhan)
+                                if (item.MaCang == MaCangTra || item.TenCang == MaCangTra)
                                 {
                                     CangTra = item.Id;
                                 }
 
                             }
-                            if (CangTra != null)
+                            if (CangTra == null)
                             {
                                 var dao = new DMCangDao().InsertCang(dMCang, MaCangTra);
                                 CangTra = dao;
                             }
                         }
-                        if (TenTX != null)
+                        else
+                        {
+                            CangTra = null;
+                        }
+                        if (TenTX != "")
                         {
                             foreach (var item in db.DMNhanViens)
                             {
@@ -178,7 +183,31 @@ namespace QLDL.DAO
                                 TaiXe = dao;
                             }
                         }
-                        if (MaXe != null)
+                        else
+                        {
+                            TaiXe = null;
+                        }
+                        if (MaBill != "")
+                        {
+                            foreach (var item in db.DMBills)
+                            {
+                                if (item.MaBill == MaBill)
+                                {
+                                    Bill = item.Id;
+                                }
+
+                            }
+                            if (Bill == null)
+                            {
+                                var dao = new DMBillDao().InsertBill(dMBill, MaBill, KH ,CangNhan, CangTra);
+                                Bill = dao;
+                            }
+                        }
+                        else
+                        {
+                            Bill = null;
+                        }
+                        if (MaXe != "")
                         {
                             foreach (var item in db.DMXes)
                             {
@@ -195,7 +224,11 @@ namespace QLDL.DAO
                                 Xe = dao;
                             }
                         }
-                        if (MaPhiKH != null)
+                        else
+                        {
+                            Xe = null;
+                        }
+                        if (MaPhiKH != "")
                         {
                             foreach (var item in db.DMPhis)
                             {
@@ -211,7 +244,11 @@ namespace QLDL.DAO
                                 phikh = dao;
                             }
                         }
-                        if (MaPhict != null)
+                        else
+                        {
+                            phikh = null;
+                        }
+                        if (MaPhict != "")
                         {
                             foreach (var item in db.DMPhis)
                             {
@@ -227,7 +264,11 @@ namespace QLDL.DAO
                                 phict = dao;
                             }
                         }
-                        if (MaThoiGian != null)
+                        else
+                        {
+                            phict = null;
+                        }
+                        if (MaThoiGian != "")
                         {
                             foreach (var item in db.DMThoiGians)
                             {
@@ -243,6 +284,10 @@ namespace QLDL.DAO
                                 thoigian = dao;
                             }
                         }
+                        else
+                        {
+                            thoigian = null;
+                        }
                         foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
                         {
                             if (column.ColumnName == "Ngày")
@@ -257,19 +302,13 @@ namespace QLDL.DAO
                             }
                             else if (column.ColumnName == "Loại")
                             {
-                                if (Loai != null)
-                                {
                                     phatSinh.Loai = Loai.Value;
-                                }
-
+                              
                             }
                             else if (column.ColumnName == "Khách hàng")
                             {
-
-                                if (KH != null)
-                                {
                                     phatSinh.KhachHang = KH;
-                                }
+                                
                             }
                             else if (column.ColumnName == "Kho")
                             {
@@ -280,30 +319,31 @@ namespace QLDL.DAO
                             }
                             else if (column.ColumnName == "Cont")
                             {
-
-                                phatSinh.SoCont = dr["Cont"].ToString();
+                                if (dr["Cont"].ToString() != "")
+                                {
+                                    phatSinh.SoCont = dr["Cont"].ToString();
+                                }
+                                else
+                                {
+                                    phatSinh.SoCont = null;
+                                }
 
                             }
                             else if (column.ColumnName == "Số Bill")
                             {
-                                if (Bill != null)
-                                {
                                     phatSinh.SoBill = Bill;
-                                }
+                               
                             }
                             else if (column.ColumnName == "Cảng nhận")
                             {
-                                if (CangNhan != null)
-                                {
+                               
                                     phatSinh.CangNhan = CangNhan;
-                                }
+                                
                             }
                             else if (column.ColumnName == "Cảng trả")
                             {
-                                if (CangTra != null)
-                                {
                                     phatSinh.CangTra = CangTra;
-                                }
+                               
                             }
                             else if (column.ColumnName == "Cước khách hàng")
                             {
@@ -311,6 +351,10 @@ namespace QLDL.DAO
                                 if (a != "")
                                 {
                                     phatSinh.CuocKH = Convert.ToDecimal(a);
+                                }
+                                else
+                                {
+                                    phatSinh.CuocKH = null;
                                 }
                             }
                             else if (column.ColumnName == "Cước tài xế")
@@ -320,32 +364,40 @@ namespace QLDL.DAO
                                 {
                                     phatSinh.CuocTX = Convert.ToDecimal(a);
                                 }
+                                else
+                                {
+                                    phatSinh.CuocTX = null;
+                                }
                             }
                             else if (column.ColumnName == "Tài Xế")
                             {
-                                if (TaiXe != null)
-                                {
+                                
                                     phatSinh.TenTX = TaiXe;
-                                }
+                                
                             }
                             else if (column.ColumnName == "Xe")
                             {
-                                if (Xe != null)
-                                {
+                                
                                     phatSinh.Xe = Xe;
-                                }
+                                
                             }
                             else if (column.ColumnName == "Chi Phí riêng")
                             {
-                                if (phict != null)
-                                {
+                                
                                     phatSinh.PhiCT = phict;
-                                }
+                                
                             }
                             else if (column.ColumnName == "Hoá đơn nâng")
                             {
+                                if (dr["Hoá đơn nâng"].ToString() != "")
+                                {
+                                    phatSinh.HDNang = dr["Hoá đơn nâng"].ToString();
 
-                                phatSinh.HDNang = dr["Hoá đơn nâng"].ToString();
+                                }
+                                else
+                                {
+                                    phatSinh.HDNang = null;
+                                }
 
                             }
                             else if (column.ColumnName == "Tiền Nâng")
@@ -354,12 +406,26 @@ namespace QLDL.DAO
                                 if (a != "")
                                 {
                                     phatSinh.TienNang = Convert.ToDecimal(a);
+
                                 }
+                                else
+                                {
+                                    phatSinh.TienNang = null;
+                                }
+                                
                             }
                             else if (column.ColumnName == "Hoá đơn hạ")
                             {
 
-                                phatSinh.HDHa = dr["Hoá đơn hạ"].ToString();
+                                if (dr["Hoá đơn hạ"].ToString() != "")
+                                {
+                                    phatSinh.HDHa = dr["Hoá đơn hạ"].ToString();
+
+                                }
+                                else
+                                {
+                                    phatSinh.HDHa = null;
+                                }
 
                             }
                             else if (column.ColumnName == "Tiền Hạ")
@@ -369,15 +435,15 @@ namespace QLDL.DAO
                                 {
                                     phatSinh.TienHa = Convert.ToDecimal(a);
                                 }
+                                else
+                                {
+                                    phatSinh.TienHa = null;
+                                }
+
                             }
                             else if (column.ColumnName == "Hoá đơn khác")
                             {
-
-                                if (phikh != null)
-                                {
                                     phatSinh.PhiKH = phikh;
-                                }
-
                             }
                             else if (column.ColumnName == "Tiền khác")
                             {
@@ -385,6 +451,10 @@ namespace QLDL.DAO
                                 if (a != "")
                                 {
                                     phatSinh.TienPhiKH = Convert.ToDecimal(a);
+                                }
+                                else
+                                {
+                                    phatSinh.TienPhiKH = null;
                                 }
                             }
                             else if (column.ColumnName == "Tiền chi riêng")
@@ -394,20 +464,41 @@ namespace QLDL.DAO
                                 {
                                     phatSinh.TienPhiCT = Convert.ToDecimal(a);
                                 }
+                                else
+                                {
+                                    phatSinh.TienPhiCT = null;
+                                }
                             }
                             else if (column.ColumnName == "Thời gian")
                             {
 
-                                if (thoigian != null)
-                                {
-                                    phatSinh.Thoigian = thoigian;
-                                }
+                                    phatSinh.Thoigian = thoigian;    
 
                             }
                             else if (column.ColumnName == "Ghi chú")
                             {
+                                if (dr["Ghi chú"].ToString() != "")
+                                {
+                                    phatSinh.GhiChu = dr["Ghi chú"].ToString();
 
-                                phatSinh.GhiChu = dr["Ghi chú"].ToString();
+                                }
+                                else
+                                {
+                                    phatSinh.GhiChu = null;
+                                }
+
+                            }
+                            else if (column.ColumnName == "Ghi chú lương")
+                            {
+                                if (dr["Ghi chú lương"].ToString() != "")
+                                {
+                                    phatSinh.GhiChuLuong = dr["Ghi chú lương"].ToString();
+
+                                }
+                                else
+                                {
+                                    phatSinh.GhiChuLuong = null;
+                                }
 
                             }
 
@@ -824,7 +915,7 @@ namespace QLDL.DAO
 
         public PhatSinh GetById(long? id)
         {
-            return db.PhatSinhs.SingleOrDefault(x => x.Id == id);
+            return db.PhatSinhs.Where(x => x.Id == id).SingleOrDefault();
         }
         public PhatSinh GetByData(PhatSinh phatSinh)
         {
@@ -840,6 +931,21 @@ namespace QLDL.DAO
             db.PhatSinhs.Add(entity);
             db.SaveChanges();
             return entity.Id;
+        }
+        public bool UpdateGhiChuLuong(PhatSinh phatSinh)
+        {
+            try
+            {
+                var item = db.PhatSinhs.Find(phatSinh.Id);
+                item.GhiChuLuong = phatSinh.GhiChuLuong;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
 
         public bool Update(PhatSinh phatSinh)
@@ -868,6 +974,7 @@ namespace QLDL.DAO
                 item.PhiCT = phatSinh.PhiCT;
                 item.TienPhiCT = phatSinh.TienPhiCT;
                 item.GhiChu = phatSinh.GhiChu;
+                item.Thoigian = phatSinh.Thoigian;
                 db.SaveChanges();
                 return true;
             }

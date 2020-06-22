@@ -1,4 +1,4 @@
-﻿@model QLDL.EF.PhatSinhChi
+﻿@model QLDL.EF.PhatSinhChiThu
 @using QLDL.EF
 @{
     ViewBag.Title = "Tạo mới";
@@ -20,16 +20,16 @@
                 <div class="row">
                     <div class="col-md-3">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.NgayChi, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.Ngay, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                <input type="date" class="form-control" name="NgayChi" value="" required />
+                                <input type="date" class="form-control" name="Ngay" value="" required />
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.NguoiChi, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.NguoiChiThu, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                <select title="Chọn người chi" name="NguoiChi" class="form-control js-example-tags" required>
+                                <select title="Chọn người chi" name="NguoiChiThu" class="form-control js-example-tags" required>
                                     <option value="">--- Chọn Người Chi ---</option>
                                     @foreach (var item in db.DMNhanViens)
                                     {
@@ -50,17 +50,13 @@
                                     {
                                         <option value="@item.Id">@item.TenCongTy</option>
                                     }
-                                    @foreach (var item in db.DMNhanViens)
-                                    {
-                                        <option value="@item.Id">@item.TenNV</option>
-                                    }
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3"> Xe </label>
                             <div class="col-md-9">
-                                <select  title="Chọn Xe" name="Xe" class="form-control js-example-tags">
+                                <select title="Chọn Xe" name="Xe" class="form-control js-example-tags">
                                     <option value="">--- Chọn xe ---</option>
                                     @foreach (var item in db.DMXes)
                                     {
@@ -74,11 +70,15 @@
                         <div class="form-group">
                             <label class="control-label col-md-3"> Phí </label>
                             <div class="col-md-9">
-                                <select  title="Chọn phí" name="Phi" class="form-control js-example-tags">
+                                <select title="Chọn phí" name="Phi" class="form-control js-example-tags">
                                     <option value="">--- Chọn Phí ---</option>
                                     @foreach (var item in db.DMPhis)
                                     {
-                                        <option value="@item.Id">@item.TenPhi</option>
+                                        if (item.LoaiPhi == 1)
+                                        {
+                                            <option value="@item.Id">@item.TenPhi</option>
+
+                                        }
                                     }
                                 </select>
                             </div>
@@ -87,7 +87,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.Bill, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
-                                <select title="Chọn Bill"  name="Bill" class="form-control js-example-tags">
+                                <select title="Chọn Bill" name="Bill" class="form-control js-example-tags">
                                     <option value="">--- Chọn số Bill ---</option>
                                     @foreach (var item in db.DMBills)
                                     {
@@ -101,17 +101,17 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Đơn giá</label>
                             <div class="col-md-9">
-                                <input title="Nhập tiền phí"  type="text" class="form-control" name="DonGia" value="" />
+                                <input title="Nhập tiền phí" type="text" class="form-control" name="DonGia" value="" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Số lượng</label>
                             <div class="col-md-9">
-                                <input type="number"  title="Nhập số lượng"  class="form-control" name="SoLuong" value="" />
+                                <input type="number" title="Nhập số lượng" class="form-control" name="SoLuong" value="" />
                             </div>
                         </div>
 
-                      
+
                     </div>
                 </div>
                 <div class="row">
@@ -140,8 +140,8 @@
                                 </select>
                             </div>
                         </div>
-                       
-                       
+
+
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
@@ -156,7 +156,7 @@
                                 </select>
                             </div>
                         </div>
-                       
+
                         <div class="form-group">
                             <label class="control-label col-md-3">Nội dung</label>
                             <div class="col-md-9">
@@ -172,13 +172,13 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.SoHD, htmlAttributes: new {@class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.SoHD, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
                                 @Html.EditorFor(model => model.SoHD, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.SoHD, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        
+
 
                     </div>
                     <div class="col-md-3">
@@ -190,7 +190,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.GhiChu, htmlAttributes: new {@class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.GhiChu, htmlAttributes: new { @class = "control-label col-md-3" })
                             <div class="col-md-9">
                                 @Html.EditorFor(model => model.GhiChu, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })

@@ -1,10 +1,13 @@
 ﻿using QLDL.DAO;
+using QLDL.EF;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using QLDL.Models;
+using Newtonsoft.Json;
+
 namespace QLDL.Areas.ThongKe.Controllers
 {
     public class LuongController : BaseController
@@ -33,6 +36,43 @@ namespace QLDL.Areas.ThongKe.Controllers
             ViewBag.X40 = model.Where(x => x.Loai == "40X").Count();
             ViewBag.Tong = (ViewBag.N20 + ViewBag.X20 + ViewBag.N40 + ViewBag.X40);
             return View(model);
+        }
+
+        [HttpGet]
+        public PartialViewResult EditGhiChu(long id)
+        {
+            PhatSinh model = new PhatSinhDao().GetById(id);
+
+            return PartialView("EditGhiChuLuong", model);
+        }
+
+        public JsonResult GetPhatSinhId(long id)
+        {
+            var model = new PhatSinhDao().GetById(id);
+            string value = string.Empty;
+            value = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+            return Json(value, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult SaveDataInDatabase(PhatSinh phatSinh)
+        {
+            var result = false;
+            try
+            {
+                if(phatSinh.Id > 0)
+                {
+                    var model = new PhatSinhDao().UpdateGhiChuLuong(phatSinh);
+                    result = true;
+                }
+            }
+            catch(Exception)
+            {
+                result = false;
+            }
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
 }

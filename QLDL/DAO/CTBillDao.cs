@@ -70,7 +70,11 @@ namespace QLDL.DAO
 
                             }
                         }
-                        if (MaKho != "")
+                        else
+                        {
+                            Loai = null;
+                        }
+                        if (MaKho != "" )
                         {
                             foreach (var item in db.DMKhoes)
                             {
@@ -86,7 +90,11 @@ namespace QLDL.DAO
                                 Kho = dao;
                             }
                         }
-                        if (MaBill != "")
+                        else
+                        {
+                            Kho = null;
+                        }
+                        if (MaBill != "" )
                         {
                             foreach (var item in db.DMBills)
                             {
@@ -118,7 +126,11 @@ namespace QLDL.DAO
                                 BaiGui = dao;
                             }
                         }
-                        if (MaXe != "")
+                        else
+                        {
+                            BaiGui = null;
+                        }
+                        if (MaXe != "" )
                         {
                             foreach (var item in db.DMXes)
                             {
@@ -135,43 +147,59 @@ namespace QLDL.DAO
                                 Xe = dao;
                             }
                         }
-                        foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
+                        else
                         {
-
-                            
+                            Xe = null;
+                        }
+                        foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
+                        {                            
                             if (column.ColumnName == "Số Bill")
                             {
-                                if (Bill != null)
-                                {
-                                    cTBill.Bill = Bill;
-                                }
+                                cTBill.Bill = Bill;                         
                             }
                             else if (column.ColumnName == "Số cont")
                             {
-                                cTBill.Cont = dr["Số cont"].ToString();
+                                if (dr["Số cont"].ToString() != "")
+                                {
+                                    cTBill.Cont = dr["Số cont"].ToString();
+                                }
+                                else
+                                {
+                                    cTBill.Cont = null;
+                                }
+                                
                             }
                             else if (column.ColumnName == "Số đăng ký")
                             {
-                                cTBill.SoDK = dr["Số đăng ký"].ToString();
+                                if (dr["Số đăng ký"].ToString() != "")
+                                {
+                                    cTBill.SoDK = dr["Số đăng ký"].ToString();
+                                }
+                                else
+                                {
+                                    cTBill.SoDK = null;
+                                }
+                                
                             }
                             else if (column.ColumnName == "Loại")
                             {
-                                if (Loai != null)
-                                {
-                                    cTBill.Loai = Loai;
-                                }
-
+                                cTBill.Loai = Loai;
                             }
                             else if (column.ColumnName == "Seal")
                             {
-                                cTBill.Seal = dr["Seal"].ToString();
+                                if (dr["Seal"].ToString() != "")
+                                {
+                                    cTBill.Seal = dr["Seal"].ToString();
+                                }
+                                else
+                                {
+                                    cTBill.Seal = null;
+                                }
+                               
                             }
                             else if (column.ColumnName == "Kho")
                             {
-                                if (Kho != null)
-                                {
-                                    cTBill.Kho = Kho;
-                                }
+                                cTBill.Kho = Kho;
                             }
                             else if (column.ColumnName == "Hạn lưu cont")
                             {
@@ -180,6 +208,10 @@ namespace QLDL.DAO
                                 {
                                     var hanluucont = Convert.ToDateTime(Luucont).ToShortDateString();
                                     cTBill.HanLuuCont = Convert.ToDateTime(hanluucont);
+                                }
+                                else
+                                {
+                                    cTBill.HanLuuCont = null;
                                 }
                             }
                             else if (column.ColumnName == "Hạn lưu bãi")
@@ -190,6 +222,10 @@ namespace QLDL.DAO
                                     var hanluubai = Convert.ToDateTime(Luubai).ToShortDateString();
                                     cTBill.HanLuuBai = Convert.ToDateTime(hanluubai);
                                 }
+                                else
+                                {
+                                    cTBill.HanLuuBai = null;
+                                }
                             }
                             else if (column.ColumnName == "Hạn lưu rỗng")
                             {
@@ -198,6 +234,10 @@ namespace QLDL.DAO
                                 {
                                     var hanlurong = Convert.ToDateTime(Luurong).ToShortDateString();
                                     cTBill.HanLuuRong = Convert.ToDateTime(hanlurong);
+                                }
+                                else
+                                {
+                                    cTBill.HanLuuRong = null;
                                 }
                             }
                             else if (column.ColumnName == "Ngày giao")
@@ -208,6 +248,10 @@ namespace QLDL.DAO
                                     var ngaygiao = Convert.ToDateTime(Ngiao).ToShortDateString();
                                     cTBill.NgayGiao = Convert.ToDateTime(ngaygiao);
                                 }
+                                else
+                                {
+                                    cTBill.NgayGiao = null;
+                                }
                             }
                             else if (column.ColumnName == "Ngày gửi")
                             {
@@ -217,36 +261,53 @@ namespace QLDL.DAO
                                     var Ngaygui = Convert.ToDateTime(Ngui).ToShortDateString();
                                     cTBill.NgayGui = Convert.ToDateTime(Ngaygui);
                                 }
+                                else
+                                {
+                                    cTBill.NgayGui = null;
+                                }
                             }
                             else if (column.ColumnName == "Bãi gửi")
                             {
-                                if (BaiGui != null)
-                                {
-                                    cTBill.BaiGui = BaiGui;
-                                }
+                                cTBill.BaiGui = BaiGui;
                             }
                             else if (column.ColumnName == "Độ dày")
                             {
-                                cTBill.DoDay = dr["Độ dày"].ToString();
+                                if (dr["Độ dày"].ToString() != "")
+                                {
+                                    cTBill.DoDay = dr["Độ dày"].ToString();
+                                }
+                                else
+                                {
+                                    cTBill.DoDay = null;
+                                }
                             }
                             else if (column.ColumnName == "Quy cách")
                             {
-                                cTBill.QuyCach = dr["Quy cách"].ToString();
+                                if (dr["Quy cách"].ToString() != "")
+                                {
+                                    cTBill.QuyCach = dr["Quy cách"].ToString();
+                                }
+                                else
+                                {
+                                    cTBill.QuyCach = null;
+                                }
+                                
                             }
                             else if (column.ColumnName == "Số Xe")
                             {
-                                if (Xe != null)
-                                {
-                                    cTBill.SoXe = Xe;
-                                }
+                                cTBill.SoXe = Xe;
                             }
                             else if (column.ColumnName == "Ghi chú")
                             {
-
-                                cTBill.GhiChu = dr["Ghi chú"].ToString();
-
+                                if (dr["Ghi chú"].ToString() != "")
+                                {
+                                    cTBill.GhiChu = dr["Ghi chú"].ToString();
+                                }
+                                else
+                                {
+                                    cTBill.GhiChu = null;
+                                }
                             }
-                            
                         }
                         var data = db.CTBills.Add(cTBill);
                         db.SaveChanges();
@@ -268,7 +329,6 @@ namespace QLDL.DAO
         {
             return db.CTBills.Where(x => x.Bill == bill).OrderByDescending(x => (x.NgayGiao != null ? x.NgayGiao : x.NgayGui)).ToList();
         }
-
 
         public CTBill GetById(long? id)
         {

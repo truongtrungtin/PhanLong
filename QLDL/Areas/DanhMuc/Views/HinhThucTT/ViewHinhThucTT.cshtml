@@ -26,8 +26,6 @@
                     <td>@item.MoTa</td>
                     <td>
                         @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                        &ensp;| &ensp;
-                        @Html.ActionLink("Copy", "Create", new { id = item.Id, Copy = "Copy" }, new { @class = "btn btn-primary mb-1" })
                     </td>
                 </tr>
             }
