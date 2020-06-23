@@ -16,7 +16,7 @@ namespace QLDL.DAO
             db = new QLDLDBContext();
         }
 
-        public List<PhatSinhLuongModel> PhatSinhLuong(long id, string ngayBD, string ngayKT)
+        public List<PhatSinhLuongModel> PhatSinhLuong(long? id, string ngayBD, string ngayKT)
         {
             DateTime sdate = (ngayBD != "") ? Convert.ToDateTime(ngayBD).Date : new DateTime();
             DateTime edate = (ngayKT != "") ? Convert.ToDateTime(ngayKT).Date : new DateTime();
@@ -50,7 +50,9 @@ namespace QLDL.DAO
             return data.OrderBy(x => x.Ngay).Distinct().ToList();
         }
 
-        public List<ChiLuongModel> ChiLuong(long id, string ngayBD, string ngayKT)
+        
+
+        public List<ChiLuongModel> ChiLuong(long? id, string ngayBD, string ngayKT)
         {
             DateTime sdate = (ngayBD != "") ? Convert.ToDateTime(ngayBD).Date : new DateTime();
             DateTime edate = (ngayKT != "") ? Convert.ToDateTime(ngayKT).Date : new DateTime();

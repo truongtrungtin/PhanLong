@@ -76,18 +76,19 @@ $("#themngaygiao").click(function () {
 var EditGhiChu = function (Id) {
     var url = "/ThongKe/Luong/EditGhiChu?id=" + Id;
     $("#myModalBodyDiv").load(url, function () {
-        $("#MyModal").modal("Show");
+        $("#MyModal").modal();
     })
 
 }
 
 $("#SaveGhiChu").click(function () {
-    var mydata = $("#form").serialize();
+    var mydata = $("#SubmitForm").serialize();
     $.ajax({
-        type: "POST",
-        url: "/ThongKe/Luong/Index",
+        type: "Post",
+        url: "/Luong/SaveDataInDatabase",
         data: mydata,
-        success: function () {
+        success: function (result) {
+            alert("Thêm ghi chú thành công!");
             $("#MyModal").modal("hide");
         }
     })

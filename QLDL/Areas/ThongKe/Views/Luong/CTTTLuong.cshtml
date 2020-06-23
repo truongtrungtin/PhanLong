@@ -4,25 +4,34 @@
     ViewBag.Style = "/Content/css/table-ctttluong.css";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    var ngaybd = ViewBag.NgayBD;
+    var ngaykt = ViewBag.NgayKT;
     var phichi = ViewBag.ChiLuong;
     int sttc = 0;
     int sttt = 0;
     Decimal tiencuoc = 0;
     Decimal tientru = 0;
 }
-<div class="modal fade" id="MyModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <a href="#" class="close" data-dismiss="modal">&times;</a>
-                <h4 id="ModalTitle">Update</h4>
-            </div>
-            <div class="modal-body" id="myModalBodyDiv">
+@using (Html.BeginForm("CTTTLuong", "Luong", FormMethod.Post))
+{
+    <input type="hidden" readonly class="form-control" name="TenTX" value="@ViewBag.idtx" />
+    <input type="hidden" readonly class="form-control" name="NgayBD" value="@ngaybd" />
+    <input type="hidden" readonly class="form-control" name="NgayKT" value="@ngaykt" />
+    <div class="modal fade" id="MyModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h4 id="ModalTitle">Update</h4>
+                </div>
+                <div class="modal-body" id="myModalBodyDiv">
+
+                </div>
 
             </div>
         </div>
     </div>
-</div>
+}
 <div class="container">
     <div class="card h-100">
         <div class="card-body no-gutters">
@@ -31,6 +40,7 @@
                 <div class="col-md-6">
                     @using (Html.BeginForm("CTTTLuong", "Luong", FormMethod.Get, new { @class = "form-inline" }))
                     {
+                        <input type="hidden" readonly class="form-control" name="id" value="@ViewBag.idtx" />
                         <label> Từ ngày </label>
                         <input type="date" class="form-control" name="NgayBD" value="@ViewBag.NgayBD" />
                         <label> Đến ngày </label>

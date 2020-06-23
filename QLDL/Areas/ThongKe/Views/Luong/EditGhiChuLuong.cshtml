@@ -1,13 +1,14 @@
 ﻿@model QLDL.EF.PhatSinh
 
 
-    <form id="form">
-        <div class="form-group form-group-sm">
-            <input type="hidden" readonly name="Id" id="psid" value="@Model.Id" />
-            <input type="text" name="GhiChuLuong" id="ghichuluong" placeholder="Nhập ghi chú ..." class="form-control" value="@Model.GhiChuLuong" />
-        </div>
-        <div class="form-group form-group-sm">
-            <a href="#" class="btn btn-block btn-danger" id="SaveGhiChu">Lưu</a>
-        </div>
-    </form>
+
+    <div class="form-group form-group-sm">
+        <input type="hidden" readonly name="Id" id="psid" value="@Model.Id" />
+        <input type="text" name="GhiChuLuong" id="ghichuluong" placeholder="Nhập ghi chú ..." class="form-control" value="@Model.GhiChuLuong" />
+    </div>
+    <div class="form-group form-group-sm">
+        <input type="submit" href="#" class="btn btn-block btn-danger" value="Lưu" id="SaveGhiChu" />
+    </div>
+
+
 
