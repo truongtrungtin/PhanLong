@@ -1,7 +1,6 @@
 ﻿
 var $ngayguibai = $('#themngayguibai')
 
-
 //Xử lý  dropdown
 $(document).ready(function () {
     $('#Cont').on('change', function () {

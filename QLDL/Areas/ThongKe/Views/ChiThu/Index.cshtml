@@ -1,8 +1,692 @@
-﻿
+﻿@model IEnumerable<QLDL.EF.PhatSinhChiThu>
+@using QLDL.EF;
+@using QLDL.DAO;
 @{
     ViewBag.Title = "Index";
+    ViewBag.Style = "/Content/css/PhatSinhChiThu.css";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    QLDLDBContext db = new QLDLDBContext();
+
+    int stt = 0;
+    string ngaybd = "";
+    string ngaykt = "";
+    if (ViewBag.NgayBD != "" && ViewBag.NgayBD != null)
+    {
+        ngaybd = Convert.ToDateTime(ViewBag.NgayBD).ToShortDateString();
+
+    }
+    else
+    {
+        ngaybd = "01/01/2020";
+    }
+
+    if (ViewBag.NgayKT != "" && ViewBag.NgayKT != null)
+    {
+        ngaykt = Convert.ToDateTime(ViewBag.NgayKT).ToShortDateString();
+    }
+    else
+    {
+        ngaykt = DateTime.Now.ToShortDateString();
+    }
+
+    int tongchi = 0;
+    int tongthu = 0;
+    
+
 }
 
-<h2>Index</h2>
+@using (Html.BeginForm("Index", "ChiThu", FormMethod.Get))
+{
+    <div class="card h-100">
+        <div class="card-body no-gutters" style="padding-top:3px;padding-bottom:10px;padding-left:5px;">
+            <h4 style="color:blue;margin-bottom: 4px;"><b>Bộ lọc</b></h4>
+            <table class="tg" style="table-layout: fixed; width: 970px">
+                <colgroup>
+                    <col style="width: 39px">
+                    <col style="width: 49px">
+                    <col style="width: 95px">
+                    <col style="width: 86px">
+                    <col style="width: 142px">
+                    <col style="width: 74px">
+                    <col style="width: 140px">
+                    <col style="width: 70px">
+                    <col style="width: 120px">
+                    <col style="width: 60px">
+                    <col style="width: 120px">
+                    <col style="width: 210px">
+                </colgroup>
+
+                <tbody>
+                    <tr>
+                        <td class="tg-4aln">Từ:</td>
+                        <td class="tg-4aln" colspan="2"><input class="form-control" type="date" name="NgayBD" value="@ViewBag.NgayBD" /></td>
+                        <td class="tg-4aln"><span style="font-weight:bold">Đến ngày:</span></td>
+                        <td class="tg-4aln"><input type="date" class="form-control" name="NgayKT" value="@ViewBag.NgayKT" /></td>
+                        <td class="tg-4aln"><span style="font-weight:bold">Loại:</span></td>
+                        <td class="tg-eam2">
+                            <select name="ChiThu" class="form-control js-example-tags">
+                                @if (ViewBag.IdChiThu != null)
+                                {
+                                    <option value="@ViewBag.IdChiThu">@ViewBag.ChiThu</option>
+                                }
+                                else
+                                {
+                                    <option value=""></option>
+                                }
+                                @foreach (var item in db.LoaiPhis)
+                                {
+                                    <option value="@item.Id">@item.Loai</option>
+                                }
+                            </select>
+                        </td>
+
+                        <td class="tg-4aln" colspan="5"></td>
+                    </tr>
+                    <tr>
+                        <td class="tg-4aln" colspan="2"><span style="font-weight:bold">Khách hàng:</span></td>
+                        <td class="tg-eam2" colspan="3">
+                            <select name="KhachHang" class="form-control js-example-tags">
+                                @if (ViewBag.IDKhachHang != null)
+                                {
+                                    <option value="@ViewBag.IDKhachHang">@ViewBag.KhachHang</option>
+                                }
+                                else
+                                {
+                                    <option value=""></option>
+                                }
+                                @foreach (var item in db.DMKhachHangs)
+                                {
+                                    <option value="@item.Id">@item.MaKH - @item.TenCongTy</option>
+                                }
+                            </select>
+                        </td>
+                        <td class="tg-4aln">Tên phí:</td>
+                        <td class="tg-eam2">
+                            <select name="Phi" class="form-control js-example-tags">
+                                @if (ViewBag.IdTenPhi != null)
+                                {
+                                    <option value="@ViewBag.IdTenPhi">@ViewBag.TenPhi</option>
+                                }
+                                else
+                                {
+                                    <option value=""></option>
+                                }
+                                @foreach (var item in db.DMPhis)
+                                {
+                                    <option value="@item.Id">@item.TenPhi</option>
+                                }
+                            </select>
+                        </td>
+                        <td class="tg-4aln">Số Bill:</td>
+                        <td class="tg-eam2" colspan="3">
+                            <select name="Bill" class="form-control js-example-tags">
+                                @if (ViewBag.IdBill != null)
+                                {
+                                    <option value="@ViewBag.IdBill">@ViewBag.Bill</option>
+                                }
+                                else
+                                {
+                                    <option value=""></option>
+                                }
+
+                                @foreach (var item in db.DMBills)
+                                {
+                                    <option value="@item.Id">@item.MaBill</option>
+                                }
+                            </select>
+                        </td>
+                        <td class="tg-eam2" style="padding-left:10px">
+                            <input type="submit" name="Search" value="Tìm" class="btn btn-primary" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+@foreach (var item in Model.OrderBy(x => x.Ngay))
+{
+    var tt = 0;
+    var tc = 0;
+    var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();
+    var phi = 0;
+    if (ViewBag.IdChiThu != null)
+    {
+        if (ViewBag.IdChiThu == maphi.DMPhi.LoaiPhi)
+        {
+            if (ViewBag.IdTenPhi != null)
+            {
+                phi = item.CTChiThus.Where(x => x.Phi == ViewBag.IdTenPhi).Count();
+                if (phi > 0)
+                {
+                    stt += 1;
+                    var model = new CTChiDao().ListAll(item.Id);
+
+                    if (maphi.DMPhi.LoaiPhi == 1)
+                    {
+                        tc = 0;
+                        var tienchi = 0;
+                        foreach (var tien in item.CTChiThus)
+                        {
+                            tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                            tc += tienchi;
+                        }
+                    }
+                    if (maphi.DMPhi.LoaiPhi == 2)
+                    {
+                        tt = 0;
+                        var tienthu = 0;
+                        foreach (var tien in item.CTChiThus)
+                        {
+                            tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                            tt += tienthu;
+                        }
+                    }
+                }
+            }
+            else
+            {
+
+                var model = new CTChiDao().ListAll(item.Id);
+
+                if (maphi.DMPhi.LoaiPhi == 1)
+                {
+
+                    tc = 0;
+                    var tienchi = 0;
+                    foreach (var tien in item.CTChiThus)
+                    {
+                        tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                        tc += tienchi;
+                    }
+                }
+                if (maphi.DMPhi.LoaiPhi == 2)
+                {
+                    tt = 0;
+                    var tienthu = 0;
+                    foreach (var tien in item.CTChiThus)
+                    {
+                        tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                        tt += tienthu;
+                    }
+                }
+            }
+        }
+    }
+    else if (ViewBag.IdTenPhi != null)
+    {
+        phi = item.CTChiThus.Where(x => x.Phi == ViewBag.IdTenPhi).Count();
+        if (phi > 0)
+        {
+
+            var model = new CTChiDao().ListAll(item.Id);
+
+            if (maphi.DMPhi.LoaiPhi == 1)
+            {
+                tc = 0;
+                var tienchi = 0;
+                foreach (var tien in item.CTChiThus)
+                {
+                    tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                    tc += tienchi;
+                }
+
+            }
+            else
+            {
+                <td></td>
+            }
+            if (maphi.DMPhi.LoaiPhi == 2)
+            {
+                tt = 0;
+                var tienthu = 0;
+                foreach (var tien in item.CTChiThus)
+                {
+                    tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                    tt += tienthu;
+                }
+
+            }
+        }
+    }
+    else
+    {
+
+        var model = new CTChiDao().ListAll(item.Id);
+
+        if (maphi.DMPhi.LoaiPhi == 1)
+        {
+            tc = 0;
+            var tienchi = 0;
+            foreach (var tien in item.CTChiThus)
+            {
+                tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                tc += tienchi;
+            }
+
+        }
+
+        if (maphi.DMPhi.LoaiPhi == 2)
+        {
+
+            tt = 0;
+            var tienthu = 0;
+            foreach (var tien in item.CTChiThus)
+            {
+                tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                tt += tienthu;
+
+            }
+
+        }
+    }
+    tongchi += tc;
+    tongthu += tt;
+}
+    <div class="card h-100">
+        <div class="card-body no-gutters">
+            <h4 style="text-align: center;"><b>Thống kê chi thu</b></h4>
+            <table style="table-layout: fixed; width: 100%">
+                <colgroup>
+                    <col style="width: 40%">
+                    <col style="width: 5%">
+                    <col style="width: 5%">
+                    <col style="width: 5%">
+                    <col style="width: 5%">
+                    <col style="width: 40%">
+                </colgroup>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td style="text-align:right"><b>Từ ngày:&nbsp</b></td>
+                        <td><b><input type="text" readonly class="form-control" value="@ngaybd" /></b></td>
+                        <td style="text-align:right"><b>Đến ngày:&nbsp</b></td>
+                        <td><b><input type="text" readonly class="form-control" value="@ngaykt" /></b></td>
+                        <td></td>
+                    </tr>
+                    <tr >
+                        <td style="padding-top:5px!important"></td>
+                        <td style="text-align:right;padding-top:5px!important;"><b>Tiển chi:&nbsp</b></td>
+                        <td style="padding-top: 5px!important"><b><input type="text" readonly class="form-control" value="@String.Format("{0:0,0}", (tongchi))" /></b></td>
+                        <td style="text-align:right;padding-top:5px!important;"><b>Tiền thu:&nbsp</b></td>
+                        <td style="text-align:right;padding-top:5px!important;"><b><input type="text" readonly class="form-control" value="@String.Format("{0:0,0}", (tongthu))" /></b></td>
+                        <td style="padding-top: 5px!important"></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="max-width:100%">
+                    <thead style="background-color:#d1cbc3">
+                        <tr>
+                            <th title="Số thứ tự">STT</th>
+                            <th title="Ngày chi/thu">Ngày</th>
+                            <th title="Người chi/thu">Người chi/thu</th>
+                            <th title="Người nhận">Người nhận</th>
+                            <th title="Hình thức thanh toán">HTTT</th>
+                            <th title="Khách hàng">Khách hàng</th>
+                            <th title="Số Xe">Xe</th>
+                            <th title="Số Mooc">Mooc</th>
+                            <th title="Tên Phí">Phí</th>
+                            <th title="Thu">Thu</th>
+                            <th title="Số Bill">Số Bill</th>
+                            <th title="Số hoá đơn">Số HĐ</th>
+                            <th title="Tiền chi">Tiền chi</th>
+                            <th title="Tiền thu">Tiền thu</th>
+                            <th title="Ghi chú">Ghi Chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderBy(x => x.Ngay))
+                        {
+                            var tt = 0;
+                            var tc = 0;
+                            var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();
+                            var phi = 0;
+                            if (ViewBag.IdChiThu != null)
+                            {
+                                if (ViewBag.IdChiThu == maphi.DMPhi.LoaiPhi)
+                                {
+                                    if (ViewBag.IdTenPhi != null)
+                                    {
+                                        phi = item.CTChiThus.Where(x => x.Phi == ViewBag.IdTenPhi).Count();
+                                        if (phi > 0)
+                                        {
+                                            stt += 1;
+                                            var model = new CTChiDao().ListAll(item.Id);
+                                            <tr>
+                                                <td>@stt</td>
+                                                <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                                                <td>@(item.NguoiChiThu != null ? item.DMNhanVien1.MaNV : null)</td>
+                                                <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null )</td>
+                                                <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
+                                                <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+
+                                                @if (model.Where(x => x.Xe != null).ToList().Count > 0)
+                                                {
+                                                    var xe = model.OrderByDescending(x => x.Xe).FirstOrDefault();
+                                                    <td>
+                                                        @xe.DMXe.BienSo
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        Null
+                                                    </td>
+                                                }
+
+                                                @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
+                                                {
+                                                    var mooc = model.OrderByDescending(x => x.Mooc).FirstOrDefault();
+                                                    <td>
+                                                        @mooc.DMMooc.BienSo
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td>
+                                                        Null
+                                                    </td>
+                                                }
+                                                <td> @(maphi.DMPhi.LoaiPhi == 1 ? maphi.DMPhi.MaPhi : null)</td>
+                                                <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
+                                                <td>@(item.Bill != null ? item.Bill : null)</td>
+                                                <td>@(item.SoHD != null ? item.SoHD : null)</td>
+                                                @if (maphi.DMPhi.LoaiPhi == 1)
+                                                {
+                                                    <td style="text-align: right">
+                                                        @{ tc = 0;
+                                                            var tienchi = 0;
+                                                            foreach (var tien in item.CTChiThus)
+                                                            {
+                                                                tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                                                tc += tienchi;
+                                                            }
+                                                        }@String.Format("{0:0,0}", (tc))
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                @if (maphi.DMPhi.LoaiPhi == 2)
+                                                {
+                                                    <td style="text-align: right">
+                                                        @{ tt = 0;
+                                                            var tienthu = 0;
+                                                            foreach (var tien in item.CTChiThus)
+                                                            {
+                                                                tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                                                tt += tienthu;
+                                                            }
+                                                        }@String.Format("{0:0,0}", (tt))
+                                                    </td>
+                                                }
+                                                else
+                                                {
+                                                    <td></td>
+                                                }
+                                                <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        stt += 1;
+                                        var model = new CTChiDao().ListAll(item.Id);
+                                        <tr>
+                                            <td>@stt</td>
+                                            <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                                            <td>@(item.NguoiChiThu != null ? item.DMNhanVien1.MaNV : null)</td>
+                                            <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null )</td>
+                                            <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
+                                            <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+
+                                            @if (model.Where(x => x.Xe != null).ToList().Count > 0)
+                                            {
+                                                var xe = model.OrderByDescending(x => x.Xe).FirstOrDefault();
+                                                <td>
+                                                    @xe.DMXe.BienSo
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    Null
+                                                </td>
+                                            }
+
+                                            @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
+                                            {
+                                                var mooc = model.OrderByDescending(x => x.Mooc).FirstOrDefault();
+                                                <td>
+                                                    @mooc.DMMooc.BienSo
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    Null
+                                                </td>
+                                            }
+
+                                            <td> @(maphi.DMPhi.LoaiPhi == 1 ? maphi.DMPhi.MaPhi : null)</td>
+                                            <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
+                                            <td>@(item.Bill != null ? item.Bill : null)</td>
+                                            <td>@(item.SoHD != null ? item.SoHD : null)</td>
+                                            @if (maphi.DMPhi.LoaiPhi == 1)
+                                            {
+                                                <td style="text-align: right">
+                                                    @{ tc = 0;
+                                                        var tienchi = 0;
+                                                        foreach (var tien in item.CTChiThus)
+                                                        {
+                                                            tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                                            tc += tienchi;
+                                                        }
+                                                    }@String.Format("{0:0,0}", (tc))
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                            @if (maphi.DMPhi.LoaiPhi == 2)
+                                            {
+                                                <td style="text-align: right">
+                                                    @{ tt = 0;
+                                                        var tienthu = 0;
+                                                        foreach (var tien in item.CTChiThus)
+                                                        {
+                                                            tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                                            tt += tienthu;
+                                                        }
+                                                    }@String.Format("{0:0,0}", (tt))
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+                                            <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                            else if (ViewBag.IdTenPhi != null)
+                            {
+                                phi = item.CTChiThus.Where(x => x.Phi == ViewBag.IdTenPhi).Count();
+                                if (phi > 0)
+                                {
+                                    stt += 1;
+                                    var model = new CTChiDao().ListAll(item.Id);
+                                    <tr>
+                                        <td>@stt</td>
+                                        <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                                        <td>@(item.NguoiChiThu != null ? item.DMNhanVien1.MaNV : null)</td>
+                                        <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null )</td>
+                                        <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
+                                        <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+
+                                        @if (model.Where(x => x.Xe != null).ToList().Count > 0)
+                                        {
+                                            var xe = model.OrderByDescending(x => x.Xe).FirstOrDefault();
+                                            <td>
+                                                @xe.DMXe.BienSo
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                Null
+                                            </td>
+                                        }
+
+                                        @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
+                                        {
+                                            var mooc = model.OrderByDescending(x => x.Mooc).FirstOrDefault();
+                                            <td>
+                                                @mooc.DMMooc.BienSo
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                Null
+                                            </td>
+                                        }
+                                        <td> @(maphi.DMPhi.LoaiPhi == 1 ? maphi.DMPhi.MaPhi : null)</td>
+                                        <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
+                                        <td>@(item.Bill != null ? item.Bill : null)</td>
+                                        <td>@(item.SoHD != null ? item.SoHD : null)</td>
+                                        @if (maphi.DMPhi.LoaiPhi == 1)
+                                        {
+                                            <td style="text-align: right">
+                                                @{ tc = 0;
+                                                    var tienchi = 0;
+                                                    foreach (var tien in item.CTChiThus)
+                                                    {
+                                                        tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                                        tc += tienchi;
+                                                    }
+                                                }@String.Format("{0:0,0}", (tc))
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                        @if (maphi.DMPhi.LoaiPhi == 2)
+                                        {
+                                            <td style="text-align: right">
+                                                @{ tt = 0;
+                                                    var tienthu = 0;
+                                                    foreach (var tien in item.CTChiThus)
+                                                    {
+                                                        tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                                        tt += tienthu;
+                                                    }
+                                                }@String.Format("{0:0,0}", (tt))
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td></td>
+                                        }
+                                        <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                stt += 1;
+                                var model = new CTChiDao().ListAll(item.Id);
+                                <tr>
+                                    <td>@stt</td>
+                                    <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                                    <td>@(item.NguoiChiThu != null ? item.DMNhanVien1.MaNV : null)</td>
+                                    <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null )</td>
+                                    <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
+                                    <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+
+                                    @if (model.Where(x => x.Xe != null).ToList().Count > 0)
+                                    {
+                                        var xe = model.OrderByDescending(x => x.Xe).FirstOrDefault();
+                                        <td>
+                                            @xe.DMXe.BienSo
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            Null
+                                        </td>
+                                    }
+
+                                    @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
+                                    {
+                                        var mooc = model.OrderByDescending(x => x.Mooc).FirstOrDefault();
+                                        <td>
+                                            @mooc.DMMooc.BienSo
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            Null
+                                        </td>
+                                    }
+
+                                    <td> @(maphi.DMPhi.LoaiPhi == 1 ? maphi.DMPhi.MaPhi : null)</td>
+                                    <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
+                                    <td>@(item.Bill != null ? item.Bill : null)</td>
+                                    <td>@(item.SoHD != null ? item.SoHD : null)</td>
+                                    @if (maphi.DMPhi.LoaiPhi == 1)
+                                    {
+                                        <td style="text-align: right">
+                                            @{ tc = 0;
+                                                var tienchi = 0;
+                                                foreach (var tien in item.CTChiThus)
+                                                {
+                                                    tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                                    tc += tienchi;
+                                                }
+                                            }@String.Format("{0:0,0}", (tc))
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    @if (maphi.DMPhi.LoaiPhi == 2)
+                                    {
+                                        <td style="text-align: right">
+                                            @{ tt = 0;
+                                                var tienthu = 0;
+                                                foreach (var tien in item.CTChiThus)
+                                                {
+                                                    tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                                    tt += tienthu;
+                                                }
+                                            }@String.Format("{0:0,0}", (tt))
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                                </tr>
+                            }
+
+
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 

@@ -338,6 +338,7 @@ th {
     vertical-align: middle !important;
     font-size: 13px !important;
     background-color: #d1cbc3 !important;
+    border-top: 1px black solid!important;
 }
 
 td {

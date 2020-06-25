@@ -1,0 +1,26 @@
+﻿.page {
+    padding: 20mm;
+    margin: 10mm auto;
+    border: 1px white solid;
+    border-radius: 5px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+}
+
+@page {
+    margin: 0px;
+    
+}
+
+@media print {
+    .page {
+        max-width: 100in!important;
+        margin: 0mm 0mm 0mm 0mm;
+        padding: 0mm 0mm 0mm 0mm;
+        border: 1px white solid;
+        border-radius: 5px;
+        background: white;
+        
+    }
+}

@@ -16,6 +16,7 @@ namespace QLDL.DAO
         public long InsertPhi(DMPhi entity, string phi)
         {
             entity.MaPhi = phi;
+            entity.TenPhi = phi;
             db.DMPhis.Add(entity);
             db.SaveChanges();
             return entity.Id;

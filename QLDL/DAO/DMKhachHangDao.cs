@@ -113,6 +113,7 @@ namespace QLDL.DAO
         public long InsertKhachHang(DMKhachHang entity, string kh)
         {
             entity.MaKH = kh;
+            entity.TenCongTy = kh;
             db.DMKhachHangs.Add(entity);
             db.SaveChanges();
             return entity.Id;

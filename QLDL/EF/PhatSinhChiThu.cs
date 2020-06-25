@@ -1,4 +1,4 @@
-namespace QLDL.EF
+﻿namespace QLDL.EF
 {
     using System;
     using System.Collections.Generic;
@@ -18,22 +18,25 @@ namespace QLDL.EF
         public long Id { get; set; }
 
         [Column(TypeName = "date")]
+        [Display(Name = "Ngày: ")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Ngay { get; set; }
-
         public long? NguoiChiThu { get; set; }
-
+        [Display(Name = "Người nhận: ")]
         public long? NguoiNhan { get; set; }
-
+        [Display(Name = "Hình thức thanh toán: ")]
         public long? HTTT { get; set; }
-
+        [Display(Name = "Khách hàng: ")]
         public long? KhachHang { get; set; }
-
+        [Display(Name = "Số Bill: ")]
         public long? Bill { get; set; }
 
         [StringLength(50)]
+        [Display(Name = "Số hoá đơn: ")]
         public string SoHD { get; set; }
 
         [StringLength(250)]
+        [Display(Name = "Ghi chú: ")]
         public string GhiChu { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

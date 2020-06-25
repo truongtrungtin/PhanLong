@@ -71,6 +71,7 @@ namespace QLDL.DAO
         public long InsertNV(DMNhanVien entity, string nv)
         {
             entity.MaNV = nv;
+            entity.TenNV = nv;
             db.DMNhanViens.Add(entity);
             db.SaveChanges();
             return entity.Id;

@@ -17,6 +17,7 @@ namespace QLDL.DAO
         public long InsertMooc(DMMooc entity, string mooc)
         {
             entity.MaMooc = mooc;
+            entity.BienSo = mooc;
             db.DMMoocs.Add(entity);
             db.SaveChanges();
             return entity.Id;

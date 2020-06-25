@@ -34,6 +34,14 @@ namespace QLDL.DAO
             }
 
         }
+        public long InsertHTTT(HinhThucTT entity, string httt)
+        {
+            entity.MaHT = httt;
+            entity.MoTa = httt;
+            db.HinhThucTTs.Add(entity);
+            db.SaveChanges();
+            return entity.Id;
+        }
         public List<HinhThucTT> ListAll()
         {
             return db.HinhThucTTs.OrderByDescending(x => x.Id).ToList();

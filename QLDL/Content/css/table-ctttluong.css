@@ -1,6 +1,7 @@
 ﻿.tg {
     border-collapse: collapse;
     border-spacing: 0;
+    overflow-y: hidden;
 }
 
     .tg td {
@@ -10,7 +11,6 @@
         font-family: Tahoma, Geneva, sans-serif !important;
         font-size: 12px;
         overflow: hidden;
-        padding: 10px 5px;
         word-break: normal;
     }
 
@@ -22,12 +22,13 @@
         font-size: 12px;
         font-weight: normal;
         overflow: hidden;
-        padding: 10px 5px;
         word-break: normal;
     }
 
     .tg .tg-zv4m {
         border-color: #ffffff;
+        font-size: 12px;
+        color:blue;
         text-align: left;
         vertical-align: middle;
     }
@@ -41,7 +42,8 @@
 
     .tg .tg-w3ps {
         background-color: #d1cbc3;
-        border-color: inherit;
+        border-top-color: black!important;
+        border-bottom-color: black;
         font-weight: bold;
         text-align: center;
         vertical-align: middle
@@ -67,12 +69,13 @@
 
     .tg .tg-ofj5 {
         border-color: #ffffff;
+        color:blue;
         text-align: right;
         vertical-align: middle
     }
 
     .tg .tg-vhuu {
-        background-color: #ffffff;
+        background-color: #ffffff!important;
         border-color: #ffffff;
         font-family: Tahoma, Geneva, sans-serif !important;
         font-size: 12px;
@@ -88,7 +91,7 @@
     }
 
     .tg .tg-t8ut {
-        background-color: #ffffff;
+        background-color: #ffffff !important;
         border-color: #ffffff;
         font-family: Tahoma, Geneva, sans-serif !important;
         font-size: 12px;
@@ -98,17 +101,19 @@
     }
 
     .tg .tg-je0s {
-        background-color: #ffffff;
+        background-color: #ffffff !important;
         border-color: #ffffff;
         font-family: Tahoma, Geneva, sans-serif !important;
+        margin: 0px;
+        padding: 0px;
         font-size: 12px;
         font-weight: bold;
-        text-align: right;
+        text-align: center;
         vertical-align: middle
     }
 
     .tg .tg-c74o {
-        background-color: #FFF;
+        background-color: #FFF !important;
         border-color: #ffffff;
         font-family: Tahoma, Geneva, sans-serif !important;
         font-size: 12px;

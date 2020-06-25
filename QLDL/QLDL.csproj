@@ -217,6 +217,7 @@
     <Compile Include="DAO\HinhThucTTDao.cs" />
     <Compile Include="DAO\PhatSinhBillDao.cs" />
     <Compile Include="DAO\PhatSinhChiDao.cs" />
+    <Compile Include="DAO\PhatSinhChiThuDao.cs" />
     <Compile Include="DAO\PhatSinhDao.cs" />
     <Compile Include="DAO\PhatSinhThuDao.cs" />
     <Compile Include="DAO\ThongKeLuong.cs" />
@@ -246,6 +247,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ChiLuongModel.cs" />
+    <Compile Include="Models\PhatSinhChiThuModel.cs" />
     <Compile Include="Models\PhatSinhLuongModel.cs" />
     <Compile Include="Models\ThanhToanLuongModel.cs" />
     <Compile Include="Models\ThongKeBillModel.cs" />
@@ -257,6 +259,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\css\filterChitiet.css" />
+    <Content Include="Content\css\PhatSinhChiThu.css" />
+    <Content Include="Content\css\print.css" />
     <Content Include="Content\css\sb-admin-2.css" />
     <Content Include="Content\css\select2.css" />
     <Content Include="Content\css\table-ctttluong.css" />
@@ -2158,8 +2162,8 @@
     <Content Include="Views\Shared\DisplayTemplates\CanonicalHelperModel.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\CreateCTBill.cshtml" />
     <Content Include="Areas\ThongKe\Views\Luong\Index.cshtml" />
-    <None Include="Properties\PublishProfiles\QLDL.pubxml" />
     <Content Include="Areas\ThongKe\Views\Luong\CTTTLuong.cshtml" />
+    <None Include="Properties\PublishProfiles\PhanLong.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
