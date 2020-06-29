@@ -524,392 +524,47 @@ namespace QLDL.DAO
             return db.PhatSinhs.OrderByDescending(x => x.Ngay).ToList();
         }
 
-        public List<PhatSinh> Listtk(PhatSinh phatSinh, string sday, string eday)
+        public IEnumerable<PhatSinh> Listtk(PhatSinh phatSinh, string sday, string eday)
         {
             IQueryable<PhatSinh> model = db.PhatSinhs;
             DateTime sdate = (sday != "") ? Convert.ToDateTime(sday).Date : new DateTime();
             DateTime edate = (eday != "") ? Convert.ToDateTime(eday).Date : new DateTime();
-
-            if (phatSinh.Kho != null)
+            if (!string.IsNullOrEmpty(sday))
             {
-                if (phatSinh.Loai != null)
-                {
-                    if (phatSinh.Xe != null)
-                    {
-                        if (phatSinh.KhachHang != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else if (phatSinh.KhachHang != null)
-                    {
-                        if (phatSinh.Xe != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else
-                    {
-                        model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                    }
-                }
-                else if (phatSinh.Xe != null)
-                {
-                    if (phatSinh.Loai != null)
-                    {
-                        if (phatSinh.KhachHang != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else if (phatSinh.KhachHang != null)
-                    {
-                        if (phatSinh.Loai != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else
-                    {
-                        model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                    }
-                }
-                else if (phatSinh.KhachHang != null)
-                {
-                    if (phatSinh.Loai != null)
-                    {
-                        if (phatSinh.Xe != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else if (phatSinh.Xe != null)
-                    {
-                        if (phatSinh.Loai != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else
-                    {
-                        model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                    }
-                }
-                else
-                {
-                    model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                }
-            }
-            else if (phatSinh.Xe != null)
-            {
-                if (phatSinh.Loai != null)
-                {
-                    if (phatSinh.Kho != null)
-                    {
-                        if (phatSinh.KhachHang != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else if (phatSinh.KhachHang != null)
-                    {
-                        if (phatSinh.Kho != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Xe == phatSinh.Xe && x.Loai == phatSinh.Loai && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else
-                    {
-                        model = db.PhatSinhs.Where(x => x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                    }
-                }
-                else if (phatSinh.Kho != null)
-                {
-                    if (phatSinh.Loai != null)
-                    {
-                        if (phatSinh.KhachHang != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else if (phatSinh.KhachHang != null)
-                    {
-                        if (phatSinh.Loai != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else
-                    {
-                        model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                    }
-                }
-                else if (phatSinh.KhachHang != null)
-                {
-                    if (phatSinh.Loai != null)
-                    {
-                        if (phatSinh.Kho != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Xe == phatSinh.Xe && x.Loai == phatSinh.Loai && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else if (phatSinh.Kho != null)
-                    {
-                        if (phatSinh.Loai != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else
-                    {
-                        model = db.PhatSinhs.Where(x => x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                    }
-                }
-                else
-                {
-                    model = db.PhatSinhs.Where(x => x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                }
-            }
-            else if (phatSinh.Loai != null)
-            {
-                if (phatSinh.Kho != null)
-                {
-                    if (phatSinh.Xe != null)
-                    {
-                        if (phatSinh.KhachHang != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else if (phatSinh.KhachHang != null)
-                    {
-                        if (phatSinh.Xe != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else
-                    {
-                        model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                    }
-                }
-                else if (phatSinh.Xe != null)
-                {
-                    if (phatSinh.Kho != null)
-                    {
-                        if (phatSinh.KhachHang != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else if (phatSinh.KhachHang != null)
-                    {
-                        if (phatSinh.Kho != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else
-                    {
-                        model = db.PhatSinhs.Where(x => x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                    }
-                }
-                else if (phatSinh.KhachHang != null)
-                {
-                    if (phatSinh.Kho != null)
-                    {
-                        if (phatSinh.Xe != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else if (phatSinh.Xe != null)
-                    {
-                        if (phatSinh.Kho != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else
-                    {
-                        model = db.PhatSinhs.Where(x => x.Loai == phatSinh.Loai && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                    }
-                }
-                else
-                {
-                    model = db.PhatSinhs.Where(x => x.Loai == phatSinh.Loai && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                }
-            }
-            else if (phatSinh.KhachHang != null)
-            {
-                if (phatSinh.Loai != null)
-                {
-                    if (phatSinh.Xe != null)
-                    {
-                        if (phatSinh.Kho != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.KhachHang == phatSinh.KhachHang && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else if (phatSinh.Kho != null)
-                    {
-                        if (phatSinh.Xe != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else
-                    {
-                        model = db.PhatSinhs.Where(x => x.Loai == phatSinh.Loai && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                    }
-                }
-                else if (phatSinh.Xe != null)
-                {
-                    if (phatSinh.Loai != null)
-                    {
-                        if (phatSinh.Kho != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.KhachHang == phatSinh.KhachHang && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else if (phatSinh.Kho != null)
-                    {
-                        if (phatSinh.Loai != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else
-                    {
-                        model = db.PhatSinhs.Where(x => x.KhachHang == phatSinh.KhachHang && x.Xe == phatSinh.Xe && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                    }
-                }
-                else if (phatSinh.Kho != null)
-                {
-                    if (phatSinh.Loai != null)
-                    {
-                        if (phatSinh.Xe != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else if (phatSinh.Xe != null)
-                    {
-                        if (phatSinh.Loai != null)
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Loai == phatSinh.Loai && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                        else
-                        {
-                            model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.Xe == phatSinh.Xe && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                        }
-                    }
-                    else
-                    {
-                        model = db.PhatSinhs.Where(x => x.Kho == phatSinh.Kho && x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                    }
-                }
-                else
-                {
-                    model = db.PhatSinhs.Where(x => x.KhachHang == phatSinh.KhachHang && ((sday == "" && eday == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
-                }
+                model = model.Where(x => (sday == "") || (x.Ngay >= sdate));
             }
             else
             {
-                model = db.PhatSinhs.Where(x => x.Ngay >= sdate && x.Ngay <= edate);
+                sdate = DateTime.Now.Date.AddDays(-30); 
+                model = model.Where(x => x.Ngay >= sdate);
             }
+            if (!string.IsNullOrEmpty(eday))
+            {
+                
+                model = model.Where(x => (eday == "") || (x.Ngay <= edate));
+            }
+            else
+            {
+                edate = DateTime.Now;
+                model = model.Where(x => x.Ngay <= edate);
+            }
+            if (phatSinh.KhachHang != null)
+            {
+                model = model.Where(x => x.KhachHang == phatSinh.KhachHang);
+            }
+            if (phatSinh.Kho != null)
+            {
+                model = model.Where(x => x.Kho == phatSinh.Kho);
+            }
+            if (phatSinh.Loai != null)
+            {
+                model = model.Where(x => x.Loai == phatSinh.Loai);
+            }
+            if (phatSinh.Xe != null)
+            {
+                model = model.Where(x => x.Xe == phatSinh.Xe);
+            }
+
             return model.OrderBy(x => x.Ngay).ToList();
         }
 

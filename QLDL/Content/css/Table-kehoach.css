@@ -59,16 +59,16 @@
     }
 
     .tg .tg-clnv {
-        background-color: #ffffff;
-        border-color: #ffffff;
-        font-family: Arial, Helvetica, sans-serif !important;
+        background-color: #ffffff !important;
+        border-color: #ffffff !important;
+        font-family: Tahoma, Helvetica, sans-serif !important;
         text-align: right;
         vertical-align: middle
     }
 
     .tg .tg-8n49 {
-        background-color: #ffffff;
-        border-color: #ffffff;
+        background-color: #ffffff !important;
+        border-color: #ffffff !important;
         text-align: left;
         vertical-align: middle
     }

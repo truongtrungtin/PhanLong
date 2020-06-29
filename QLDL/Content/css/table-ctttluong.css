@@ -34,7 +34,7 @@
     }
 
     .tg .tg-c3ow {
-        border-color: inherit;
+        border-color: black!important;
         padding-left: 5px;
         padding-right: 5px;
         vertical-align: middle
@@ -42,22 +42,28 @@
 
     .tg .tg-w3ps {
         background-color: #d1cbc3;
-        border-top-color: black!important;
-        border-bottom-color: black;
+        border-color: black!important;
         font-weight: bold;
         text-align: center;
         vertical-align: middle
     }
+
+    .tg .tg-w3pa {
+        background-color: white !important;
+        border-color: white !important;
+        vertical-align: middle;
+            text-align:center;
+    }
     .tg .tg-w3pd {
         background-color: #ffffff;
-        border-color: inherit;
+        border-color: black!important;
         padding-left: 10px;
         vertical-align: middle
     }
 
     .tg .tg-t1ow {
         background-color: #F5F5F5;
-        border-color: inherit;
+        border-color: black !important;
         text-align: center;
         vertical-align: middle
     }

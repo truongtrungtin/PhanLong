@@ -521,7 +521,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
                     ViewBag.Error = "Please Upload Files in .xls, .xlsx or .csv format";
                 }
             }
-            return RedirectToAction("Index", "DMBill");
+            return RedirectToAction("Index", "PhatSinhChi");
         }
 
     }

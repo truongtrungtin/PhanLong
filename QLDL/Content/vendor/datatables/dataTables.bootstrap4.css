@@ -148,6 +148,7 @@ div.dataTables_scrollBody table tbody tr:first-child td {
 
 div.dataTables_scrollFoot > .dataTables_scrollFootInner {
   box-sizing: content-box;
+
 }
 div.dataTables_scrollFoot > .dataTables_scrollFootInner > table {
   margin-top: 0 !important;

@@ -83,7 +83,7 @@
                                         </td>
                                     }
                                     @{var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();}
-                                    <td> @(maphi.Phi != null ? maphi.DMPhi.MaPhi : null)</td>
+                                    <td> @(maphi != null ? maphi.DMPhi.MaPhi : null)</td>
                                     @if (item.Bill != null)
                                     {
                                         <td>
@@ -130,7 +130,19 @@
                     <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
                 </div>
             }
+            <div style="text-align:right">
+                @using (Html.BeginForm("ImportExcel", "PhatSinhChi", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" name="Sheet" value="PhatSinhChiThu$" />
+                    <input type="submit" id="Submit" name="Submit" value="Import Excel" class="btn btn-success" />
+                    <label>
 
+                        <input type="file" id="FileUpload" name="FileUpload" aria-label="EXCEL" />
+
+                    </label>
+
+                }
+            </div>
         </div>
     </div>
 </div>

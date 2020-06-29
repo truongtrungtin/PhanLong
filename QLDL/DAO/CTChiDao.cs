@@ -42,7 +42,7 @@ namespace QLDL.DAO
                 {
                     foreach (DataRow dr in (dt as System.Data.DataTable).Rows)
                     {
-                        var PhatSinhChiThu = dr["Phát sinh chi thu"].ToString();
+                        var PhatSinhCT = dr["Phát sinh chi thu"].ToString();
                         var Mooc = dr["Mooc"].ToString();
                         var Xe = dr["Xe"].ToString();
                         var Phi = dr["Phí"].ToString();
@@ -51,22 +51,21 @@ namespace QLDL.DAO
                         long? xe = null;
                         long? phi = null;
 
-                        if (PhatSinhChiThu != null)
+                        if (PhatSinhCT != null && PhatSinhCT != "")
                         {
                             foreach (var item in db.PhatSinhChiThus)
                             {
-                                if (item.Id == psct)
+                                if (item.Id == Convert.ToInt32(PhatSinhCT))
                                 {
                                     psct = item.Id;
                                 }
-
                             }
                         }
                         else
                         {
                             psct = null;
                         }
-                        if (Mooc != null)
+                        if (Mooc != null && Mooc != "")
                         {
                             foreach (var item in db.DMMoocs)
                             {
@@ -77,7 +76,6 @@ namespace QLDL.DAO
 
                             }
                             if (mooc == null)
-
                             {
                                 var dao = new DMMoocDao().InsertMooc(dMMooc, Mooc);
                                 mooc = dao;
@@ -87,7 +85,7 @@ namespace QLDL.DAO
                         {
                             mooc = null;
                         }
-                        if (Xe != null)
+                        if (Xe != null && Xe != "")
                         {
                             foreach (var item in db.DMXes)
                             {
@@ -107,7 +105,7 @@ namespace QLDL.DAO
                         {
                             xe = null;
                         }
-                        if (Phi != null)
+                        if (Phi != null && Phi != "")
                         {
                             foreach (var item in db.DMPhis)
                             {
@@ -132,31 +130,27 @@ namespace QLDL.DAO
 
                             if (column.ColumnName == "Phát sinh chi thu")
                             {
-                                if (psct != null)
-                                {
-                                    cTChiThu.PhatSinhChiThu = psct;
-                                }
+                                
+                                    cTChiThu.PhatSinhChiThu = Convert.ToInt32(psct);
+                                
                             }
                             else if (column.ColumnName == "Mooc")
                             {
-                                if (mooc != null)
-                                {
+                                
                                     cTChiThu.Mooc = mooc;
-                                }
+                                
                             }
                             else if (column.ColumnName == "Xe")
                             {
-                                if (xe != null)
-                                {
-                                    cTChiThu.Xe = xe;
-                                }
+                                
+                                cTChiThu.Xe = xe;
+                                
                             }
                             else if (column.ColumnName == "Phí")
                             {
-                                if (phi != null)
-                                {
+                                
                                     cTChiThu.Phi = phi;
-                                }
+                                
                             }
                            
                             else if (column.ColumnName == "Cont")

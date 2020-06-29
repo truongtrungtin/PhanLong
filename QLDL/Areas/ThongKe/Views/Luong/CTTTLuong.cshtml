@@ -124,7 +124,7 @@
                 </div>
                 <br />
                 <div class="table-responsive">
-                    <table class="tg table table-hover table-striped" width="100%" style="overflow-x:hidden!important;max-height:800px!important;">
+                    <table class="tg table table-hover table-striped" width="100%">
                         <colgroup>
                             <col style="width: 1%">
                             <col style="width: 6.46%">
@@ -149,7 +149,7 @@
                                 <th class="tg-w3ps">Cảng trả</th>
                                 <th class="tg-w3ps">Tiền cước (VNĐ) </th>
                                 <th class="tg-w3ps">Ghi chú</th>
-                                <th class="tg-w3ps hidden-print">#</th>
+                     
                             </tr>
                         </thead>
                         <tbody>
@@ -168,7 +168,7 @@
                                     <td class="tg-c3ow">@(item.CangTra != null ? item.CangTra : null)</td>
                                     <td class="tg-t1ow" style="text-align:right">@(item.TienCuoc != null ? String.Format("{0:0,0}", (item.TienCuoc)) : null)</td>
                                     <td class="tg-c3ow" style="text-align:left">@(item.ghichu != null ? item.ghichu : null)</td>
-                                    <td class="tg-c3ow hidden-print"><a href="#" class="btn btn-warning" onclick='EditGhiChu(@item.id)'>Thêm ghi chú</a></td>
+                                    <td class="tg-w3pa hidden-print"><a href="#" class="btn btn-warning" onclick='EditGhiChu(@item.id)'>Thêm ghi chú</a></td>
                                 </tr>
 
                             }

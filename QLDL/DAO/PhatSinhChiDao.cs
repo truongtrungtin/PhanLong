@@ -88,7 +88,6 @@ namespace QLDL.DAO
 
                             }
                             if (nguoinhan == null)
-
                             {
                                 var dao = new DMNhanVienDao().InsertNV(dMNhanVien, NguoiNhan);
                                 nguoinhan = dao;

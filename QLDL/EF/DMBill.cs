@@ -20,7 +20,7 @@
         public long Id { get; set; }
 
         [StringLength(20)]
-        [Required, Display(Name = "Số tờ khai: ")]
+        [Display(Name = "Số tờ khai: ")]
         public string SoToKhai { get; set; }
 
         [StringLength(250)]

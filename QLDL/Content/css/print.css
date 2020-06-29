@@ -1,5 +1,5 @@
 ﻿.page {
-    padding: 20mm;
+    padding: 0px;
     margin: 10mm auto;
     border: 1px white solid;
     border-radius: 5px;
@@ -9,18 +9,18 @@
 }
 
 @page {
+    size:A4,A5,landscape,portrait;
     margin: 0px;
     
 }
 
 @media print {
     .page {
-        max-width: 100in!important;
-        margin: 0mm 0mm 0mm 0mm;
-        padding: 0mm 0mm 0mm 0mm;
-        border: 1px white solid;
+        padding: 0px;
+        margin: 0px auto;
         border-radius: 5px;
         background: white;
-        
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
     }
+
 }

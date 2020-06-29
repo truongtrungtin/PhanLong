@@ -334,11 +334,11 @@ hr {
     }
 
 th {
-    height: 26px !important;
+    height: 12px;
     vertical-align: middle !important;
     font-size: 13px !important;
     background-color: #d1cbc3 !important;
-    border-top: 1px black solid!important;
+    border-top: 1px black solid !important;
 }
 
 td {
@@ -346,9 +346,9 @@ td {
     padding-bottom: 0px !important;
 }
 
-td a {
-    height: 22px
-}
+    td a {
+        height: 22px
+    }
 
 .table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
     border: 1px solid black;
@@ -379,3 +379,5 @@ td a {
 .expand-maximum-on-hover:hover {
     max-width: initial;
 }
+
+

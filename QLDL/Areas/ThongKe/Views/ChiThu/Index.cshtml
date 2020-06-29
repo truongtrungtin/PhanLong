@@ -30,9 +30,9 @@
         ngaykt = DateTime.Now.ToShortDateString();
     }
 
-    int tongchi = 0;
-    int tongthu = 0;
-    
+    Decimal tongchi = 0;
+    Decimal tongthu = 0;
+
 
 }
 
@@ -80,7 +80,6 @@
                                 }
                             </select>
                         </td>
-
                         <td class="tg-4aln" colspan="5"></td>
                     </tr>
                     <tr>
@@ -147,8 +146,8 @@
 }
 @foreach (var item in Model.OrderBy(x => x.Ngay))
 {
-    var tt = 0;
-    var tc = 0;
+    Decimal tt = 0;
+    Decimal tc = 0;
     var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();
     var phi = 0;
     if (ViewBag.IdChiThu != null)
@@ -291,26 +290,26 @@
                 <colgroup>
                     <col style="width: 40%">
                     <col style="width: 5%">
+                    <col style="width: 6%">
                     <col style="width: 5%">
-                    <col style="width: 5%">
-                    <col style="width: 5%">
+                    <col style="width: 6%">
                     <col style="width: 40%">
                 </colgroup>
                 <tbody>
                     <tr>
                         <td></td>
                         <td style="text-align:right"><b>Từ ngày:&nbsp</b></td>
-                        <td><b><input type="text" readonly class="form-control" value="@ngaybd" /></b></td>
+                        <td><b><input type="text" style="text-align:center" readonly class="form-control" value="@ngaybd" /></b></td>
                         <td style="text-align:right"><b>Đến ngày:&nbsp</b></td>
-                        <td><b><input type="text" readonly class="form-control" value="@ngaykt" /></b></td>
+                        <td><b><input type="text" style="text-align:center" readonly class="form-control" value="@ngaykt" /></b></td>
                         <td></td>
                     </tr>
                     <tr >
                         <td style="padding-top:5px!important"></td>
                         <td style="text-align:right;padding-top:5px!important;"><b>Tiển chi:&nbsp</b></td>
-                        <td style="padding-top: 5px!important"><b><input type="text" readonly class="form-control" value="@String.Format("{0:0,0}", (tongchi))" /></b></td>
+                        <td style="text-align:right;padding-top: 5px!important"><b><input type="text" style="text-align:right" readonly class="form-control" value="@String.Format("{0:0,0}", (tongchi))" /></b></td>
                         <td style="text-align:right;padding-top:5px!important;"><b>Tiền thu:&nbsp</b></td>
-                        <td style="text-align:right;padding-top:5px!important;"><b><input type="text" readonly class="form-control" value="@String.Format("{0:0,0}", (tongthu))" /></b></td>
+                        <td style="text-align:right;padding-top:5px!important;"><b><input type="text" style="text-align:right" readonly class="form-control" value="@String.Format("{0:0,0}", (tongthu))" /></b></td>
                         <td style="padding-top: 5px!important"></td>
                     </tr>
                 </tbody>
@@ -319,7 +318,7 @@
                 <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="max-width:100%">
                     <thead style="background-color:#d1cbc3">
                         <tr>
-                            <th title="Số thứ tự">STT</th>
+                            <th>STT</th>
                             <th title="Ngày chi/thu">Ngày</th>
                             <th title="Người chi/thu">Người chi/thu</th>
                             <th title="Người nhận">Người nhận</th>

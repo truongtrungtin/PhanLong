@@ -21,67 +21,67 @@
         khac += Convert.ToDecimal(item.TienPhiKH);
         chirieng += Convert.ToDecimal(item.TienPhiCT);
     }
+    string ngaybd = "";
+    string ngaykt = "";
+    if (ViewBag.sday != "" && ViewBag.sday != null)
+    {
+        ngaybd = Convert.ToDateTime(ViewBag.sday).ToShortDateString();
+
+    }
+    else
+    {
+        ngaybd = DateTime.Now.Date.AddDays(-30).ToShortDateString();
+    }
+
+    if (ViewBag.eday != "" && ViewBag.eday != null)
+    {
+        ngaykt = Convert.ToDateTime(ViewBag.eday).ToShortDateString();
+    }
+    else
+    {
+        ngaykt = DateTime.Now.ToShortDateString();
+    }
 
 }
-
-
-<div class="card h-100">
-    <div class="card-body no-gutters">
-        @using (Html.BeginForm("Index", "ChiTiet", FormMethod.Post))
-        {
+@using (Html.BeginForm("Index", "ChiTiet", FormMethod.Get))
+{
+    <div class="card h-100" >
+        <div class="card-body no-gutters" style="padding-top:3px;padding-bottom:0px;padding-left:5px;">
             <h4><b>Bộ lọc</b></h4>
             <div class="form-group">
-                <table class="tg" style="table-layout: fixed; width: auto">   
+                <table class="tg" style="table-layout: fixed; width: 970px">
                     <colgroup>
                         <col style="width: 70px">
-                        <col style="width: 150px">
-                        <col style="width: 244px">
-                        <col style="width: 244px">
-                        <col style="width: 270px">
-                        <col style="width: 226px">
+                        <col style="width: 20px">
+                        <col style="width: 112px">
+                        <col style="width: 75px">
+                        <col style="width: 142px">
+                        <col style="width: 74px">
+                        <col style="width: 110px">
+                        <col style="width: 40px">
+                        <col style="width: 120px">
+                        <col style="width: 60px">
+                        <col style="width: 120px">
+                        <col style="width: 210px">
                     </colgroup>
-                    <thead>
-                        <tr>
-                            <th class="tg-msvo">Từ ngày: </th>
-                            <th class="tg-z2w3"><input class="form-control" type="date" name="sday" value="@ViewBag.sday" /></th>
-                            <th class="tg-msvo">Khách hàng</th>
-                            <th class="tg-msvo">Kho</th>
-                            <th class="tg-msvo">Loại</th>
-                            <th class="tg-msvo">Xe</th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr>
+                            <td class="tg-msvo">Từ ngày:</td>
+                            <td class="tg-z2w3" colspan="2"><input class="form-control" type="date" name="sday" value="@ViewBag.sday" /></td>
                             <td class="tg-msvo">Đến ngày:</td>
                             <td class="tg-z2w3"><input class="form-control" type="date" name="eday" value="@ViewBag.eday" /></td>
-                            <td class="tg-msvo">
-                                <select class="form-control js-example-tags" style="width:100%" name="KhachHang">
-                                    <option value="">-- Chọn Khách hàng -- </option>
-
-
-
-                                    @foreach (var item in db.DMKhachHangs)
-                                    {
-                                        <option value="@item.Id">@item.MaKH - @item.TenCongTy</option>
-                                    }
-                                </select>
-                            </td>
-                            <td class="tg-msvo">
-                                <select class="form-control js-example-tags" style="width:100%" name="Kho">
-                                    <option value="">-- Chọn Kho --</option>
-
-
-                                    @foreach (var item in db.DMKhoes)
-                                    {
-                                        <option value="@item.Id">@item.MaKho - @item.DiaChi</option>
-                                    }
-
-                                </select>
-                            </td>
+                            <td class="tg-msvo">Loại Cont:</td>
                             <td class="tg-msvo">
                                 <select class="form-control js-example-tags" style="width:100%" name="Loai">
 
-                                    <option value="">-- Chọn Loại --</option>
+                                    @if (ViewBag.IdLoai != null)
+                                    {
+                                        <option value="@ViewBag.IdLoai">@ViewBag.Loai</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="" >All</option>
+                                    }
 
                                     @foreach (var item in db.DMLoais)
                                     {
@@ -90,154 +90,253 @@
 
                                 </select>
                             </td>
-                            <td class="tg-msvo">
+                            <td class="tg-msvo" style="text-align:right">Xe:</td>
+                            <td class="tg-msvo" colspan="1">
                                 <select class="form-control js-example-tags" style="width:100%" name="Xe">
-                                    <option value="">-- Chọn Xe --</option>
-
+                                    @if (ViewBag.IdXe != null)
+                                    {
+                                        <option value="@ViewBag.IdXe">@ViewBag.Xe</option>
+                                    }
+                                    else
+                                    {
+                                <option value="">All</option>
+                                    }
                                     @foreach (var item in db.DMXes)
                                     {
                                         <option value="@item.Id">@item.BienSo</option>
                                     }
                                 </select>
                             </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <input type="submit" class="btn btn-success" value="Lọc" />
-            </div>
-        }
-    </div>
-</div>
-<div class="card h-100">
-    <div class="card-body no-gutters">
-        <h4><b>Thống Kê chi tiết</b></h4>
-        <div class="table-responsive">
-            <div style="text-align: center;">
-                <table class="tg" style="table-layout: fixed; width: 20%">
-                    <colgroup>
-                        <col style="width: 16px">
-                        <col style="width: 16px">
-                        <col style="width: 16px">
-                        <col style="width: 16px">
-                        <col style="width: 31px">
-                        <col style="width: 18px">
-                        <col style="width: 24px">
-                    </colgroup>
-                    <thead>
-                        <tr>
-                            <th class="tg-rfhg">Từ:</th>
-                            <th class="tg-eam2" colspan="2"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.sday" /></th>
-                            <th class="tg-rfhg">Đến:</th>
-                            <th class="tg-eam2"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.eday" /></th>
-                            <th class="tg-koqh">Tổng:</th>
-                            <th class="tg-eam2"><input class="form-control" type="text" readonly value="@ViewBag.TongNgay ngày" /> </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="tg-t8ut">20N</td>
-                            <td class="tg-t8ut">40N</td>
-                            <td class="tg-t8ut">20X</td>
-                            <td class="tg-t8ut">40X</td>
-                            <td class="tg-pz0h"></td>
-                            <td class="tg-pz0h"></td>
-                            <td class="tg-qj9o"></td>
+                            <td class="tg-msvo" colspan="2"></td>
                         </tr>
                         <tr>
-                            <td class="tg-7eit"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.N20" /></td>
-                            <td class="tg-7eit"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.N40" /></td>
-                            <td class="tg-7eit"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.X20" /></td>
-                            <td class="tg-7eit"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.X40" /></td>
-                            <td class="tg-7eit"></td>
-                            <td class="tg-7eit"></td>
-                            <td class="tg-7eit"></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <hr />
-            @using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post))
-            {
-                <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="max-width:100%">
-                    <thead style="background-color:#d1cbc3">
-                        <tr>
-                            <th title="Số thứ tự">STT</th>
-                            <th title="Ngày giao">Ngày</th>
-                            <th title="Loại">Loại</th>
-                            <th title="Khách hàng">Khách hàng</th>
-                            <th title="Kho">Kho</th>
-                            <th title="Số Cont">Số Cont</th>
-                            <th title="Cước">Cước (VNĐ)</th>
-                            <th title="Số Xe">Xe</th>
-                            <th title="Hoá đơn nâng">Hoá đơn nâng</th>
-                            <th title="Tiền nâng">Tiền nâng (VNĐ)</th>
-                            <th title="Hoá đơn Hạ">Hoá đơn Hạ</th>
-                            <th title="Tiền hạ">Tiền Hạ (VNĐ)</th>
-                            <th title="Phí Khách hàng">Hoá đơn khác</th>
-                            <th title="Tiền Phí khách hàng">Tiền khác (VNĐ)</th>
-                            <th title="Tiền Phí khách hàng">Tổng chi hộ (VNĐ)</th>
-                            <th title="Phí công ty">Chi phí riêng TX</th>
-                            <th title="Tiền phí công ty">Tiền phí riêng (VNĐ)</th>
-                            <th title="Thời gian">Tổng chi (VNĐ)</th>
-                            <th title="Ghi chú">Ghi Chú</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.OrderBy(x => x.Ngay))
-                        {
-                            stt += 1;
-                            <tr id="row_@item.Id">
-                                <td>@stt</td>
-                                <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
-                                <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
-                                <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH: null )</td>
-                                <td>@(item.Kho != null ? item.DMKho.MaKho : null)</td>
-                                <td>@(item.SoCont != null ? item.SoCont : null)</td>
-                                <td style="text-align:right">@(item.CuocKH != null ? String.Format("{0:0,0}", (item.CuocKH)) : null)</td>
-                                <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
-                                <td>@(item.HDNang != null ? item.HDNang : null)</td>
-                                <td style="text-align:right">@(item.TienNang != null ? String.Format("{0:0,0}", (item.TienNang)) : null)</td>
-                                <td>@(item.HDHa != null ? item.HDHa : null)</td>
-                                <td style="text-align:right">@(item.TienHa != null ? String.Format("{0:0,0}", (item.TienHa)) : null )</td>
-                                <td>@(item.PhiKH != null ? item.DMPhi1.MaPhi : null)</td>
-                                <td style="text-align:right">@(item.TienPhiKH != null ? String.Format("{0:0,0}", (item.TienPhiKH)) : null)</td>
-                                <td style="text-align:right">@{ chiho = Convert.ToDecimal(item.TienNang) + Convert.ToDecimal(item.TienHa) + Convert.ToDecimal(item.TienPhiKH);}@String.Format("{0:0,0}", (chiho))</td>
-                                <td>@(item.PhiCT != null ? item.DMPhi.MaPhi : null)</td>
-                                <td style="text-align:right">@(item.TienPhiCT != null ? String.Format("{0:0,0}", (item.TienPhiCT)): null )</td>
-                                @{tongchi = Convert.ToDecimal(chiho) + Convert.ToDecimal(item.TienPhiCT);}
-                                <td style="text-align:right">@(item.TienPhiCT != null ? (String.Format("{0:0,0}",(tongchi))) : String.Format("{0:0,0}", (chiho)) )</td>
-                                <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
-                            </tr>
+                            <td class="tg-msvo" colspan="2">Khách hàng:</td>
+                            <td class="tg-msvo" colspan="3">
+                                <select class="form-control js-example-tags" name="KhachHang">
+                                    @if (ViewBag.IdKH != null)
+                                    {
+                                        <option value="@ViewBag.IdKH">@ViewBag.KH</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=""></option>
+                                    }
+                                    @foreach (var item in db.DMKhachHangs)
+                                    {
+                                        <option value="@item.Id">@item.MaKH - @item.TenCongTy</option>
+                                    }
+                                </select>
+                            </td>
+                            <td class="tg-msvo">Kho:</td>
+                            <td class="tg-msvo" colspan="3">
+                                <select class="form-control js-example-tags" style="width:100%" name="Kho">
+                                    @if (ViewBag.IdKho != null)
+                                    {
+                                        <option value="@ViewBag.IdKho">@ViewBag.Kho</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=""></option>
+                                    }
+                                    @foreach (var item in db.DMKhoes)
+                                    {
+                                        <option value="@item.Id">@item.MaKho - @item.DiaChi</option>
+                                    }
 
-                        }
-                    </tbody>
-                    <tfoot style="background-color:#d1cbc3">
-                        <tr>
-                            @{var total = Model.Select(x => x.Ngay).Distinct().Count();}
-                            <th colspan="2"><b>Tổng:</b> @(total) ngày</th>
-                            <th>@ViewBag.Loai</th>
-                            <th>@ViewBag.KH</th>
-                            <th>@ViewBag.Kho</th>
-                            @{ var cont = Model.Select(x => x.SoCont).Distinct().Count();}
-                            <th>@cont cont</th>
-                            <th style="text-align:right">@(cuoc != null ? String.Format("{0:0,0}", (cuoc)): null)</th>
-                            <th>@ViewBag.Xe</th>
-                            <th></th>
-                            <th style="text-align:right">@(nang != null ? String.Format("{0:0,0}", (nang)): null)</th>
-                            <th></th>
-                            <th style="text-align:right">@(ha != null ? String.Format("{0:0,0}", (ha)): null)</th>
-                            <th></th>
-                            <th style="text-align:right">@(khac != null ? String.Format("{0:0,0}", (khac)): null)</th>
-                            <th style="text-align:right">@String.Format("{0:0,0}", (nang + ha + khac))</th>
-                            <th></th>
-                            <th style="text-align:right">@String.Format("{0:0,0}", (chirieng))</th>
-                            <th style="text-align:right">@String.Format("{0:0,0}", (nang + ha + khac + chirieng))</th>
-                            <th class="cell expand-maximum-on-hover"></th>
+                                </select>
+                            </td>
+                            <td class="tg-msvo" style="padding-left:10px">
+                                <input type="submit" name="Search" value="Tìm" class="btn btn-primary" />
+                            </td>
                         </tr>
-                    </tfoot>
+                    </tbody>
                 </table>
-            }
+
+            </div>
+            
         </div>
     </div>
-</div>
+}
+    <div class="card h-100" style="width: 100%">
+        <div class="card-body no-gutters">
+            <h4 style="text-align:center"><b>Thống kê phát sinh</b></h4>
+            <div class="table-responsive">
+                <div style="text-align: center">
+                    <table class="tg" style="table-layout: fixed; width: 100%">
+                        <colgroup>
+                            <col style="width: 40%">
+                            <col style="width: 3%">
+                            <col style="width: 6%">
+                            <col style="width: 3%">
+                            <col style="width: 6%">
+                            <col style="width: 5%">
+                            <col style="width: 6%">
+                            <col style="width: 40%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th class="tg-rfhg"></th>
+                                <th class="tg-rfhg">Từ:</th>
+                                <th class="tg-eam2"><input class="form-control" type="text" style="text-align: center;" readonly value="@ngaybd" /></th>
+                                <th class="tg-rfhg">Đến:</th>
+                                <th class="tg-eam2"><input class="form-control" type="text" style="text-align: center;" readonly value="@ngaykt" /></th>
+                                <th class="tg-koqh" style="text-align:right">Số ngày:</th>
+                                <th class="tg-koqh" style="text-align:left"><input style="display:inherit" class="form-control" type="text" readonly value="@ViewBag.TongNgay ngày" /></th>
+                                <th class="tg-rfhg"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="tg-pz0h"></td>
+                                <td class="tg-pz0h" colspan="2">Loại cont</td>
+                                <td class="tg-t8ut">20N</td>
+                                <td class="tg-t8ut">40N</td>
+                                <td class="tg-t8ut">20X</td>
+                                <td class="tg-t8ut">40X</td>
+                                <td class="tg-pz0h"></td>
+
+                            </tr>
+                            <tr>
+                                <td class="tg-7eit"></td>
+                                <td class="tg-7eit" colspan="2"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.All" /></td>
+                                <td class="tg-7eit"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.N20" /></td>
+                                <td class="tg-7eit"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.N40" /></td>
+                                <td class="tg-7eit"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.X20" /></td>
+                                <td class="tg-7eit"><input class="form-control" type="text" style="text-align: center;" readonly value="@ViewBag.X40" /></td>
+                                <td class="tg-7eit"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                @using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post))
+                {
+                    <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="width:100%">
+                        <colgroup>
+                            <col style="width: 30.91px">
+                            <col style="width: 69.09px">
+                            <col style="width: 33.64px">
+                            <col style="width: 84.55px">
+                            <col style="width: 48.574px">
+                            <col style="width: 84.55px">
+                            <col style="width: 88.18px">
+                            <col style="width: 30.91px">
+                            <col style="width: 84.55px">
+                            <col style="width: 88.18px">
+                            <col style="width: 84.55px">
+                            <col style="width: 88.18px">
+                            <col style="width: 84.55px">
+                            <col style="width: 88.18px">
+                            <col style="width: 88.18px">
+                            <col style="width: 84.55px">
+                            <col style="width: 88.18px">
+                            <col style="width: 88.18px">
+                            <col style="width: 88.18px">
+                        </colgroup>
+                        <thead style="background-color:#d1cbc3">
+                            <tr>
+                                <th title="Số thứ tự">STT</th>
+                                <th title="Ngày giao">Ngày</th>
+                                <th title="Loại">Loại</th>
+                                <th title="Khách hàng">Khách hàng</th>
+                                <th title="Kho">Kho</th>
+                                <th title="Số Cont">Số Cont</th>
+                                <th title="Cước">Cước (VNĐ)</th>
+                                <th title="Số Xe">Xe</th>
+                                <th title="Hoá đơn nâng">Hoá đơn nâng</th>
+                                <th title="Tiền nâng">Tiền nâng (VNĐ)</th>
+                                <th title="Hoá đơn Hạ">Hoá đơn Hạ</th>
+                                <th title="Tiền hạ">Tiền Hạ (VNĐ)</th>
+                                <th title="Phí Khách hàng">Hoá đơn khác</th>
+                                <th title="Tiền Phí khách hàng">Tiền khác (VNĐ)</th>
+                                <th title="Tiền Phí khách hàng">Tổng chi hộ (VNĐ)</th>
+                                <th title="Phí công ty">Chi phí riêng TX</th>
+                                <th title="Tiền phí công ty">Tiền phí riêng (VNĐ)</th>
+                                <th title="Thời gian">Tổng chi (VNĐ)</th>
+                                <th title="Ghi chú">Ghi Chú</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.OrderBy(x => x.Ngay))
+                            {
+                                stt += 1;
+                                <tr id="row_@item.Id">
+                                    <td>@stt</td>
+                                    <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                                    <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
+                                    <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH: null )</td>
+                                    <td>@(item.Kho != null ? item.DMKho.MaKho : null)</td>
+                                    <td>@(item.SoCont != null ? item.SoCont : null)</td>
+                                    <td style="text-align:right">@(item.CuocKH != null ? String.Format("{0:0,0}", (item.CuocKH)) : null)</td>
+                                    <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                                    <td>@(item.HDNang != null ? item.HDNang : null)</td>
+                                    <td style="text-align:right">@(item.TienNang != null ? String.Format("{0:0,0}", (item.TienNang)) : null)</td>
+                                    <td>@(item.HDHa != null ? item.HDHa : null)</td>
+                                    <td style="text-align:right">@(item.TienHa != null ? String.Format("{0:0,0}", (item.TienHa)) : null )</td>
+                                    <td>@(item.PhiKH != null ? item.DMPhi1.MaPhi : null)</td>
+                                    <td style="text-align:right">@(item.TienPhiKH != null ? String.Format("{0:0,0}", (item.TienPhiKH)) : null)</td>
+                                    <td style="text-align:right">@{ chiho = Convert.ToDecimal(item.TienNang) + Convert.ToDecimal(item.TienHa) + Convert.ToDecimal(item.TienPhiKH);}@String.Format("{0:0,0}", (chiho))</td>
+                                    <td>@(item.PhiCT != null ? item.DMPhi.MaPhi : null)</td>
+                                    <td style="text-align:right">@(item.TienPhiCT != null ? String.Format("{0:0,0}", (item.TienPhiCT)): null )</td>
+                                    @{tongchi = Convert.ToDecimal(chiho) + Convert.ToDecimal(item.TienPhiCT);}
+                                    <td style="text-align:right">@(item.TienPhiCT != null ? (String.Format("{0:0,0}",(tongchi))) : String.Format("{0:0,0}", (chiho)) )</td>
+                                    <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                                </tr>
+
+                            }
+                        </tbody>
+
+                    </table>
+                    <table class="table table-hover table-bordered  table-striped table-sm fixed" style="width: 100%;">
+                        <colgroup>
+                            <col style="width: 50px">
+                            <col style="width: 50px">
+                            <col style="width: 33.64px">
+                            <col style="width: 84.55px">
+                            <col style="width: 48.574px">
+                            <col style="width: 84.55px">
+                            <col style="width: 88.18px">
+                            <col style="width: 30.91px">
+                            <col style="width: 84.55px">
+                            <col style="width: 88.18px">
+                            <col style="width: 84.55px">
+                            <col style="width: 88.18px">
+                            <col style="width: 84.55px">
+                            <col style="width: 88.18px">
+                            <col style="width: 88.18px">
+                            <col style="width: 84.55px">
+                            <col style="width: 88.18px">
+                            <col style="width: 88.18px">
+                            <col style="width: 88.18px">
+                        </colgroup>
+                        <thead style="background-color:#d1cbc3">
+                            <tr >
+                                @{var total = Model.Select(x => x.Ngay).Distinct().Count();}
+                                <th style="text-align: right;border-right-color:#d1cbc3">Tổng:</th>
+                                <th style="text-align:left">@(total) ngày</th>
+                                <th></th>
+                                <th></th>
+                                <th>@ViewBag.Kho</th>
+                                @{ var cont = Model.Select(x => x.SoCont).Distinct().Count();}
+                                <th>@cont cont</th>
+                                <th style="text-align:right">@(cuoc != null ? String.Format("{0:0,0}", (cuoc)): null)</th>
+                                <th>@ViewBag.Xe</th>
+                                <th> </th>
+                                <th style="text-align:right">@(nang != null ? String.Format("{0:0,0}", (nang)): null)</th>
+                                <th> </th>
+                                <th style="text-align:right">@(ha != null ? String.Format("{0:0,0}", (ha)): null)</th>
+                                <th> </th>
+                                <th style="text-align:right">@(khac != null ? String.Format("{0:0,0}", (khac)): null)</th>
+                                <th style="text-align:right">@String.Format("{0:0,0}", (nang + ha + khac))</th>
+                                <th> </th>
+                                <th style="text-align:right">@String.Format("{0:0,0}", (chirieng))</th>
+                                <th style="text-align:right">@String.Format("{0:0,0}", (nang + ha + khac + chirieng))</th>
+                                <th> </th>
+                            </tr>
+                        </thead>
+                    </table>
+                }
+            </div>
+        </div>
+    </div>
 

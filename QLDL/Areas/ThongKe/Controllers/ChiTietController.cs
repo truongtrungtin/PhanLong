@@ -11,40 +11,47 @@ namespace QLDL.Areas.ThongKe.Controllers
     public class ChiTietController : BaseController
     {
         // GET: ThongKe/Chitiet
-        public ActionResult Index()
+        [HttpGet]
+        public ActionResult Index(PhatSinh phatSinh, string sday = null, string eday = null)
         {
             var dao = new PhatSinhDao();
-            var model = dao.ListAll().Where(x => (DateTime.Now - x.Ngay).TotalDays < 30);
-            var startday = model.OrderBy(x => x.Ngay).FirstOrDefault().Ngay.ToShortDateString();
-            var endday = model.OrderByDescending(x => x.Ngay).FirstOrDefault().Ngay.ToShortDateString();
-            ViewBag.sday = startday;
-            ViewBag.eday = endday;
+            if (phatSinh.KhachHang != null)
+            {
+                var KH = new DMKhachHangDao().GetById(phatSinh.KhachHang);
+                ViewBag.IdKH = KH.Id;
+                ViewBag.KH = KH.TenCongTy;
+            }
+            if (phatSinh.Kho != null)
+            {
+                var kho = new DMKhoDao().GetById(phatSinh.Kho);
+                ViewBag.Kho = kho.DiaChi;
+                ViewBag.IdKho = kho.Id;
+            }
+            if (phatSinh.Xe != null)
+            {
+                var xe = new DMXeDao().GetById(phatSinh.Xe);
+                ViewBag.Xe = xe.BienSo;
+                ViewBag.IdXe = xe.Id;
+            }
+            if (phatSinh.Loai != null)
+            {
+                var loai = new DMLoaiDao().GetById(phatSinh.Loai);
+                ViewBag.Loai = loai.MaLoai;
+                ViewBag.IdLoai = loai.Id;
+            }
+            ViewBag.sday = sday;
+            ViewBag.eday = eday;
+            var model = dao.Listtk(phatSinh, sday, eday);  
             ViewBag.N20 = model.Where(x => x.Loai == 1).Count();
-            ViewBag.N40 = model.Where(x => x.Loai == 2).Count();
-            ViewBag.X20 = model.Where(x => x.Loai == 3).Count();
+            ViewBag.N40 = model.Where(x => x.Loai == 3).Count();
+            ViewBag.X20 = model.Where(x => x.Loai == 2).Count();
             ViewBag.X40 = model.Where(x => x.Loai == 4).Count();
+            ViewBag.All = (ViewBag.N20 + ViewBag.N40 + ViewBag.X20 + ViewBag.X40);
+            var startday = model.Count() > 0 ? model.OrderBy(x => x.Ngay).FirstOrDefault().Ngay.ToShortDateString():null;
+            var endday = model.Count() > 0 ? model.OrderByDescending(x => x.Ngay).FirstOrDefault().Ngay.ToShortDateString() : null;
             ViewBag.TongNgay = (Convert.ToDateTime(endday) - Convert.ToDateTime(startday)).TotalDays;
             return View(model);
         }
 
-        [HttpPost]
-        public ActionResult Index(PhatSinh phatSinh, string sday = null, string eday = null)
-        {
-            var dao = new PhatSinhDao();
-            var getdata = dao.GetByData(phatSinh);
-            ViewBag.KH = (phatSinh.KhachHang != null ? getdata.DMKhachHang.TenCongTy : null);
-            ViewBag.Kho = (phatSinh.Kho != null ? getdata.DMKho.DiaChi: null);
-            ViewBag.Loai = (phatSinh.Loai != null ? getdata.DMLoai.MaLoai:null);
-            ViewBag.Xe = (phatSinh.Xe != null ? getdata.DMXe.MaXe : null);
-            ViewBag.sday = (sday != "" ? Convert.ToDateTime(sday).ToShortDateString() : null);
-            ViewBag.eday = (eday != "" ? Convert.ToDateTime(eday).ToShortDateString() : null);
-            var model = dao.Listtk(phatSinh,sday,eday);
-            ViewBag.N20 = model.Where(x => x.Loai == 1).Count();
-            ViewBag.N40 = model.Where(x => x.Loai == 2).Count();
-            ViewBag.X20 = model.Where(x => x.Loai == 3).Count();
-            ViewBag.X40 = model.Where(x => x.Loai == 4).Count();
-            ViewBag.TongNgay = (Convert.ToDateTime(eday) - Convert.ToDateTime(sday)).TotalDays;
-            return View(model);
-        }
     }
 }
