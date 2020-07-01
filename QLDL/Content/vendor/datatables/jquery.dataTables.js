@@ -10060,7 +10060,7 @@
 			 *      } );
 			 *    } );
 			 */
-			"bInfo": false,
+			"bInfo": true,
 
 
 			/**
@@ -10865,7 +10865,7 @@
 			 *      } );
 			 *    } )
 			 */
-			"iDisplayLength": 10,
+			"iDisplayLength": 0,
 
 
 			/**
@@ -10886,7 +10886,7 @@
 			 *      } );
 			 *    } )
 			 */
-			"iDisplayStart": 0,
+			"iDisplayStart": -1,
 
 
 			/**
@@ -11105,7 +11105,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sEmptyTable": "No data available in table",
+				"sEmptyTable": "<b style='color:red'>Không có giá trị nào trong bảng!! Vui lòng kiểm tra lại. </b>",
 
 
 				/**
@@ -11158,7 +11158,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sInfoEmpty": "Showing 0 to 0 of 0 entries",
+				"sInfoEmpty": "Hiển thị 0 giá trị",
 
 
 				/**
@@ -11234,7 +11234,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sDecimal": "",
+				"sDecimal": ",",
 
 
 				/**
@@ -11257,7 +11257,7 @@
 				 *      } );
 				 *    } );
 				 */
-				"sThousands": ",",
+				"sThousands": ".",
 
 
 				/**

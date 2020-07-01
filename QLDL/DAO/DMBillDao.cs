@@ -165,8 +165,14 @@ namespace QLDL.DAO
         {
             entity.MaBill = bill;
             entity.KhachHang = KH;
-            entity.CangNhan = CangNhan;
-            entity.CangTra = CangTra;
+            if (CangNhan != null)
+            {
+                entity.CangNhan = CangNhan;
+            }
+            if (CangTra != null)
+            {
+                entity.CangTra = CangTra;
+            }
             db.DMBills.Add(entity);
             db.SaveChanges();
             return entity.Id;

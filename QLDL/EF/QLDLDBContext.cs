@@ -15,7 +15,6 @@ namespace QLDL.EF
         public virtual DbSet<CTBill> CTBills { get; set; }
         public virtual DbSet<CTChiThu> CTChiThus { get; set; }
         public virtual DbSet<CTMenu> CTMenus { get; set; }
-        public virtual DbSet<CTHoaDon> CTHoaDons { get; set; }
         public virtual DbSet<DMBill> DMBills { get; set; }
         public virtual DbSet<DMCang> DMCangs { get; set; }
         public virtual DbSet<DMKhachHang> DMKhachHangs { get; set; }
@@ -67,10 +66,6 @@ namespace QLDL.EF
                 .Property(e => e.Url)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<CTHoaDon>()
-                .Property(e => e.DonGia)
-                .HasPrecision(18, 0);
-
             modelBuilder.Entity<DMBill>()
                 .Property(e => e.SoToKhai)
                 .IsUnicode(false);
@@ -79,6 +74,11 @@ namespace QLDL.EF
                 .HasMany(e => e.CTBills)
                 .WithOptional(e => e.DMBill)
                 .HasForeignKey(e => e.Bill);
+
+            modelBuilder.Entity<DMBill>()
+                .HasMany(e => e.HoaDons)
+                .WithOptional(e => e.DMBill)
+                .HasForeignKey(e => e.SoBill);
 
             modelBuilder.Entity<DMBill>()
                 .HasMany(e => e.PhatSinhs)
@@ -268,9 +268,20 @@ namespace QLDL.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<HoaDon>()
-                .HasMany(e => e.CTHoaDons)
-                .WithOptional(e => e.HoaDon)
-                .HasForeignKey(e => e.HD);
+                .Property(e => e.SoCont)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<HoaDon>()
+                .Property(e => e.TienCuoc)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<HoaDon>()
+                .Property(e => e.ChiHo)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<HoaDon>()
+                .Property(e => e.TienThanhToan)
+                .HasPrecision(18, 0);
 
             modelBuilder.Entity<LoaiPhi>()
                 .Property(e => e.Loai)

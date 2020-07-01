@@ -13,6 +13,7 @@
         public DMBill()
         {
             CTBills = new HashSet<CTBill>();
+            HoaDons = new HashSet<HoaDon>();
             PhatSinhs = new HashSet<PhatSinh>();
             PhatSinhChiThus = new HashSet<PhatSinhChiThu>();
         }
@@ -45,6 +46,9 @@
         public virtual DMCang DMCang1 { get; set; }
 
         public virtual DMKhachHang DMKhachHang { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HoaDon> HoaDons { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinh> PhatSinhs { get; set; }

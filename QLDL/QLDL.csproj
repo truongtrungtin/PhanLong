@@ -185,6 +185,7 @@
     <Compile Include="Areas\DanhMuc\Controllers\DMPhiController.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\DMXeController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\BaseController.cs" />
+    <Compile Include="Areas\NhapLieu\Controllers\HoaDonController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\PhatSinhBillController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\PhatSinhChiController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\PhatSinhThuController.cs" />
@@ -218,13 +219,13 @@
     <Compile Include="DAO\PhatSinhBillDao.cs" />
     <Compile Include="DAO\PhatSinhChiDao.cs" />
     <Compile Include="DAO\PhatSinhChiThuDao.cs" />
+    <Compile Include="DAO\HoaDonDao.cs" />
     <Compile Include="DAO\PhatSinhDao.cs" />
     <Compile Include="DAO\PhatSinhThuDao.cs" />
     <Compile Include="DAO\ThongKeLuong.cs" />
     <Compile Include="DAO\ThongKeBillDao.cs" />
     <Compile Include="EF\CTBill.cs" />
     <Compile Include="EF\CTChiThu.cs" />
-    <Compile Include="EF\CTHoaDon.cs" />
     <Compile Include="EF\CTMenu.cs" />
     <Compile Include="EF\DMBill.cs" />
     <Compile Include="EF\DMCang.cs" />
@@ -2114,6 +2115,11 @@
     <Content Include="Areas\NhapLieu\Views\PhatSinhThu\ViewCTThu.cshtml" />
     <Content Include="Areas\ThongKe\Views\ChiThu\Index.cshtml" />
     <Content Include="Areas\ThongKe\Views\Luong\EditGhiChuLuong.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\HoaDon\Create.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\HoaDon\Index.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\HoaDon\KeHoach.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\HoaDon\Update.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\HoaDon\ViewPhatSinh.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

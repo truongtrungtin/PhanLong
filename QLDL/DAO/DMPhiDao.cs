@@ -13,10 +13,11 @@ namespace QLDL.DAO
         {
             db = new QLDLDBContext();
         }
-        public long InsertPhi(DMPhi entity, string phi)
+        public long InsertPhi(DMPhi entity, string phi,long loai)
         {
             entity.MaPhi = phi;
             entity.TenPhi = phi;
+            entity.LoaiPhi = loai;
             db.DMPhis.Add(entity);
             db.SaveChanges();
             return entity.Id;
@@ -62,6 +63,12 @@ namespace QLDL.DAO
                             {
 
                                 dMPhi.TenPhi = dr["Tên phí"].ToString();
+
+                            }
+                            else if (column.ColumnName == "Loại")
+                            {
+
+                                dMPhi.LoaiPhi = Convert.ToInt64(dr["Loại"]);
 
                             }
                         }

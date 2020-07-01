@@ -12,20 +12,21 @@ using Syncfusion.XlsIO;
 
 namespace QLDL.Areas.NhapLieu.Controllers
 {
-    public class PhatSinhController : BaseController
+    public class HoaDonController : BaseController
     {
+        // GET: NhapLieu/HoaDon
         public ActionResult Index()
         {
-            var dao = new PhatSinhDao();
+            var dao = new HoaDonDao();
             var model = dao.ListAll();
             return View(model);
         }
 
-        
+
         [HttpPost]
-        public ActionResult Index(int[] chkId, string delete = null, string update = null, string kehoach = null)
+        public ActionResult Index(int[] chkId, string delete = null, string update = null)
         {
-            var dao = new PhatSinhDao();
+            var dao = new HoaDonDao();
             if (delete != null && chkId != null)
             {
                 var result = dao.checkbox(chkId);
@@ -37,12 +38,10 @@ namespace QLDL.Areas.NhapLieu.Controllers
                 {
                     SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
                 }
-            }else if(update != null && chkId.Length == 1)
+            }
+            else if (update != null && chkId.Length == 1)
             {
-                return RedirectToAction("Update", "PhatSinh",new { id = chkId[0] });
-            }else if(kehoach != null && chkId.Length == 1)
-            {
-                return RedirectToAction("KeHoach", "PhatSinh", new { id = chkId[0] });
+                return RedirectToAction("Update", "HoaDon", new { id = chkId[0] });
             }
             var model = dao.ListAll();
             return View(model);
@@ -50,16 +49,16 @@ namespace QLDL.Areas.NhapLieu.Controllers
 
         public ActionResult KeHoach(long id)
         {
-            var dao = new PhatSinhDao();
+            var dao = new HoaDonDao();
             var model = dao.GetById(id);
             SetViewBag();
             return View(model);
         }
 
         [ChildActionOnly]
-        public PartialViewResult ViewPhatSinh()
+        public PartialViewResult ViewHoaDon()
         {
-            var dao = new PhatSinhDao();
+            var dao = new HoaDonDao();
             var model = dao.ListAll();
             return PartialView(model);
         }
@@ -68,26 +67,26 @@ namespace QLDL.Areas.NhapLieu.Controllers
         [HttpGet]
         public ActionResult Create(long? id = null, string Copy = null)
         {
-            
+
             if (id != null && Copy != null)
             {
-                var dao = new PhatSinhDao();
+                var dao = new HoaDonDao();
                 var model = dao.GetById(id);
                 SetViewBag();
                 return View(model);
             }
             else
             {
-                
+
                 SetViewBag();
                 return View();
             }
         }
 
         [HttpPost]
-        public ActionResult Create(PhatSinh phatSinh, int[] chkId, string delete = null, string copy = null)
+        public ActionResult Create(HoaDon hoaDon, int[] chkId, string delete = null, string copy = null)
         {
-            var ps = new PhatSinhDao();
+            var ps = new HoaDonDao();
             if (delete != null && chkId != null)
             {
                 var result = ps.checkbox(chkId);
@@ -104,39 +103,39 @@ namespace QLDL.Areas.NhapLieu.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var dao = new PhatSinhDao();
-                    long result = dao.Insert(phatSinh);
+                    var dao = new HoaDonDao();
+                    long result = dao.Insert(hoaDon);
                     if (result > 0)
                     {
                         SetAlert("Đã thêm bảng ghi thành công !", "success");
-                        return RedirectToAction("Create", "PhatSinh");
+                        return RedirectToAction("Create", "HoaDon");
                     }
                     else
                     {
                         SetAlert("Thêm bảng ghi không thành công, vui lòng thử lại!", "warning");
-                        return RedirectToAction("Create", "PhatSinh");
+                        return RedirectToAction("Create", "HoaDon");
                     }
 
                 }
                 SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
 
             }
-            return RedirectToAction("Create", "PhatSinh");
+            return RedirectToAction("Create", "HoaDon");
 
 
         }
         [HttpGet]
         public ActionResult Update(long id)
         {
-            var dao = new PhatSinhDao();
+            var dao = new HoaDonDao();
             var model = dao.GetById(id);
             SetViewBag();
             return View(model);
         }
         [HttpPost]
-        public ActionResult Update(PhatSinh phatSinh, int[] chkId, string delete = null, string copy = null)
+        public ActionResult Update(HoaDon hoaDon, int[] chkId, string delete = null, string copy = null)
         {
-            var ps = new PhatSinhDao();
+            var ps = new HoaDonDao();
             if (delete != null && chkId != null)
             {
                 var result = ps.checkbox(chkId);
@@ -153,17 +152,17 @@ namespace QLDL.Areas.NhapLieu.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var dao = new PhatSinhDao();
-                    var result = dao.Update(phatSinh);
+                    var dao = new HoaDonDao();
+                    var result = dao.Update(hoaDon);
                     if (result)
                     {
                         SetAlert("Cập nhật dữ liệu thành công!", "success");
-                        return RedirectToAction("Index", "PhatSinh");
+                        return RedirectToAction("Index", "HoaDon");
                     }
                     else
                     {
                         SetAlert("Cập nhật dữ liệu không thành công", "warning");
-                        return RedirectToAction("Update", "PhatSinh");
+                        return RedirectToAction("Update", "HoaDon");
                     }
                 }
                 SetAlert("Không có nội dung nào được chỉnh sửa", "warning");
@@ -176,16 +175,16 @@ namespace QLDL.Areas.NhapLieu.Controllers
         [HttpDelete]
         public ActionResult Delete(long id)
         {
-            var result = new PhatSinhDao().Delete(id);
+            var result = new HoaDonDao().Delete(id);
             if (result)
             {
                 SetAlert("Xóa dữ liệu thành công", "success");
-                return RedirectToAction("Index", "PhatSinh");
+                return RedirectToAction("Index", "HoaDon");
             }
             else
             {
                 SetAlert("Xóa dữ liệu không thành công", "warning");
-                return RedirectToAction("Index", "PhatSinh");
+                return RedirectToAction("Index", "HoaDon");
             }
         }
 
@@ -213,7 +212,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
 
         [ActionName("ImportExcel")]
         [HttpPost]
-        public ActionResult ImportExcel(PhatSinh phatsinh, DMLoai dMLoai, DMKhachHang dMKhachHang, DMKho dMKho, DMXe dMXe, DMNhanVien dMNhanVien, DMPhi dMPhi, DMThoiGian dMThoiGian, DMCang dMCang, DMBill dMBill, string sheet)
+        public ActionResult ImportExcel(HoaDon hoaDon, DMKhachHang dMKhachHang, DMBill dMBill, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)
             {
@@ -243,9 +242,9 @@ namespace QLDL.Areas.NhapLieu.Controllers
                         connString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + path1 + ";Extended Properties=\"Excel 8.0;HDR=Yes;IMEX=2\"";
                         dt = ExcelUpload.ConvertXSLXtoDataTable(path1, connString, sheet);
                         ViewBag.Data = dt;
-                        var dao = new PhatSinhDao();
+                        var dao = new HoaDonDao();
 
-                        if (dao.importData(dt, phatsinh, dMLoai, dMKhachHang, dMKho, dMXe, dMNhanVien, dMPhi, dMThoiGian, dMCang, dMBill))
+                        if (dao.importData(dt, hoaDon, dMKhachHang, dMBill))
                         {
                             SetAlert("Thêm thành công!", "success");
                         }
@@ -259,9 +258,9 @@ namespace QLDL.Areas.NhapLieu.Controllers
                         connString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path1 + ";Extended Properties=\"Excel 12.0;HDR=Yes;IMEX=2\"";
                         dt = ExcelUpload.ConvertXSLXtoDataTable(path1, connString, sheet);
                         ViewBag.Data = dt;
-                        var dao = new PhatSinhDao();
+                        var dao = new HoaDonDao();
 
-                        if (dao.importData(dt, phatsinh,dMLoai,dMKhachHang,dMKho,dMXe,dMNhanVien,dMPhi,dMThoiGian, dMCang, dMBill))
+                        if (dao.importData(dt, hoaDon, dMKhachHang, dMBill))
                         {
                             SetAlert("Thêm thành công!", "success");
                         }
@@ -280,9 +279,7 @@ namespace QLDL.Areas.NhapLieu.Controllers
                 }
 
             }
-            return RedirectToAction("Index", "PhatSinh");
+            return RedirectToAction("Index", "HoaDon");
         }
     }
-
-    
 }

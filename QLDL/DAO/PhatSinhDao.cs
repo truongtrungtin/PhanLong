@@ -240,7 +240,7 @@ namespace QLDL.DAO
                             }
                             if (phikh == null)
                             {
-                                var dao = new DMPhiDao().InsertPhi(dMPhi, MaPhiKH);
+                                var dao = new DMPhiDao().InsertPhi(dMPhi, MaPhiKH,1);
                                 phikh = dao;
                             }
                         }
@@ -260,7 +260,7 @@ namespace QLDL.DAO
                             }
                             if (phict == null)
                             {
-                                var dao = new DMPhiDao().InsertPhi(dMPhi, MaPhict);
+                                var dao = new DMPhiDao().InsertPhi(dMPhi, MaPhict,1);
                                 phict = dao;
                             }
                         }
@@ -302,7 +302,7 @@ namespace QLDL.DAO
                             }
                             else if (column.ColumnName == "Loại")
                             {
-                                    phatSinh.Loai = Loai.Value;
+                                    phatSinh.Loai = Loai;
                               
                             }
                             else if (column.ColumnName == "Khách hàng")
@@ -312,10 +312,9 @@ namespace QLDL.DAO
                             }
                             else if (column.ColumnName == "Kho")
                             {
-                                if (Kho != null)
-                                {
+
                                     phatSinh.Kho = Kho;
-                                }
+                               
                             }
                             else if (column.ColumnName == "Cont")
                             {

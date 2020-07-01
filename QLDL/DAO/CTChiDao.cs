@@ -117,7 +117,7 @@ namespace QLDL.DAO
                             }
                             if (phi == null)
                             {
-                                var dao = new DMPhiDao().InsertPhi(dMPhi, Phi);
+                                var dao = new DMPhiDao().InsertPhi(dMPhi, Phi,1);
                                 phi = dao;
                             }
                         }

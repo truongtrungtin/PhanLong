@@ -9,12 +9,6 @@ namespace QLDL.EF
     [Table("HoaDon")]
     public partial class HoaDon
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HoaDon()
-        {
-            CTHoaDons = new HashSet<CTHoaDon>();
-        }
-
         public long Id { get; set; }
 
         [Column(TypeName = "date")]
@@ -25,11 +19,31 @@ namespace QLDL.EF
 
         public long? KH { get; set; }
 
+        [StringLength(50)]
+        public string NoiDung { get; set; }
+
         [StringLength(250)]
         public string GhiChu { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTHoaDon> CTHoaDons { get; set; }
+        public long? SoBill { get; set; }
+
+        [StringLength(250)]
+        public string SoCont { get; set; }
+
+        public int? SoLuong { get; set; }
+
+        public decimal? TienCuoc { get; set; }
+
+        public double? VAT { get; set; }
+
+        public decimal? ChiHo { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime? NgayThanhToan { get; set; }
+
+        public decimal? TienThanhToan { get; set; }
+
+        public virtual DMBill DMBill { get; set; }
 
         public virtual DMKhachHang DMKhachHang { get; set; }
     }

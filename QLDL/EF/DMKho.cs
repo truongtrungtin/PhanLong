@@ -27,27 +27,27 @@
         public string DiaChi { get; set; }
 
         [StringLength(250)]
-        [Required, Display(Name = "Người liên hệ: ")]
+        [Display(Name = "Người liên hệ: ")]
         public string NguoiLienHe { get; set; }
 
         [StringLength(11)]
-        [Required, Display(Name = "Số điện thoại: ")]
+        [Display(Name = "Số điện thoại: ")]
         public string SoDienThoai { get; set; }
 
         [StringLength(250)]
-        [Required, Display(Name = "Thông tin: ")]
+        [Display(Name = "Thông tin: ")]
         public string DiaChiChiTiet { get; set; }
 
         [StringLength(50)]
-        [Required, Display(Name = "Lộ trình: ")]
+        [Display(Name = "Lộ trình: ")]
         public string LoTrinh { get; set; }
 
         [StringLength(50)]
-        [Required, Display(Name = "Giờ cấm: ")]
+        [Display(Name = "Giờ cấm: ")]
         public string GioCam { get; set; }
 
         [StringLength(255)]
-        [Required, Display(Name = "Ghí chú: ")]
+        [ Display(Name = "Ghí chú: ")]
         public string GhiChu { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

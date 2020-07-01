@@ -13,7 +13,6 @@
 
         [Column(TypeName = "date")]
         [Display(Name = "Ngày: ")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime Ngay { get; set; }
 
         [Display(Name = "Loại: ")]
