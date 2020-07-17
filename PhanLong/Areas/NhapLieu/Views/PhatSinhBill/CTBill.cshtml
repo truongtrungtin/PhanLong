@@ -1,0 +1,89 @@
+﻿@model IEnumerable<PhanLong.EF.CTBill>
+@{
+    ViewBag.Title = "Phát Sinh Bill:  " + ViewBag.MaBill;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.url = "/NhapLieu/PhatSinhBill/";
+    ViewBag.Back = "Trở lại";
+    var stt = 0;
+}
+
+@using (Html.BeginForm("Create", "PhatSinhBill", FormMethod.Post))
+{
+    <input type="hidden" name="Bill" value="@ViewBag.IdBill" />
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title"> 
+                Số Bill: @ViewBag.MaBill
+            </h3>
+
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
+                <thead>
+                    <tr>
+                        <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                        <th width="1%" style="text-align:center;vertical-align:middle">STT</th>
+                        <th>Số Cont</th>
+                        <th>Độ dày</th>
+                        <th>Quy cách</th>
+                        <th>Hạn lưu bãi</th>
+                        <th>Hạn lưu cont </th>
+                        <th>Hạn lưu rỗng</th>
+                        <th>Ngày gửi</th>
+                        <th>Bãi Gửi</th>
+                        <th>Xe Gửi</th>
+                        <th>Ngày giao</th>
+                        <th>Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        stt += 1;
+                    <tr id="row_@item.Id">
+                        <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                        <td style="text-align:center;vertical-align:middle">@stt</td>
+                        <td>@item.Cont</td>
+                        <td>@(item.DoDay != null ? item.DoDay : null)</td>
+
+                        <td>@(item.QuyCach != null ? item.QuyCach : null)</td>
+                        <td style="color:@(item.HanLuuBai != null ? "black" : "red")">@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : "Chưa nhập hạn lưu bãi")</td>
+                        <td style="color:@(item.HanLuuCont != null ? "black" : "red")">@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : "Chưa nhập hạn lưu cont")</td>
+                        <td style="color:@(item.HanLuuRong != null ? "black" : "red")">@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : "Chưa nhập hạn lưu rỗng ")</td>
+
+                        <td style=@(item.NgayGui != null ? null : "color:red")>@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : "Chưa gửi bãi")</td>
+                        <td>@(item.BaiGui != null ? item.DMCang.TenCang : null)</td>
+                        <td>@(item.SoXe != null ? item.DMXe.MaXe : null)</td>
+                        <td style=@(item.NgayGiao != null ? null : "color:red")>@(item.NgayGiao != null ? item.NgayGiao.Value.ToShortDateString() : "Chưa giao")</td>
+                        <td>@item.GhiChu</td>
+                    </tr>
+                    }
+                </tbody>
+
+            </table>
+            <div class="margin">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                        Hành động
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu" role="menu" style="">
+                        <input type="submit" value="Thêm ngày gửi bãi" name="themngayguibai" id="themngayguibai" class="dropdown-item" />
+                        <input type="submit" value="Thêm ngày giao" name="themngaygiao" id="themngaygiao" class="dropdown-item" />
+                        <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
+                        <input type="submit" value="Xoá" name="delete" id="delete" class="dropdown-item" />
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+
+
+
+

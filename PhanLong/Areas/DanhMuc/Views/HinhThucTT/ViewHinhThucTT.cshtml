@@ -1,0 +1,38 @@
+﻿@model IEnumerable<PhanLong.EF.HinhThucTT>
+
+<div class="card-header">
+    <h3 class="card-title">
+        <b>Danh mục hình thức thanh toán</b>
+    </h3>
+</div>
+<div class="card-body">
+    <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
+        <thead>
+            <tr>
+                <th width="5px"><input type='checkbox' id='check' value='' /></th>
+                <th>Mã HTTT</th>
+                <th>Mô tả</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr id="row_@item.Id">
+
+                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                    <td>@item.MaHT</td>
+                    <td>@item.MoTa</td>
+                    <td>
+                        @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table><div class="form-group"> <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /></div>
+</div>
+
+
+

@@ -1,0 +1,184 @@
+﻿@model List<PhanLong.EF.CTBill>
+@{
+    ViewBag.Title = "Chi tiết";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.url = "/ThongKe/Bill/";
+    ViewBag.Back = "Trở lại";
+    var stt = 0;
+}
+
+@using (Html.BeginForm("Create", "PhatSinhBill", new { area = "NhapLieu" }, FormMethod.Post))
+{
+    <h4><b>@ViewBag.MaBill</b></h4>
+    <span><b>Khách hàng: </b> @(ViewBag.KH != null ? ViewBag.KH : "Chưa có") </span> <span>|</span>  <span><b>Cảng nhận: </b> @(ViewBag.CN != null ? ViewBag.CN : "Chưa có") </span> <span>|</span> <span><b>Cảng trả: </b> @(ViewBag.CT != null ? ViewBag.CT : "Chưa có") </span> <span>|</span> <span><b>Ngày tàu đến: </b> @(ViewBag.TD != null ? ViewBag.TD : "Chưa có") </span>
+    <div class="card">
+        <div class="card-header">
+            <h5>
+                <b>Danh sách Cont</b>
+            </h5>
+        </div>
+        <div class="card-body">
+            <input type="hidden" name="Bill" value="@ViewBag.IdBill" />
+            <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
+                <thead>
+                    <tr>
+                        <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                        <th>STT</th>
+                        <th>Số Cont</th>
+                        <th>Số Seal</th>
+                        <th>Độ dày</th>
+                        <th>Quy cách</th>
+                        <th>Hạn lưu bãi</th>
+                        <th>Hạn lưu cont</th>
+                        <th>Hạn lưu rỗng</th>
+                        <th>Ngày gửi bãi</th>
+                        <th>Ngày giao</th>
+                        <th>Số xe</th>
+                        <th>Bãi gửi</th>
+                        <th>Ghi Chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        stt += 1;
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                            <td>@stt</td>
+                            <td><a href="/NhapLieu/PhatSinhBill/Create/@item.Id">@item.Cont</a>  </td>
+                            <td>@item.Seal</td>
+                            <td>@item.DoDay</td>
+                            <td>@item.QuyCach</td>
+                            @if (item.NgayGui == null && item.NgayGiao == null)
+                            {
+                                if (item.HanLuuBai != null)
+                                {
+                                    var ngayluubai = (item.HanLuuBai.Value.Date - DateTime.Now.Date).TotalDays;
+                                    if (ngayluubai == 0)
+                                    {
+                                        <td style="color:red"> Tới hạn </td>
+
+                                    }
+                                    else
+                                    {
+                                        <td style="color:red"> @(ngayluubai > 0 ? "Còn( " + ngayluubai + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluubai) + " Ngày)") </td>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <td>Chưa có hạn lưu Bãi</td>
+                                }
+                                if (item.HanLuuCont != null)
+                                {
+                                    var ngayluucont = (item.HanLuuCont.Value.Date - DateTime.Now.Date).TotalDays;
+                                    if (ngayluucont == 0)
+                                    {
+                                        <td style="color:red"> Tới hạn </td>
+
+                                    }
+                                    else
+                                    {
+                                        <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <td> Chưa có hạn lưu cont</td>
+                                }
+                                if (item.HanLuuRong != null)
+                                {
+                                    var ngayluurong = (item.HanLuuRong.Value.Date - DateTime.Now.Date).TotalDays;
+                                    if (ngayluurong == 0)
+                                    {
+                                        <td style="color:red"> Tới hạn </td>
+
+                                    }
+                                    else
+                                    {
+                                        <td style="color:red"> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <td> Chưa có hạn lưu rỗng</td>
+                                }
+                            }
+                            else if (item.NgayGiao != null)
+                            {
+                                <td style="color:@(item.HanLuuBai != null ? "black" : "red")">@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : "Chưa nhập hạn lưu bãi")</td>
+                                <td style="color:@(item.HanLuuCont != null ? "black" : "red")">@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : "Chưa nhập hạn lưu cont")</td>
+                                <td style="color:@(item.HanLuuRong != null ? "black" : "red")">@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : "Chưa nhập hạn lưu rỗng ")</td>
+                            }
+                            else if (item.NgayGui != null)
+                            {
+                                <td style="color:@(item.HanLuuBai != null ? "black" : "red")">@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : "Chưa nhập hạn lưu bãi")</td>
+
+
+                                if (item.HanLuuCont != null)
+                                {
+                                    var ngayluucont = (item.HanLuuCont.Value.Date - DateTime.Now.Date).TotalDays;
+                                    if (ngayluucont == 0)
+                                    {
+                                        <td style="color:red"> Tới hạn </td>
+
+                                    }
+                                    else
+                                    {
+                                        <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <td> Chưa có hạn lưu cont</td>
+                                }
+                                if (item.HanLuuRong != null)
+                                {
+                                    var ngayluurong = (item.HanLuuRong.Value.Date - DateTime.Now.Date).TotalDays;
+                                    if (ngayluurong == 0)
+                                    {
+                                        <td style="color:red"> Tới hạn </td>
+
+                                    }
+                                    else
+                                    {
+                                        <td style="color:red"> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <td> Chưa có hạn lưu rỗng</td>
+                                }
+                            }
+
+                            <td>@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : null)</td>
+                            <td>@(item.NgayGiao != null ? item.NgayGiao.Value.ToShortDateString() : null)</td>
+                            <td>@(item.SoXe != null ? item.DMXe.BienSo : null)</td>
+                            <td>@(item.BaiGui != null ? item.DMCang.TenCang : null)</td>
+                            <td>@(item.GhiChu != null ? item.GhiChu : null)</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+            <div class="margin">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown" aria-expanded="false">
+                        Hành động
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu" role="menu" style="">
+                        <input type="submit" value="Thêm ngày gửi bãi" name="themngayguibai" id="themngayguibai" class="dropdown-item" />
+                        <input type="submit" value="Thêm ngày giao" name="themngaygiao" id="themngaygiao" class="dropdown-item" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}

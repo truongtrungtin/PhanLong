@@ -1,0 +1,13 @@
+﻿@model List<PhanLong.EF.CTBill>
+@using PhanLong.EF
+
+@{
+    PhanLongDBContext db = new PhanLongDBContext();
+
+}
+@foreach (var item in Model)
+{
+    <option value="@item.Id"> @item.Cont</option>
+}
+
+

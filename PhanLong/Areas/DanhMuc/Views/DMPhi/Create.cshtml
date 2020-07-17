@@ -1,0 +1,90 @@
+﻿@model PhanLong.EF.DMPhi
+@using PhanLong.EF
+@{
+    ViewBag.Title = "Danh mục phí";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.url = "Index";
+    ViewBag.Back = "Trở lại";
+    PhanLongDBContext db = new PhanLongDBContext();
+}
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+}
+<div class="card">
+    <div class="container">
+        <div class="card-header">
+            <h4 class="card-title">
+                <b>Thêm phí</b>
+            </h4>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Create", "DMPhi", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.MaPhi, htmlAttributes: new { @class = "col-form-label col-sm-3" })
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.MaPhi, new { htmlAttributes = new { @class = "form-control form-control-sm", @required = true } })
+                                    @Html.ValidationMessageFor(model => model.MaPhi, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.TenPhi, htmlAttributes: new { @class = "col-form-label col-sm-3" })
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.TenPhi, new { htmlAttributes = new { @class = "form-control form-control-sm", @required = true } })
+                                    @Html.ValidationMessageFor(model => model.TenPhi, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.LoaiPhi, htmlAttributes: new {@class = "col-form-label col-sm-3" })
+                                <div class="col-sm-9">
+                                    <select name="LoaiPhi" class="form-control form-control-sm select2" data-placeholder="Chọn loại phí" required>
+                                        <option value=""></option>
+                                        @foreach (var item in db.LoaiPhis)
+                                        {
+                                            <option value="@item.Id">@item.Loai</option>
+                                        }
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.LoaiPhi, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class=" col-md-10">
+                            <input type="submit" value="Ghi ( Lưu )" class="btn btn-primary" />
+                            <button type="reset" class="btn btn-default">Hủy</button>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+<div class="card">
+    <div class="container">
+        @using (Html.BeginForm("Create", "DMPhi", FormMethod.Post))
+        {
+            Html.RenderAction("ViewDMPhi", "DMPhi");
+
+        }
+    </div>
+</div>
+
+
+
+
+

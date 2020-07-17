@@ -1,0 +1,62 @@
+﻿@model PhanLong.EF.DMXe
+@{
+    ViewBag.Title = "Danh mục xe";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.url = "Index";
+    ViewBag.Back = "Trở lại";
+}
+<div class="card">
+    <div class="container">
+        <div class="card-header">
+            <h4 class="card-title">
+                <b>Thêm Xe</b>
+            </h4>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Create", "DMXe", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.MaXe, htmlAttributes: new { @class = "col-form-label col-sm-3" })
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.MaXe, new { htmlAttributes = new { @class = "form-control form-control-sm", @required = true } })
+                                    @Html.ValidationMessageFor(model => model.MaXe, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.BienSo, htmlAttributes: new { @class = "col-form-label col-sm-4"})
+                                <div class="col-sm-8">
+                                    @Html.EditorFor(model => model.BienSo, new { htmlAttributes = new { @class = "form-control form-control-sm", @required = true } })
+                                    @Html.ValidationMessageFor(model => model.BienSo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="">
+                        <input type="submit" value="Ghi ( Lưu )" class="btn btn-primary" />
+                        <button type="reset" class="btn btn-default">Hủy</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="card">
+    <div class="container">
+        @using (Html.BeginForm("Create", "DMXe", FormMethod.Post))
+        {
+            Html.RenderAction("ViewDMXe", "DMXe");
+        }
+    </div>
+</div>
+
+
+

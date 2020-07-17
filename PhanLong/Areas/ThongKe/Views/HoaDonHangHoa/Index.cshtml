@@ -1,0 +1,33 @@
+﻿@using PhanLong.EF
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    PhanLongDBContext db = new PhanLongDBContext();
+}
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+}
+<h2>Index</h2>
+
+@using (Html.BeginForm("HoaDon", "HoaDonHangHoa", FormMethod.Post))
+{
+    <select class="js-example-tags" name="Id">
+        <option>Chọn đơn vị</option>
+        @foreach (var item in db.DMKhachHangs)
+        {
+            <option value="@item.Id">@item.TenCongTy</option>
+        }
+    </select>
+    <label>Số hoá đơn</label>
+    <input type="text" name="SHD" value="" />
+
+    <label>Nội Dung</label>
+    <input type="text" name="ND" value="" />
+
+    <label>Tháng</label>
+    <input type="text" name="month" value="" />
+
+    <button type="submit"> gửi</button>
+}    

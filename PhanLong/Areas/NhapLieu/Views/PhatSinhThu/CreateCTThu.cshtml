@@ -1,0 +1,154 @@
+﻿@model PhanLong.EF.CTChiThu
+@using PhanLong.EF
+@{
+    ViewBag.Title = "Phát Sinh Thu" + (ViewBag.HoaDon != "" ? "&nbsp;&nbsp;Hoá đơn số:" + ViewBag.HoaDon : null);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.url = "/NhapLieu/PhatSinhThu/CTThu/" + ViewBag.IdThu;
+    ViewBag.Back = "Trở lại";
+    PhanLongDBContext db = new PhanLongDBContext();
+}
+
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/Content/plugins/daterangepicker/daterangepicker.css">
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">
+            <b>Thêm chi tiết thu</b>
+        </h4>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("CreateCTThu", "PhatSinhThu", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <input type="hidden" readonly name="PhatSinhChiThu" value="@ViewBag.IdThu" />
+                <div class="row" style="height: 30px;">
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="Xe">Xe:</label>
+                            <div class="col-sm-8">
+                                <select name="Xe" class="form-control form-control-sm select2" data-placeholder="Chọn Xe">
+                                    <option value="">--- Chọn Xe ---</option>
+                                    @foreach (var item in db.DMXes)
+                                    {
+                                        <option value="@item.Id">@item.BienSo</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="Mooc">Mooc:</label>
+                            <div class="col-sm-8">
+                                <select name="Mooc" class="form-control form-control-sm select2" data-placeholder="Chọn Mooc">
+                                    <option value="">--- Chọn Mooc ---</option>
+                                    @foreach (var item in db.DMMoocs)
+                                    {
+                                        <option value="@item.Id">@item.BienSo</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="Cont">Số cont:</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="text" name="Cont" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="Phi">Loại thu:</label>
+                            <div class="col-sm-8">
+                                <select name="Phi" class="form-control form-control-sm select2" data-placeholder="Chọn loại thu">
+                                    <option value=""></option>
+                                    @foreach (var item in db.DMPhis)
+                                    {
+                                        if (item.LoaiPhi == 2)
+                                        {
+                                            <option value="@item.Id">@item.TenPhi</option>
+
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="NoiDung">Nội dung:</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="text" name="NoiDung" class="form-control form-control-sm" placeholder="Nhập nội dung thu">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row" style="height: 30px;">
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="DonGia">Đơn giá:</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="text" name="DonGia" class="form-control form-control-sm" style="text-align:right" placeholder="Nhập tiền phí">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="SoLuong">Số lượng:</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="number" name="SoLuong" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="Garage">Garage:</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="text" name="Garage" class="form-control form-control-sm" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class=" col-md-10">
+                        <input type="submit" value="Ghi (Lưu)" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="card">
+    @using (Html.BeginForm("CTThu", "PhatSinhThu", FormMethod.Post))
+    {
+        Html.RenderAction("ViewCTThu", "PhatSinhThu");
+    }
+</div>
+
+

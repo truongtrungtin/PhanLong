@@ -1,0 +1,79 @@
+﻿@model IEnumerable<PhanLong.EF.DMBill>
+@using PhanLong.EF
+@{
+    ViewBag.Title = "Nhập liệu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    PhanLongDBContext db = new PhanLongDBContext();
+    var stt = 0;
+}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">
+            Phát Sinh Bill
+        </h3>
+    </div>
+    @using (Html.BeginForm("Index", "PhatSinhBill", FormMethod.Post))
+    {
+        <div class="card-body">
+            <table class="table table-bordered table-hover table-striped table-sm" id="dataTable" width="100%">
+                <thead>
+                    <tr>
+                        <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                        <th width="1%">STT</th>
+                        <th>Số tờ khai</th>
+                        <th>Mã Bill</th>
+                        <th>Tổng số cont</th>
+                        <th>Số Cont đã gửi</th>
+                        <th>Số Cont đã giao</th>
+                        <th>Ngày tàu đến</th>
+                        <th>Khách hàng</th>
+                        <th>Cảng nhận</th>
+                        <th>Cảng trả</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        stt += 1;
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                            <td>@stt</td>
+                            <td>@item.SoToKhai</td>
+                            <td style="text-align:left">@Html.ActionLink(item.MaBill, "CTBill", new { id = item.Id })</td>
+                            <td>@item.CTBills.Count()</td>
+                            @{var contgui = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGui != null).ToList();}
+                            <td>@contgui.Count</td>
+                            @{var contgiao = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGiao != null).ToList();}
+                            <td>@contgiao.Count</td>
+                            <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null)</td>
+                            <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                            <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
+                            <td title="@(item.CangTra != null ? item.DMCang1.TenCang : null)">@(item.CangTra != null ? item.DMCang1.MaCang : null)</td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="margin">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                        Hành động
+                        <span class="sr-only">Hành động</span>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <input type="submit" value="Chi tiết" name="chitiet" id="chitiet" class="dropdown-item" />
+                        <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
+                        <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+

@@ -1,0 +1,117 @@
+﻿@model IEnumerable<PhanLong.EF.CTBill>
+@{
+    ViewBag.Title = "Bill: " + ViewBag.Bill;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.url = "/DanhMuc/DMBill";
+    ViewBag.Back = "Trở lại";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h5>
+            Bill:  <b>@ViewBag.Bill</b> | Số tờ khai: <b>@ViewBag.SoTK</b>
+
+        </h5>
+        <span>
+            Khách hàng:
+            <label title="@ViewBag.KH">@ViewBag.MaKH </label>|
+            Cảng Nhận:
+            <label title="@ViewBag.CN">@ViewBag.MaCN </label>|
+            Cảng Tra:
+            <label title="@ViewBag.CT">@ViewBag.MaCT </label>
+
+        </span>
+
+        @Html.ActionLink("Thêm cont", "CreateCTBill", new { id = @ViewBag.IdBill }, new { @class = "btn btn-primary mb-1" })
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("CTBill", "DMBill", FormMethod.Post))
+        {
+        <input type="hidden" readonly name="Bill" value="@ViewBag.IdBill" />
+            <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
+                <thead>
+                    <tr>
+                        <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                        <th>Số Cont</th>
+                        <th>Loại</th>
+                        <th>Mã kho</th>
+                        <th>Số DK</th>
+                        <th>Seal</th>
+                        <th>Độ dày</th>
+                        <th>Quy Cách</th>
+                        <th>Hạn Lưu Bãi</th>
+                        <th>Hạn lưu Cont</th>
+                        <th>Hạn Lưu rỗng</th>
+                        <th>Ngày gữi bãi</th>
+                        <th>Ngày giao</th>
+                        <th>Xe</th>
+                        <th>Bãi gửi</th>
+                        <th>Ghi Chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr id="row_@item.Id">
+                        <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                        <td>@item.Cont</td>
+                        <td>@(item.Loai != null ? item.DMLoai.MaLoai: null)</td>
+                        <td title="@(item.Kho != null ? item.DMKho.DiaChi : null )">@(item.Kho != null ? item.DMKho.MaKho : null )</td>
+                        <td>@item.SoDK</td>
+                        <td>@item.Seal</td>
+                        <td>@item.DoDay</td>
+                        <td>@item.QuyCach</td>
+                        @{var ngayluubai = (Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays; }
+                        @if(ngayluubai < 2 && item.NgayGiao == null && item.NgayGui == null)
+                        {
+                            <td style="color:red">@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() + " (Còn 2 ngày)" : null)</td>
+                        }
+                        else
+                        {
+                        <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : null)</td>
+                        }
+
+                        <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : null)</td>
+
+                        <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : null)</td>
+                        <td style="color:@(item.NgayGui != null ? "Blue" : "Red")">@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : "Chưa gửi bãi")</td>
+                        <td style="color:@(item.NgayGiao != null ? "Blue" : "Red")">@(item.NgayGiao != null ? item.NgayGiao.Value.ToShortDateString() : "Chưa giao")</td>
+                        <td>@(item.SoXe != null ? item.DMXe.BienSo : null)</td>
+                        <td>@(item.BaiGui != null ? item.DMCang.TenCang : null)</td>
+
+                        <td class="cell expand-maximum-on-hover">@item.GhiChu</td>
+                    </tr>
+                    }
+                </tbody>
+
+            </table>
+            <div class="margin">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                        Hành động
+                        <span class="sr-only">Hành động</span>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
+                        <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
+                    </div>
+                </div>
+            </div>
+        }
+        <div style="text-align:right">
+            @using (Html.BeginForm("ImportExcelCTBill", "DMBill", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <input type="hidden" name="Sheet" value="CTBill$" />
+                <input type="submit" id="Submit" name="Submit" value="Import Excel" class="btn btn-success" />
+                <label>
+                    <input type="file" id="FileUpload" name="FileUpload" aria-label="EXCEL" />
+                </label>
+            }
+        </div>
+    </div>
+
+</div>
+
+
+
+

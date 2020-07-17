@@ -1,0 +1,252 @@
+﻿@model PhanLong.EF.PhatSinhChiThu
+@using PhanLong.EF
+@{
+    ViewBag.Title = "Phát sinh thu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.url = "Index";
+    ViewBag.Back = "Trở lại";
+    PhanLongDBContext db = new PhanLongDBContext();
+
+}
+
+
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/Content/plugins/daterangepicker/daterangepicker.css">
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">
+            <b>Thêm phát sinh thu</b>
+        </h4>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("Create", "PhatSinhThu", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="row" style="height: 30px;">
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.Ngay, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input type="text" name="Ngay" class="form-control form-control-sm" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask required>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.Ngay, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="NguoiChiThu">Người thu</label>
+                            <div class="col-sm-8">
+                                <select name="NguoiChiThu" class="form-control form-control-sm select2" required data-placeholder="Chọn người thu" required>
+                                    <option value=""></option>
+                                    @foreach (var item in db.DMNhanViens)
+                                    {
+                                        <option value="@item.Id">@item.MaNV - @item.TenNV</option>
+                                    }
+                                </select>
+                                @Html.ValidationMessageFor(model => model.NguoiChiThu, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.KhachHang, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-2" })
+                            <div class="col-sm-10">
+                                <select name="KhachHang" class="form-control form-control-sm select2" data-placeholder="Chọn khách hàng" required>
+                                    <option value=""></option>
+                                    @foreach (var item in db.DMKhachHangs)
+                                    {
+                                        <option value="@item.Id">@item.MaKH - @item.TenCongTy</option>
+                                    }
+                                </select>
+                                @Html.ValidationMessageFor(model => model.KhachHang, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="HTTT">HTTT:</label>
+                            <div class="col-sm-8">
+                                <select name="HTTT" class="form-control form-control-sm select2" data-placeholder="" required>
+                                    <option value=""></option>
+                                    @foreach (var item in db.HinhThucTTs)
+                                    {
+                                        <option value="@item.Id">@item.MoTa</option>
+                                    }
+
+                                </select>
+                                @Html.ValidationMessageFor(model => model.HTTT, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row" style="height: 30px;">
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.SoHD, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    @Html.EditorFor(model => model.SoHD, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                    @Html.ValidationMessageFor(model => model.SoHD, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="Garage">Garage:</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="text" name="Garage" class="form-control form-control-sm" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="Xe">Xe:</label>
+                            <div class="col-sm-8">
+                                <select name="Xe" class="form-control form-control-sm select2" data-placeholder="Chọn Xe">
+                                    <option value="">--- Chọn Xe ---</option>
+                                    @foreach (var item in db.DMXes)
+                                    {
+                                        <option value="@item.Id">@item.BienSo</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="Mooc">Mooc:</label>
+                            <div class="col-sm-8">
+                                <select name="Mooc" class="form-control form-control-sm select2" data-placeholder="Chọn Mooc">
+                                    <option value="">--- Chọn Mooc ---</option>
+                                    @foreach (var item in db.DMMoocs)
+                                    {
+                                        <option value="@item.Id">@item.BienSo</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.Bill, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
+                            <div class="col-sm-8">
+                                <select name="Bill" class="form-control form-control-sm select2" data-placeholder="Chọn số bill">
+                                    <option value="">--- Chọn Bill ---</option>
+                                    @foreach (var item in db.DMBills)
+                                    {
+                                        <option value="@item.Id">@item.MaBill</option>
+                                    }
+                                </select>
+                                @Html.ValidationMessageFor(model => model.Bill, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="Cont">Số cont:</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="text" name="Cont" class="form-control form-control-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row" style="height: 30px;">
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="Phi">Loại thu:</label>
+                            <div class="col-sm-8">
+                                <select name="Phi" class="form-control form-control-sm select2" data-placeholder="Chọn loại thu" required>
+                                    <option value=""></option>
+                                    @foreach (var item in db.DMPhis)
+                                    {
+                                        if (item.LoaiPhi == 2)
+                                        {
+                                            <option value="@item.Id">@item.TenPhi</option>
+
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="NoiDung">Nội dung:</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="text" name="NoiDung" class="form-control form-control-sm" placeholder="Nhập nội dung thu">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="DonGia">Đơn giá:</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="text" name="DonGia" class="form-control form-control-sm" style="text-align:right" placeholder="Nhập tiền thu" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="SoLuong">Số lượng:</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <input type="number" name="SoLuong" class="form-control form-control-sm" value="1" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.GhiChu, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-2" })
+                            <div class="col-sm-10">
+                                <textarea type="text" name="GhiChu" class="form-control form-control-sm" rows="1" placeholder="Ghi chú ...."></textarea>
+                                @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class=" col-md-9">
+                        <input type="submit" value="Ghi ( Lưu )" class="btn btn-primary" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="card">
+    @using (Html.BeginForm("Create", "PhatSinhThu", FormMethod.Post))
+    {
+        Html.RenderAction("ViewPhatSinhThu", "PhatSinhThu");
+    }
+</div>
+
+
+
+

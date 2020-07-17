@@ -1,0 +1,103 @@
+﻿@model List<PhanLong.Models.ThanhToanLuongModel>
+@{
+    ViewBag.Title = "Thống kê";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+    long stt = 0;
+    DateTime ngaybd = Convert.ToDateTime(ViewBag.NgayBD);
+    DateTime ngaykt = Convert.ToDateTime(ViewBag.NgayKT);
+}
+
+
+@using (Html.BeginForm("Index", "Luong", FormMethod.Get))
+{
+    <div class="card hidden-print">
+        <div class="card-header">
+            <h3 class="card-title">
+                Bộ lọc
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="row" style="height: 30px;">
+                <div class="col-sm-2">
+                    <div class="form-group row">
+                        <label style="text-align:right" class="col-form-label col-sm-4" for="NgayBD">Từ ngày:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" name="NgayBD" class="form-control form-control-sm" value="@ngaybd.ToShortDateString()" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group row">
+                        <label style="text-align:right" class="col-form-label col-sm-4" for="NgayKT">Đến ngày:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" name="NgayKT" class="form-control form-control-sm" value="@ngaykt" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <input type="submit" name="Search" value="Tìm" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+    <div class="card">
+        <div class="container">
+            <div class="card-header">
+                <h3 class="card-title">
+                    Danh sách nhân viên nhận lương
+                </h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-bordered table-hover table-striped" width="100%">
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Mã nhân viên</th>
+                            <th>Tên nhân viên</th>
+                            <th>Số cont</th>
+                            <th>Số ngày công</th>
+                            <th>Tiền cước</th>
+                            <th>#</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Select(x => new { x.TaiXe, x.MaTX, x.Id }).Distinct())
+                        {
+                            using (Html.BeginForm("CTTTLuong", "Luong", FormMethod.Get))
+                            {
+                                <input type="hidden" readonly class="form-control form-control-sm" name="id" value="@item.Id" />
+                                <input type="hidden" name="NgayBD" class="form-control form-control-sm" value="@ngaybd.ToShortDateString()" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                <input type="hidden" name="NgayKT" class="form-control form-control-sm" value="@ngaykt" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+
+                                var tiencuoc = Model.Where(x => x.Id == item.Id).Sum(x => x.tiencuoc);
+                                stt = stt + 1;
+                                <tr>
+                                    <td>@stt</td>
+                                    <td>@item.MaTX</td>
+                                    <td>@item.TaiXe</td>
+                                    <td>@String.Format("{0:0,0}", (tiencuoc * 60 / 100))</td>
+                                    <td><input type="submit" value="Chi tiết" class="btn btn-primary" />
+                                </tr>
+                            }
+                        }
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+

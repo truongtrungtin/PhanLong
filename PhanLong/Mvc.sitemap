@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0"
+            xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+
+
+  <mvcSiteMapNode title="Home" controller="Home" action="Index">
+    <!-- Danh mục -->
+    <mvcSiteMapNode title="Danh mục bill" controller="DMBill" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMBill" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMBill" action="Update" preservedRouteParameters="id"/>
+      <mvcSiteMapNode title="Chi tiết Bill" controller="DMBill" action="CTBill" preservedRouteParameters="id"/>
+      <mvcSiteMapNode title="Thêm chi tiết" controller="DMBill" action="CreateCTBill" preservedRouteParameters="id"/>
+      <mvcSiteMapNode title="Chỉnh sửa chi tiết" controller="DMBill" action="UpdateCTBill" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục cảng" controller="DMCang" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMCang" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMCang" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục khách hàng" controller="DMKhachHang" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMKhachHang" action="Create" />
+      <mvcSiteMapNode title="Sửa" controller="DMKhachHang" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục Kho" controller="DMKho" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMKho" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMKho" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục loại" controller="DMLoai" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMLoai" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMLoai" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục mooc" controller="DMMooc" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMMooc" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMMooc" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục nhân viên" controller="DMNhanVien" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMNhanVien" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMNhanVien" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục phí" controller="DMPhi" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMPhi" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMPhi" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục thời gian" controller="DMThoiGian" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMThoiGian" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMThoiGian" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Danh mục xe" controller="DMXe" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="DMXe" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="DMXe" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Hình thức thanh toán" controller="HinhThucTT" action="Index" area="DanhMuc">
+      <mvcSiteMapNode title="Thêm" controller="HinhThucTT" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="HinhThucTT" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <!-- Kết thúc Danh mục -->
+    <!-- Nhập liệu -->
+    <mvcSiteMapNode title="Phát Sinh" controller="PhatSinh" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="PhatSinh" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="PhatSinh" action="Update" preservedRouteParameters="id"/>
+      <mvcSiteMapNode title="Kế hoạch" controller="PhatSinh" action="KeHoach" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Phát Sinh Chi" controller="PhatSinhChi" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="PhatSinhChi" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="PhatSinhChi" action="Update" preservedRouteParameters="id"/>
+      <mvcSiteMapNode title="Chi tiết chi" controller="PhatSinhChi" action="CTChi" preservedRouteParameters="id"/>
+      <mvcSiteMapNode title="Thêm chi tiết chi" controller="PhatSinhChi" action="CreateCTChi" preservedRouteParameters="id"/>
+      <mvcSiteMapNode title="Chỉnh sửa chi tiết chi" controller="PhatSinhChi" action="UpdateCTChi" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Phát Sinh Thu" controller="PhatSinhThu" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="PhatSinhThu" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="PhatSinhThu" action="Update" preservedRouteParameters="id"/>
+      <mvcSiteMapNode title="Thu tiết Thu" controller="PhatSinhThu" action="CTThu" preservedRouteParameters="id"/>
+      <mvcSiteMapNode title="Thêm Thu tiết Thu" controller="PhatSinhThu" action="CreateCTThu" preservedRouteParameters="id"/>
+      <mvcSiteMapNode title="Chỉnh sửa Thu tiết Thu" controller="PhatSinhThu" action="UpdateCTThu" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Phát Sinh Bill" controller="PhatSinhBill" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm" controller="PhatSinhBill" action="Create" preservedRouteParameters="id" />
+      <mvcSiteMapNode title="Chi tiết bill" controller="PhatSinhBill" action="CTBill" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Phát sinh hoá đơn" controller="HoaDon" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="HoaDon" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="HoaDon" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+
+
+    <!-- Kết thúc Nhập liệu -->
+    <!-- Thống kê -->
+    <mvcSiteMapNode title="Thống kê chi thu" controller="ChiThu" action="Index" area="ThongKe">
+      <mvcSiteMapNode title="Chi Thu" controller="ChiThu" action="Index"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Thống Kê Bill" controller="Bill" action="Index" area="ThongKe">
+      <mvcSiteMapNode title="Cont chưa gửi bãi" controller="Bill" action="CTBillBai"  preservedRouteParameters="id"/>    
+      <mvcSiteMapNode title="Sửa" controller="" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Thống kê phát sinh" controller="ChiTiet" action="Index" area="ThongKe">
+      <mvcSiteMapNode title="Thống kê phát sinh" controller="ChiTiet" action="Index"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="Thanh toán lương" controller="Luong" action="Index" area="ThongKe">
+      <mvcSiteMapNode title="Tài xế" controller="Luong" action="CTTTLuong"  preservedRouteParameters="id"/>
+      <mvcSiteMapNode title="Sửa" controller="" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <!-- Kết thúc Thống kê -->
+    <!--<mvcSiteMapNode title="" controller="" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+     <mvcSiteMapNode title="" controller="" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+
+    <mvcSiteMapNode title="" controller="" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="" controller="" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="" controller="" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="" controller="" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="" controller="" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>
+    <mvcSiteMapNode title="" controller="" action="Index" area="NhapLieu">
+      <mvcSiteMapNode title="Thêm mới" controller="" action="Create"/>
+      <mvcSiteMapNode title="Sửa" controller="" action="Update" preservedRouteParameters="id"/>
+    </mvcSiteMapNode>-->
+    </mvcSiteMapNode>
+</mvcSiteMap>

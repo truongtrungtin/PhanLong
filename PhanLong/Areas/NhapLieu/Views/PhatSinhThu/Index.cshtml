@@ -1,0 +1,130 @@
+﻿@model IEnumerable<PhanLong.EF.PhatSinhChiThu>
+@using PhanLong.DAO
+@using PhanLong.EF
+@{
+    ViewBag.Title = "Nhập liệu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    PhanLongDBContext db = new PhanLongDBContext();
+
+}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">
+            Phát Sinh Thu @Html.ActionLink("Tạo Mới", "Create", null, new { @class = "btn btn-primary mb-1" })
+        </h3>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("Index", "PhatSinhThu", FormMethod.Post))
+        {
+            <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
+                <thead>
+                    <tr>
+                        <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                        <th>Ngày Thu</th>
+                        <th>Người Thu</th>
+                        <th>HTTT</th>
+                        <th>Khách Hàng</th>
+                        <th>Xe</th>
+                        <th>Mooc</th>
+                        <th>Tên phí</th>
+                        <th>Số Bill</th>
+                        <th>Số hoá đơn</th>
+                        <th>Tiền thu (VNĐ)</th>
+                        <th>Ghi Chú</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var ct = db.CTChiThus.Where(x => x.DMPhi.LoaiPhi == 2 && x.PhatSinhChiThu == item.Id).FirstOrDefault();
+                        if ((ct != null ? item.Id == ct.PhatSinhChiThu : false))
+                        {
+                            var model = new CTThuDao().ListAll(item.Id);
+                            <tr id="row_@item.Id">
+
+                                <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                                <td>@(item.Ngay != null? item.Ngay.ToShortDateString(): null)</td>
+                                <td>@(item.NguoiChiThu != null ? item.DMNhanVien1.MaNV : null)</td>
+                                <td>@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>
+                                <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+
+                                @if (model.Where(x => x.Xe != null).ToList().Count > 0)
+                                {
+                                    var xe = model.OrderByDescending(x => x.Xe).FirstOrDefault();
+                                    <td>
+
+                                        @Html.ActionLink(xe.DMXe.BienSo, "CTThu", new { id = item.Id })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+
+                                @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
+                                {
+                                    var mooc = model.OrderByDescending(x => x.Mooc).FirstOrDefault();
+                                    <td>
+
+                                        @Html.ActionLink(mooc.DMMooc.BienSo, "CTThu", new { id = item.Id })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                }
+                                @{var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();}
+                                <td> @(maphi.Phi != null ? maphi.DMPhi.MaPhi : null)</td>
+                                @if (item.Bill != null)
+                                {
+                                    <td>
+                                        @Html.ActionLink(item.DMBill.MaBill, "CTThu", new { id = item.Id })
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td></td>
+
+                                }
+                                <td>@item.SoHD</td>
+                                <td style="text-align: right">
+                                    @{ var a = 0;
+                                        var tongtien = 0;
+                                        foreach (var tien in item.CTChiThus)
+                                        {
+                                            tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                            a += tongtien;
+                                        }
+                                    }@String.Format("{0:0,0}", (a))
+                                </td>
+                                <td>@item.GhiChu</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+
+            </table>
+
+            <div class="margin">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                        Hành động
+                        <span class="sr-only">Chọn 1 hành động</span>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
+                        <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
+                        <input type="submit" value="Chi tiết" name="chitiet" id="chitiet" class="dropdown-item" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+
+
+

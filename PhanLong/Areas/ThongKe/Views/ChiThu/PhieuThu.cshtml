@@ -1,0 +1,116 @@
+﻿@model PhanLong.EF.PhatSinhChiThu
+@{
+    ViewBag.Title = "Phiếu thu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.url = "/ThongKe/ChiThu/";
+    ViewBag.Back = "Trở lại";
+}
+
+
+<div class="container">
+    <div class="card">
+        <table style="">
+            <colgroup>
+                <col style="width: 74px">
+                <col style="width: 74px">
+                <col style="width: 74px">
+                <col style="width: 74px">
+                <col style="width: 74px">
+                <col style="width: 74px">
+                <col style="width: 74px">
+                <col style="width: 74px">
+                <col style="width: 74px">
+                <col style="width: 74px">
+                <col style="width: 74px">
+                <col style="width: 74px">
+            </colgroup>
+            <thead>
+                <tr style="height:23px">
+                    <th colspan="4"><h6><b>CÔNG TY TNHH PHAN LONG</b></h6></th>
+                    <th colspan="4"></th>
+                    <th colspan="4" style="text-align:center;"><b>Mẫu số 01 - TT</b></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="8">215A Bình Thới, phường 10, quận 11, TP-HCM</td>
+                    <td colspan="4" style="text-align:center;">(Ban hành kèm theo QĐ số: 15/2006/QĐ-BTC</td>
+                </tr>
+                <tr>
+                    <td colspan="8"></td>
+                    <td colspan="4" style="text-align:center;">ngày 20/03/2006 của Bộ trưởng BTC)</td>
+                </tr>
+                <tr>
+                    <td colspan="12" style="height:20px;"></td>
+                </tr>
+                <tr>
+                    <td colspan="12" style="text-align:center;"><h5><b>PHIẾU THU</b></h5></td>
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                    <td colspan="4" style="text-align:center;">Số: @Model.Id  PT / @DateTime.Now.Year</td>
+                    <td colspan="2" style="text-align:center;"><b>Nợ:</b></td>
+                    <td colspan="2" style="text-align:center;"></td>
+                </tr>
+                <tr>
+                    <td colspan="4"></td>
+                    <td colspan="4" style="text-align:center;">Ngày @DateTime.Now.Day tháng @DateTime.Now.Month năm @DateTime.Now.Year </td>
+                    <td colspan="2" style="text-align:center;"><b>Có:</b></td>
+                    <td colspan="2" style="text-align:center;"></td>
+                </tr>
+                <tr>
+                    <td colspan="12">Họ và tên người nộp tiền:@(Model.KhachHang != null ? Model.DMKhachHang.TenCongTy : null)</td>
+                </tr>
+                <tr>
+                    <td colspan="12">Địa chỉ: @(Model.KhachHang != null ? Model.DMKhachHang.DiaChi : null)</td>
+                </tr>
+                <tr>
+                    <td colspan="12">Lý do nộp: @Model.CTChiThus.FirstOrDefault().NoiDung</td>
+                </tr>
+                <tr>
+                    <td colspan="12">Số tiền:@String.Format("{0:0,0}", (Model.CTChiThus.FirstOrDefault().SoLuong * Model.CTChiThus.FirstOrDefault().DonGia)) <sup>đ</sup> </td>
+                </tr>
+                <tr>
+                    <td colspan="12">(Bằng chữ): @ViewBag.TienChu</td>
+                </tr>
+                <tr>
+                    <td colspan="12">Kèm theo: ..........................  Chứng từ gốc</td>
+                </tr>
+                <tr>
+                    <td colspan="8"></td>
+                    <td colspan="4" style="text-align:center;">Ngày @DateTime.Now.Day tháng @DateTime.Now.Month năm @DateTime.Now.Year </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;"><b>Người lập phiếu</b></td>
+                    <td colspan="2" style="text-align:center;"><b>Người nộp tiền</b></td>
+                    <td colspan="2" style="text-align:center;"><b>Thủ quỹ</b></td>
+                    <td colspan="2" style="text-align:center;"><b>Kế toán trưởng</b></td>
+                    <td colspan="4" style="text-align:center;"><b>Giám đốc</b></td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="text-align:center;">(Ký, họ tên)</td>
+                    <td colspan="2" style="text-align:center;">(Ký, họ tên)</td>
+                    <td colspan="2" style="text-align:center;">(Ký, họ tên)</td>
+                    <td colspan="2" style="text-align:center;">(Ký, họ tên)</td>
+                    <td colspan="4" style="text-align:center;">(Ký, họ tên)</td>
+                </tr>
+                <tr>
+                    <td colspan="12" style="height:80px;"></td>
+                </tr>
+                <tr>
+                    <td colspan="12">Đã nhận đủ số tiền (viết bằng chữ):  .........................................................................................................................</td>
+                </tr>
+                <tr>
+                    <td colspan="12">+ Tỷ giá ngoại tệ (vàng, bạc, đá quý):  ......................................................................................................................</td>
+                </tr>
+                <tr>
+                    <td colspan="12">+ Số tiền qui đổi:  ..........................................................................................................................................</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+
+<!-- DivTable.com -->

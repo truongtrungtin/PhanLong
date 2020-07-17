@@ -1,0 +1,164 @@
+﻿@model  List<PhanLong.EF.PhatSinh>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="width:10in;height:5.5in" class="container">
+    <br />
+    <br />
+    <table style="width:100%">
+        <tr>
+            <td style="width:10%"><img style="width:50px;height:50px" src="~/Images/logo.png" /></td>
+            <td style="width:30%"><h5 style="text-align:left">Công ty TNHH Phan Long</h5></td>
+            <td style="width:50%">
+                <h5 style="text-align:right">
+                    Mẫu Hoá Đơn Số: 01GTKT3/003.Kí Hiệu PL/18P
+
+                </h5>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3"><h4><b>Bảng Kê Chi Tiết Hàng Hoá Đính Kèm  </b></h4></td>
+        </tr>
+        <tr>
+            <td colspan="3"><h4><b>Của Hoá Đơn GTGT</b></h4> </td>
+        </tr>
+        <tr>
+            <td colspan="3"><h5><b>Hoá Đơn Số:</b> @ViewBag.SHD  &emsp;|&emsp; <b>Ngày</b>: @DateTime.Now.ToShortDateString()</h5></td>
+        </tr>
+    </table>
+    <div>
+
+        <div style="margin-bottom:10px" class="col-md-12">
+            <div style="text-align:left" class="col-md-12">
+                <h5><b>Tên Đơn Vị:  </b> @ViewBag.TenCongTy</h5>
+            </div>
+            <div style="text-align:left" class="col-md-12">
+                <h5><b>Mã Số Thuế:</b> @ViewBag.MST</h5>
+            </div>
+        </div>
+        <div style="margin-bottom:10px" class="col-md-12">
+            <div style="text-align:left" class="col-md-12">
+                <h5><b>Địa Chỉ</b>: @ViewBag.DiaChi</h5>
+            </div>
+        </div>
+        <div style="margin-bottom:10px" class="col-md-12">
+            <div style="text-align:left" class="col-md-12">
+                <h5><b>Nội Dung</b>: @ViewBag.ND </h5>
+            </div>
+        </div>
+    </div>
+    <br />
+    <table width="100%">
+    </table>
+    <div style="border: 1px inset #000000">
+        <table class="dataTable table-bordered" style="margin-top: 0px !important; border-top: 0px !important" width="100%">
+            <thead>
+                <tr>
+                    <td>
+                        <h5><b>STT</b></h5>
+                    </td>
+                    <td>
+                        <h5><b>Ngày</b></h5>
+                    </td>
+                    <td>
+                        <h5><b>Loại</b></h5>
+                    </td>
+                    <td>
+                        <h5><b>Số Container</b></h5>
+                    </td>
+                    <td style="width:40%">
+                        <h5><b> Nơi Giao Cont</b></h5>
+                    </td>
+                    <td>
+                        <h5><b>ĐVT</b></h5>
+                    </td>
+                    <td>
+                        <h5><b>Số Lượng</b></h5>
+                    </td>
+                    <td>
+                        <h5><b>Đơn Giá</b></h5>
+                    </td>
+                    <td>
+                        <h5><b>Thành Tiền</b></h5>
+                    </td>
+                </tr>
+
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><h5>1</h5></td>
+                        <td><h5>@item.Ngay.ToShortDateString()</h5></td>
+                        <td><h5>@item.DMLoai.MaLoai</h5></td>
+                        <td><h5>@item.SoCont</h5></td>
+                        <td><h5>@item.DMKho.DiaChi</h5></td>
+                        <td><h5>Chuyến</h5></td>
+                        <td><h5>1</h5></td>
+                        <td style="text-align:right"><h5>@String.Format("{0:0,0}", (item.CuocKH))</h5></td>
+                        <td style="text-align:right"><h5>@( String.Format("{0:0,0}", (item.CuocKH * 1)) )</h5></td>
+                    </tr>
+                }
+
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td style="text-align:left;border-right: 1px solid #000000 !important" rowspan="4" colspan="3">
+                        <b>Tổng số: </b> @Model.Count Cont
+                </tr>
+                <tr>
+                    <td style="text-align: left;border-bottom-width: 0px;" colspan="5">
+                        Cộng:
+                    </td>
+                    <td style="text-align:right;border-bottom-width: 0px;">
+                        @{ decimal tien;
+                            decimal truocthue = 0;
+                            decimal thue = 0;}
+                        @foreach (var item in Model)
+                        {
+                            tien = Convert.ToDecimal(item.CuocKH * 1);
+
+                            truocthue += tien;
+                        } @String.Format("{0:0,0}", (truocthue))
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:left;border-bottom-width: 0px;" colspan="5">
+                        Thuế GTGT: 10%
+                    </td>
+                    <td style="text-align:right;border-bottom-width: 0px;">
+                        @{ thue = truocthue * 10 / 100;}
+                        @String.Format("{0:0,0}", (thue))
+
+                    </td>
+
+                </tr>
+                <tr>
+                    <td style="text-align:left" colspan="5">
+                        Tổng cộng:
+                    </td>
+                    <td style="text-align:right">
+                        @{ var tongtien = String.Format("{0:0,0}", (truocthue + thue));}
+                        @tongtien
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        <table style="width:100%">
+            <tr>
+                <td style="text-align:left" colspan="2">
+                    <h5><b> Bằng Chữ</b>: @ViewBag.DocTien</h5>
+                </td>
+            </tr>
+            <tr>
+                <td><h5><b>Người Mua Hàng</b> </h5></td>
+                <td><h5><b>Người Bán Hàng</b></h5></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+

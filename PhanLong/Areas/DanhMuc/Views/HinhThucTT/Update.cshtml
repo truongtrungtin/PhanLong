@@ -1,0 +1,56 @@
+﻿@model PhanLong.EF.HinhThucTT
+@{
+    ViewBag.Title = "Chỉnh Sửa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.url = "/DanhMuc/HinhThucTT/Index";
+    ViewBag.Back = "Trở lại";
+}
+<div class="card">
+    <div class="container">
+        <div class="card-header">
+            <h4 class="card-title">
+                <b>Chỉnh sửa thông tin hình thức thanh toán: @Model.MoTa </b>
+            </h4>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Update", "HinhThucTT", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="row" style="height: 30px;">
+                        <div class="col-sm-2">
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.MaHT, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-3" })
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.MaHT, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = true } })
+                                    @Html.ValidationMessageFor(model => model.MaHT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.MoTa, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-3" })
+                                <div class="col-sm-9">
+                                    @Html.EditorFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control form-control-sm", @required = true } })
+                                    @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <input type="submit" value="Lưu" class="btn btn-primary" />
+                    </div>
+                </div>
+
+            }
+        </div>
+    </div>
+</div>
+
+

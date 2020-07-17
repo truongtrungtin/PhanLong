@@ -1,0 +1,194 @@
+﻿@model PhanLong.EF.HoaDon
+@using PhanLong.DAO;
+@using PhanLong.EF
+@{
+
+    ViewBag.Title = "Phát sinh hoá đơn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.url = "/NhapLieu/HoaDon/Index";
+    ViewBag.Back = "Trở lại";
+    PhanLongDBContext db = new PhanLongDBContext();
+    var KH = new DMKhachHangDao().ListAll();
+}
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/Content/plugins/daterangepicker/daterangepicker.css">
+}
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">
+            <b>Chỉnh sửa phát sinh hoá đơn: @Model.SoHD</b>
+        </h4>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("Update", "HoaDon", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="row" style="height: 30px;">
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.NgayHD, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4", @required = true })
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input type="text" name="NgayHD" class="form-control form-control-sm" value="@Model.NgayHD" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.NgayHD, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.SoHD, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
+                            <div class="col-sm-8">
+                                <input type="text" name="SoHD" value="@Model.SoHD" class="form-control form-control-sm">
+
+                                @Html.ValidationMessageFor(model => model.SoHD, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.KH, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-2" })
+                            <div class="col-sm-10">
+                                <select name="KH" class="form-control form-control-sm select2" data-placeholder="Chọn khách hàng">
+                                    @if (Model.KH != null)
+                                    {
+                                        <option value="@Model.KH">@Model.DMKhachHang.TenCongTy</option>
+
+                                    }
+                                    else
+                                    {
+                                        <option value=""></option>
+                                    }
+                                    @foreach (var item in db.DMKhachHangs)
+                                    {
+                                        <option value="@item.Id">@item.MaKH - @item.TenCongTy</option>
+                                    }
+
+                                </select>
+                                @Html.ValidationMessageFor(model => model.KH, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.NoiDung, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-2" })
+                            <div class="col-sm-10">
+                                <input type="text" name="NoiDung" value="@Model.NoiDung" class="form-control form-control-sm">
+
+                                @Html.ValidationMessageFor(model => model.SoHD, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row" style="height: 30px;">
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.SoBill, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
+                            <div class="col-sm-8">
+                                <select name="SoBill" class="form-control form-control-sm select2" data-placeholder="Chọn bill">
+                                    @if (Model.SoBill != null)
+                                    {
+                                        <option value="@Model.SoBill">@Model.DMBill.MaBill</option>
+
+                                    }
+                                    else
+                                    {
+                                        <option value=""></option>
+                                    }
+                                    @foreach (var item in db.DMBills)
+                                    {
+                                        <option value="@item.Id">@item.MaBill</option>
+                                    }
+
+                                </select>
+                                @Html.ValidationMessageFor(model => model.SoBill, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.SoCont, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
+                            <div class="col-sm-8">
+                                @Html.EditorFor(model => model.SoCont, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
+                                @Html.ValidationMessageFor(model => model.SoCont, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.SoLuong, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-5" })
+                            <div class="col-sm-7">
+                                <input type="number" name="SoLuong" class="form-control form-control-sm" value="1" min="1" />
+                                @Html.ValidationMessageFor(model => model.SoLuong, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.TienCuoc, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
+                            <div class="col-sm-8">
+                                <input type="text" name="TienCuoc" style="text-align:right" class="form-control form-control-sm" value="@Model.TienCuoc" />
+                                @Html.ValidationMessageFor(model => model.TienCuoc, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.ChiHo, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
+                            <div class="col-sm-8">
+                                <input type="text" name="ChiHo" value="@Model.ChiHo" style="text-align:right" class="form-control form-control-sm" />
+                                @Html.ValidationMessageFor(model => model.ChiHo, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.VAT, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
+                            <div class="col-sm-8">
+                                <div class="input-group mb-3">
+                                    <input type="number" name="VAT" min="0" max="100" class="form-control form-control-sm" style="text-align:right" value="@(Model.VAT * 100)" />
+                                    <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-percent"></i></span>
+                                    </div>
+                                </div>
+                                @Html.ValidationMessageFor(model => model.VAT, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="height: 30px;">
+                    <div class="col-sm-8">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-1" style="text-align:right" for="GhiChu">Ghi chú:</label>
+                            <div class="col-sm-11">
+                                <textarea type="text" name="GhiChu" class="form-control form-control-sm" rows="1" placeholder="Ghi chú ....">@Model.GhiChu</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-8">
+                        <input type="submit" value="Lưu" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+
+

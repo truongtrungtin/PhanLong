@@ -1,0 +1,174 @@
+﻿@model PhanLong.EF.CTBill
+@using PhanLong.EF
+
+@{
+    ViewBag.Title = "Bill: " + ViewBag.Bill + " | " + "Số tờ khai: " + ViewBag.STK;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.url = "/DanhMuc/DMBill/CTBill/" + ViewBag.IdBill;
+    ViewBag.Back = "Trở lại";
+    PhanLongDBContext db = new PhanLongDBContext();
+
+}
+
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/Content/plugins/daterangepicker/daterangepicker.css">
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">
+            <b>Thêm cont</b>
+        </h4>
+    </div>
+    <div class="card-body">
+        @using (Html.BeginForm("CreateCTBill", "DMBill", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-horizontal">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <input type="hidden" class="form-control" readonly name="Bill" value="@ViewBag.IdBill" />
+                <div class="row" style="height: 30px;">
+
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-3" style="text-align:right" for="Cont">Cont:</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="Cont" class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-4" style="text-align:right" for="Loai">Loại:</label>
+                            <div class="col-sm-8">
+                                <select name="Loai" class="form-control form-control-sm select2" data-placeholder="Chọn loại">
+                                    <option value=""></option>
+                                    @foreach (var item in db.DMLoais)
+                                    {
+                                        <option value="@item.Id">@item.MaLoai</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-3" style="text-align:right" for="Kho">Kho:</label>
+                            <div class="col-sm-9">
+                                <select name="Kho" class="form-control form-control-sm select2" data-placeholder="Chọn kho">
+                                    <option value=""></option>
+                                    @foreach (var item in db.DMKhoes)
+                                    {
+                                        <option value="@item.Id">@item.MaKho - @item.DiaChi</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-4" style="text-align:right" for="SoDK">Số đăng ký:</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="SoDK" class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-4" style="text-align:right" for="DoDay">Độ dày:</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="DoDay" class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-4" style="text-align:right" for="QuyCach">Quy cách:</label>
+                            <div class="col-sm-8">
+                                <input type="text" name="QuyCach" class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="height: 30px;">
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-3" style="text-align:right" for="Seal">Seal:</label>
+                            <div class="col-sm-9">
+                                <input type="text" name="Seal" class="form-control form-control-sm" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-5" style="text-align:right" for="HanLuuBai">Hạn Lưu Bãi:</label>
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input type="text" name="HanLuuBai" class="form-control form-control-sm" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-5" style="text-align:right" for="HanLuuCont">Hạn lưu cont:</label>
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input type="text" name="HanLuuCont" class="form-control form-control-sm" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-5" style="text-align:right" for="HanLuuRong">Hạn Lưu Rỗng:</label>
+                            <div class="col-sm-7">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                    </div>
+                                    <input type="text" name="HanLuuRong" class="form-control form-control-sm" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-2" style="text-align:right" for="GhiChu">Ghi chú:</label>
+                            <div class="col-sm-10">
+                                <textarea type="text" name="GhiChu" class="form-control form-control-sm" rows="1" placeholder="Ghi chú ...."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-9">
+                    <input type="submit" value="Ghi ( Lưu )" class="btn btn-primary" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="card">
+    @using (Html.BeginForm("CTBill", "DMBill", FormMethod.Post))
+    {
+        Html.RenderAction("ViewCTBill", "DMBill");
+
+    }
+</div>

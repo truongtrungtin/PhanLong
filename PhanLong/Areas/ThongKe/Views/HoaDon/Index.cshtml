@@ -1,0 +1,316 @@
+﻿@model IEnumerable<PhanLong.EF.HoaDon>
+@using PhanLong.EF;
+@using PhanLong.DAO;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    PhanLongDBContext db = new PhanLongDBContext();
+    int stt = 0;
+    string ngaybd = "";
+    string ngaykt = "";
+    if (ViewBag.NgayBD != "" && ViewBag.NgayBD != null)
+    {
+        ngaybd = Convert.ToDateTime(ViewBag.NgayBD).ToShortDateString();
+
+    }
+    else
+    {
+        ngaybd = "01/01/2020";
+    }
+
+    if (ViewBag.NgayKT != "" && ViewBag.NgayKT != null)
+    {
+        ngaykt = Convert.ToDateTime(ViewBag.NgayKT).ToShortDateString();
+    }
+    else
+    {
+        ngaykt = DateTime.Now.ToShortDateString();
+    }
+    Decimal tienthue = 0;
+    Decimal thanhtien = 0;
+    Decimal chiho = 0;
+    Decimal tongno = 0;
+    Decimal candoi = 0;
+    Decimal tiencuoc = 0;
+    Decimal thanhtoan = 0;
+    Decimal No = 0;
+    foreach (var item in Model)
+    {
+
+        tienthue = (Convert.ToDecimal(item.TienCuoc) * Convert.ToDecimal(item.VAT));
+        thanhtien = (Convert.ToDecimal(item.TienCuoc) + tienthue);
+        chiho += Convert.ToDecimal(item.ChiHo);
+        thanhtoan += Convert.ToDecimal(item.TienThanhToan);
+        candoi = (tongno - Convert.ToDecimal(item.TienThanhToan));
+
+        tiencuoc += thanhtien;
+
+
+    }
+    tongno = (chiho + tiencuoc);
+    No = tongno - thanhtoan; 
+}
+
+
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+}
+@using (Html.BeginForm("Index", "HoaDon", FormMethod.Get))
+{
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                Bộ lọc
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-3" for="NgayBD">Từ ngày:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" name="NgayBD" class="form-control form-control-sm" value="@ViewBag.NgayBD" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-4" for="NgayKT">Đến ngày:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" name="NgayKT" class="form-control form-control-sm" value="@ViewBag.NgayKT" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-2" for="KH">Khách hàng:</label>
+                        <div class="col-sm-9">
+                            <select name="KH" class="form-control form-control-sm select2" data-placeholder="Chọn khách hàng">
+                                @if (ViewBag.IDKhachHang != null)
+                                {
+                                    <option value="@ViewBag.IDKhachHang">@ViewBag.MaKH - @ViewBag.KhachHang</option>
+                                }
+                                else
+                                {
+                                    <option value=""></option>
+                                }
+                                @foreach (var item in db.DMKhachHangs)
+                                {
+                                    <option value="@item.Id">@item.MaKH - @item.TenCongTy</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-5" for="SoHD">Số HĐ:</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control form-control-sm" name="SoHD" value="@ViewBag.SoHD" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <input type="submit" name="Search" value="Tìm" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="row">
+
+            </div>
+        </div>
+    </div>
+}
+<div class="card">
+    <div class="card-header" style="text-align:center">
+        <h3 class="card-title" style="float:none;">
+            Thống Kê Hoá Đơn
+        </h3>
+        <div class="row" style="height: 30px; padding-top:5px">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="NgayBD">Từ ngày:</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" value="@ngaybd" readonly data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="NgayKT">Đến ngày:</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" readonly value="@ngaykt" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+        <div class="row" style="height: 30px; padding-top:5px">
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="cuoc">Tiền cước:</label>
+                    <div class="col-sm-7">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" value="@String.Format("{0:0,0}", (tiencuoc))" readonly style="text-align:right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="chiho">Chi hộ:</label>
+                    <div class="col-sm-7">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" value="@String.Format("{0:0,0}", (chiho))" readonly style="text-align:right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="tongno">Tổng:</label>
+                    <div class="col-sm-7">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" readonly value="@String.Format("{0:0,0}", (tongno))" style="text-align:right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-5" for="thanhtoan">Tiền thanh toán:</label>
+                    <div class="col-sm-7">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" readonly value="@String.Format("{0:0,0}", (thanhtoan))" style="text-align:right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-5" for="No">Nợ:</label>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" readonly value="@String.Format("{0:0,0}", (No))" style="text-align:right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+        @using (Html.BeginForm("Index", "HoaDon", FormMethod.Post))
+        {
+            <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="max-width:100%;">
+                <thead>
+                    <tr>
+                        <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                        <th title="ngày lập">Ngày</th>
+                        <th title="Số hoá đơn">Số HĐ</th>
+                        <th title="Mã khách hàng">Mã KH</th>
+                        <th title="Khách hàng">Khách hàng</th>
+                        <th data-field="Nội dung">Nội dung</th>
+                        <th title="Thành tiền">Thành tiền</th>
+                        <th title="Tổng chi hộ">Tổng chi hộ</th>
+                        <th title="Tổng nợ">Tổng nợ</th>
+                        <th title="Ngày Thanh toán">Ngày TT</th>
+                        <th title="Số tiền">Số tiền </th>
+                        <th title="Cân đối">Cân đối </th>
+                        <th title="Ghi chú">Ghi Chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr id="row_@item.Id">
+                            <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                            <td>@(item.NgayHD != null ? item.NgayHD.Value.ToShortDateString() : null)</td>
+                            <td>@(item.SoHD != null ? item.SoHD : null )</td>
+                            <td title="@(item.KH != null ? item.DMKhachHang.TenCongTy: null )">@(item.KH != null ? item.DMKhachHang.MaKH: null )</td>
+                            <td title="@(item.KH != null ? item.DMKhachHang.MaKH: null )">@(item.KH != null ? item.DMKhachHang.TenCongTy: null )</td>
+                            <td>@(item.NoiDung != null ? item.NoiDung : null)</td>
+                            @{ tienthue = Convert.ToDecimal(item.TienCuoc) * Convert.ToDecimal(item.VAT);
+                                thanhtien = Convert.ToDecimal(item.TienCuoc) + tienthue;
+                                tongno = Convert.ToDecimal(item.ChiHo) + thanhtien;
+                                candoi = tongno - Convert.ToDecimal(item.TienThanhToan);
+                            }
+                            <td style="text-align:right">@(thanhtien != null ? String.Format("{0:0,0}", (thanhtien)) : null )</td>
+                            <td style="text-align:right">@(item.ChiHo != null ? String.Format("{0:0,0}", (item.ChiHo)) : null)</td>
+                            <td style="text-align:right">@(tongno != null ? String.Format("{0:0,0}", (tongno)): null )</td>
+
+                            <td>@(item.NgayThanhToan != null ? item.NgayThanhToan.Value.ToShortDateString() : null)</td>
+                            <td style="text-align:right">@(item.TienThanhToan != null ? String.Format("{0:0,0}", (item.TienThanhToan)): null )</td>
+                            <td style="text-align:right">@(candoi != null ? String.Format("{0:0,0}", (candoi)): null )</td>
+                            <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                        </tr>
+
+                    }
+                </tbody>
+
+            </table>
+            <div class="margin">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                        Hành động
+                        <span class="sr-only">Hành động</span>
+                    </button>
+                    <div class="dropdown-menu" role="menu">
+                        <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
+                        <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
+                    </div>
+                </div>
+            </div>
+        }
+        <div style="text-align:right">
+            @using (Html.BeginForm("ImportExcel", "HoaDon", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <input type="hidden" name="Sheet" value="HoaDon$" />
+                <input type="submit" id="Submit" name="Submit" value="Import Excel" class="btn btn-success" />
+                <label>
+                    <input type="file" id="FileUpload" name="FileUpload" aria-label="EXCEL" />
+                </label>
+            }
+        </div>
+    </div>
+</div>
