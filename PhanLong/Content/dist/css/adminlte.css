@@ -1901,7 +1901,7 @@ pre {
         vertical-align: middle;
         background-color: #d1cbc3;
         font-size: 14px;
-        line-height: 23px;
+        line-height: 40px;
         text-align: center;
         border-bottom: 1px solid #343a40;
     }
@@ -11018,12 +11018,18 @@ a.text-dark:hover, a.text-dark:focus {
         box-shadow: none !important;
     }
 
+
+
     h6{
         font-size:12px;
     }
 
+    .card {
+        width: 210mm;
+    }
+
     .card-header {
-        border-bottom: hidden!important;
+        border-bottom: hidden !important;
     }
 
     a: not(.btn) {
@@ -11066,16 +11072,14 @@ a.text-dark:hover, a.text-dark:focus {
     }
 
 
-    .hidden-print{
-        display: none;
-    }
-
     body {
         min-width: 100% !important;
+       
     }
 
     .container {
         min-width: 100% !important;
+
     }
     .btn {
         display: none;
@@ -11098,15 +11102,6 @@ a.text-dark:hover, a.text-dark:focus {
         }
 
 
-
-
-    .table-bordered thead th, .table-bordered tbody th,
-    .table-bordered thead td, .table-bordered tbody td {
-        border: 1px solid #000000 !important;
-    }
-
-
-
     .table-dark {
         color: inherit;
     }
@@ -11122,6 +11117,16 @@ a.text-dark:hover, a.text-dark:focus {
         color: inherit;
         border-color: #dee2e6;
     }
+
+    .header {
+        background-color: grey !important;
+        height: 30px !important;
+    }
+
+    .hidden-border {
+        border-color: white !important;
+    }
+
 }
 
 html.scroll-smooth {

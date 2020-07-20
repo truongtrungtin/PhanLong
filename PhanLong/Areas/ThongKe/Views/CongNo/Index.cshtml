@@ -1,0 +1,250 @@
+﻿@model IEnumerable<PhanLong.Models.CongNoModel>
+@using PhanLong.EF;
+@using PhanLong.DAO;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    PhanLongDBContext db = new PhanLongDBContext();
+    string ngaybd = "";
+    string ngaykt = "";
+    if (ViewBag.NgayBD != "" && ViewBag.NgayBD != null)
+    {
+        ngaybd = Convert.ToDateTime(ViewBag.NgayBD).ToShortDateString();
+
+    }
+    else
+    {
+        ngaybd = "01/01/2020";
+    }
+
+    if (ViewBag.NgayKT != "" && ViewBag.NgayKT != null)
+    {
+        ngaykt = Convert.ToDateTime(ViewBag.NgayKT).ToShortDateString();
+    }
+    else
+    {
+        ngaykt = DateTime.Now.ToShortDateString();
+    }
+    Decimal cuoc = 0;
+    Decimal tienchiho = 0;
+    Decimal tongtien = 0;
+    Decimal tongthu = 0;
+    Decimal tongno = 0;
+    foreach (var item in Model)
+    {
+        cuoc += Convert.ToDecimal(item.Cuoc);
+        tienchiho += Convert.ToDecimal(item.ChiHo);
+        tongthu += Convert.ToDecimal(item.tienthu);
+
+    }
+    tongtien += cuoc + tienchiho;
+    tongno += tongtien - tongthu;
+
+}
+
+
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+}
+@using (Html.BeginForm("Index", "CongNo", FormMethod.Get))
+{
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                Bộ lọc
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-3" for="NgayBD">Từ ngày:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" name="NgayBD" class="form-control form-control-sm" value="@ngaybd" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-4" for="NgayKT">Đến ngày:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" name="NgayKT" class="form-control form-control-sm" value="@ngaykt" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-2" for="KhachHang">Khách hàng:</label>
+                        <div class="col-sm-9">
+                            <select name="KhachHang" class="form-control form-control-sm select2" data-placeholder="Chọn khách hàng">
+                                @if (ViewBag.MaKH != null)
+                                {
+                                    <option value="@ViewBag.MaKH">@ViewBag.MaKH - @ViewBag.KhachHang</option>
+                                }
+                                else
+                                {
+                                    <option value=""></option>
+                                }
+                                @foreach (var item in db.DMKhachHangs)
+                                {
+                                    <option value="@item.MaKH">@item.MaKH - @item.TenCongTy</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <input type="submit" name="Search" value="Tìm" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="row">
+
+            </div>
+        </div>
+    </div>
+}
+<div class="card">
+    <div class="card-header" style="text-align:center">
+        <h3 class="card-title" style="float:none;">
+            Thống kê sổ phụ ngân hàng
+        </h3>
+        <div class="row" style="height: 30px; padding-top:5px">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="NgayBD">Từ ngày:</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" value="@ngaybd" readonly data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="NgayKT">Đến ngày:</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" readonly value="@ngaykt" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+        <div class="row" style="height: 30px; padding-top:5px">
+            <div class="col-sm-3">
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="Tiền chi">Tổng tiền:</label>
+                    <div class="col-sm-7">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" value="@String.Format("{0:0,0}", (tongtien))" readonly style="text-align:right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="Tiền chi">Tổng thu:</label>
+                    <div class="col-sm-7">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" value="@String.Format("{0:0,0}", (tongthu))" readonly style="text-align:right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="Tiền thu">Tổng nợ:</label>
+                    <div class="col-sm-7">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" readonly value="@String.Format("{0:0,0}", (tongno))" style="text-align:right">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-body">
+
+        <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="max-width:100%;">
+            <thead>
+                <tr>
+                    <th title="Mã khách hàng">Mã KH</th>
+                    <th title="Tổng cont">Tổng cont</th>
+                    <th title="Cước & phụ thu">Cước</th>
+                    <th title="Tổng chi hộ">Tổng chi hộ</th>
+                    <th title="Tổng tiền">Tổng tiền</th>
+                    <th title="Tổng thu">Tổng thu</th>
+                    <th title="Tổng nợ">Tổng nợ</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model.Select(x => new { x.KhachHang }).Distinct())
+                {
+                    DateTime sdate = (ngaybd != "") ? Convert.ToDateTime(ngaybd).Date : new DateTime();
+                    DateTime edate = (ngaykt != "") ? Convert.ToDateTime(ngaykt).Date : new DateTime();
+                    var dao = db.PhatSinhs.Where(x => x.DMKhachHang.MaKH == item.KhachHang && (x.Ngay >= sdate && x.Ngay <= edate));
+                    var tiennang = Convert.ToDecimal(dao.Select(x => x.TienNang).Sum());
+                    var tienha = Convert.ToDecimal(dao.Select(x => x.TienHa).Sum());
+                    var tienphikh = Convert.ToDecimal(dao.Select(x => x.TienPhiKH).Sum());
+                    var tongchiho = tiennang + tienha + tienphikh;
+                    var tong = Convert.ToDecimal(dao.Select(x => x.CuocKH).Sum()) + tongchiho;
+                    var thu = db.CTChiThus.Where(x => x.PhatSinhChiThu1.DMKhachHang.MaKH == item.KhachHang && x.DMPhi.LoaiPhi == 2 && (x.PhatSinhChiThu1.Ngay >= sdate && x.PhatSinhChiThu1.Ngay <= edate));
+                    var tienthu = Convert.ToDecimal(thu.Select(x => (x.DonGia * x.SoLuong)).Sum());
+                    if (dao.Select(x => x.SoCont).Distinct().Count() > 0)
+                    {
+                        <tr>
+                            <td title="">@item.KhachHang</td>
+                            <td title="">@dao.Select(x => x.SoCont).Distinct().Count()</td>
+                            <td style="text-align:right">@String.Format("{0:0,0}", (dao.Select(x => x.CuocKH).Sum()))</td>
+                            <td style="text-align:right">@String.Format("{0:0,0}", (tongchiho)) </td>
+                            <td style="text-align:right">@String.Format("{0:0,0}", (tong))</td>
+                            <td style="text-align:right">@String.Format("{0:0,0}", (tienthu)) </td>
+                            <td style="text-align:right">@String.Format("{0:0,0}", (tong - tienthu))</td>
+                        </tr>
+                    }
+                        
+
+                }
+            </tbody>
+
+        </table>
+
+
+
+    </div>
+</div>

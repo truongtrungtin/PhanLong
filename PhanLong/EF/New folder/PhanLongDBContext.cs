@@ -31,7 +31,6 @@ namespace PhanLong.EF
         public virtual DbSet<Menu> Menus { get; set; }
         public virtual DbSet<PhatSinh> PhatSinhs { get; set; }
         public virtual DbSet<PhatSinhChiThu> PhatSinhChiThus { get; set; }
-        public virtual DbSet<SoPhuNganHang> SoPhuNganHangs { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -144,11 +143,6 @@ namespace PhanLong.EF
                 .WithOptional(e => e.DMKhachHang)
                 .HasForeignKey(e => e.KhachHang);
 
-            modelBuilder.Entity<DMKhachHang>()
-                .HasMany(e => e.SoPhuNganHangs)
-                .WithOptional(e => e.DMKhachHang)
-                .HasForeignKey(e => e.MaKH);
-
             modelBuilder.Entity<DMKho>()
                 .Property(e => e.SoDienThoai)
                 .IsUnicode(false);
@@ -228,10 +222,9 @@ namespace PhanLong.EF
                 .WithOptional(e => e.DMPhi1)
                 .HasForeignKey(e => e.PhiKH);
 
-            modelBuilder.Entity<DMPhi>()
-                .HasMany(e => e.SoPhuNganHangs)
-                .WithOptional(e => e.DMPhi)
-                .HasForeignKey(e => e.Phi);
+            modelBuilder.Entity<DMThoiGian>()
+                .Property(e => e.MaTG)
+                .IsUnicode(false);
 
             modelBuilder.Entity<DMThoiGian>()
                 .HasMany(e => e.PhatSinhs)
@@ -270,11 +263,6 @@ namespace PhanLong.EF
                 .WithOptional(e => e.HinhThucTT)
                 .HasForeignKey(e => e.HTTT);
 
-            modelBuilder.Entity<HinhThucTT>()
-                .HasMany(e => e.SoPhuNganHangs)
-                .WithOptional(e => e.HinhThucTT)
-                .HasForeignKey(e => e.HTTT);
-
             modelBuilder.Entity<HoaDon>()
                 .Property(e => e.SoHD)
                 .IsUnicode(false);
@@ -306,10 +294,6 @@ namespace PhanLong.EF
 
             modelBuilder.Entity<Menu>()
                 .Property(e => e.Url)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Menu>()
-                .Property(e => e.Icon)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Menu>()
@@ -361,14 +345,6 @@ namespace PhanLong.EF
                 .HasMany(e => e.CTChiThus)
                 .WithOptional(e => e.PhatSinhChiThu1)
                 .HasForeignKey(e => e.PhatSinhChiThu);
-
-            modelBuilder.Entity<SoPhuNganHang>()
-                .Property(e => e.TienChi)
-                .HasPrecision(18, 0);
-
-            modelBuilder.Entity<SoPhuNganHang>()
-                .Property(e => e.TienThu)
-                .HasPrecision(18, 0);
         }
     }
 }

@@ -54,8 +54,6 @@ namespace PhanLong.Areas.ThongKe.Controllers
             ViewBag.N40 = model.Where(x => x.DMLoai.MaLoai == "40N").Count();
             ViewBag.X40 = model.Where(x => x.DMLoai.MaLoai == "40X").Count();
             ViewBag.Tong = (ViewBag.N20 + ViewBag.X20 + ViewBag.N40 + ViewBag.X40);
-
-
             return View(model);
         }
 
@@ -77,16 +75,11 @@ namespace PhanLong.Areas.ThongKe.Controllers
             ViewBag.N40 = model.Where(x => x.DMLoai.MaLoai == "40N").Count();
             ViewBag.X40 = model.Where(x => x.DMLoai.MaLoai == "40X").Count();
             ViewBag.Tong = (ViewBag.N20 + ViewBag.X20 + ViewBag.N40 + ViewBag.X40);
-            if (dao.UpdateGhiChuLuong(phatSinh))
-            {
-                SetAlert("Đã thêm ghi chú lương thành công!", "success");
-            }
-            else
-            {
-                SetAlert("Thêm ghi chú lương không thành công, vui lòng thử lại!", "warning");
-            }
-            return RedirectToAction("CTTTLuong", "Luong", new { id = phatSinh.TenTX, @NgayBD = NgayBD, @NgayKT = NgayKT });
+            
+            return RedirectToAction("CTTTLuong", "Luong", new { id = phatSinh.TenTX, NgayBD = NgayBD, NgayKT = NgayKT });
         }
+
+
 
 
         [HttpGet]
@@ -96,6 +89,42 @@ namespace PhanLong.Areas.ThongKe.Controllers
 
             return PartialView("EditGhiChuLuong", model);
         }
+
+        [HttpPost]
+        public ActionResult EditGhiChu(PhatSinh phatSinh, string NgayBD, string NgayKT)
+        {
+            if (new PhatSinhDao().UpdateGhiChuLuong(phatSinh))
+            {
+                SetAlert("Đã thêm ghi chú lương thành công!", "success");
+            }
+            else
+            {
+                SetAlert("Thêm ghi chú lương không thành công, vui lòng thử lại!", "warning");
+            }
+            return RedirectToAction("CTTTLuong", "Luong", new { id = phatSinh.TenTX, NgayBD = NgayBD, NgayKT = NgayKT });
+        }
+
+        [HttpGet]
+        public PartialViewResult EditGhiChuChiPhi(long id)
+        {
+            PhatSinhChiThu model = new PhatSinhChiThuDao().GetById(id);
+            return PartialView("EditGhiChuPhi", model);
+        }
+
+        [HttpPost]
+        public ActionResult EditGhiChuChiPhi(PhatSinhChiThu phatSinhChiThu, string NgayBD, string NgayKT)
+        {
+            if (new PhatSinhChiDao().UpdateGhiChu(phatSinhChiThu))
+            {
+                SetAlert("Đã thêm ghi chú thành công!", "success");
+            }
+            else
+            {
+                SetAlert("Thêm ghi chú không thành công, vui lòng thử lại!", "warning");
+            }
+            return RedirectToAction("CTTTLuong", "Luong", new { id = phatSinhChiThu.NguoiNhan, NgayBD = NgayBD, NgayKT = NgayKT });
+        }
+
 
         public JsonResult GetPhatSinhId(long id)
         {

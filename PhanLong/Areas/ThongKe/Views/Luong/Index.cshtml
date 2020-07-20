@@ -1,18 +1,25 @@
 ﻿@model List<PhanLong.Models.ThanhToanLuongModel>
+@using PhanLong.EF
 @{
     ViewBag.Title = "Thống kê";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
+    PhanLongDBContext db = new PhanLongDBContext();
 
     long stt = 0;
     DateTime ngaybd = Convert.ToDateTime(ViewBag.NgayBD);
     DateTime ngaykt = Convert.ToDateTime(ViewBag.NgayKT);
 }
 
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+}
 
 @using (Html.BeginForm("Index", "Luong", FormMethod.Get))
 {
-    <div class="card hidden-print">
+    <div class="card no-print">
         <div class="card-header">
             <h3 class="card-title">
                 Bộ lọc
@@ -55,49 +62,54 @@
 }
 
 
-    <div class="card">
-        <div class="container">
-            <div class="card-header">
-                <h3 class="card-title">
-                    Danh sách nhân viên nhận lương
-                </h3>
-            </div>
-            <div class="card-body">
-                <table class="table table-bordered table-hover table-striped" width="100%">
-                    <thead>
-                        <tr>
-                            <th>STT</th>
-                            <th>Mã nhân viên</th>
-                            <th>Tên nhân viên</th>
-                            <th>Số cont</th>
-                            <th>Số ngày công</th>
-                            <th>Tiền cước</th>
-                            <th>#</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model.Select(x => new { x.TaiXe, x.MaTX, x.Id }).Distinct())
+<div class="card">
+    <div class="container">
+        <div class="card-header">
+            <h3 class="card-title">
+                Danh sách nhân viên nhận lương
+            </h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-hover table-striped" width="100%">
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mã nhân viên</th>
+                        <th>Tên nhân viên</th>
+                        <th>Số cont</th>
+                        <th>Số ngày công</th>
+                        <th>Tiền cước</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Select(x => new { x.TaiXe, x.MaTX, x.Id }).Distinct())
+                    {
+                        DateTime sdate = (ViewBag.NgayBD != "") ? Convert.ToDateTime(ViewBag.NgayBD).Date : new DateTime();
+                        DateTime edate = (ViewBag.NgayKT != "") ? Convert.ToDateTime(ViewBag.NgayKT).Date : new DateTime();
+                        var socont = db.PhatSinhs.Where(x => x.TenTX == item.Id && (x.Ngay >= sdate && x.Ngay <= edate));
+                        using (Html.BeginForm("CTTTLuong", "Luong", FormMethod.Get))
                         {
-                            using (Html.BeginForm("CTTTLuong", "Luong", FormMethod.Get))
-                            {
-                                <input type="hidden" readonly class="form-control form-control-sm" name="id" value="@item.Id" />
-                                <input type="hidden" name="NgayBD" class="form-control form-control-sm" value="@ngaybd.ToShortDateString()" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-                                <input type="hidden" name="NgayKT" class="form-control form-control-sm" value="@ngaykt" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            <input type="hidden" readonly class="form-control form-control-sm" name="id" value="@item.Id" />
+                            <input type="hidden" name="NgayBD" class="form-control form-control-sm" value="@ngaybd.ToShortDateString()" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            <input type="hidden" name="NgayKT" class="form-control form-control-sm" value="@ngaykt" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
 
-                                var tiencuoc = Model.Where(x => x.Id == item.Id).Sum(x => x.tiencuoc);
-                                stt = stt + 1;
-                                <tr>
-                                    <td>@stt</td>
-                                    <td>@item.MaTX</td>
-                                    <td>@item.TaiXe</td>
-                                    <td>@String.Format("{0:0,0}", (tiencuoc * 60 / 100))</td>
-                                    <td><input type="submit" value="Chi tiết" class="btn btn-primary" />
-                                </tr>
-                            }
+                            var tiencuoc = Model.Where(x => x.Id == item.Id).Sum(x => x.tiencuoc);
+                            stt = stt + 1;
+                            <tr>
+                                <td>@stt</td>
+                                <td>@item.MaTX</td>
+                                <td>@item.TaiXe</td>
+                                <td>@socont.Count()</td>
+                                <td>@(socont.Select(x=>x.Ngay).Distinct().Count())</td>
+                                <td>@String.Format("{0:0,0}", (tiencuoc * 60 / 100))</td>
+                                <td><input type="submit" value="Chi tiết" class="btn btn-primary" />
+                            </tr>
                         }
-                        </tbody>
-                </table>
-            </div>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 

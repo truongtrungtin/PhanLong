@@ -13,7 +13,6 @@
         public HinhThucTT()
         {
             PhatSinhChiThus = new HashSet<PhatSinhChiThu>();
-            SoPhuNganHangs = new HashSet<SoPhuNganHang>();
         }
 
         public long Id { get; set; }
@@ -30,8 +29,5 @@
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinhChiThu> PhatSinhChiThus { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SoPhuNganHang> SoPhuNganHangs { get; set; }
     }
 }

@@ -65,6 +65,7 @@ namespace PhanLong.DAO
                        where nv.Id == id where ctc.DMPhi.MaPhi == "T.ứng"
                        select new ChiLuongModel()
                        {
+                           Id = psc.Id,
                            NgayChi = psc.Ngay,
                            NoiDung = ctc.NoiDung,
                            HinhThucTT = psc.HinhThucTT.MoTa,

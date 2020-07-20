@@ -15,7 +15,6 @@
             CTChiThus = new HashSet<CTChiThu>();
             PhatSinhs = new HashSet<PhatSinh>();
             PhatSinhs1 = new HashSet<PhatSinh>();
-            SoPhuNganHangs = new HashSet<SoPhuNganHang>();
         }
 
         public long Id { get; set; }
@@ -28,9 +27,8 @@
         [Required, Display(Name = "Tên phí: ")]
         public string TenPhi { get; set; }
 
-        [Display(Name = "Loại phí: ")]
+        [ Display(Name = "Loại phí: ")]
         public long? LoaiPhi { get; set; }
-
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTChiThu> CTChiThus { get; set; }
@@ -42,8 +40,5 @@
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinh> PhatSinhs1 { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<SoPhuNganHang> SoPhuNganHangs { get; set; }
     }
 }

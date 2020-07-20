@@ -1,0 +1,240 @@
+﻿@model IEnumerable<PhanLong.EF.PhatSinh>
+@using PhanLong.EF;
+@using PhanLong.DAO;
+@{
+    ViewBag.Title = "Thống kê";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    PhanLongDBContext db = new PhanLongDBContext();
+
+    string ngaybd = "";
+    string ngaykt = "";
+    if (ViewBag.NgayBD != "" && ViewBag.NgayBD != null)
+    {
+        ngaybd = Convert.ToDateTime(ViewBag.NgayBD).ToShortDateString();
+
+    }
+    else
+    {
+        ngaybd = "01/01/2020";
+    }
+
+    if (ViewBag.NgayKT != "" && ViewBag.NgayKT != null)
+    {
+        ngaykt = Convert.ToDateTime(ViewBag.NgayKT).ToShortDateString();
+    }
+    else
+    {
+        ngaykt = DateTime.Now.ToShortDateString();
+    }
+    int stt = 0;
+
+    Decimal tienha = 0;
+    Decimal tiennang = 0;
+    Decimal tienkhac = 0;
+    Decimal tienrieng = 0;
+    Decimal tong = 0;
+
+    foreach (var item in Model)
+    {
+        tiennang += Convert.ToDecimal(item.TienNang);
+        tienha += Convert.ToDecimal(item.TienHa);
+        tienkhac += Convert.ToDecimal(item.TienPhiKH);
+        tienrieng += Convert.ToDecimal(item.TienPhiCT);
+    }
+
+    tong = tiennang + tienha + tienkhac + tienrieng;
+}
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+}
+
+@using (Html.BeginForm("Index", "ChiHo", FormMethod.Get))
+{
+    <div class="card hidden-print">
+        <div class="card-header">
+            <h3 class="card-title">
+                Tìm kiếm thông tin
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="row" style="height: 30px;">
+
+                <div class="col-sm-2">
+                    <div class="form-group row">
+                        <label style="text-align:right" class="col-form-label col-sm-4" for="NgayBD">Từ ngày:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" name="NgayBD" class="form-control form-control-sm" value="@ngaybd" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group row">
+                        <label style="text-align:right" class="col-form-label col-sm-4" for="NgayKT">Đến ngày:</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" name="NgayKT" class="form-control form-control-sm" value="@ngaykt" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group row">
+                        <label style="text-align:right" class="col-form-label col-sm-4" for="Xe">Xe:</label>
+                        <div class="col-sm-8">
+                            <select name="Xe" class="form-control form-control-sm select2" data-placeholder="Chọn xe">
+                                @if (ViewBag.IdXe != null)
+                                {
+                                    <option value="@ViewBag.IdXe">@ViewBag.MaXe</option>
+                                }
+                                else
+                                {
+                                    <option value=""></option>
+                                }
+                                @foreach (var item in db.DMXes)
+                                {
+                                    <option value="@item.Id">@item.MaXe</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <input type="submit" name="Search" value="Tìm" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="card">
+    <div class="card-header" style="text-align:center">
+        <h3 class="card-title" style="float:none;">
+            Thống Kê Chi Hộ
+        </h3>
+        <div class="row" style="height: 30px; padding-top:5px">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="NgayBD">Từ ngày:</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" value="@ngaybd" readonly data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="NgayKT">Đến ngày:</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+
+                            <input type="text" class="form-control form-control-sm" readonly value="@ngaykt" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+        <div class="row" style="height: 30px; padding-top:5px">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="Xe">Xe:</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm" value="@ViewBag.Xe" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                <div class="form-group row">
+                    <label style="text-align:right" class="col-form-label col-sm-4" for="tong">Tổng:</label>
+                    <div class="col-sm-8">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm" style="text-align:right" value="@String.Format("{0:0,0}", (tong))" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+            </div>
+        </div>
+    </div>
+    @using (Html.BeginForm("Index", "ChiHo", FormMethod.Post))
+    {
+        <div class="card-body">
+            <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="max-width:100%">
+                <thead style="background-color:#d1cbc3">
+                    <tr>
+                        <th>STT</th>
+                        <th title="Ngày thu hộ">Ngày</th>
+                        <th title="Xe">Xe</th>
+                        <th title="Loại cont">Loại cont</th>
+                        <th title="Số cont">Số Cont</th>
+                        <th title="Cảng nhận">Cảng nhận</th>
+                        <th title="Cảng trả">Cảng trả</th>
+                        <th title="Hoá đơn nâng">Hoá đơn nâng</th>
+                        <th title="Tiền nâng">Tiền nâng</th>
+                        <th title="Hoá đơn hạ">Hoá đơn hạ</th>
+                        <th title="Tiền hạ">Tiền nâng</th>
+                        <th title="Hoá đơn khác">Hoá đơn khác</th>
+                        <th title="Tiền khác">Tiền khác</th>
+                        <th title="Chi phí riêng cho xe">Chi phí riêng cho xe</th>
+                        <th title="Tiền chi riêng">Tiền chi riêng</th>
+                        <th title="Ghi chú">Ghi Chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        stt += 1;
+                        <tr id="row_@item.Id">
+                            <td>@stt</td>
+                            <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                            <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                            <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
+                            <td>@(item.SoCont != null ? item.SoCont : null)</td>
+                            <td title="@(item.CangNhan != null ? item.DMCang.TenCang: null )">@(item.CangNhan != null ? item.DMCang.MaCang: null)</td>
+                            <td title="@(item.CangTra != null ? item.DMCang1.TenCang: null )">@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
+                            <td style="text-align:left">@(item.HDNang != null ? item.HDNang : null)</td>
+                            <td style="text-align:right">@(item.TienNang != null ? String.Format("{0:0,0}", (item.TienNang))  : null)</td>
+                            <td style="text-align:left">@(item.HDHa != null ? item.HDHa : null)</td>
+                            <td style="text-align:right">@(item.TienHa != null ? String.Format("{0:0,0}", (item.TienHa)) : null )</td>
+                            <td style="text-align:left">@(item.PhiKH != null ? item.DMPhi1.TenPhi : null)</td>
+                            <td style="text-align:right">@(item.TienPhiKH != null ? String.Format("{0:0,0}", (item.TienPhiKH)) : null)</td>
+                            <td style="text-align:left">@(item.PhiCT != null ? item.DMPhi.TenPhi : null)</td>
+                            <td style="text-align:right">@(item.TienPhiCT != null ? String.Format("{0:0,0}", (item.TienPhiCT)) : null)</td>
+                            <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+

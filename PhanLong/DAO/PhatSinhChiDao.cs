@@ -16,6 +16,22 @@ namespace PhanLong.DAO
             db = new PhanLongDBContext();
         }
 
+        public bool UpdateGhiChu(PhatSinhChiThu phatSinhChiThu)
+        {
+            try
+            {
+                var item = db.PhatSinhChiThus.Find(phatSinhChiThu.Id);
+                item.GhiChu = phatSinhChiThu.GhiChu;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
         public bool checkbox(int[] chkId)
         {
             try

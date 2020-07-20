@@ -1,0 +1,58 @@
+﻿@model IEnumerable<PhanLong.EF.SoPhuNganHang>
+
+<div class="card-header">
+    <h3 class="card-title">
+        Sổ phụ ngân hàng @Html.ActionLink("Thêm Mới", "Create", null, new { @class = "btn btn-primary mb-1" })
+    </h3>
+</div>
+<div class="card-body">
+    @using (Html.BeginForm("Index", "SoPhuNganHang", FormMethod.Post))
+    {
+        <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="max-width:100%;">
+            <thead>
+                <tr>
+                    <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                    <th title="ngày">Ngày</th>
+                    <th title="Mã khách hàng">Mã KH</th>
+                    <th title="Hình thức thanh toán">Hình thức</th>
+                    <th title="Nội dung">Nội dung</th>
+                    <th title="Loại phí">Loại phí</th>
+                    <th title="Số tiền chi">Số tiền chi</th>
+                    <th title="Số tiền thu">Số tiền thu</th>
+                    <th title="Ghi chú">Ghi Chú</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr id="row_@item.Id">
+                        <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                        <td>@(item.Ngay != null ? item.Ngay.Value.ToShortDateString() : null)</td>
+                        <td title="@(item.MaKH != null ? item.DMKhachHang.TenCongTy: null )">@(item.MaKH != null ? item.DMKhachHang.MaKH: null )</td>
+                        <td title="@(item.HTTT != null ? item.HinhThucTT.MoTa: null )">@(item.HTTT != null ? item.HinhThucTT.MaHT: null )</td>
+                        <td style="text-align:left" >@(item.NoiDung != null ? item.NoiDung : null)</td>
+                        <td title="@(item.Phi != null ? item.DMPhi.TenPhi: null)">@(item.Phi != null ? item.DMPhi.MaPhi: null)</td>
+                        <td style="text-align:right">@(item.TienChi != null ? String.Format("{0:0,0}", (item.TienChi)) : null)</td>
+                        <td style="text-align:right">@(item.TienThu != null ? String.Format("{0:0,0}", (item.TienThu)) : null)</td>
+                        <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                    </tr>
+
+                }
+            </tbody>
+
+        </table>
+        <div class="margin">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                    Hành động
+                    <span class="sr-only">Hành động</span>
+                </button>
+                <div class="dropdown-menu" role="menu">
+                    <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
+                    <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
+                </div>
+            </div>
+        </div>
+    }
+</div>

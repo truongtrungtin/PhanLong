@@ -7,9 +7,8 @@ namespace PhanLong.Models
 {
     public   class ChiLuongModel
     {
-
+        public long Id { get; set; }
         public DateTime NgayChi { get; set; }
-
         public decimal? TienTru { get; set; }
         public string NoiDung { get; set; }
         public string HinhThucTT { get; set; }
