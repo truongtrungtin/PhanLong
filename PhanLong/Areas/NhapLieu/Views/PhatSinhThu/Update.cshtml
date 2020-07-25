@@ -50,7 +50,7 @@
                                 <select name="NguoiChiThu" class="form-control form-control-sm select2" required data-placeholder="Chọn người thu">
                                     @if (Model.NguoiChiThu != null)
                                     {
-                                        <option value="@Model.NguoiChiThu">@Model.DMNhanVien1.TenNV</option>
+                                        <option value="@Model.NguoiChiThu">@Model.DMNhanVien.TenNV</option>
                                     }
                                     else
                                     {
@@ -87,6 +87,53 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="Xe">Xe:</label>
+                            <div class="col-sm-8">
+                                <select name="Xe" class="form-control form-control-sm select2" data-placeholder="Chọn Xe">
+                                    @if (Model.Xe != null)
+                                    {
+                                        <option value="@Model.Xe">@Model.DMXe.BienSo</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=""></option>
+                                    }
+                                    @foreach (var item in db.DMXes)
+                                    {
+                                        <option value="@item.Id">@item.BienSo</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            <label style="text-align:right" class="col-form-label col-sm-4" for="Mooc">Mooc:</label>
+                            <div class="col-sm-8">
+                                <select name="Mooc" class="form-control form-control-sm select2" data-placeholder="Chọn Mooc">
+                                    @if (Model.Mooc != null)
+                                    {
+                                        <option value="@Model.Mooc">@Model.DMMooc.BienSo</option>
+                                    }
+                                    else
+                                    {
+                                        <option value=""></option>
+                                    }
+                                    @foreach (var item in db.DMMoocs)
+                                    {
+                                        <option value="@item.Id">@item.BienSo</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                   
+
+                </div>
+                <div class="row" style="height: 30px;">
                     <div class="col-sm-2">
                         <div class="form-group row">
                             <label style="text-align:right" class="col-form-label col-sm-4" for="HTTT">HTTT:</label>
@@ -110,9 +157,6 @@
                             </div>
                         </div>
                     </div>
-
-                </div>
-                <div class="row" style="height: 30px;">
                     <div class="col-sm-2">
                         <div class="form-group row">
                             @Html.LabelFor(model => model.SoHD, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })

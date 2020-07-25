@@ -119,7 +119,7 @@
 <div class="card">
     <div class="card-header" style="text-align:center">
         <h3 class="card-title" style="float:none;">
-            Thống kê sổ phụ ngân hàng
+            Thống kê Công nợ
         </h3>
         <div class="row" style="height: 30px; padding-top:5px">
             <div class="col-sm-4">
@@ -225,10 +225,13 @@
                     var tong = Convert.ToDecimal(dao.Select(x => x.CuocKH).Sum()) + tongchiho;
                     var thu = db.CTChiThus.Where(x => x.PhatSinhChiThu1.DMKhachHang.MaKH == item.KhachHang && x.DMPhi.LoaiPhi == 2 && (x.PhatSinhChiThu1.Ngay >= sdate && x.PhatSinhChiThu1.Ngay <= edate));
                     var tienthu = Convert.ToDecimal(thu.Select(x => (x.DonGia * x.SoLuong)).Sum());
+                    var kh = db.DMKhachHangs.Where(x => x.MaKH == item.KhachHang).FirstOrDefault();
+
                     if (dao.Select(x => x.SoCont).Distinct().Count() > 0)
                     {
                         <tr>
-                            <td title="">@item.KhachHang</td>
+
+                            <td title="@(kh != null ? kh.TenCongTy : null)">@item.KhachHang</td>
                             <td title="">@dao.Select(x => x.SoCont).Distinct().Count()</td>
                             <td style="text-align:right">@String.Format("{0:0,0}", (dao.Select(x => x.CuocKH).Sum()))</td>
                             <td style="text-align:right">@String.Format("{0:0,0}", (tongchiho)) </td>
@@ -237,7 +240,7 @@
                             <td style="text-align:right">@String.Format("{0:0,0}", (tong - tienthu))</td>
                         </tr>
                     }
-                        
+
 
                 }
             </tbody>

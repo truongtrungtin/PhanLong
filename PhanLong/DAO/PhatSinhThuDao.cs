@@ -61,8 +61,11 @@ namespace PhanLong.DAO
                 item.HTTT = phatsinhthu.HTTT;
                 item.KhachHang = phatsinhthu.KhachHang;
                 item.Bill = phatsinhthu.Bill;
+                item.Xe = phatsinhthu.Xe;
+                item.Mooc = phatsinhthu.Mooc;
                 item.SoHD = phatsinhthu.SoHD;
                 item.GhiChu = phatsinhthu.GhiChu;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

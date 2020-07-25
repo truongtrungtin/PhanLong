@@ -102,6 +102,7 @@ namespace PhanLong.DAO
                 item.Id = dMThoiGian.Id;
                 item.MaTG = dMThoiGian.MaTG;
                 item.ThoiGian = dMThoiGian.ThoiGian;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

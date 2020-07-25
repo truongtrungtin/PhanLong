@@ -9,6 +9,9 @@
     long stt = 0;
     DateTime ngaybd = Convert.ToDateTime(ViewBag.NgayBD);
     DateTime ngaykt = Convert.ToDateTime(ViewBag.NgayKT);
+    decimal? tongtien = 0;
+    var tongcont = 0;
+    var tongngaycong = 0;
 }
 
 @section css{
@@ -74,40 +77,56 @@
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Mã nhân viên</th>
                         <th>Tên nhân viên</th>
                         <th>Số cont</th>
                         <th>Số ngày công</th>
                         <th>Tiền cước</th>
+                        <th>Trung bình</th>
                         <th>#</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Select(x => new { x.TaiXe, x.MaTX, x.Id }).Distinct())
+                    @foreach (var item in Model.Select(x => new { x.Xe }).Distinct())
                     {
                         DateTime sdate = (ViewBag.NgayBD != "") ? Convert.ToDateTime(ViewBag.NgayBD).Date : new DateTime();
                         DateTime edate = (ViewBag.NgayKT != "") ? Convert.ToDateTime(ViewBag.NgayKT).Date : new DateTime();
-                        var socont = db.PhatSinhs.Where(x => x.TenTX == item.Id && (x.Ngay >= sdate && x.Ngay <= edate));
+                        var socont = db.PhatSinhs.Where(x => x.Xe == item.Xe && (x.Ngay >= sdate && x.Ngay <= edate));
+                        var tiencuoc = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tiencuoc);
+                        var tentx = Model.Where(x => x.Xe == item.Xe).FirstOrDefault().TenTX;
                         using (Html.BeginForm("CTTTLuong", "Luong", FormMethod.Get))
                         {
-                            <input type="hidden" readonly class="form-control form-control-sm" name="id" value="@item.Id" />
+                            <input type="hidden" readonly class="form-control form-control-sm" name="id" value="@item.Xe" />
                             <input type="hidden" name="NgayBD" class="form-control form-control-sm" value="@ngaybd.ToShortDateString()" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-                            <input type="hidden" name="NgayKT" class="form-control form-control-sm" value="@ngaykt" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
-
-                            var tiencuoc = Model.Where(x => x.Id == item.Id).Sum(x => x.tiencuoc);
+                            <input type="hidden" name="NgayKT" class="form-control form-control-sm" value="@ngaykt.ToShortDateString()" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                             stt = stt + 1;
                             <tr>
+                                @{var ngay = socont.Select(x => x.Ngay).Distinct().Count();}
                                 <td>@stt</td>
-                                <td>@item.MaTX</td>
-                                <td>@item.TaiXe</td>
+                                <td>@tentx</td>
                                 <td>@socont.Count()</td>
-                                <td>@(socont.Select(x=>x.Ngay).Distinct().Count())</td>
-                                <td>@String.Format("{0:0,0}", (tiencuoc * 60 / 100))</td>
+                                <td>@ngay</td>
+                                <td style="text-align:right">@String.Format("{0:0,0}", (tiencuoc * 60 / 100))</td>
+                                <td style="text-align:right">@String.Format("{0:0,0}", (tiencuoc * 60 / 100 / ngay))</td>
                                 <td><input type="submit" value="Chi tiết" class="btn btn-primary" />
                             </tr>
+
                         }
+                        tongtien += tiencuoc;
+                        tongcont += socont.Count();
+                        tongngaycong += socont.Select(x => x.Ngay).Distinct().Count();
                     }
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="2">Tổng:</td>
+                        <td>@tongcont</td>
+                        <td>@tongngaycong</td>
+                        <td style="text-align:right">@String.Format("{0:0,0}", (tongtien * 60 / 100))</td>
+                        <td style="text-align:right">@String.Format("{0:0,0}", (tongtien * 60 / 100 / tongngaycong))</td>
+                        <td></td>
+                    </tr>
+
+                </tfoot>
             </table>
         </div>
     </div>

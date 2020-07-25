@@ -43,12 +43,10 @@ namespace PhanLong.DAO
                     foreach (DataRow dr in (dt as System.Data.DataTable).Rows)
                     {
                         var PhatSinhCT = dr["Phát sinh chi thu"].ToString();
-                        var Mooc = dr["Mooc"].ToString();
-                        var Xe = dr["Xe"].ToString();
+
                         var Phi = dr["Phí"].ToString();
                         long? psct = null;
-                        long? mooc = null;
-                        long? xe = null;
+                  
                         long? phi = null;
 
                         if (PhatSinhCT != null && PhatSinhCT != "")
@@ -64,46 +62,6 @@ namespace PhanLong.DAO
                         else
                         {
                             psct = null;
-                        }
-                        if (Mooc != null && Mooc != "")
-                        {
-                            foreach (var item in db.DMMoocs)
-                            {
-                                if (item.MaMooc == Mooc || item.BienSo == Mooc)
-                                {
-                                    mooc = item.Id;
-                                }
-
-                            }
-                            if (mooc == null)
-                            {
-                                var dao = new DMMoocDao().InsertMooc(dMMooc, Mooc);
-                                mooc = dao;
-                            }
-                        }
-                        else
-                        {
-                            mooc = null;
-                        }
-                        if (Xe != null && Xe != "")
-                        {
-                            foreach (var item in db.DMXes)
-                            {
-                                if (item.MaXe == Xe || item.BienSo == Xe)
-                                {
-                                    xe = item.Id;
-                                }
-
-                            }
-                            if (xe == null)
-                            {
-                                var dao = new DMXeDao().InsertXe(dMXe, Xe);
-                                xe = dao;
-                            }
-                        }
-                        else
-                        {
-                            xe = null;
                         }
                         if (Phi != null && Phi != "")
                         {
@@ -132,18 +90,6 @@ namespace PhanLong.DAO
                             {
                                 
                                     cTChiThu.PhatSinhChiThu = Convert.ToInt32(psct);
-                                
-                            }
-                            else if (column.ColumnName == "Mooc")
-                            {
-                                
-                                    cTChiThu.Mooc = mooc;
-                                
-                            }
-                            else if (column.ColumnName == "Xe")
-                            {
-                                
-                                cTChiThu.Xe = xe;
                                 
                             }
                             else if (column.ColumnName == "Phí")
@@ -259,14 +205,13 @@ namespace PhanLong.DAO
             try
             {
                 var item = db.CTChiThus.Find(cTChi.Id);
-                item.Mooc = cTChi.Mooc;
-                item.Xe = cTChi.Xe;
                 item.Cont = cTChi.Cont;
                 item.NoiDung = cTChi.NoiDung;
                 item.Phi = cTChi.Phi;
                 item.DonGia = cTChi.DonGia;
                 item.SoLuong = cTChi.SoLuong;
                 item.Garage = cTChi.Garage;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

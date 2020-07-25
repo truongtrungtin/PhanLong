@@ -38,6 +38,12 @@
         [Display(Name = "Ghi chú: ")]
         public string GhiChu { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? DateUpdate { get; set; }
+
+        [Column(TypeName = "xml")]
+        public string Files { get; set; }
+
         public virtual DMKhachHang DMKhachHang { get; set; }
 
         public virtual DMPhi DMPhi { get; set; }

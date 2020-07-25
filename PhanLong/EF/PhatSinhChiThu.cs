@@ -30,6 +30,10 @@
         public long? KhachHang { get; set; }
         [Display(Name = "Số Bill: ")]
         public long? Bill { get; set; }
+        [Display(Name = "Mooc: ")]
+        public long? Mooc { get; set; }
+        [Display(Name = "Xe: ")]
+        public long? Xe { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Số hoá đơn: ")]
@@ -39,6 +43,12 @@
         [Display(Name = "Ghi chú: ")]
         public string GhiChu { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? DateUpdate { get; set; }
+
+        [Column(TypeName = "xml")]
+        public string Files { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTChiThu> CTChiThus { get; set; }
 
@@ -46,9 +56,13 @@
 
         public virtual DMKhachHang DMKhachHang { get; set; }
 
+        public virtual DMKhachHang DMKhachHang1 { get; set; }
+
+        public virtual DMMooc DMMooc { get; set; }
+
         public virtual DMNhanVien DMNhanVien { get; set; }
 
-        public virtual DMNhanVien DMNhanVien1 { get; set; }
+        public virtual DMXe DMXe { get; set; }
 
         public virtual HinhThucTT HinhThucTT { get; set; }
     }

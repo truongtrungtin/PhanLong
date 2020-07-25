@@ -7,17 +7,6 @@
         <thead>
             <tr>
                 <th width="1%"><input type='checkbox' id='check' value='' /></th>
-
-                <th>
-                    Xe
-
-                </th>
-
-                <th>
-                    Mooc
-
-                </th>
-
                 <th>
                     Số Cont
 
@@ -51,8 +40,6 @@
                 <tr id="row_@item.Id">
 
                     <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                    <td>@(item.Xe != null ? item.DMXe.BienSo: "NULL")</td>
-                    <td>@(item.Mooc != null ? item.DMMooc.BienSo : "NULL")</td>
                     <td>@(item.Cont != null ? item.Cont : "NULL")</td>
                     <td>@item.NoiDung</td>
                     <td>@(item.Phi != null ? item.DMPhi.TenPhi : "NULL")</td>
@@ -68,8 +55,7 @@
 
     </table>
     <div class="form-group">
-        <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /> |
-        @Html.ActionLink("Trở lại", "Index")
+        <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /> 
 
     </div>
 </div>

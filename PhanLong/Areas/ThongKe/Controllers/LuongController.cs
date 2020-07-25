@@ -40,13 +40,15 @@ namespace PhanLong.Areas.ThongKe.Controllers
             {
                 NgayKT = DateTime.Now.ToShortDateString();
             }
-            var tx = new DMNhanVienDao().GetById(id);
+            
+            var xe = new DMXeDao().GetById(id);
             var model = new CTTTLuongDao().PhatSinhLuong(id, NgayBD, NgayKT);
             var ChiLuong = new CTTTLuongDao().ChiLuong(id, NgayBD, NgayKT);
-            var Loai = new PhatSinhDao().GetLoai(tx.Id);
+            var Loai = new PhatSinhDao().GetLoai(id);
+            var tx = new PhatSinhDao().GetNvByXe(id);
             ViewBag.ChiLuong = ChiLuong;
-            ViewBag.idtx = tx.Id;
-            ViewBag.tx = tx.TenNV;
+            ViewBag.id = id;
+            ViewBag.tx = tx.DMNhanVien.TenNV;
             ViewBag.NgayBD = NgayBD;
             ViewBag.NgayKT = NgayKT;
             ViewBag.N20 = model.Where(x => x.DMLoai.MaLoai == "20N").Count();
@@ -60,14 +62,14 @@ namespace PhanLong.Areas.ThongKe.Controllers
         [HttpPost]
         public ActionResult CTTTLuong(PhatSinh phatSinh, string NgayBD, string NgayKT)
         {
-            var tx = new DMNhanVienDao().GetById(phatSinh.TenTX);
-            var model = new CTTTLuongDao().PhatSinhLuong(phatSinh.TenTX, NgayBD, NgayKT);
-            var ChiLuong = new CTTTLuongDao().ChiLuong(phatSinh.TenTX, NgayBD, NgayKT);
+            var xe = new DMNhanVienDao().GetById(phatSinh.Xe);
+            var model = new CTTTLuongDao().PhatSinhLuong(phatSinh.Xe, NgayBD, NgayKT);
+            var ChiLuong = new CTTTLuongDao().ChiLuong(phatSinh.Xe, NgayBD, NgayKT);
             var dao = new PhatSinhDao();
-            var Loai = dao.GetLoai(tx.Id);
+            var Loai = dao.GetLoai(xe.Id);
             ViewBag.ChiLuong = ChiLuong;
-            ViewBag.idtx = tx.Id;
-            ViewBag.tx = tx.TenNV;
+            ViewBag.id = phatSinh.Id;
+            ViewBag.tx = xe.TenNV;
             ViewBag.NgayBD = NgayBD;
             ViewBag.NgayKT = NgayKT;
             ViewBag.N20 = model.Where(x => x.DMLoai.MaLoai == "20N").Count();
@@ -101,7 +103,7 @@ namespace PhanLong.Areas.ThongKe.Controllers
             {
                 SetAlert("Thêm ghi chú lương không thành công, vui lòng thử lại!", "warning");
             }
-            return RedirectToAction("CTTTLuong", "Luong", new { id = phatSinh.TenTX, NgayBD = NgayBD, NgayKT = NgayKT });
+            return RedirectToAction("CTTTLuong", "Luong", new { id = phatSinh.Xe, NgayBD = NgayBD, NgayKT = NgayKT });
         }
 
         [HttpGet]
@@ -126,15 +128,5 @@ namespace PhanLong.Areas.ThongKe.Controllers
         }
 
 
-        public JsonResult GetPhatSinhId(long id)
-        {
-            var model = new PhatSinhDao().GetById(id);
-            string value = string.Empty;
-            value = JsonConvert.SerializeObject(model, Formatting.Indented, new JsonSerializerSettings
-            {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-            });
-            return Json(value, JsonRequestBehavior.AllowGet);
-        }
     }
 }

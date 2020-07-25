@@ -177,6 +177,7 @@ namespace PhanLong.DAO
                 item.DiaChi = dMKhachHang.DiaChi;
                 item.NguoiLienHe = dMKhachHang.NguoiLienHe;
                 item.SoDienThoai = dMKhachHang.SoDienThoai;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

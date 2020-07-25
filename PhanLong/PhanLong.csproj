@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>QLDL</RootNamespace>
-    <AssemblyName>QLDL</AssemblyName>
+    <RootNamespace>PhanLong</RootNamespace>
+    <AssemblyName>PhanLong</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -2150,6 +2150,7 @@
     <Content Include="Areas\NhapLieu\Views\SoPhuNganHang\ViewSoPhuNganHang.cshtml" />
     <Content Include="Areas\ThongKe\Views\SoPhuNganHang\Index.cshtml" />
     <Content Include="Areas\ThongKe\Views\CongNo\Index.cshtml" />
+    <Content Include="Areas\ThongKe\Views\HoaDon\ThanhToanHoaDon.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

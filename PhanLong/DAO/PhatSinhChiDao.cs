@@ -22,6 +22,7 @@ namespace PhanLong.DAO
             {
                 var item = db.PhatSinhChiThus.Find(phatSinhChiThu.Id);
                 item.GhiChu = phatSinhChiThu.GhiChu;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }
@@ -53,7 +54,7 @@ namespace PhanLong.DAO
 
         }
 
-        public bool importData(DataTable dt, PhatSinhChiThu phatSinhChiThu, DMNhanVien dMNhanVien ,HinhThucTT hinhThucTT, DMKhachHang dMKhachHang, DMBill dMBill)
+        public bool importData(DataTable dt, PhatSinhChiThu phatSinhChiThu, DMNhanVien dMNhanVien ,HinhThucTT hinhThucTT, DMKhachHang dMKhachHang, DMBill dMBill, DMXe dMXe, DMMooc dMMooc)
         {
             try
             {
@@ -66,9 +67,13 @@ namespace PhanLong.DAO
                         var KhachHang = dr["Khách hàng"].ToString();
                         var HinhThucTT = dr["HTTT"].ToString();
                         var Bill = dr["Số bill"].ToString();
+                        var Mooc = dr["Mooc"].ToString();
+                        var Xe = dr["Xe"].ToString();
                         long? nguoichithu = null;
                         long? nguoinhan = null;
                         long? khachhang = null;
+                        long? mooc = null;
+                        long? xe = null;
                         long? hinhttt = null;
                         long? bill = null;
 
@@ -132,6 +137,47 @@ namespace PhanLong.DAO
                         else
                         {
                             khachhang = null;
+                        }
+
+                        if (Mooc != null && Mooc != "")
+                        {
+                            foreach (var item in db.DMMoocs)
+                            {
+                                if (item.MaMooc == Mooc || item.BienSo == Mooc)
+                                {
+                                    mooc = item.Id;
+                                }
+
+                            }
+                            if (mooc == null)
+                            {
+                                var dao = new DMMoocDao().InsertMooc(dMMooc, Mooc);
+                                mooc = dao;
+                            }
+                        }
+                        else
+                        {
+                            mooc = null;
+                        }
+                        if (Xe != null && Xe != "")
+                        {
+                            foreach (var item in db.DMXes)
+                            {
+                                if (item.MaXe == Xe || item.BienSo == Xe)
+                                {
+                                    xe = item.Id;
+                                }
+
+                            }
+                            if (xe == null)
+                            {
+                                var dao = new DMXeDao().InsertXe(dMXe, Xe);
+                                xe = dao;
+                            }
+                        }
+                        else
+                        {
+                            xe = null;
                         }
                         if (HinhThucTT != null)
                         {
@@ -206,6 +252,19 @@ namespace PhanLong.DAO
                                 {
                                     phatSinhChiThu.HTTT = hinhttt;
                                 }
+                            }
+
+                            else if (column.ColumnName == "Mooc")
+                            {
+
+                                phatSinhChiThu.Mooc = mooc;
+
+                            }
+                            else if (column.ColumnName == "Xe")
+                            {
+
+                                phatSinhChiThu.Xe = xe;
+
                             }
                             else if (column.ColumnName == "Khách hàng")
                             {
@@ -287,9 +346,12 @@ namespace PhanLong.DAO
                 item.NguoiNhan = phatSinhChi.NguoiNhan;
                 item.HTTT = phatSinhChi.HTTT;
                 item.KhachHang = phatSinhChi.KhachHang;
+                item.Xe = phatSinhChi.Xe;
+                item.Mooc = phatSinhChi.Mooc;
                 item.Bill = phatSinhChi.Bill;
                 item.SoHD = phatSinhChi.SoHD;
                 item.GhiChu = phatSinhChi.GhiChu;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

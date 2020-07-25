@@ -70,6 +70,7 @@ namespace PhanLong.DAO
                 var item = db.DMMoocs.Find(dMMooc.Id);
                 item.MaMooc = dMMooc.MaMooc;
                 item.BienSo = dMMooc.BienSo;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

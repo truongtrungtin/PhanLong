@@ -102,6 +102,7 @@ namespace PhanLong.DAO
                 var item = db.DMCangs.Find(dMCang.Id);
                 item.MaCang = dMCang.MaCang;
                 item.TenCang = dMCang.TenCang;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

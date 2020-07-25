@@ -302,6 +302,8 @@ namespace PhanLong.DAO
                 item.TienChi = soPhuNganHang.TienChi;
                 item.TienThu = soPhuNganHang.TienThu;
                 item.GhiChu = soPhuNganHang.GhiChu;
+                item.DateUpdate = DateTime.Now;
+
                 db.SaveChanges();
                 return true;
             }

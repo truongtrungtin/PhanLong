@@ -234,9 +234,11 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             var dao = new PhatSinhThuDao().GetById(id);
             ViewBag.IdThu = dao.Id;
             ViewBag.Ngay = dao.Ngay;
-            ViewBag.NguoiThu = (dao.NguoiChiThu != null ? dao.DMNhanVien1.TenNV : null);
-            ViewBag.NguoiNhan = (dao.NguoiNhan != null ? dao.DMNhanVien.TenNV : null);
+            ViewBag.NguoiThu = (dao.NguoiChiThu != null ? dao.DMNhanVien.TenNV : null);
+            ViewBag.NguoiNhan = (dao.NguoiNhan != null ? dao.DMKhachHang1.TenCongTy : null);
             ViewBag.HinhThucTT = (dao.HTTT != null ? dao.HinhThucTT.MoTa : null);
+            ViewBag.Xe = (dao.Xe != null ? dao.DMXe.BienSo : null);
+            ViewBag.Mooc = (dao.Mooc != null ? dao.DMMooc.BienSo : null);
             ViewBag.SoHD = (dao.SoHD != null ? dao.SoHD : null);
             ViewBag.Bill = (dao.Bill != null ? dao.DMBill.MaBill : null);
             ViewBag.MaKH = (dao.KhachHang != null ? dao.DMKhachHang.TenCongTy : null);
@@ -245,7 +247,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         }
 
         [HttpPost]
-        public ActionResult CTThu(long id, int[] chkId, string delete = null)
+        public ActionResult CTThu(long id, int[] chkId, string delete = null, string update = null)
         {
             var dao = new CTChiDao();
             if (delete != null && chkId != null)
@@ -260,13 +262,19 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                     SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
                 }
             }
+            else if (update != null && chkId.Length == 1)
+            {
+                return RedirectToAction("UpdateCTThu", "PhatSinhThu", new { id = chkId[0] });
+            }
             var psc = new PhatSinhThuDao().GetById(id);
-            ViewBag.IdChi = psc.Id;
+            ViewBag.IdThu = psc.Id;
             ViewBag.NgayThu = psc.Ngay;
-            ViewBag.NguoiThu = (psc.NguoiChiThu != null ? psc.DMNhanVien1.TenNV : null);
-            ViewBag.NguoiNhan = (psc.NguoiNhan != null ? psc.DMNhanVien.TenNV : null);
+            ViewBag.NguoiThu = (psc.NguoiChiThu != null ? psc.DMNhanVien.TenNV : null);
+            ViewBag.NguoiNhan = (psc.NguoiNhan != null ? psc.DMKhachHang1.TenCongTy : null);
             ViewBag.HinhThucTT = (psc.HTTT != null ? psc.HinhThucTT.MoTa : null);
             ViewBag.SoHD = (psc.SoHD != null ? psc.SoHD : null);
+            ViewBag.Xe = (psc.Xe != null ? psc.DMXe.BienSo : null);
+            ViewBag.Mooc = (psc.Mooc != null ? psc.DMMooc.BienSo : null);
             ViewBag.Bill = (psc.Bill != null ? psc.DMBill.MaBill : null);
             ViewBag.MaKH = (psc.KhachHang != null ? psc.DMKhachHang.TenCongTy : null);
             var model = dao.ListAll(id);
@@ -274,13 +282,15 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         }
 
         [ChildActionOnly]
-        public PartialViewResult ViewCTChi(long id)
+        public PartialViewResult ViewCTThu(long id)
         {
             var dao = new PhatSinhThuDao().GetById(id);
-            ViewBag.IdChi = dao.Id;
+            ViewBag.IdThu = dao.Id;
             ViewBag.NgayThu = dao.Ngay;
-            ViewBag.NguoiThu = (dao.NguoiChiThu != null ? dao.DMNhanVien1.TenNV : null);
-            ViewBag.NguoiNhan = (dao.NguoiNhan != null ? dao.DMNhanVien.TenNV : null);
+            ViewBag.NguoiThu = (dao.NguoiChiThu != null ? dao.DMNhanVien.TenNV : null);
+            ViewBag.NguoiNhan = (dao.NguoiNhan != null ? dao.DMKhachHang1.MaKH : null);
+            ViewBag.Xe = (dao.Xe != null ? dao.DMXe.BienSo : null);
+            ViewBag.Mooc = (dao.Mooc != null ? dao.DMMooc.BienSo : null);
             ViewBag.HinhThucTT = (dao.HTTT != null ? dao.HinhThucTT.MoTa : null);
             ViewBag.SoHD = (dao.SoHD != null ? dao.SoHD : null);
             ViewBag.Bill = (dao.Bill != null ? dao.DMBill.MaBill : null);
@@ -297,7 +307,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             if (cTThu != null && Copy != null)
             {
                 ViewBag.HoaDon = Chi.SoHD;
-                ViewBag.IdChi = Chi.Id;
+                ViewBag.IdThu = Chi.Id;
                 ViewBag.Bill = Chi.Bill;
                 var dao = new CTChiDao();
                 var model = dao.GetById(cTThu);
@@ -309,7 +319,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                 var cont = new CTBillDao();
                 ViewBag.Cont = (Chi.Bill != null ? new SelectList(cont.ListAll(Chi.Bill), "Cont", "Cont", selectedId) : null);
                 ViewBag.HoaDon = Chi.SoHD;
-                ViewBag.IdChi = Chi.Id;
+                ViewBag.IdThu = Chi.Id;
                 SetViewBag();
                 return View();
             }
@@ -360,8 +370,11 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         [HttpGet]
         public ActionResult UpdateCTThu(long id)
         {
-            var dao = new CTChiDao();
-            var model = dao.GetById(id);
+          
+            var model = new CTChiDao().GetById(id);
+            ViewBag.HoaDon = model.PhatSinhChiThu != null ? model.PhatSinhChiThu1.SoHD : null;
+            ViewBag.IdThu = model.PhatSinhChiThu;
+            ViewBag.Bill = model.PhatSinhChiThu != null ? model.PhatSinhChiThu1.Bill : null;
             SetViewBag();
             return View(model);
         }

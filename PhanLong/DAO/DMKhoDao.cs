@@ -153,6 +153,7 @@ namespace PhanLong.DAO
                 item.LoTrinh = dMKho.LoTrinh;
                 item.GioCam = dMKho.GioCam;
                 item.GhiChu = dMKho.GhiChu;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

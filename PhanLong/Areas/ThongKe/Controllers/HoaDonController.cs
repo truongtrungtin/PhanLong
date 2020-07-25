@@ -30,5 +30,28 @@ namespace PhanLong.Areas.ThongKe.Controllers
             var model = dao.SearchHoaDon(hoaDon, NgayBD, NgayKT);
             return View(model);
         }
-    } 
+
+
+        [HttpGet]
+        public PartialViewResult ThanhToanHoaDon(long id, DateTime? ngaythanhtoan = null)
+        {
+            HoaDon model = new HoaDonDao().GetById(id);
+            return PartialView("ThanhToanHoaDon", model);
+        }
+
+        [HttpPost]
+        public ActionResult ThanhToanHoaDon(HoaDon hoaDon, string NgayBD, string NgayKT)
+        {
+            if (new HoaDonDao().UpdateThanhToan(hoaDon))
+            {
+                SetAlert("Đã thêm thành công!", "success");
+            }
+            else
+            {
+                SetAlert("Thêm không thành công, vui lòng thử lại!", "warning");
+            }
+            return RedirectToAction("Index", "HoaDon", new {NgayBD = NgayBD, NgayKT = NgayKT });
+        }
+
+    }
 }

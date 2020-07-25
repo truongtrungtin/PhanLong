@@ -73,6 +73,11 @@
         [Display(Name = "Bãi gửi: ")]
         public long? BaiGui { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? DateUpdate { get; set; }
+
+        [Column(TypeName = "xml")]
+        public string Files { get; set; }
 
         public virtual DMBill DMBill { get; set; }
 

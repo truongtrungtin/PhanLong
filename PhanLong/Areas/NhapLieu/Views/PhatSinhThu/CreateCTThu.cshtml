@@ -31,35 +31,7 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <input type="hidden" readonly name="PhatSinhChiThu" value="@ViewBag.IdThu" />
                 <div class="row" style="height: 30px;">
-                    <div class="col-sm-2">
-                        <div class="form-group row">
-                            <label style="text-align:right" class="col-form-label col-sm-4" for="Xe">Xe:</label>
-                            <div class="col-sm-8">
-                                <select name="Xe" class="form-control form-control-sm select2" data-placeholder="Chọn Xe">
-                                    <option value="">--- Chọn Xe ---</option>
-                                    @foreach (var item in db.DMXes)
-                                    {
-                                        <option value="@item.Id">@item.BienSo</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <div class="form-group row">
-                            <label style="text-align:right" class="col-form-label col-sm-4" for="Mooc">Mooc:</label>
-                            <div class="col-sm-8">
-                                <select name="Mooc" class="form-control form-control-sm select2" data-placeholder="Chọn Mooc">
-                                    <option value="">--- Chọn Mooc ---</option>
-                                    @foreach (var item in db.DMMoocs)
-                                    {
-                                        <option value="@item.Id">@item.BienSo</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    </div>
+                                   
 
                     <div class="col-sm-2">
                         <div class="form-group row">

@@ -173,54 +173,26 @@
     </div>
 }
 
-    @foreach (var item in Model.OrderBy(x => x.Ngay))
+@foreach (var item in Model.OrderBy(x => x.Ngay))
+{
+    Decimal tt = 0;
+    Decimal tc = 0;
+    var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();
+    var phi = 0;
+    if (ViewBag.IdChiThu != null)
     {
-        Decimal tt = 0;
-        Decimal tc = 0;
-        var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();
-        var phi = 0;
-        if (ViewBag.IdChiThu != null)
+        if (ViewBag.IdChiThu == maphi.DMPhi.LoaiPhi)
         {
-            if (ViewBag.IdChiThu == maphi.DMPhi.LoaiPhi)
+            if (ViewBag.IdTenPhi != null)
             {
-                if (ViewBag.IdTenPhi != null)
-                {
-                    phi = item.CTChiThus.Where(x => x.Phi == ViewBag.IdTenPhi).Count();
-                    if (phi > 0)
-                    {
-
-                        var model = new CTChiDao().ListAll(item.Id);
-
-                        if (maphi.DMPhi.LoaiPhi == 1)
-                        {
-                            tc = 0;
-                            var tienchi = 0;
-                            foreach (var tien in item.CTChiThus)
-                            {
-                                tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                tc += tienchi;
-                            }
-                        }
-                        if (maphi.DMPhi.LoaiPhi == 2)
-                        {
-                            tt = 0;
-                            var tienthu = 0;
-                            foreach (var tien in item.CTChiThus)
-                            {
-                                tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                tt += tienthu;
-                            }
-                        }
-                    }
-                }
-                else
+                phi = item.CTChiThus.Where(x => x.Phi == ViewBag.IdTenPhi).Count();
+                if (phi > 0)
                 {
 
                     var model = new CTChiDao().ListAll(item.Id);
 
                     if (maphi.DMPhi.LoaiPhi == 1)
                     {
-
                         tc = 0;
                         var tienchi = 0;
                         foreach (var tien in item.CTChiThus)
@@ -241,17 +213,14 @@
                     }
                 }
             }
-        }
-        else if (ViewBag.IdTenPhi != null)
-        {
-            phi = item.CTChiThus.Where(x => x.Phi == ViewBag.IdTenPhi).Count();
-            if (phi > 0)
+            else
             {
 
                 var model = new CTChiDao().ListAll(item.Id);
 
                 if (maphi.DMPhi.LoaiPhi == 1)
                 {
+
                     tc = 0;
                     var tienchi = 0;
                     foreach (var tien in item.CTChiThus)
@@ -259,11 +228,6 @@
                         tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
                         tc += tienchi;
                     }
-
-                }
-                else
-                {
-                    <td></td>
                 }
                 if (maphi.DMPhi.LoaiPhi == 2)
                 {
@@ -274,11 +238,14 @@
                         tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
                         tt += tienthu;
                     }
-
                 }
             }
         }
-        else
+    }
+    else if (ViewBag.IdTenPhi != null)
+    {
+        phi = item.CTChiThus.Where(x => x.Phi == ViewBag.IdTenPhi).Count();
+        if (phi > 0)
         {
 
             var model = new CTChiDao().ListAll(item.Id);
@@ -294,24 +261,57 @@
                 }
 
             }
-
+            else
+            {
+                <td></td>
+            }
             if (maphi.DMPhi.LoaiPhi == 2)
             {
-
                 tt = 0;
                 var tienthu = 0;
                 foreach (var tien in item.CTChiThus)
                 {
                     tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
                     tt += tienthu;
-
                 }
 
             }
         }
-        tongchi += tc;
-        tongthu += tt;
     }
+    else
+    {
+
+        var model = new CTChiDao().ListAll(item.Id);
+
+        if (maphi.DMPhi.LoaiPhi == 1)
+        {
+            tc = 0;
+            var tienchi = 0;
+            foreach (var tien in item.CTChiThus)
+            {
+                tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                tc += tienchi;
+            }
+
+        }
+
+        if (maphi.DMPhi.LoaiPhi == 2)
+        {
+
+            tt = 0;
+            var tienthu = 0;
+            foreach (var tien in item.CTChiThus)
+            {
+                tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                tt += tienthu;
+
+            }
+
+        }
+    }
+    tongchi += tc;
+    tongthu += tt;
+}
 <div class="card">
     <div class="card-header" style="text-align:center">
         <h3 class="card-title" style="float:none;">
@@ -395,6 +395,7 @@
                         <th title="Người nhận">Người nhận</th>
                         <th title="Hình thức thanh toán">HTTT</th>
                         <th title="Khách hàng">Khách hàng</th>
+                        <th>Nội dung</th>
                         <th title="Số Xe">Xe</th>
                         <th title="Số Mooc">Mooc</th>
                         <th title="Tên Phí">Phí</th>
@@ -428,38 +429,13 @@
                                             <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
                                             <td>@item.Id</td>
                                             <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
-                                            <td>@(item.NguoiChiThu != null ? item.DMNhanVien1.MaNV : null)</td>
+                                            <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
                                             <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null )</td>
                                             <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
                                             <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
-
-                                            @if (model.Where(x => x.Xe != null).ToList().Count > 0)
-                                            {
-                                                var xe = model.OrderByDescending(x => x.Xe).FirstOrDefault();
-                                                <td>
-                                                    @xe.DMXe.BienSo
-                                                </td>
-                                            }
-                                            else
-                                            {
-                                                <td>
-                                                    Null
-                                                </td>
-                                            }
-
-                                            @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
-                                            {
-                                                var mooc = model.OrderByDescending(x => x.Mooc).FirstOrDefault();
-                                                <td>
-                                                    @mooc.DMMooc.BienSo
-                                                </td>
-                                            }
-                                            else
-                                            {
-                                                <td>
-                                                    Null
-                                                </td>
-                                            }
+                                            <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
+                                            <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                                            <td>@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
                                             <td> @(maphi.DMPhi.LoaiPhi == 1 ? maphi.DMPhi.MaPhi : null)</td>
                                             <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
                                             <td>@(item.Bill != null ? item.DMBill.MaBill : null)</td>
@@ -476,11 +452,11 @@
                                                         }
                                                     }@String.Format("{0:0,0}", (tc))
                                                 </td>
-                                                        }
-                                                        else
-                                                        {
+                                            }
+                                            else
+                                            {
                                                 <td></td>
-                                                        }
+                                            }
                                             @if (maphi.DMPhi.LoaiPhi == 2)
                                             {
                                                 <td style="text-align: right">
@@ -493,55 +469,30 @@
                                                         }
                                                     }@String.Format("{0:0,0}", (tt))
                                                 </td>
-                                                        }
-                                                        else
-                                                        {
+                                            }
+                                            else
+                                            {
                                                 <td></td>
-                                                        }
+                                            }
                                             <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
                                         </tr>
-                                                            }
-                                                        }
-                                                        else
-                                                        {
+                                    }
+                                }
+                                else
+                                {
 
-                                                            var model = new CTChiDao().ListAll(item.Id);
+                                    var model = new CTChiDao().ListAll(item.Id);
                                     <tr>
                                         <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
                                         <td>@item.Id</td>
                                         <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
-                                        <td>@(item.NguoiChiThu != null ? item.DMNhanVien1.MaNV : null)</td>
+                                        <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
                                         <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null )</td>
                                         <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
                                         <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
-
-                                        @if (model.Where(x => x.Xe != null).ToList().Count > 0)
-                                        {
-                                            var xe = model.OrderByDescending(x => x.Xe).FirstOrDefault();
-                                            <td>
-                                                @xe.DMXe.BienSo
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                Null
-                                            </td>
-                                        }
-
-                                        @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
-                                        {
-                                            var mooc = model.OrderByDescending(x => x.Mooc).FirstOrDefault();
-                                            <td>
-                                                @mooc.DMMooc.BienSo
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td>
-                                                Null
-                                            </td>
-                                        }
+                                        <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
+                                        <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                                        <td>@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
 
                                         <td> @(maphi.DMPhi.LoaiPhi == 1 ? maphi.DMPhi.MaPhi : null)</td>
                                         <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
@@ -559,11 +510,11 @@
                                                     }
                                                 }@String.Format("{0:0,0}", (tc))
                                             </td>
-                                                    }
-                                                    else
-                                                    {
+                                        }
+                                        else
+                                        {
                                             <td></td>
-                                                    }
+                                        }
                                         @if (maphi.DMPhi.LoaiPhi == 2)
                                         {
                                             <td style="text-align: right">
@@ -576,59 +527,34 @@
                                                     }
                                                 }@String.Format("{0:0,0}", (tt))
                                             </td>
-                                                    }
-                                                    else
-                                                    {
+                                        }
+                                        else
+                                        {
                                             <td></td>
-                                                    }
+                                        }
                                         <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
                                     </tr>
-                                                            }
-                                                        }
-                                                    }
-                                                    else if (ViewBag.IdTenPhi != null)
-                                                    {
-                                                        phi = item.CTChiThus.Where(x => x.Phi == ViewBag.IdTenPhi).Count();
-                                                        if (phi > 0)
-                                                        {
+                                }
+                            }
+                        }
+                        else if (ViewBag.IdTenPhi != null)
+                        {
+                            phi = item.CTChiThus.Where(x => x.Phi == ViewBag.IdTenPhi).Count();
+                            if (phi > 0)
+                            {
 
-                                                            var model = new CTChiDao().ListAll(item.Id);
+                                var model = new CTChiDao().ListAll(item.Id);
                                 <tr>
                                     <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
                                     <td>@item.Id</td>
                                     <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
-                                    <td>@(item.NguoiChiThu != null ? item.DMNhanVien1.MaNV : null)</td>
+                                    <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
                                     <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null )</td>
                                     <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
                                     <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
-
-                                    @if (model.Where(x => x.Xe != null).ToList().Count > 0)
-                                    {
-                                        var xe = model.OrderByDescending(x => x.Xe).FirstOrDefault();
-                                        <td>
-                                            @xe.DMXe.BienSo
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td>
-                                            Null
-                                        </td>
-                                    }
-
-                                    @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
-                                    {
-                                        var mooc = model.OrderByDescending(x => x.Mooc).FirstOrDefault();
-                                        <td>
-                                            @mooc.DMMooc.BienSo
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td>
-                                            Null
-                                        </td>
-                                    }
+                                    <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
+                                    <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                                    <td>@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
                                     <td> @(maphi.DMPhi.LoaiPhi == 1 ? maphi.DMPhi.MaPhi : null)</td>
                                     <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
                                     <td>@(item.Bill != null ? item.DMBill.MaBill : null)</td>
@@ -645,11 +571,11 @@
                                                 }
                                             }@String.Format("{0:0,0}", (tc))
                                         </td>
-                                                }
-                                                else
-                                                {
+                                    }
+                                    else
+                                    {
                                         <td></td>
-                                                }
+                                    }
                                     @if (maphi.DMPhi.LoaiPhi == 2)
                                     {
                                         <td style="text-align: right">
@@ -662,56 +588,30 @@
                                                 }
                                             }@String.Format("{0:0,0}", (tt))
                                         </td>
-                                                }
-                                                else
-                                                {
+                                    }
+                                    else
+                                    {
                                         <td></td>
-                                                }
+                                    }
                                     <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
                                 </tr>
-                                                    }
-                                                }
-                                                else
-                                                {
+                            }
+                        }
+                        else
+                        {
 
-                                                    var model = new CTChiDao().ListAll(item.Id);
+                            var model = new CTChiDao().ListAll(item.Id);
                             <tr>
                                 <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
                                 <td>@item.Id</td>
                                 <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
-                                <td>@(item.NguoiChiThu != null ? item.DMNhanVien1.MaNV : null)</td>
+                                <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
                                 <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null )</td>
                                 <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
                                 <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
-
-                                @if (model.Where(x => x.Xe != null).ToList().Count > 0)
-                                {
-                                    var xe = model.OrderByDescending(x => x.Xe).FirstOrDefault();
-                                    <td>
-                                        @xe.DMXe.BienSo
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>
-                                        Null
-                                    </td>
-                                }
-
-                                @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
-                                {
-                                    var mooc = model.OrderByDescending(x => x.Mooc).FirstOrDefault();
-                                    <td>
-                                        @mooc.DMMooc.BienSo
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td>
-                                        Null
-                                    </td>
-                                }
-
+                                <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
+                                <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                                <td>@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
                                 <td> @(maphi.DMPhi.LoaiPhi == 1 ? maphi.DMPhi.MaPhi : null)</td>
                                 <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
                                 <td>@(item.Bill != null ? item.Bill : null)</td>
@@ -728,11 +628,11 @@
                                             }
                                         }@String.Format("{0:0,0}", (tc))
                                     </td>
-                                            }
-                                            else
-                                            {
+                                }
+                                else
+                                {
                                     <td></td>
-                                            }
+                                }
                                 @if (maphi.DMPhi.LoaiPhi == 2)
                                 {
                                     <td style="text-align: right">
@@ -745,17 +645,17 @@
                                             }
                                         }@String.Format("{0:0,0}", (tt))
                                     </td>
-                                            }
-                                            else
-                                            {
+                                }
+                                else
+                                {
                                     <td></td>
-                                            }
+                                }
                                 <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
                             </tr>
-                                                }
+                        }
 
 
-                                            }
+                    }
 
                 </tbody>
             </table>
@@ -772,6 +672,6 @@
             </div>
         </div>
     }
-    </div>
+</div>
 
 

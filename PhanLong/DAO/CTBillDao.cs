@@ -328,7 +328,7 @@ namespace PhanLong.DAO
         }
         public List<CTBill> ListAll(long? bill)
         {
-            return db.CTBills.Where(x => x.Bill == bill).OrderByDescending(x => (x.NgayGiao != null ? x.NgayGiao : x.NgayGui)).ToList();
+            return db.CTBills.Where(x => x.Bill == bill).OrderBy(x => (x.NgayGiao == null ? x.NgayGiao : x.NgayGui)).ToList();
         }
 
         public CTBill Check(long Bill, string cont)
@@ -373,6 +373,7 @@ namespace PhanLong.DAO
                 item.NgayGui = cTBill.NgayGui;
                 item.SoXe = cTBill.SoXe;
                 item.BaiGui = cTBill.BaiGui;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }
@@ -390,6 +391,7 @@ namespace PhanLong.DAO
                 item.NgayGui = cTBill.NgayGui;
                 item.SoXe = cTBill.SoXe;
                 item.BaiGui = cTBill.BaiGui;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }
@@ -419,6 +421,7 @@ namespace PhanLong.DAO
                 item.SoXe = cTBill.SoXe;
                 item.NgayGui = cTBill.NgayGui;
                 item.GhiChu = cTBill.GhiChu;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

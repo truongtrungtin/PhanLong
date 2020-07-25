@@ -235,9 +235,11 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             var dao = new PhatSinhChiDao().GetById(id);
             ViewBag.IdChi = dao.Id;
             ViewBag.Ngay = dao.Ngay;
-            ViewBag.NguoiChi = (dao.NguoiChiThu != null ? dao.DMNhanVien1.TenNV : null);
+            ViewBag.NguoiChi = (dao.NguoiChiThu != null ? dao.DMNhanVien.TenNV : null);
             ViewBag.NguoiNhan = (dao.NguoiNhan != null ? dao.DMNhanVien.TenNV : null);
             ViewBag.HinhThucTT = (dao.HTTT != null ? dao.HinhThucTT.MoTa : null);
+            ViewBag.Xe = (dao.Xe != null ? dao.DMXe.BienSo : null);
+            ViewBag.Mooc = (dao.Mooc != null ? dao.DMMooc.BienSo : null);
             ViewBag.SoHD = (dao.SoHD != null ? dao.SoHD : null);
             ViewBag.Bill = (dao.Bill != null ? dao.DMBill.MaBill : null);
             ViewBag.MaKH = (dao.KhachHang != null ? dao.DMKhachHang.TenCongTy : null);
@@ -268,9 +270,11 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             var psc = new PhatSinhChiDao().GetById(id);
             ViewBag.IdChi = psc.Id;
             ViewBag.Ngay = psc.Ngay;
-            ViewBag.NguoiChi = (psc.NguoiChiThu != null ? psc.DMNhanVien1.TenNV : null);
+            ViewBag.NguoiChi = (psc.NguoiChiThu != null ? psc.DMNhanVien.TenNV : null);
             ViewBag.NguoiNhan = (psc.NguoiNhan != null ? psc.DMNhanVien.TenNV : null);
             ViewBag.HinhThucTT = (psc.HTTT != null ? psc.HinhThucTT.MoTa : null);
+            ViewBag.Xe = (psc.Xe != null ? psc.DMXe.BienSo : null);
+            ViewBag.Mooc = (psc.Mooc != null ? psc.DMMooc.BienSo : null);
             ViewBag.SoHD = (psc.SoHD != null ? psc.SoHD : null);
             ViewBag.Bill = (psc.Bill != null ? psc.DMBill.MaBill : null);
             ViewBag.MaKH = (psc.KhachHang != null ? psc.DMKhachHang.TenCongTy : null);
@@ -284,9 +288,11 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             var dao = new PhatSinhChiDao().GetById(id);
             ViewBag.IdChi = dao.Id;
             ViewBag.Ngay = dao.Ngay;
-            ViewBag.NguoiChi = (dao.NguoiChiThu != null ? dao.DMNhanVien1.TenNV : null);
-            ViewBag.NguoiNhan = (dao.NguoiNhan != null ? dao.DMNhanVien.TenNV : null);
+            ViewBag.NguoiChi = (dao.NguoiChiThu != null ? dao.DMNhanVien.TenNV : null);
+            ViewBag.NguoiNhan = (dao.NguoiNhan != null ? dao.DMKhachHang1.TenCongTy : null);
             ViewBag.HinhThucTT = (dao.HTTT != null ? dao.HinhThucTT.MoTa : null);
+            ViewBag.Xe = (dao.Xe != null ? dao.DMXe.BienSo : null);
+            ViewBag.Mooc = (dao.Mooc != null ? dao.DMMooc.BienSo : null);
             ViewBag.SoHD = (dao.SoHD != null ? dao.SoHD : null);
             ViewBag.Bill = (dao.Bill != null ? dao.DMBill.MaBill : null);
             ViewBag.MaKH = (dao.KhachHang != null ? dao.DMKhachHang.TenCongTy : null);
@@ -369,12 +375,11 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         [HttpGet]
         public ActionResult UpdateCTChi(long id)
         {
-            var Chi = new PhatSinhChiDao().GetById(id);
-            ViewBag.HoaDon = Chi.SoHD;
-            ViewBag.IdChi = Chi.Id;
-            ViewBag.Bill = Chi.Bill;
             var dao = new CTChiDao();
             var model = dao.GetById(id);
+            ViewBag.HoaDon = model.PhatSinhChiThu != null ? model.PhatSinhChiThu1.SoHD : null;
+            ViewBag.IdChi = model.PhatSinhChiThu;
+            ViewBag.Bill = model.PhatSinhChiThu != null ? model.PhatSinhChiThu1.Bill : null;
             return View(model);
         }
         [HttpPost]
@@ -418,7 +423,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         [ActionName("Importexcel")]
         [HttpPost]
-        public ActionResult ImportExcel(PhatSinhChiThu phatSinhChiThu, DMNhanVien dMNhanVien, HinhThucTT hinhThucTT, DMKhachHang dMKhachHang, DMBill dMBill, string sheet)
+        public ActionResult ImportExcel(PhatSinhChiThu phatSinhChiThu, DMNhanVien dMNhanVien, HinhThucTT hinhThucTT, DMKhachHang dMKhachHang, DMBill dMBill, DMXe dMXe, DMMooc dMMooc, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)
             {
@@ -450,7 +455,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                         ViewBag.Data = dt;
                         var dao = new PhatSinhChiDao();
 
-                        if (dao.importData(dt, phatSinhChiThu, dMNhanVien, hinhThucTT, dMKhachHang, dMBill))
+                        if (dao.importData(dt, phatSinhChiThu, dMNhanVien, hinhThucTT, dMKhachHang, dMBill, dMXe, dMMooc))
                         {
                             SetAlert("Thêm thành công!", "success");
                         }
@@ -466,7 +471,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                         ViewBag.Data = dt;
                         var dao = new PhatSinhChiDao();
 
-                        if (dao.importData(dt, phatSinhChiThu, dMNhanVien, hinhThucTT, dMKhachHang, dMBill))
+                        if (dao.importData(dt, phatSinhChiThu, dMNhanVien, hinhThucTT, dMKhachHang, dMBill, dMXe, dMMooc))
                         {
                             SetAlert("Thêm thành công!", "success");
                         }

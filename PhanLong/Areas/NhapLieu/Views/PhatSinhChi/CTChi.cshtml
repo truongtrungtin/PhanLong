@@ -20,38 +20,45 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="form-group">
                         @Html.Label("Ngày chi:", htmlAttributes: new { @class = "control-label" })
                         <input type="text" readonly value="@date.ToShortDateString()" class="form-control form-control-sm" />
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="form-group">
                         @Html.Label("Người chi:", htmlAttributes: new { @class = "control-label" })
                         <input type="text" readonly value="@ViewBag.NguoiChi" class="form-control form-control-sm" />
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="form-group">
                         @Html.Label("Người nhận:", htmlAttributes: new { @class = "control-label" })
                         <input type="text" readonly value="@ViewBag.NguoiNhan" class="form-control form-control-sm" />
                     </div>
                 </div>
 
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="form-group">
                         @Html.Label("Khách hàng:", htmlAttributes: new { @class = "control-label" })
                         <input type="text" readonly value="@ViewBag.MaKH" class="form-control form-control-sm" />
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <div class="form-group">
-                        @Html.Label("Hình thức thanh toán:", htmlAttributes: new { @class = "control-label" })
-                        <input type="text" readonly value="@ViewBag.HinhThucTT" class="form-control form-control-sm" />
+                        @Html.Label("Xe:", htmlAttributes: new { @class = "control-label" })
+                        <input type="text" readonly value="@ViewBag.Xe" class="form-control form-control-sm" />
                     </div>
                 </div>
-                <div class="col-sm-2">
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        @Html.Label("Mooc:", htmlAttributes: new { @class = "control-label" })
+                        <input type="text" readonly value="@ViewBag.Mooc" class="form-control form-control-sm" />
+                    </div>
+                </div>
+                <div class="col-sm-3">
                     <div class="form-group">
                         @Html.Label("Số hoá đơn:", htmlAttributes: new { @class = "control-label" })
                         <input type="text" readonly value="@ViewBag.SoHD" class="form-control form-control-sm" />
@@ -111,11 +118,7 @@
                     <thead>
                         <tr>
                             <th width="1%"><input type='checkbox' id='check' value='' /></th>
-                            <th>Xe</th>
-                            <th>Mooc</th>
-
                             <th>Số Cont</th>
-
                             <th>Nội Dung</th>
                             <th>Phí</th>
                             <th>Đơn giá (VNĐ)</th>
@@ -130,8 +133,6 @@
                             <tr id="row_@item.Id">
 
                                 <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                                <td>@(item.Xe != null ? item.DMXe.BienSo: "NULL")</td>
-                                <td>@(item.Mooc != null ? item.DMMooc.BienSo : "NULL")</td>
                                 <td>@(item.Cont != null ? item.Cont : "NULL")</td>
                                 <td>@item.NoiDung</td>
                                 <td>@(item.Phi != null ? item.DMPhi.TenPhi : "NULL")</td>

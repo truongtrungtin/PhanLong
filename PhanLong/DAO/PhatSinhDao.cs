@@ -597,7 +597,12 @@ namespace PhanLong.DAO
 
         public List<PhatSinh> GetLoai(long? id)
         {
-            return db.PhatSinhs.Where(x => x.TenTX == id).ToList();
+            return db.PhatSinhs.Where(x => x.Xe == id).ToList();
+        }
+
+        public PhatSinh GetNvByXe(long? id)
+        { 
+            return db.PhatSinhs.Where(x => x.Xe == id).OrderByDescending(x=>x.TenTX).FirstOrDefault();
         }
         public long Insert(PhatSinh entity)
         {
@@ -613,6 +618,7 @@ namespace PhanLong.DAO
             {
                 var item = db.PhatSinhs.Find(phatSinh.Id);
                 item.GhiChuLuong = phatSinh.GhiChuLuong;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }
@@ -650,6 +656,7 @@ namespace PhanLong.DAO
                 item.TienPhiCT = phatSinh.TienPhiCT;
                 item.GhiChu = phatSinh.GhiChu;
                 item.Thoigian = phatSinh.Thoigian;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

@@ -270,6 +270,7 @@ namespace PhanLong.DAO
                 item.CangNhan = dMBill.CangNhan;
                 item.CangTra = dMBill.CangTra;
                 item.KhachHang = dMBill.KhachHang;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

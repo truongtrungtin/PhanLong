@@ -47,5 +47,6 @@ namespace PhanLong.Areas.ThongKe.Controllers
             ViewBag.DocTien = doctien;
             return View(model);
         }
+
     }
 }

@@ -14,10 +14,8 @@ namespace PhanLong.Models
             PhatSinhLuongs = new HashSet<PhatSinhLuongModel>();
             ChiLuongs = new HashSet<ChiLuongModel>();
         }
-        public long Id { get; set; }
-        public string MaTX { get; set; }
-        public string TaiXe { get; set; }
-
+        public string TenTX { get; set; }
+        public long Xe { get; set; }
         public string Cont { get; set; }
 
         public decimal? tiencuoc { get; set; }

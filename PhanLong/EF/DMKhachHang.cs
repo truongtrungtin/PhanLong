@@ -16,10 +16,12 @@
             HoaDons = new HashSet<HoaDon>();
             PhatSinhs = new HashSet<PhatSinh>();
             PhatSinhChiThus = new HashSet<PhatSinhChiThu>();
+            PhatSinhChiThus1 = new HashSet<PhatSinhChiThu>();
             SoPhuNganHangs = new HashSet<SoPhuNganHang>();
         }
 
         public long Id { get; set; }
+
 
         [StringLength(50)]
         [Required, Display(Name = "Mã: ")]
@@ -45,6 +47,12 @@
         [Display(Name = "Số điện thoại: ")]
         public string SoDienThoai { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? DateUpdate { get; set; }
+
+        [Column(TypeName = "xml")]
+        public string Files { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DMBill> DMBills { get; set; }
 
@@ -56,6 +64,9 @@
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinhChiThu> PhatSinhChiThus { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhatSinhChiThu> PhatSinhChiThus1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SoPhuNganHang> SoPhuNganHangs { get; set; }

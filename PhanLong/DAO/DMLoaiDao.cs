@@ -70,6 +70,7 @@ namespace PhanLong.DAO
                 item.MaLoai = dMLoai.MaLoai;
                 item.MoTa = dMLoai.MoTa;
                 item.MoTa1 = dMLoai.MoTa1;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

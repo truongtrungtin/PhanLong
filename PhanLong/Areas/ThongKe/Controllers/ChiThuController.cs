@@ -26,21 +26,16 @@ namespace PhanLong.Areas.ThongKe.Controllers
             }
             ViewBag.NgayBD = NgayBD;
             ViewBag.NgayKT = NgayKT;
-            if (cTChiThu.Xe != null)
+
+            if (phatSinhChiThu.Xe != null)
             {
-                var xe = new DMXeDao().GetById(cTChiThu.Xe);
-                ViewBag.Xe = xe.BienSo;
-                ViewBag.IdXe = xe.Id;
+                var xe = new DMXeDao().GetById(phatSinhChiThu.Xe);
+                ViewBag.Mooc = xe.BienSo;
+                ViewBag.IdMooc = xe.Id;
             }
-            if (cTChiThu.Mooc != null)
+            if (phatSinhChiThu.Mooc != null)
             {
-                var mooc = new DMMoocDao().GetById(cTChiThu.Mooc);
-                ViewBag.Mooc = mooc.BienSo;
-                ViewBag.IdMooc = mooc.Id;
-            }
-            if (cTChiThu.Mooc != null)
-            {
-                var mooc = new DMMoocDao().GetById(cTChiThu.Mooc);
+                var mooc = new DMMoocDao().GetById(phatSinhChiThu.Mooc);
                 ViewBag.Mooc = mooc.BienSo;
                 ViewBag.IdMooc = mooc.Id;
             }

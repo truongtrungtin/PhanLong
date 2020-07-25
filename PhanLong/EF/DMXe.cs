@@ -13,8 +13,8 @@
         public DMXe()
         {
             CTBills = new HashSet<CTBill>();
-            CTChiThus = new HashSet<CTChiThu>();
             PhatSinhs = new HashSet<PhatSinh>();
+            PhatSinhChiThus = new HashSet<PhatSinhChiThu>();
         }
 
         public long Id { get; set; }
@@ -27,13 +27,19 @@
         [Required, Display(Name = "Biển số: ")]
         public string BienSo { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? DateUpdate { get; set; }
+
+        [Column(TypeName = "xml")]
+        public string Files { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTBill> CTBills { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CTChiThu> CTChiThus { get; set; }
+        public virtual ICollection<PhatSinh> PhatSinhs { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhatSinh> PhatSinhs { get; set; }
+        public virtual ICollection<PhatSinhChiThu> PhatSinhChiThus { get; set; }
     }
 }

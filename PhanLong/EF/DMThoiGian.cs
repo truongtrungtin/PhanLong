@@ -25,6 +25,10 @@
         [Display(Name = "Thời gian: ")]
         public string ThoiGian { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? DateUpdate { get; set; }
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinh> PhatSinhs { get; set; }
     }

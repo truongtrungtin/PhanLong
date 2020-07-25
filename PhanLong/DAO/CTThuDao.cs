@@ -64,14 +64,13 @@ namespace PhanLong.DAO
             try
             {
                 var item = db.CTChiThus.Find(cTChi.Id);
-                item.Mooc = cTChi.Mooc;
-                item.Xe = cTChi.Xe;
                 item.Cont = cTChi.Cont;
                 item.NoiDung = cTChi.NoiDung;
                 item.Phi = cTChi.Phi;
                 item.DonGia = cTChi.DonGia;
                 item.SoLuong = cTChi.SoLuong;
                 item.Garage = cTChi.Garage;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

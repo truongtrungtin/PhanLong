@@ -49,7 +49,7 @@
 
     }
     tongno = (chiho + tiencuoc);
-    No = tongno - thanhtoan; 
+    No = tongno - thanhtoan;
 }
 
 
@@ -57,7 +57,30 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
     <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+
 }
+
+
+
+@using (Html.BeginForm("ThanhToanHoaDon", "HoaDon", FormMethod.Post))
+{
+    <input type="hidden" readonly class="form-control form-control-sm" name="NgayBD" value="@ngaybd" />
+    <input type="hidden" readonly class="form-control form-control-sm" name="NgayKT" value="@ngaykt" />
+
+    <div class="modal fade" id="MyModalHoaDon">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="ModalTitle">Thêm ngày thanh toán</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">&times;</a>
+                </div>
+                <div class="modal-body" id="myModalBodyDivHoaDon">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 @using (Html.BeginForm("Index", "HoaDon", FormMethod.Get))
 {
     <div class="card">
@@ -244,7 +267,6 @@
             <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="max-width:100%;">
                 <thead>
                     <tr>
-                        <th width="1%"><input type='checkbox' id='check' value='' /></th>
                         <th title="ngày lập">Ngày</th>
                         <th title="Số hoá đơn">Số HĐ</th>
                         <th title="Mã khách hàng">Mã KH</th>
@@ -257,60 +279,40 @@
                         <th title="Số tiền">Số tiền </th>
                         <th title="Cân đối">Cân đối </th>
                         <th title="Ghi chú">Ghi Chú</th>
+                        <th>#</th>
                     </tr>
                 </thead>
                 <tbody>
 
                     @foreach (var item in Model)
                     {
-                        <tr id="row_@item.Id">
-                            <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                            <td>@(item.NgayHD != null ? item.NgayHD.Value.ToShortDateString() : null)</td>
-                            <td>@(item.SoHD != null ? item.SoHD : null )</td>
-                            <td title="@(item.KH != null ? item.DMKhachHang.TenCongTy: null )">@(item.KH != null ? item.DMKhachHang.MaKH: null )</td>
-                            <td title="@(item.KH != null ? item.DMKhachHang.MaKH: null )">@(item.KH != null ? item.DMKhachHang.TenCongTy: null )</td>
-                            <td>@(item.NoiDung != null ? item.NoiDung : null)</td>
-                            @{ tienthue = Convert.ToDecimal(item.TienCuoc) * Convert.ToDecimal(item.VAT);
-                                thanhtien = Convert.ToDecimal(item.TienCuoc) + tienthue;
-                                tongno = Convert.ToDecimal(item.ChiHo) + thanhtien;
-                                candoi = tongno - Convert.ToDecimal(item.TienThanhToan);
-                            }
-                            <td style="text-align:right">@(thanhtien != null ? String.Format("{0:0,0}", (thanhtien)) : null )</td>
-                            <td style="text-align:right">@(item.ChiHo != null ? String.Format("{0:0,0}", (item.ChiHo)) : null)</td>
-                            <td style="text-align:right">@(tongno != null ? String.Format("{0:0,0}", (tongno)): null )</td>
+                    <tr id="row_@item.Id">
+                        <td>@(item.NgayHD != null ? item.NgayHD.Value.ToShortDateString() : null)</td>
+                        <td>@(item.SoHD != null ? item.SoHD : null )</td>
+                        <td title="@(item.KH != null ? item.DMKhachHang.TenCongTy: null )">@(item.KH != null ? item.DMKhachHang.MaKH: null )</td>
+                        <td title="@(item.KH != null ? item.DMKhachHang.MaKH: null )">@(item.KH != null ? item.DMKhachHang.TenCongTy: null )</td>
+                        <td>@(item.NoiDung != null ? item.NoiDung : null)</td>
+                        @{ tienthue = Convert.ToDecimal(item.TienCuoc) * Convert.ToDecimal(item.VAT);
+                            thanhtien = Convert.ToDecimal(item.TienCuoc) + tienthue;
+                            tongno = Convert.ToDecimal(item.ChiHo) + thanhtien;
+                            candoi = tongno - Convert.ToDecimal(item.TienThanhToan);
+                        }
+                        <td style="text-align:right">@(thanhtien != null ? String.Format("{0:0,0}", (thanhtien)) : null )</td>
+                        <td style="text-align:right">@(item.ChiHo != null ? String.Format("{0:0,0}", (item.ChiHo)) : null)</td>
+                        <td style="text-align:right">@(tongno != null ? String.Format("{0:0,0}", (tongno)): null )</td>
 
-                            <td>@(item.NgayThanhToan != null ? item.NgayThanhToan.Value.ToShortDateString() : null)</td>
-                            <td style="text-align:right">@(item.TienThanhToan != null ? String.Format("{0:0,0}", (item.TienThanhToan)): null )</td>
-                            <td style="text-align:right">@(candoi != null ? String.Format("{0:0,0}", (candoi)): null )</td>
-                            <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
-                        </tr>
+                        <td>@(item.NgayThanhToan != null ? item.NgayThanhToan.Value.ToShortDateString() : null)</td>
+                        <td style="text-align:right">@(item.TienThanhToan != null ? String.Format("{0:0,0}", (item.TienThanhToan)): null )</td>
+                        <td style="text-align:right">@(candoi != null ? String.Format("{0:0,0}", (candoi)): null )</td>
+                        <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                        <td class="no-print"><a href="#" class="btn btn-warning" onclick='ThanhToanHoaDon(@item.Id)'>Thanh toán</a></td>
+                    </tr>
 
                     }
                 </tbody>
 
             </table>
-            <div class="margin">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                        Hành động
-                        <span class="sr-only">Hành động</span>
-                    </button>
-                    <div class="dropdown-menu" role="menu">
-                        <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
-                        <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
-                    </div>
-                </div>
-            </div>
+           
         }
-        <div style="text-align:right">
-            @using (Html.BeginForm("ImportExcel", "HoaDon", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                <input type="hidden" name="Sheet" value="HoaDon$" />
-                <input type="submit" id="Submit" name="Submit" value="Import Excel" class="btn btn-success" />
-                <label>
-                    <input type="file" id="FileUpload" name="FileUpload" aria-label="EXCEL" />
-                </label>
-            }
-        </div>
     </div>
 </div>

@@ -101,6 +101,7 @@ namespace PhanLong.DAO
                 var item = db.DMNhanViens.Find(dMNhanVien.Id);
                 item.MaNV = dMNhanVien.MaNV;
                 item.TenNV = dMNhanVien.TenNV;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

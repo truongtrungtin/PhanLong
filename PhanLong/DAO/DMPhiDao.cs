@@ -132,6 +132,7 @@ namespace PhanLong.DAO
                 item.MaPhi = dMPhi.MaPhi;
                 item.TenPhi = dMPhi.TenPhi;
                 item.LoaiPhi = dMPhi.LoaiPhi;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

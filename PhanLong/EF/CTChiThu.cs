@@ -1,4 +1,4 @@
-namespace PhanLong.EF
+﻿namespace PhanLong.EF
 {
     using System;
     using System.Collections.Generic;
@@ -13,30 +13,35 @@ namespace PhanLong.EF
 
         public long? PhatSinhChiThu { get; set; }
 
-        public long? Mooc { get; set; }
-
-        public long? Xe { get; set; }
-
         [StringLength(250)]
+        [Display(Name = "Số Cont: ")]
         public string Cont { get; set; }
 
         [StringLength(250)]
+        [Display(Name = "Nội dung: ")]
         public string NoiDung { get; set; }
 
+
+        [Display(Name = "Đơn giá: ")]
         public decimal? DonGia { get; set; }
 
+
+        [Display(Name = "Số lượng: ")]
         public int SoLuong { get; set; }
 
         [StringLength(250)]
+        [Display(Name = "Garage: ")]
         public string Garage { get; set; }
 
         public long? Phi { get; set; }
 
+        [Column(TypeName = "date")]
+        public DateTime? DateUpdate { get; set; }
+
+        [Column(TypeName = "xml")]
+        public string Files { get; set; }
+
         public virtual DMPhi DMPhi { get; set; }
-
-        public virtual DMMooc DMMooc { get; set; }
-
-        public virtual DMXe DMXe { get; set; }
 
         public virtual PhatSinhChiThu PhatSinhChiThu1 { get; set; }
     }

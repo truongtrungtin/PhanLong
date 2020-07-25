@@ -331,11 +331,13 @@ namespace PhanLong.DAO
                 var item = db.HoaDons.Find(hoaDon.Id);
                 item.NgayThanhToan = hoaDon.NgayThanhToan;
                 item.TienThanhToan = hoaDon.TienThanhToan;
+
                 if (hoaDon.GhiChu != null && hoaDon.GhiChu != "")
                 {
                     item.GhiChu = hoaDon.GhiChu;
 
                 }
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }
@@ -361,6 +363,7 @@ namespace PhanLong.DAO
                 item.NgayThanhToan = hoaDon.NgayThanhToan;
                 item.TienThanhToan = hoaDon.TienThanhToan;
                 item.GhiChu = hoaDon.GhiChu;
+                item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;
             }

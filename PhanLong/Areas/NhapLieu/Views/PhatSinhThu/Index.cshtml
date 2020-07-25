@@ -42,65 +42,41 @@
                         if ((ct != null ? item.Id == ct.PhatSinhChiThu : false))
                         {
                             var model = new CTThuDao().ListAll(item.Id);
-                            <tr id="row_@item.Id">
+                    <tr id="row_@item.Id">
 
-                                <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                                <td>@(item.Ngay != null? item.Ngay.ToShortDateString(): null)</td>
-                                <td>@(item.NguoiChiThu != null ? item.DMNhanVien1.MaNV : null)</td>
-                                <td>@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>
-                                <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                        <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                        <td>@(item.Ngay != null? item.Ngay.ToShortDateString(): null)</td>
+                        <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
+                        <td>@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>
+                        <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                        <td title="@(item.Xe != null ? item.DMXe.BienSo : null)">@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                        <td title="@(item.Mooc != null ? item.DMMooc.BienSo : null)">@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
+                        @{var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();}
+                        <td> @(maphi.Phi != null ? maphi.DMPhi.MaPhi : null)</td>
+                        @if (item.Bill != null)
+                        {
+                            <td>
+                                @Html.ActionLink(item.DMBill.MaBill, "CTThu", new { id = item.Id })
+                            </td>
+                        }
+                        else
+                        {
+                            <td></td>
 
-                                @if (model.Where(x => x.Xe != null).ToList().Count > 0)
+                        }
+                        <td>@item.SoHD</td>
+                        <td style="text-align: right">
+                            @{ var a = 0;
+                                var tongtien = 0;
+                                foreach (var tien in item.CTChiThus)
                                 {
-                                    var xe = model.OrderByDescending(x => x.Xe).FirstOrDefault();
-                                    <td>
-
-                                        @Html.ActionLink(xe.DMXe.BienSo, "CTThu", new { id = item.Id })
-                                    </td>
+                                    tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                    a += tongtien;
                                 }
-                                else
-                                {
-                                    <td></td>
-                                }
-
-                                @if (model.Where(x => x.Mooc != null).ToList().Count > 0)
-                                {
-                                    var mooc = model.OrderByDescending(x => x.Mooc).FirstOrDefault();
-                                    <td>
-
-                                        @Html.ActionLink(mooc.DMMooc.BienSo, "CTThu", new { id = item.Id })
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td></td>
-                                }
-                                @{var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();}
-                                <td> @(maphi.Phi != null ? maphi.DMPhi.MaPhi : null)</td>
-                                @if (item.Bill != null)
-                                {
-                                    <td>
-                                        @Html.ActionLink(item.DMBill.MaBill, "CTThu", new { id = item.Id })
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td></td>
-
-                                }
-                                <td>@item.SoHD</td>
-                                <td style="text-align: right">
-                                    @{ var a = 0;
-                                        var tongtien = 0;
-                                        foreach (var tien in item.CTChiThus)
-                                        {
-                                            tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                            a += tongtien;
-                                        }
-                                    }@String.Format("{0:0,0}", (a))
-                                </td>
-                                <td>@item.GhiChu</td>
-                            </tr>
+                            }@String.Format("{0:0,0}", (a))
+                        </td>
+                        <td>@item.GhiChu</td>
+                    </tr>
                         }
                     }
                 </tbody>

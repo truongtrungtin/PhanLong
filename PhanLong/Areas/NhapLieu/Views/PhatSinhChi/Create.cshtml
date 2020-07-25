@@ -64,10 +64,10 @@
                             @Html.LabelFor(model => model.NguoiNhan, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
                             <div class="col-sm-8">
                                 <select name="NguoiNhan" class="form-control form-control-sm select2" data-placeholder="Chọn người nhận">
-                                    <option value="">--- Chọn Người Nhận ---</option>
-                                    @foreach (var item in db.DMNhanViens)
+                                    <option value="">--- Chọn người nhận ---</option>
+                                    @foreach (var item in db.DMKhachHangs)
                                     {
-                                        <option value="@item.Id">@item.MaNV - @item.TenNV</option>
+                                        <option value="@item.Id">@item.MaKH - @item.TenCongTy</option>
                                     }
                                 </select>
                                 @Html.ValidationMessageFor(model => model.NguoiNhan, "", new { @class = "text-danger" })

@@ -19,18 +19,19 @@ namespace PhanLong.DAO
         {
             DateTime sdate = (ngayBD != "") ? Convert.ToDateTime(ngayBD).Date : new DateTime();
             DateTime edate = (ngayKT != "") ? Convert.ToDateTime(ngayKT).Date : new DateTime();
-            var data = from nv in db.DMNhanViens
-                       join ps in db.PhatSinhs on nv.Id equals ps.TenTX
-                       where (ngayBD == "" && ngayKT == "") || ( ps.Ngay >= sdate && ps.Ngay <= edate)
+            var data = from xe in db.DMXes
+                       join ps in db.PhatSinhs on xe.Id equals ps.Xe
+                       join nv in db.DMNhanViens on ps.TenTX equals nv.Id
+                       where (ngayBD == "" && ngayKT == "") || (ps.Ngay >= sdate && ps.Ngay <= edate)
                        select new ThanhToanLuongModel()
                        {
-                           Id = nv.Id,
-                           MaTX = nv.MaNV,
-                           TaiXe = nv.TenNV,
+                           Xe = xe.Id,
+                           TenTX = nv.TenNV,
                            Cont = ps.SoCont,
                            tiencuoc = ps.CuocTX
                        };
-            return data.OrderBy(x => x.Id).ToList();
+            return data.OrderBy(x => x.Xe).ToList();
+
         }
 
     

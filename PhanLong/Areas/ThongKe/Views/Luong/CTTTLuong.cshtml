@@ -12,6 +12,8 @@
     Decimal tiencuoc = 0;
     Decimal tientru = 0;
 }
+
+
 @using (Html.BeginForm("EditGhiChuChiPhi", "Luong", FormMethod.Post))
 {
     <input type="hidden" readonly class="form-control form-control-sm" name="NguoiNhan" value="@ViewBag.idtx" />
@@ -38,7 +40,7 @@
 
 @using (Html.BeginForm("EditGhiChu", "Luong", FormMethod.Post))
 {
-    <input type="hidden" readonly class="form-control form-control-sm" name="TenTX" value="@ViewBag.idtx" />
+    <input type="hidden" readonly class="form-control form-control-sm" name="Xe" value="@ViewBag.id" />
     <input type="hidden" readonly class="form-control form-control-sm" name="NgayBD" value="@ngaybd" />
     <input type="hidden" readonly class="form-control form-control-sm" name="NgayKT" value="@ngaykt" />
 
@@ -65,7 +67,7 @@
         </div>
         <div class="card-body">
 
-            <input type="hidden" readonly class="form-control form-control-sm" name="id" value="@ViewBag.idtx" />
+            <input type="hidden" readonly class="form-control form-control-sm" name="id" value="@ViewBag.id" />
 
             <div class="row" style="height: 30px;">
                 <div class="col-sm-2">
