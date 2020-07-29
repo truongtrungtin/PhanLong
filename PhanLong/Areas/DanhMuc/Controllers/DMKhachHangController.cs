@@ -49,6 +49,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return PartialView(model);
         }
         [HttpGet]
+        [HasCredential(RoleId = "ADD_KHACHHANG")]
         public ActionResult Create(long? id = null, string Copy = null)
         {
             if (id != null && Copy != null)
@@ -64,6 +65,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             }
         }
         [HttpPost]
+        [HasCredential(RoleId = "ADD_KHACHHANG")]
         public ActionResult Create(DMKhachHang dMKhachHang, int[] chkId, string delete = null)
         {
             var item = new DMKhachHangDao();
@@ -113,6 +115,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
         }
 
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_KHACHHANG")]
         public ActionResult Update(long id)
         {
             var dao = new DMKhachHangDao();
@@ -120,6 +123,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_KHACHHANG")]
         public ActionResult Update(DMKhachHang dMKhachHang, int[] chkId, string delete = null)
         {
             var item = new DMKhachHangDao();
@@ -170,6 +174,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
         }
 
         [HttpDelete]
+        [HasCredential(RoleId = "DELETE_KHACHHANG")]
         public ActionResult Delete(long id)
         {
             var result = new DMKhachHangDao().Delete(id);
@@ -187,6 +192,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
 
         [ActionName("Importexcel")]
         [HttpPost]
+        [HasCredential(RoleId = "IMPORT_KHACHHANG")]
         public ActionResult ImportExcel(DMKhachHang dMKhachHang, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)

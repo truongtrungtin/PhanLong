@@ -21,7 +21,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Index(int[] chkId, string delete = null)
+        public ActionResult Index(int[] chkId, string delete = null, string update = null)
         {
             var dao = new DMCangDao();
             if (delete != null && chkId != null)
@@ -47,6 +47,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return PartialView(model);
         }
         [HttpGet]
+        [HasCredential(RoleId = "ADD_CANG")]
         public ActionResult Create(long? id = null, string Copy = null)
         {
             if (id != null && Copy != null)
@@ -62,6 +63,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             }
         }
         [HttpPost]
+        [HasCredential(RoleId = "ADD_CANG")]
         public ActionResult Create(DMCang dMCang, int[] chkId, string delete = null)
         {
             var item = new DMCangDao();
@@ -109,6 +111,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return RedirectToAction("Create", "DMCang");
         }
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_CANG")]
         public ActionResult Update(long id)
         {
             var dao = new DMCangDao();
@@ -116,6 +119,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_CANG")]
         public ActionResult Update(DMCang dMCang, int[] chkId, string delete = null)
         {
             var item = new DMCangDao();
@@ -167,6 +171,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
 
         // Delete
         [HttpDelete]
+        [HasCredential(RoleId = "DELETE_CANG")]
         public ActionResult Delete(long id)
         {
             var result = new DMCangDao().Delete(id);
@@ -184,6 +189,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
 
         [ActionName("Importexcel")]
         [HttpPost]
+        [HasCredential(RoleId = "IMPORT_CANG")]
         public ActionResult ImportExcel(DMCang dMCang, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)

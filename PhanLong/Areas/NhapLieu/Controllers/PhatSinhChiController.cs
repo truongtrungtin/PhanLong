@@ -58,6 +58,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         }
 
         [HttpGet]
+        [HasCredential(RoleId = "ADD_PHATSINHCHI")]
         public ActionResult Create(long? id = null, string Copy = null)
         {
 
@@ -77,6 +78,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         }
 
         [HttpPost]
+        [HasCredential(RoleId = "ADD_PHATSINHCHI")]
         public ActionResult Create(PhatSinhChiThu phatSinhChi, CTChiThu cTChi, int[] chkId, string delete = null, string update = null, string chitiet = null)
         {
             var dao = new PhatSinhChiDao();
@@ -136,6 +138,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             return RedirectToAction("Create", "PhatSinhChi");
         }
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_PHATSINHCHI")]
         public ActionResult Update(long id)
         {
             var dao = new PhatSinhChiDao();
@@ -144,6 +147,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             return View(model);
         }
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_PHATSINHCHI")]
         public ActionResult Update(PhatSinhChiThu phatSinhChi, int[] chkId, string delete = null)
         {
             var ps = new PhatSinhChiDao();
@@ -185,6 +189,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         // Delete
         [HttpDelete]
+        [HasCredential(RoleId = "DELETE_PHATSINHCHI")]
         public ActionResult Delete(long id)
         {
             var result = new PhatSinhChiDao().Delete(id);
@@ -302,6 +307,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
 
         [HttpGet]
+        [HasCredential(RoleId = "ADD_PHATSINHCHI")]
         public ActionResult CreateCTChi(long id, long? cTChi = null, string Copy = null, long? selectedId = null)
         {
             var Chi = new PhatSinhChiDao().GetById(id);
@@ -327,6 +333,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         }
 
         [HttpPost]
+        [HasCredential(RoleId = "ADD_PHATSINHCHI")]
         public ActionResult CreateCTChi(CTChiThu cTChi, int[] chkId, string delete = null, string update = null)
         {
             var ps = new CTChiDao();
@@ -373,6 +380,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
 
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_PHATSINHCHI")]
         public ActionResult UpdateCTChi(long id)
         {
             var dao = new CTChiDao();
@@ -383,6 +391,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             return View(model);
         }
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_PHATSINHCHI")]
         public ActionResult UpdateCTChi(CTChiThu cTChi, int[] chkId, string delete = null)
         {
             var ps = new CTChiDao();
@@ -423,6 +432,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         [ActionName("Importexcel")]
         [HttpPost]
+        [HasCredential(RoleId = "IMPORT_PHATSINHCHI")]
         public ActionResult ImportExcel(PhatSinhChiThu phatSinhChiThu, DMNhanVien dMNhanVien, HinhThucTT hinhThucTT, DMKhachHang dMKhachHang, DMBill dMBill, DMXe dMXe, DMMooc dMMooc, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)
@@ -491,6 +501,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         [ActionName("ImportExcelCTPS")]
         [HttpPost]
+        [HasCredential(RoleId = "IMPORT_PHATSINHCHI")]
         public ActionResult ImportExcelCTPS(CTChiThu cTChiThu, PhatSinhChiThu phatSinhChiThu, DMXe dMXe, DMMooc dMMooc, DMPhi dMPhi, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)

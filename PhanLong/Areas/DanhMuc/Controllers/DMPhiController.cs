@@ -49,6 +49,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return PartialView(model);
         }
         [HttpGet]
+        [HasCredential(RoleId = "ADD_PHI")]
         public ActionResult Create(long? id = null, string Copy = null)
         {
             if (id != null && Copy != null)
@@ -63,6 +64,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             }
         }
         [HttpPost]
+        [HasCredential(RoleId = "ADD_PHI")]
         public ActionResult Create(DMPhi dMPhi, int[] chkId, string delete = null)
         {
             var item = new DMPhiDao();
@@ -111,6 +113,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return RedirectToAction("Create", "DMPhi");
         }
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_PHI")]
         public ActionResult Update(long id)
         {
             var dao = new DMPhiDao();
@@ -118,6 +121,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_PHI")]
         public ActionResult Update(DMPhi dMPhi, int[] chkId, string delete = null)
         {
             var item = new DMPhiDao();
@@ -169,6 +173,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
 
         // Delete
         [HttpDelete]
+        [HasCredential(RoleId = "DELETE_PHI")]
         public ActionResult Delete(long id)
         {
             var result = new DMPhiDao().Delete(id);
@@ -186,6 +191,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
 
         [ActionName("ImportExcel")]
         [HttpPost]
+        [HasCredential(RoleId = "IMPORT_PHI")]
         public ActionResult ImportExcel(DMPhi dMPhi, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)

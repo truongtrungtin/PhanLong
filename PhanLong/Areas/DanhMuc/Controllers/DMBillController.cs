@@ -57,6 +57,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return PartialView(model);
         }
 
+        [HasCredential(RoleId = "ADD_BILL")]
         [HttpGet]
         public ActionResult Create(long? id = null, string Copy = null)
         {
@@ -75,7 +76,8 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Create(DMBill dMBill, CTBill cTBill)
+        [HasCredential(RoleId = "ADD_BILL")]
+        public ActionResult Create(DMBill dMBill, CTBill cTBill, string luuthem, string luuthoat)
         {
             if (ModelState.IsValid)
             {
@@ -104,8 +106,21 @@ namespace PhanLong.Areas.DanhMuc.Controllers
                                 SetAlert("Cont " + cTBill.Cont + " chưa thêm thành công!", "warning");
                             }
                         }
-                        SetAlert("Đã thêm Bill thành công !", "success");
-                        return RedirectToAction("CTBill", "DMBill", new { id = ctbill.GetLastIdBill().Id });
+                        else
+                        {
+                            SetAlert("Đã thêm Bill thành công !", "success");
+                            
+
+                        }
+                        if (luuthem != null)
+                        {
+                            return RedirectToAction("CreateCTBill", "DMBill", new { id = ctbill.GetLastIdBill().Id });
+                        }
+                        else if (luuthoat != null)
+                        {
+                            return RedirectToAction("CTBill", "DMBill", new { id = ctbill.GetLastIdBill().Id });
+                        }
+
                     }
                     else
                     {
@@ -144,6 +159,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
         }
 
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_BILL")]
         public ActionResult Update(long id)
         {
             var dao = new DMBillDao();
@@ -153,6 +169,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
         }
 
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_BILL")]
         public ActionResult Update(DMBill dMBill, int[] chkId, string delete = null)
         {
             var ps = new DMBillDao();
@@ -214,6 +231,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
 
         // Delete
         [HttpDelete]
+        [HasCredential(RoleId = "DELETE_BILL")]
         public ActionResult Delete(long id)
         {
             var result = new DMBillDao().Delete(id);
@@ -281,6 +299,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
         }
 
         [HttpGet]
+        [HasCredential(RoleId = "ADD_BILL")]
         public ActionResult CreateCTBill(long? id, long? cTBill = null, string Copy = null)
         {
             var dao = new DMBillDao().GetById(id);
@@ -302,16 +321,29 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             }
         }
         [HttpPost]
-        public ActionResult CreateCTBill(CTBill dMBill)
+        [HasCredential(RoleId = "ADD_BILL")]
+        public ActionResult CreateCTBill(CTBill dMBill, string luuthem, string luuthoat)
         {
 
             var dao = new CTBillDao();
 
-            long idbill = dao.Insert(dMBill);
+            long? idbill = dao.Insert(dMBill);
             if (idbill > 0)
             {
                 SetAlert("Đã thêm giá trị thành công !", "success");
-                return RedirectToAction("CTBill", "DMBill", new { id = idbill });
+                if (luuthoat != null)
+                {
+                    return RedirectToAction("CTBill", "DMBill", new { id = idbill });
+                }
+                else if(luuthem != null)
+                {
+                    return RedirectToAction("CreateCTBill", "DMBill", new { id = idbill });
+                }
+                else
+                {
+                    SetAlert("Thêm giá trị không thành công, vui lòng thử lại!", "warning");
+                    return RedirectToAction("CreateCTBill", "DMBill");
+                }
             }
             else
             {
@@ -330,6 +362,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
         }
 
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_BILL")]
         public ActionResult UpdateCTBill(long id, long? CTBill = null)
         {
             var Bill = new DMBillDao().GetById(id);
@@ -342,6 +375,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_BILL")]
         public ActionResult UpdateCTBill(CTBill cTBill)
         {
             if (ModelState.IsValid)
@@ -367,6 +401,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
 
         // Delete
         [HttpDelete]
+        [HasCredential(RoleId = "DELETE_BILL")]
         public ActionResult DeleteCTBill(long id)
         {
             var bill = new CTBillDao().GetById(id).Bill;
@@ -385,6 +420,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
 
         [ActionName("Importexcel")]
         [HttpPost]
+        [HasCredential(RoleId = "IMPORT_BILL")]
         public ActionResult ImportExcel(DMBill dMBill, DMKhachHang dMKhachHang, DMCang dMCang, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)
@@ -468,6 +504,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
 
         [ActionName("ImportExcelCTBill")]
         [HttpPost]
+        [HasCredential(RoleId = "IMPORT_BILL")]
         public ActionResult ImportExcelCTBill(DMLoai dMLoai, DMKhachHang dMKhachHang, DMKho dMKho, DMXe dMXe, DMNhanVien dMNhanVien, DMPhi dMPhi, DMThoiGian dMThoiGian, DMCang dMCang, DMBill dMBill, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)

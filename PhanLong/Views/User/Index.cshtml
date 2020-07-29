@@ -1,0 +1,69 @@
+﻿@model List<PhanLong.EF.User>
+@{
+    ViewBag.Title = "Quản lý người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="container">
+        <div class="card-header">
+            <h5>
+                <b>Danh sách tài khoản</b>
+                @Html.ActionLink("Thêm tài khoản", "Create", null, new { @class = "btn btn-primary mb-1" })
+            </h5>
+        </div>
+        @using (Html.BeginForm("Index", "User", FormMethod.Post))
+        {
+            <div class="card-body">
+                @using (Html.BeginForm("Index", "User", FormMethod.Post))
+                {
+                    <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
+                        <thead>
+                            <tr>
+
+                                <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                                <th>Tài khoản</th>
+                                <th>Tên</th>
+                                <th>Email</th>
+                                <th>Số điện thoại</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                                <tr id="row_@item.Id">
+
+                                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                                    <td>@item.Username</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.Telephone</td>
+                                    <td style="color:@(item.Status == true ? "Black" : "Red")">@(item.Status == true ? "Hoạt động" : "Khoá")</td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                    <div class="margin">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                                Hành động
+                                <span class="sr-only">Hành động</span>
+                            </button>
+                            <div class="dropdown-menu" role="menu">
+                                <input type="submit" value="Chi tiết" name="chitiet" id="chitiet" class="dropdown-item" />
+                                <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
+                                <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+
+        </div>
+
+</div>
+

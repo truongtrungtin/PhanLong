@@ -1,4 +1,5 @@
-﻿using PhanLong.DAO;
+﻿using PhanLong.Common;
+using PhanLong.DAO;
 using PhanLong.EF;
 using System;
 using System.Collections.Generic;
@@ -55,6 +56,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         }
 
         [HttpGet]
+        [HasCredential(RoleId = "ADD_PHATSINHTHU")]
         public ActionResult Create(long? id = null, string Copy = null)
         {
 
@@ -74,6 +76,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         }
 
         [HttpPost]
+        [HasCredential(RoleId = "ADD_PHATSINHTHU")]
         public ActionResult Create(PhatSinhChiThu phatSinhThu, CTChiThu cTThu, int[] chkId, string delete = null, string update = null, string chitiet = null)
         {
 
@@ -136,6 +139,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         }
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_PHATSINHTHU")]
         public ActionResult Update(long id)
         {
             var dao = new PhatSinhThuDao();
@@ -144,6 +148,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             return View(model);
         }
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_PHATSINHTHU")]
         public ActionResult Update(PhatSinhChiThu phatSinhThu, int[] chkId, string delete = null)
         {
             var ps = new PhatSinhThuDao();
@@ -184,6 +189,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         // Delete
         [HttpDelete]
+        [HasCredential(RoleId = "DELETE_PHATSINHTHU")]
         public ActionResult Delete(long id)
         {
             var result = new PhatSinhThuDao().Delete(id);
@@ -301,6 +307,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
 
         [HttpGet]
+        [HasCredential(RoleId = "ADD_PHATSINHTHU")]
         public ActionResult CreateCTThu(long id, long? cTThu = null, string Copy = null, long? selectedId = null)
         {
             var Chi = new PhatSinhThuDao().GetById(id);
@@ -326,6 +333,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         }
 
         [HttpPost]
+        [HasCredential(RoleId = "ADD_PHATSINHTHU")]
         public ActionResult CreateCTThu(CTChiThu cTThu, int[] chkId, string delete = null)
         {
             var ps = new CTChiDao();
@@ -368,6 +376,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
 
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_PHATSINHTHU")]
         public ActionResult UpdateCTThu(long id)
         {
           
@@ -379,6 +388,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             return View(model);
         }
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_PHATSINHTHU")]
         public ActionResult UpdateCTThu(CTChiThu cTThu, int[] chkId, string delete = null)
         {
             var ps = new CTChiDao();

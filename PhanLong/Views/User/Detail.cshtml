@@ -1,0 +1,154 @@
+﻿@model PhanLong.EF.User
+@using PhanLong.EF
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    PhanLongDBContext db = new PhanLongDBContext();
+
+}
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/Content/plugins/daterangepicker/daterangepicker.css">
+    <!-- Bootstrap4 Duallistbox -->
+    <link rel="stylesheet" href="/Content/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+}
+<div class="container">
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">Thông tin cá nhân</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-2">Tài khoản: </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="Username" value="@Model.Username" class="form-control form-control-sm " placeholder="Nhập tên tài khoản .." required>
+                        </div>
+                    </div>
+                    <!-- /.form-group -->
+                    <div class="form-group row">
+                        <label class="col-sm-2">Họ và tên: </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="Name" value="@Model.Name" class="form-control form-control-sm" placeholder="Nhập họ và tên .." required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2">Group: </label>
+                        <div class="col-sm-8">
+                            <select name="GroupID" class="form-control form-control-sm select2" data-placeholder="Chọn group">
+                                <option value="@Model.GroupID">@Model.UserGroup.Name</option>
+                                @foreach (var item in db.UserGroups.Where(x => x.Id != Model.GroupID))
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+
+                        <!-- /.form-group -->
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2">Ngày tạo: </label>
+                        <div class="col-sm-3">
+                            <input type="text" name="CreatedDate" class="form-control form-control-sm" value="@Model.CreatedDate.Value.ToShortDateString()" readonly>
+                        </div>
+                        <label class="col-sm-2">Người tạo: </label>
+                        <div class="col-sm-3">
+                            <input type="text" name="CreatedBy" class="form-control form-control-sm" value="@Model.CreatedBy" readonly>
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+                    
+                </div>
+                <!-- /.col -->
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-2">SĐT: </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="Telephone" value="@Model.Telephone" class="form-control form-control-sm " placeholder="Nhập Số điện thoại .." required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2">Email: </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="Email" value="@Model.Email" class="form-control form-control-sm " placeholder="Nhập địa chỉ email .." required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2">Địa chỉ: </label>
+                        <div class="col-sm-8">
+                            <input type="text" name="Address" value="@Model.Address" class="form-control form-control-sm " placeholder="Nhập địa chỉ ..">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2">Chỉnh sửa: </label>
+                        <div class="col-sm-3">
+                            <input type="text" name="CreatedDate" class="form-control form-control-sm" value="@Model.CreatedDate.Value.ToShortDateString()" readonly>
+                        </div>
+                        <label class="col-sm-2">Người chỉnh sửa: </label>
+                        <div class="col-sm-3">
+                            <input type="text" name="ModifiedDate" class="form-control form-control-sm" value="@(Model.ModifiedDate != null ? Model.ModifiedDate.Value.ToShortDateString() : null)" readonly>
+                        </div>
+                        <!-- /.form-group -->
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- /.row -->
+        </div>
+    </div>
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">Phân quyền</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="card-body">
+            <select name="selectroles[]" multiple="multiple" class="duallistbox">
+                @foreach (var item in db.Roles)
+                {
+                    if (Model.Credentials.Where(x => x.RoleId == item.Id).ToList().Count > 0)
+                    {
+                        <option value="@item.Id" selected> @item.Id | @item.Name </option>
+                    }
+                    else
+                    {
+                        <option value="@item.Id"> @item.Id | @item.Name </option>
+                    }
+
+                }
+
+            </select>
+            <!-- /.row -->
+        </div>
+    </div>
+    <input type="submit" value="Lưu" class="btn btn-group btn-group-sm btn-success" name="Luu">
+          
+        </div>
+
+
+        @section js{
+            <!-- Bootstrap4 Duallistbox -->
+            <script src="/Content/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+            <script>
+                //Bootstrap Duallistbox
+                var demo2 = $('.duallistbox').bootstrapDualListbox({
+                });
+
+                var demo1 = $('select[name="selectroles[]"]').bootstrapDualListbox();
+            </script>
+
+        }
+
+    </div>

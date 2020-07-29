@@ -336,6 +336,13 @@ namespace PhanLong.DAO
                                             bill.NgayGiao = phatSinh.Ngay;
                                             bill.SoXe = Xe;
                                             new CTBillDao().Insert(bill);
+                                        }else{
+                                            CTBill bill = new CTBill();
+                                            bill.Bill = dao.Id;
+                                            bill.Cont = dr["Cont"].ToString();
+                                            bill.NgayGiao = phatSinh.Ngay;
+                                            bill.SoXe = Xe;
+                                            new CTBillDao().UpdateNgayGiao(bill);
                                         }
                                     }
                                    

@@ -57,12 +57,14 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
 
         [HttpGet]
+        [HasCredential(RoleId = "ADD_SOPHUNGANHANG")]
         public ActionResult Create(long? id = null)
         {
             return View();
         }
 
         [HttpPost]
+        [HasCredential(RoleId = "ADD_SOPHUNGANHANG")]
         public ActionResult Create(SoPhuNganHang soPhuNganHang, int[] chkId, string delete = null, string update = null)
         {
             var ps = new SoPhuNganHangDao();
@@ -108,6 +110,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         }
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_SOPHUNGANHANG")]
         public ActionResult Update(long id)
         {
             var dao = new SoPhuNganHangDao();
@@ -115,6 +118,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             return View(model);
         }
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_SOPHUNGANHANG")]
         public ActionResult Update(SoPhuNganHang soPhuNganHang, int[] chkId, string delete = null)
         {
             var ps = new SoPhuNganHangDao();
@@ -155,6 +159,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         // Delete
         [HttpDelete]
+        [HasCredential(RoleId = "DELETE_SOPHUNGANHANG")]
         public ActionResult Delete(long id)
         {
             var result = new SoPhuNganHangDao().Delete(id);
@@ -172,6 +177,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         [ActionName("ImportExcel")]
         [HttpPost]
+        [HasCredential(RoleId = "IMPORT_SOPHUNGANHANG")]
         public ActionResult ImportExcel(SoPhuNganHang soPhuNganHang, DMKhachHang dMKhachHang, HinhThucTT hinhThucTT, DMPhi dMPhi, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)

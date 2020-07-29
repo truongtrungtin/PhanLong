@@ -65,6 +65,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
 
         [HttpGet]
+        [HasCredential(RoleId = "ADD_HOADON")]
         public ActionResult Create(long? id = null, string Copy = null)
         {
 
@@ -84,6 +85,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         }
 
         [HttpPost]
+        [HasCredential(RoleId = "ADD_HOADON")]
         public ActionResult Create(HoaDon hoaDon, int[] chkId, string delete = null, string update = null)
         {
             var ps = new HoaDonDao();
@@ -129,6 +131,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         }
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_HOADON")]
         public ActionResult Update(long id)
         {
             var dao = new HoaDonDao();
@@ -137,6 +140,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             return View(model);
         }
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_HOADON")]
         public ActionResult Update(HoaDon hoaDon, int[] chkId, string delete = null, string update = null)
         {
             var ps = new HoaDonDao();
@@ -177,6 +181,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         // Delete
         [HttpDelete]
+        [HasCredential(RoleId = "DELETE_HOADON")]
         public ActionResult Delete(long id)
         {
             var result = new HoaDonDao().Delete(id);
@@ -216,6 +221,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         [ActionName("ImportExcel")]
         [HttpPost]
+        [HasCredential(RoleId = "IMPORT_HOADON")]
         public ActionResult ImportExcel(HoaDon hoaDon, DMKhachHang dMKhachHang, DMBill dMBill, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)

@@ -245,7 +245,8 @@ namespace PhanLong.DAO
 
         public DMBill Check(string MaBill)
         {
-            return db.DMBills.SingleOrDefault(x => x.MaBill == MaBill);
+            var mabill = MaBill.Replace(" ", "");
+            return db.DMBills.SingleOrDefault(x => x.MaBill == mabill);
 
         }
         public DMBill GetById(long? id)

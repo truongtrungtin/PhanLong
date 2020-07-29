@@ -201,12 +201,20 @@
     <Compile Include="Areas\ThongKe\Controllers\HoaDonHangHoaController.cs" />
     <Compile Include="Areas\ThongKe\Controllers\SoPhuNganHangController.cs" />
     <Compile Include="Areas\ThongKe\ThongKeAreaRegistration.cs" />
+    <Compile Include="Common\CommonConstants.cs" />
+    <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\ExcelUpload.cs" />
+    <Compile Include="Common\HasCredentialAttribute.cs" />
     <Compile Include="Common\NumberToText.cs" />
+    <Compile Include="Common\UserLogin.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\PhatSinhController.cs" />
     <Compile Include="Areas\ThongKe\Controllers\LuongController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DAO\CongNoDao.cs" />
     <Compile Include="DAO\CTBillDao.cs" />
     <Compile Include="DAO\CTChiDao.cs" />
@@ -229,9 +237,12 @@
     <Compile Include="DAO\HoaDonDao.cs" />
     <Compile Include="DAO\PhatSinhDao.cs" />
     <Compile Include="DAO\PhatSinhThuDao.cs" />
+    <Compile Include="DAO\RolesDao.cs" />
     <Compile Include="DAO\SoPhuNganHangDao.cs" />
     <Compile Include="DAO\ThongKeLuong.cs" />
     <Compile Include="DAO\ThongKeBillDao.cs" />
+    <Compile Include="DAO\UserDao.cs" />
+    <Compile Include="EF\Credential.cs" />
     <Compile Include="EF\CTBill.cs" />
     <Compile Include="EF\CTChiThu.cs" />
     <Compile Include="EF\CTMenu.cs" />
@@ -252,12 +263,16 @@
     <Compile Include="EF\PhanLongDBContext.cs" />
     <Compile Include="EF\PhatSinh.cs" />
     <Compile Include="EF\PhatSinhChiThu.cs" />
+    <Compile Include="EF\Role.cs" />
     <Compile Include="EF\SoPhuNganHang.cs" />
+    <Compile Include="EF\User.cs" />
+    <Compile Include="EF\UserGroup.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\ChiLuongModel.cs" />
     <Compile Include="Models\CongNoModel.cs" />
+    <Compile Include="Models\LoginModel.cs" />
     <Compile Include="Models\PhatSinhChiThuModel.cs" />
     <Compile Include="Models\PhatSinhLuongModel.cs" />
     <Compile Include="Models\ThanhToanLuongModel.cs" />
@@ -1959,7 +1974,7 @@
     <Content Include="Areas\DanhMuc\Views\DMBill\UpdateCTBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinh\KeHoach.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\Index.cshtml" />
-    <Content Include="Areas\NhapLieu\Views\PhatSinhBill\ajaxDataBill.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinh\ajaxDataBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhBill\CTBill.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\Update.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\CreateCTChi.cshtml" />
@@ -2151,6 +2166,7 @@
     <Content Include="Areas\ThongKe\Views\SoPhuNganHang\Index.cshtml" />
     <Content Include="Areas\ThongKe\Views\CongNo\Index.cshtml" />
     <Content Include="Areas\ThongKe\Views\HoaDon\ThanhToanHoaDon.cshtml" />
+    <Content Include="Areas\NhapLieu\Views\PhatSinh\ajaxInputCont.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2201,6 +2217,12 @@
     <Content Include="Areas\ThongKe\Views\Luong\Index.cshtml" />
     <Content Include="Areas\ThongKe\Views\Luong\CTTTLuong.cshtml" />
     <None Include="Properties\PublishProfiles\PhanLong.pubxml" />
+    <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Error\Error401.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\Detail.cshtml" />
+    <Content Include="Views\User\Update.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

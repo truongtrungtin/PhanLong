@@ -102,18 +102,9 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="form-group row">
-                            @Html.LabelFor(model => model.SoCont, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
-                            <div class="col-sm-8">
-                                @Html.EditorFor(model => model.SoCont, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                @Html.ValidationMessageFor(model => model.SoCont, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <div class="form-group row">
                             @Html.LabelFor(model => model.SoBill, htmlAttributes: new { @style = "text-align:right", @class = "control-label col-sm-4" })
                             <div class="col-sm-8">
-                                <select name="SoBill" class="form-control form-control-sm select2" data-placeholder="Chọn bill">
+                                <select name="SoBill" class="form-control form-control-sm select2" id="Bill" data-placeholder="Chọn bill">
                                     <option value=""></option>
                                     @foreach (var item in db.DMBills)
                                     {
@@ -125,6 +116,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-2">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.SoCont, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
+                            <div class="col-sm-8">
+                                <input type="text"  class="form-control form-control-sm" id="inputcont" name="SoCont" value="" />
+                                @*<select name="SoCont" class="form-control form-control-sm select2" id="Cont" data-placeholder="Chọn cont"  >
+                                </select>*@
+
+                                @Html.ValidationMessageFor(model => model.SoCont, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="row" style="height: 30px;">
                     <div class="col-sm-2">

@@ -340,15 +340,15 @@ namespace PhanLong.DAO
         {
             return db.CTBills.SingleOrDefault(x => x.Id == id);
         }
-        public List<CTBill> getbill(string cont)
+        public List<CTBill> getbill(long bill)
         {
-            return db.CTBills.Where(x => x.Cont == cont).ToList();
+            return db.CTBills.Where(x => x.Bill == bill).ToList();
         }
-        public long Insert(CTBill entity)
+        public long? Insert(CTBill entity)
         {
             db.CTBills.Add(entity);
             db.SaveChanges();
-            return entity.Id;
+            return entity.Bill;
         }
 
         public DMBill GetLastIdBill()
@@ -383,14 +383,13 @@ namespace PhanLong.DAO
                 return false;
             }
         }
-        public bool UpdateNGui(CTBill cTBill)
+        public bool UpdateNgayGiao(CTBill cTBill)
         {
             try
             {
-                var item = db.CTBills.SingleOrDefault(x => x.Cont == cTBill.Cont);
-                item.NgayGui = cTBill.NgayGui;
+                var item = db.CTBills.SingleOrDefault(x => x.Bill == cTBill.Bill &&  x.Cont == cTBill.Cont);
+                item.NgayGiao = cTBill.NgayGiao;
                 item.SoXe = cTBill.SoXe;
-                item.BaiGui = cTBill.BaiGui;
                 item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;

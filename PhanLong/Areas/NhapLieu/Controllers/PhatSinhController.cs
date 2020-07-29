@@ -66,6 +66,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
 
         [HttpGet]
+        [HasCredential(RoleId = "ADD_PHATSINH")]
         public ActionResult Create(long? id = null, string Copy = null)
         {
             
@@ -85,6 +86,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         }
 
         [HttpPost]
+        [HasCredential(RoleId = "ADD_PHATSINH")]
         public ActionResult Create(PhatSinh phatSinh, int[] chkId, string delete = null,string update = null, string kehoach = null)
         {
             var ps = new PhatSinhDao();
@@ -135,6 +137,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         }
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_PHATSINH")]
         public ActionResult Update(long id)
         {
             var dao = new PhatSinhDao();
@@ -143,6 +146,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             return View(model);
         }
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_PHATSINH")]
         public ActionResult Update(PhatSinh phatSinh, int[] chkId, string delete = null, string copy = null)
         {
             var ps = new PhatSinhDao();
@@ -183,6 +187,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         // Delete
         [HttpDelete]
+        [HasCredential(RoleId = "DELETE_PHATSINH")]
         public ActionResult Delete(long id)
         {
             var result = new PhatSinhDao().Delete(id);
@@ -222,6 +227,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         [ActionName("ImportExcel")]
         [HttpPost]
+        [HasCredential(RoleId = "IMPORT_PHATSINH")]
         public ActionResult ImportExcel(PhatSinh phatsinh, DMLoai dMLoai, DMKhachHang dMKhachHang, DMKho dMKho, DMXe dMXe, DMNhanVien dMNhanVien, DMPhi dMPhi, DMThoiGian dMThoiGian, DMCang dMCang, DMBill dMBill, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)
@@ -290,6 +296,18 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
             }
             return RedirectToAction("Index", "PhatSinh");
+        }
+
+
+        public PartialViewResult ajaxDataBill(long id)
+        {
+            var model = new CTBillDao().getbill(id);
+            return PartialView(model);
+        }
+
+        public PartialViewResult ajaxInputCont()
+        {
+            return PartialView();
         }
     }
 
