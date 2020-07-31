@@ -205,9 +205,12 @@
     <Compile Include="Common\Encryptor.cs" />
     <Compile Include="Common\ExcelUpload.cs" />
     <Compile Include="Common\HasCredentialAttribute.cs" />
+    <Compile Include="Common\MailHelper.cs" />
     <Compile Include="Common\NumberToText.cs" />
+    <Compile Include="Common\StringHelper.cs" />
     <Compile Include="Common\UserLogin.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BaseLoginController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\PhatSinhController.cs" />
@@ -1911,10 +1914,14 @@
     <Content Include="Content\plugins\toastr\toastr.min.css" />
     <Content Include="Content\plugins\toastr\toastr.min.js" />
     <Content Include="Content\table\Table-kehoach.css" />
+    <Content Include="Content\templates\ForgotPassword.html" />
+    <Content Include="Content\templates\CreateAccount.html" />
+    <Content Include="Content\templates\ChangePassword.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Images\logo.png" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -1940,7 +1947,6 @@
     <Folder Include="Areas\NhapLieu\Views\Shared\" />
     <Folder Include="Areas\ThongKe\Data\" />
     <Folder Include="Areas\ThongKe\Views\Shared\" />
-    <Folder Include="Scripts\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -2221,8 +2227,15 @@
     <Content Include="Views\Error\Error401.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\Detail.cshtml" />
+    <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\User\Update.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\ChangePassword.cshtml" />
+    <Content Include="Views\User\ChangeProfile.cshtml" />
+    <Content Include="Views\Login\ForgotPassword.cshtml" />
+    <Content Include="Views\Login\_Layout.cshtml" />
+    <Content Include="Views\Login\RecoverPassword.cshtml" />
+    <Content Include="Views\Login\NewPassword.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

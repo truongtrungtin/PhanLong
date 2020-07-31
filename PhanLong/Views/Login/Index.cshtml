@@ -1,43 +1,73 @@
 ﻿@model  PhanLong.Models.LoginModel
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="stylesheet" href="/Content/dist/css/adminlte.css">
-    <title>Phan Long - Đăng nhập</title>
-
-</head>
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4 col-md-offset-4">
-                <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">Đăng nhập</h4>
-                    </div>
-                    <div class="panel-body">
-                        @using (Html.BeginForm("Login", "Login", FormMethod.Post))
-                        {
-                            @Html.ValidationSummary(false, "", new { @class = "text-danger" });
-                            <fieldset>
-                                <div class="form-group">
-                                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control form-control-sm", @autofocus = "autofocus" })
-                                </div>
-                                <div class="form-group">
-                                    @Html.PasswordFor(model => model.Password, new { @class = "form-control form-control-sm" })
-                                </div>
-                                <!-- Change this to a button or input when using this as a form -->
-                                <button type="submit" class="btn btn-group-sm btn-success btn-block">Login</button>
-                            </fieldset>
-                        }
+@{
+    ViewBag.Title = "Đăng nhập";
+    Layout = "~/Views/Login/_Layout.cshtml";
+}
+<div class="login-box">
+    <div class="login-logo">
+        <b>Đăng nhập</b>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+        <div class="card-body login-card-body">
+            @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+            {
+                @Html.ValidationSummary(false, "", new { @class = "text-danger" });
+                <div class="input-group mb-3">
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Nhập tên tài khoản ..." })
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-envelope"></span>
+                        </div>
                     </div>
                 </div>
+                <div class="input-group mb-3">
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Nhập password ..." })
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <div class="icheck-primary">
+                            @Html.CheckBoxFor(model => model.RememberMe, new { @id = "remember" })
+                            <label for="remember">
+                                Remember Me
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary btn-block">Đăng nhập</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            }
+
+            <div class="social-auth-links text-center mb-3">
+                <p>- OR -</p>
+                <a href="" class="btn btn-block btn-primary">
+                    <i class="fab fa-facebook mr-2"></i> Đăng nhập bằng Facebook
+                </a>
+                <a href="#" class="btn btn-block btn-danger">
+                    <i class="fab fa-google-plus mr-2"></i> Đăng nhập bằng Google+
+                </a>
             </div>
+            <!-- /.social-auth-links -->
+
+            <p class="mb-1">
+                @Html.ActionLink("Quên mật khẩu", "ForgotPassword", "Login")
+            </p>
         </div>
+        <!-- /.login-card-body -->
     </div>
-</body>
-</html>
+</div>
+<!-- /.login-box -->
+<!-- jQuery -->
+<script src="/Content/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="/Content/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="/Content/dist/js/adminlte.min.js"></script>

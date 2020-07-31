@@ -9,13 +9,17 @@ namespace PhanLong.EF
     [Table("Credential")]
     public partial class Credential
     {
-        [Key]
-        [Column(Order = 0)]
+        public long Id { get; set; }
+
+        [Required]
         public long UserId { get; set; }
 
-        [Key]
-        [Column(Order = 1)]
+        [Required]
         [StringLength(50)]
         public string RoleId { get; set; }
+
+        public virtual Role Role { get; set; }
+
+        public virtual User User { get; set; }
     }
 }

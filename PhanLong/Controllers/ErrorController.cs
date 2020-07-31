@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace QLDL.Controllers
+namespace PhanLong.Controllers
 {
-    public class ErrorController : Controller
+    public class ErrorController : BaseController
     {
         // GET: Error
         public ActionResult Error404()

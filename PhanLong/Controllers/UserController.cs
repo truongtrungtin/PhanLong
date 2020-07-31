@@ -4,6 +4,7 @@ using PhanLong.EF;
 using PhanLong.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,7 +16,6 @@ namespace PhanLong.Controllers
 
         // GET: Admin/User
         [HasCredential(RoleId = "VIEW_USER")]
-
         public ActionResult Index()
         {
             var dao = new UserDao();
@@ -24,6 +24,7 @@ namespace PhanLong.Controllers
         }
 
         [HttpPost]
+        [HasCredential(RoleId = "VIEW_USER")]
         public ActionResult Index(int[] chkId, string delete = null, string update = null, string chitiet = null)
         {
             var dao = new UserDao();
@@ -39,7 +40,7 @@ namespace PhanLong.Controllers
                     SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
                 }
             }
-            else if(update != null && chkId.Length == 1)
+            else if (update != null && chkId.Length == 1)
             {
                 return RedirectToAction("Update", "User", new { id = chkId[0] });
             }
@@ -51,11 +52,101 @@ namespace PhanLong.Controllers
             return View(model);
         }
 
-        public ActionResult Detail(long id)
+        public ActionResult Profile()
         {
-            var dao = new UserDao();
-            var model = dao.ViewDetail(id);
-            return View(model);
+            var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+            var Model = new UserDao().ViewDetail(session.UserID);
+            return View(Model);
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult ChangeProfile()
+        {
+            var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+            var Model = new UserDao().ViewDetail(session.UserID);
+            return PartialView(Model);
+        }
+
+        [HttpPost]
+        public ActionResult ChangeProfile(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                var dao = new UserDao();
+                var result = dao.UpdateProfile(user);
+                if (result)
+                {
+                    SetAlert("Sửa thông tin tài khoản thành công!", "success");
+                    return RedirectToAction("Profile", "User", new { id = user.Id });
+                }
+                else
+                {
+                    SetAlert("Sửa thông tin tài khoản không thành công!", "warning");
+
+                }
+            }
+            return RedirectToAction("Profile", "User", new { id = user.Id });
+        }
+
+        [ChildActionOnly]
+        public PartialViewResult ChangePassword()
+        {
+            var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+            var Model = new UserDao().ViewDetail(session.UserID);
+            return PartialView(Model);
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(User user, string OldPassword, string NewPassword, string ConfirmNewPassword)
+        {
+            var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+
+            if (ModelState.IsValid)
+            {
+                var dao = new UserDao();
+                if (dao.CheckPassword(session.UserID, Encryptor.MD5Hash(OldPassword)))
+                {
+                    if (OldPassword != NewPassword)
+                    {
+                        if (NewPassword == ConfirmNewPassword)
+                        {
+                            var encryptedMd5Pas = Encryptor.MD5Hash(NewPassword);
+                            user.Password = encryptedMd5Pas;
+                            user.Id = session.UserID;
+                            user.ModifiedBy = session.fullname;
+                            var result = dao.UpdatePassword(user);
+                            if (result)
+                            {
+                                string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/ChangePassword.html"));
+                                content = content.Replace("{{username}}", session.UserName);
+                                new MailHelper().SendMail(session.Email, "Phanlong.com", content, "Xác thực thông tin");
+
+
+                                SetAlert("Thay đổi mật khẩu thành công!", "success");
+                            }
+                            else
+                            {
+                                SetAlert("Thay đổi mật khẩu không thành công!", "warning");
+
+                            }
+                        }
+                        else
+                        {
+                            SetAlert("Mật khẩu mới không giống nhau!", "warning");
+                        }
+                    }
+                    else
+                    {
+                        SetAlert("Mật khẩu cũ không được trùng mật khẩu mới!", "warning");
+                    }
+
+                }
+                else
+                {
+                    SetAlert("Sai mật khẩu!", "warning");
+                }
+            }
+            return RedirectToAction("Profile", "User");
         }
 
         [HttpGet]
@@ -74,24 +165,46 @@ namespace PhanLong.Controllers
 
         [HttpPost]
         [HasCredential(RoleId = "ADD_USER")]
-        public ActionResult Create(User user)
+        public ActionResult Create(User user, string[] selectroles)
         {
             if (ModelState.IsValid)
             {
                 var dao = new UserDao();
-
-                var encryptedMd5Pas = Encryptor.MD5Hash(user.Password);
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                string pass = dao.RandomPassword();
+                var encryptedMd5Pas = Encryptor.MD5Hash(pass);
                 user.Password = encryptedMd5Pas;
-
-                long id = dao.Insert(user);
+                user.CreatedBy = session.fullname;
+                long id = dao.Insert(user, selectroles);
                 if (id > 0)
                 {
-                    SetAlert("Thêm user thành công", "success");
-                    return RedirectToAction("Index", "User");
+                    try
+                    {
+                        string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/CreateAccount.html"));
+
+                        content = content.Replace("{{FullName}}", user.Name);
+                        content = content.Replace("{{Telephone}}", user.Telephone);
+                        content = content.Replace("{{Email}}", user.Email);
+                        content = content.Replace("{{Address}}", user.Address);
+                        content = content.Replace("{{Username}}", user.Username);
+                        content = content.Replace("{{Password}}", pass);
+
+                        var toEmail = ConfigurationManager.AppSettings["ToEmailAddress"].ToString();
+                        new MailHelper().SendMail(user.Email, "Tài khoản Phanlong.com", content, "Tài khoản Phanlong.com");
+                        new MailHelper().SendMail(toEmail, "Tài khoản Phanlong.com", content, "Tài khoản Phanlong.com");
+                        SetAlert("Thêm user thành công! Đã gửi tên tài khoản và password tới email!", "success");
+                        return RedirectToAction("Index", "User");
+                    }
+                    catch (Exception)
+                    {
+                        SetAlert("Thêm không thành công!", "warning");
+                        return RedirectToAction("Create", "User");
+
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Thêm user không thành công");
+                    SetAlert("Thêm user không thành công!", "warning");
                 }
             }
             return View("Index");
@@ -112,23 +225,31 @@ namespace PhanLong.Controllers
                 var result = dao.Update(user, selectroles);
                 if (result)
                 {
-                    SetAlert("Sửa user thành công", "success");
-                    return RedirectToAction("Index", "User");
+                    SetAlert("Sửa user thành công!", "success");
+                    return RedirectToAction("Update", "User", new { id = user.Id });
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Cập nhật user không thành công");
+                    SetAlert("Cập nhật user không thành công!", "warning");
+
                 }
             }
-            return View("Index");
+            return RedirectToAction("Update", "User", new { id = user.Id });
         }
+
         [HttpDelete]
         [HasCredential(RoleId = "DELETE_USER")]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
-            new UserDao().Delete(id);
-
-            return RedirectToAction("Index");
+            if (new UserDao().Delete(id))
+            {
+                SetAlert("Xoá thành công!", "success");
+            }
+            else
+            {
+                SetAlert("Xoá không thành công", "warning");
+            }
+            return RedirectToAction("Index", "User");
         }
 
     }

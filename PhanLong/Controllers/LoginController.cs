@@ -1,15 +1,17 @@
 ﻿using PhanLong.Common;
 using PhanLong.DAO;
+using PhanLong.EF;
 using PhanLong.Models;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
 namespace PhanLong.Controllers
 {
-    public class LoginController: Controller
+    public class LoginController: BaseLoginController
     {
         // GET: Login
         public ActionResult Index()
@@ -30,6 +32,7 @@ namespace PhanLong.Controllers
                     userSession.UserID = user.Id;
                     userSession.GroupID = user.GroupID;
                     userSession.fullname = user.Name;
+                    userSession.Email = user.Email;
                     var listCredentials = dao.GetListCredential(model.UserName);
 
                     Session.Add(CommonConstants.SESSION_CREDENTIALS, listCredentials);
@@ -60,17 +63,17 @@ namespace PhanLong.Controllers
             return View("Index");
         }
 
-        private Uri RedirectUri
-        {
-            get
-            {
-                var uriBuilder = new UriBuilder(Request.Url);
-                uriBuilder.Query = null;
-                uriBuilder.Fragment = null;
-                uriBuilder.Path = Url.Action("FacebookCallback");
-                return uriBuilder.Uri;
-            }
-        }
+        //private Uri RedirectUri
+        //{
+        //    get
+        //    {
+        //        var uriBuilder = new UriBuilder(Request.Url);
+        //        uriBuilder.Query = null;
+        //        uriBuilder.Fragment = null;
+        //        uriBuilder.Path = Url.Action("FacebookCallback");
+        //        return uriBuilder.Uri;
+        //    }
+        //}
 
         //public ActionResult LoginFacebook()
         //{
@@ -133,6 +136,106 @@ namespace PhanLong.Controllers
             Session[CommonConstants.USER_SESSION] = null;
             return Redirect("/");
         }
+
+        public ActionResult ForgotPassword()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult ForgotPassword(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                var dao = new UserDao();
+                if (dao.CheckEmail(user.Email))
+                {
+                    int tokenkey = dao.RandomNumber(100000,999999);
+
+                    string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/ForgotPassword.html"));
+
+                    content = content.Replace("{{FullName}}", user.Name);
+                    content = content.Replace("{{tokenkey}}", Convert.ToString(tokenkey));
+                    new MailHelper().SendMail(user.Email, "Phanlong.com", content, "Đặt lại mật khẩu");
+
+
+                    return RedirectToAction("RecoverPassword", "Login", new {@email=user.Email,  @token = Encryptor.MD5Hash(Convert.ToString(tokenkey)) });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Email không tồn tại.");
+                }
+            }
+            return View();
+        }
+
+        public ActionResult RecoverPassword(string email, string token)
+        {
+            ViewBag.Token = token;
+            ViewBag.Email = email;
+            return View();
+        }
+        [HttpPost]
+        public ActionResult RecoverPassword(User user, string token, string hash)
+        {
+            if (ModelState.IsValid)
+            {
+                if (Encryptor.MD5Hash(token) == hash)
+                {
+                    var dao = new UserDao().GetByEmail(user.Email);
+                    var Code = Encryptor.MD5Hash(dao.Username + dao.Email + dao.Telephone + dao.Address);
+                    return RedirectToAction("NewPassword", "Login", new { @email = user.Email, code = Code });
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Sai mã bảo mật.");
+                }
+            }
+            return View();
+        }
+
+        public ActionResult NewPassword(string email, string code)
+        {
+            var dao = new UserDao().GetByEmail(email);
+            if (Encryptor.MD5Hash(dao.Username + dao.Email + dao.Telephone + dao.Address) == code)
+            {
+                ViewBag.Email = email;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Index", "Login");
+            }
+        }
+        [HttpPost]
+        public ActionResult NewPassword(User user, string NewPassword)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                var dao = new UserDao();
+                var encryptedMd5Pas = Encryptor.MD5Hash(NewPassword);
+                user.Id = dao.GetByEmail(user.Email).Id;
+                user.Password = encryptedMd5Pas;
+                var result = dao.UpdatePassword(user);
+                if (result)
+                {
+                    string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/ChangePassword.html"));
+                    content = content.Replace("{{username}}", user.Email);
+                    new MailHelper().SendMail(user.Email, "Phanlong.com", content, "Thay đổi mật khẩu");
+
+                    SetAlert("Thay đổi mật khẩu thành công!", "success");
+                    return RedirectToAction("Index", "Login");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Lỗi! vui lòng thử lại.");
+
+                }
+                
+            }
+            return View();
+        }
+
 
         //[HttpPost]
         //[CaptchaValidation("CaptchaCode", "registerCapcha", "Mã xác nhận không đúng!")]

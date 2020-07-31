@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using PhanLong.EF;
 using System.Configuration;
 using PhanLong.Common;
+using PhanLong.Models;
+using DocumentFormat.OpenXml.VariantTypes;
 
 namespace PhanLong.DAO
 {
@@ -40,10 +42,26 @@ namespace PhanLong.DAO
 
         }
 
-        public long Insert(User entity)
+        public long Insert(User entity, string[] selectroles)
         {
+            
+            entity.Status = true;
+            entity.CreatedDate = DateTime.Now;
             db.Users.Add(entity);
             db.SaveChanges();
+            if (selectroles != null)
+            {
+
+                for (int i = 0; i < selectroles.Length; i++)
+                {
+                    string temp = selectroles[i];
+                    Credential article = new Credential();
+                    article.RoleId = temp;
+                    article.UserId = entity.Id;
+                    db.Credentials.Add(article);
+                }
+                db.SaveChanges();
+            }
             return entity.Id;
         }
         public long InsertForFacebook(User entity)
@@ -61,20 +79,68 @@ namespace PhanLong.DAO
             }
 
         }
+
+        public bool UpdatePassword(User entity)
+        {
+            try
+            {
+                var user = db.Users.Find(entity.Id);
+                if (!string.IsNullOrEmpty(entity.Password))
+                {
+                    user.Password = entity.Password;
+                }
+                user.ModifiedBy = user.Name;
+                user.ModifiedDate = DateTime.Now;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                //logging
+                return false;
+            }
+
+        }
+        public bool UpdateProfile(User entity)
+        {
+            try
+            {
+                var user = db.Users.Find(entity.Id);
+                user.Name = entity.Name;
+                user.Address = entity.Address;
+                user.Email = entity.Email;
+                user.Telephone = entity.Telephone;
+                user.ModifiedBy = entity.ModifiedBy;
+                user.ModifiedDate = DateTime.Now;
+                user.Status = entity.Status;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                //logging
+                return false;
+            }
+
+        }
+
+
         public bool Update(User entity, string[] selectroles)
         {
             try
             {
                 var user = db.Users.Find(entity.Id);
                 user.Name = entity.Name;
-                if (selectroles.Length > 0)
+
+                var remove = db.Credentials.Where(x => x.UserId == user.Id).ToList();
+                foreach (var item in remove)
                 {
-                    var remove = db.Credentials.Where(x => x.UserId == user.Id).ToList();
-                    foreach (var item in remove)
-                    {
-                        db.Credentials.Remove(item);
-                    }
-                    db.SaveChanges();
+                    db.Credentials.Remove(item);
+                }
+                db.SaveChanges();
+
+                if (selectroles != null)
+                {
 
                     for (int i = 0; i < selectroles.Length; i++)
                     {
@@ -92,8 +158,10 @@ namespace PhanLong.DAO
                 }
                 user.Address = entity.Address;
                 user.Email = entity.Email;
+                user.Telephone = entity.Telephone;
                 user.ModifiedBy = entity.ModifiedBy;
                 user.ModifiedDate = DateTime.Now;
+                user.Status = entity.Status;
                 db.SaveChanges();
                 return true;
             }
@@ -191,7 +259,7 @@ namespace PhanLong.DAO
             db.SaveChanges();
             return user.Status;
         }
-        public bool Delete(int id)
+        public bool Delete(long id)
         {
             try
             {
@@ -211,9 +279,50 @@ namespace PhanLong.DAO
         {
             return db.Users.Count(x => x.Username == userName) > 0;
         }
+
+        public bool CheckPassword(long id, string passWord)
+        {
+            return db.Users.Count(x => x.Id == id && x.Password == passWord) > 0;
+        }
+
+        public User GetByEmail(string email)
+        {
+            return db.Users.SingleOrDefault(x => x.Email == email);
+        }
+
         public bool CheckEmail(string email)
         {
             return db.Users.Count(x => x.Email == email) > 0;
+        }
+
+        public string RandomString(int size, bool lowerCase)
+        {
+            StringBuilder builder = new StringBuilder();
+            Random random = new Random();
+            char ch;
+            for (int i = 0; i < size; i++)
+            {
+                ch = Convert.ToChar(Convert.ToInt32(Math.Floor(26 * random.NextDouble() + 65)));
+                builder.Append(ch);
+            }
+            if (lowerCase)
+                return builder.ToString().ToLower();
+            return builder.ToString();
+        }
+
+        public int RandomNumber(int min, int max)
+        {
+            Random random = new Random();
+            return random.Next(min, max);
+        }
+
+        public string RandomPassword(int size = 0)
+        {
+            StringBuilder builder = new StringBuilder();
+            builder.Append(RandomString(4, true));
+            builder.Append(RandomNumber(1000, 9999));
+            builder.Append(RandomString(2, false));
+            return builder.ToString();
         }
     }
 }

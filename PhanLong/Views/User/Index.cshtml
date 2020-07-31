@@ -4,66 +4,77 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="card">
-    <div class="container">
-        <div class="card-header">
-            <h5>
-                <b>Danh sách tài khoản</b>
-                @Html.ActionLink("Thêm tài khoản", "Create", null, new { @class = "btn btn-primary mb-1" })
-            </h5>
-        </div>
-        @using (Html.BeginForm("Index", "User", FormMethod.Post))
-        {
-            <div class="card-body">
-                @using (Html.BeginForm("Index", "User", FormMethod.Post))
-                {
-                    <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
-                        <thead>
-                            <tr>
 
-                                <th width="1%"><input type='checkbox' id='check' value='' /></th>
-                                <th>Tài khoản</th>
-                                <th>Tên</th>
-                                <th>Email</th>
-                                <th>Số điện thoại</th>
-                                <th>Trạng thái</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+<div class="card card-solid">
+    <div class="card-header">
+        <h5>
+            <b>Danh sách tài khoản</b>
+            @Html.ActionLink("Thêm tài khoản", "Create", null, new { @class = "btn btn-primary mb-1" })
+        </h5>
+    </div>
+    <div class="card-body pb-0">
+        <div class="row d-flex align-items-stretch">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch" id="row_@item.Id">
+                    <div class="card bg-light">
+                        <div class="card-header text-muted border-bottom-0">
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="lead"><b>@item.Name</b></h2>
+                                    <p class="text-muted text-sm"><b>Email: </b>  @item.Email </p>
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>Địa chỉ: @item.Address</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span>Số điện thoại: @item.Telephone</li>
+                                    </ul>
+                                </div>
+                                <div class="col-5 text-center">
+                                    <img src="/Content/dist/img/user2-160x160.jpg" alt="user-avatar" class="img-circle img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-right">
+                                @Ajax.ActionLink("X", "Delete", new { @id = item.Id },
+                                   new AjaxOptions
+                                   {
+                                       Confirm = "Bạn có chắc muốn xoá không ??",
+                                       OnComplete = "$('#row_" + item.Id + "').remove()",
+                                       HttpMethod = "Delete"
+                                   }, new { @class = "btn btn-sm bg-teal" })
+                                <a href="/User/Update/@item.Id" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-user"></i> Chỉnh sửa
 
-                            @foreach (var item in Model)
-                            {
-                                <tr id="row_@item.Id">
-
-                                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                                    <td>@item.Username</td>
-                                    <td>@item.Name</td>
-                                    <td>@item.Email</td>
-                                    <td>@item.Telephone</td>
-                                    <td style="color:@(item.Status == true ? "Black" : "Red")">@(item.Status == true ? "Hoạt động" : "Khoá")</td>
-                                </tr>
-                            }
-                        </tbody>
-
-                    </table>
-                    <div class="margin">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                                Hành động
-                                <span class="sr-only">Hành động</span>
-                            </button>
-                            <div class="dropdown-menu" role="menu">
-                                <input type="submit" value="Chi tiết" name="chitiet" id="chitiet" class="dropdown-item" />
-                                <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
-                                <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
+                                </a>
                             </div>
                         </div>
                     </div>
-                }
-            </div>
-        }
-
+                </div>
+            }
         </div>
-
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+        <nav aria-label="Contacts Page Navigation">
+            <ul class="pagination justify-content-center m-0">
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                <li class="page-item"><a class="page-link" href="#">7</a></li>
+                <li class="page-item"><a class="page-link" href="#">8</a></li>
+            </ul>
+        </nav>
+    </div>
+    <!-- /.card-footer -->
 </div>
+
+@section js{
+    <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+}
 

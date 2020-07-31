@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace PhanLong.Common
 {
-    public class HasCredentialAttribute: AuthorizeAttribute
+    public class HasCredentialAttribute : AuthorizeAttribute
     {
 
         public string RoleId { set; get; }
@@ -31,10 +31,23 @@ namespace PhanLong.Common
         }
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
-            filterContext.Result = new ViewResult
+            var session = (UserLogin)HttpContext.Current.Session[Common.CommonConstants.USER_SESSION];
+            if (session != null)
             {
-                ViewName = "~/Views/Error/Error401.cshtml"
-            };
+                filterContext.Result = new ViewResult
+                {
+                    ViewName = "~/Views/Error/Error401.cshtml"
+                };
+            }
+            else
+            {
+                filterContext.Result = new ViewResult
+                {
+                    ViewName = "~/Views/Login/index.cshtml"
+                };
+            }
+
+        
         }
         private List<string> GetCredentialByLoggedInUser(string userName)
         {

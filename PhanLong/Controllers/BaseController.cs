@@ -39,16 +39,18 @@ namespace PhanLong.Controllers
             return Redirect(returnUrl);
         }
 
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var session = (UserLogin)Session[CommonConstants.USER_SESSION];
             if (session == null)
             {
                 filterContext.Result = new RedirectToRouteResult(new
-                    RouteValueDictionary(new { controller = "Login", action = "Index" }));
+                    RouteValueDictionary(new { controller = "Login", action = "Index", Area = "" }));
             }
             base.OnActionExecuting(filterContext);
         }
+
         // GET: Base
         protected void SetAlert(string message, string type)
         {

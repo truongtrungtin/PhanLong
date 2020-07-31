@@ -374,6 +374,11 @@ namespace PhanLong.EF
                 .Property(e => e.Id)
                 .IsUnicode(false);
 
+            modelBuilder.Entity<Role>()
+                .HasMany(e => e.Credentials)
+                .WithRequired(e => e.Role)
+                .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<SoPhuNganHang>()
                 .Property(e => e.TienChi)
                 .HasPrecision(18, 0);
@@ -396,6 +401,10 @@ namespace PhanLong.EF
 
             modelBuilder.Entity<User>()
                 .Property(e => e.Email)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<User>()
+                .Property(e => e.Avatar)
                 .IsUnicode(false);
 
             modelBuilder.Entity<UserGroup>()

@@ -46,7 +46,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             if (session == null)
             {
                 filterContext.Result = new RedirectToRouteResult(new
-                    RouteValueDictionary(new { controller = "Login", action = "Index", area = "" }));
+                    RouteValueDictionary(new { controller = "Login", action = "Index", Area = "" }));
             }
             base.OnActionExecuting(filterContext);
         }
