@@ -20,6 +20,7 @@
 
         public long Id { get; set; }
 
+
         [StringLength(20)]
         [Display(Name = "Số tờ khai: ")]
         public string SoToKhai { get; set; }
@@ -50,6 +51,14 @@
 
         [Column(TypeName = "xml")]
         public string Files { get; set; }
+
+        [StringLength(250)]
+        [Display(Name = "Lô: ")]
+        public string Lo { get; set; }
+
+        [Column(TypeName = "date")]
+        [Display(Name = "Ngày ĐK: ")]
+        public DateTime? NgayDK { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTBill> CTBills { get; set; }

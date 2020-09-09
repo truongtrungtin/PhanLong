@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Index", "ImportDataWithExcel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                    <div class="modal-body">
+                        <h5 class="modal-title">
+                            Chọn file excel (PhanLong.xls)
+                        </h5>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input type="file" name="FileUpload" class="custom-file-input" id="exampleInputFile">
+                                    <label class="custom-file-label" for="exampleInputFile">Chọn file</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-default">Lưu</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>          
+            </div>
+
+        </div>
+    </div>
+    <div class="card">
+        <div class="container">
+            <div class="card-header">
+                <h5>
+                    <b>Thêm dữ liệu bằng Excel</b>
+                </h5>
+            </div>
+            <div class="card-body">
+
+                <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="1%"><input type='checkbox' id='check' value='' /></th>
+                            <th>Tên bảng</th>
+                            <th>Tên sheet trong excel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="DMKhachHang" /></td>
+                            <td>Danh mục khách hàng</td>
+                            <td>DMKhachHang</td>
+                        </tr>
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="DMKho" /></td>
+                            <td>Danh mục kho</td>
+                            <td>DMKho</td>
+                        </tr>
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="DMCang" /></td>
+                            <td>Danh mục cảng</td>
+                            <td>DMCang</td>
+                        </tr>
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="DMNhanVien" /></td>
+                            <td>Danh mục nhân viên</td>
+                            <td>DMNhanVien</td>
+                        </tr>
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="DMPhi" /></td>
+                            <td>Danh mục phí</td>
+                            <td>DMPhi</td>
+                        </tr>
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="DMBill" /></td>
+                            <td>Danh mục Bill</td>
+                            <td>DMBill</td>
+                        </tr>
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="CTBill" /></td>
+                            <td>Chi tiết Bill</td>
+                            <td>CTBill</td>
+                        </tr>
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="PhatSinh" /></td>
+                            <td>Phát Sinh</td>
+                            <td>PhatSinh</td>
+                        </tr>
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="HoaDon" /></td>
+                            <td>Hoá đơn</td>
+                            <td>HoaDon</td>
+                        </tr>
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="PhatSinhChiThu" /></td>
+                            <td>Phát sinh chi thu</td>
+                            <td>PhatSinhChiThu</td>
+                        </tr>
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="CTChiThu" /></td>
+                            <td>Chi tiết chi thu</td>
+                            <td>CTChiThu</td>
+                        </tr>
+                        <tr>
+                            <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="SoPhuNganHang" /></td>
+                            <td>Sổ phụ ngân hàng</td>
+                            <td>SoPhuNganHang</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="margin">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                            Hành động
+                            <span class="sr-only">Hành động</span>
+                        </button>
+                        <div class="dropdown-menu" role="menu">
+                            <a class="dropdown-item" href="~/Content/Excel/PhanLong.xls">Tải form excel mẫu</a>
+                            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#myModal">Chọn file excel</a>
+                            <input type="submit" value="Thêm dữ liệu" name="Import" id="Import" class="dropdown-item" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+}

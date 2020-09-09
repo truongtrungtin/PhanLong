@@ -81,7 +81,7 @@ namespace PhanLong.DAO
                         {
                             foreach (var item in db.DMNhanViens)
                             {
-                                if (item.MaNV == NguoiChiThu || item.TenNV == NguoiChiThu)
+                                if (item.MaNV == NguoiChiThu)
                                 {
                                     nguoichithu = item.Id;
                                 }
@@ -100,9 +100,9 @@ namespace PhanLong.DAO
                         }
                         if (NguoiNhan != null)
                         {
-                            foreach (var item in db.DMNhanViens)
+                            foreach (var item in db.DMKhachHangs)
                             {
-                                if (item.MaNV == NguoiNhan || item.TenNV == NguoiNhan)
+                                if (item.MaKH == NguoiNhan )
                                 {
                                     nguoinhan = item.Id;
                                 }
@@ -110,7 +110,7 @@ namespace PhanLong.DAO
                             }
                             if (nguoinhan == null)
                             {
-                                var dao = new DMNhanVienDao().InsertNV(dMNhanVien, NguoiNhan);
+                                var dao = new DMKhachHangDao().InsertKhachHang(dMKhachHang, NguoiNhan);
                                 nguoinhan = dao;
                             }
                         }
@@ -126,7 +126,6 @@ namespace PhanLong.DAO
                                 {
                                     khachhang = item.Id;
                                 }
-
                             }
                             if (khachhang == null)
                             {
@@ -256,7 +255,6 @@ namespace PhanLong.DAO
 
                             else if (column.ColumnName == "Mooc")
                             {
-
                                 phatSinhChiThu.Mooc = mooc;
 
                             }
@@ -275,9 +273,12 @@ namespace PhanLong.DAO
                             }
                             else if (column.ColumnName == "Số bill")
                             {
-                                if (bill != null)
+                                if (dr["Số hoá đơn"].ToString() != "")
                                 {
                                     phatSinhChiThu.Bill = bill;
+                                }
+                                else {
+                                    phatSinhChiThu.Bill = null;
                                 }
                             }
                             else if (column.ColumnName == "Số hoá đơn")

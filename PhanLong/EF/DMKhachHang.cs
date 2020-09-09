@@ -18,6 +18,7 @@
             PhatSinhChiThus = new HashSet<PhatSinhChiThu>();
             PhatSinhChiThus1 = new HashSet<PhatSinhChiThu>();
             SoPhuNganHangs = new HashSet<SoPhuNganHang>();
+            TraCuuCuocs = new HashSet<TraCuuCuoc>();
         }
 
         public long Id { get; set; }
@@ -70,5 +71,8 @@
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SoPhuNganHang> SoPhuNganHangs { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TraCuuCuoc> TraCuuCuocs { get; set; }
     }
 }

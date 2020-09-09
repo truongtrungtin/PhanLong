@@ -1900,8 +1900,8 @@ pre {
     .table thead th {
         vertical-align: middle;
         background-color: #d1cbc3;
-        font-size: 14px;
-        line-height: 40px;
+        font-size: 12px;
+        line-height: 35px;
         text-align: center;
         border-bottom: 1px solid #343a40;
     }
@@ -14499,8 +14499,8 @@ body.text-sm .control-sidebar {
 }
 
 .dropdown-menu-lg {
-    max-width: 300px;
-    min-width: 280px;
+    max-width: 800px;
+    min-width: 500px;
     padding: 0;
 }
 
@@ -14509,7 +14509,7 @@ body.text-sm .control-sidebar {
     }
 
     .dropdown-menu-lg .dropdown-item {
-        padding: 0.5rem 1rem;
+        padding: 0.2rem 1rem;
     }
 
     .dropdown-menu-lg p {

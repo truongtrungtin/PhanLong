@@ -14,6 +14,7 @@
         {
             CTBills = new HashSet<CTBill>();
             PhatSinhs = new HashSet<PhatSinh>();
+            TraCuuCuocs = new HashSet<TraCuuCuoc>();
         }
 
         public long Id { get; set; }
@@ -47,7 +48,7 @@
         public string GioCam { get; set; }
 
         [StringLength(255)]
-        [ Display(Name = "Ghí chú: ")]
+        [Display(Name = "Ghí chú: ")]
         public string GhiChu { get; set; }
 
         [Column(TypeName = "date")]
@@ -61,5 +62,8 @@
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinh> PhatSinhs { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TraCuuCuoc> TraCuuCuocs { get; set; }
     }
 }

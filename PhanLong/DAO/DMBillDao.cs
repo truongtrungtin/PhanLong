@@ -140,9 +140,33 @@ namespace PhanLong.DAO
                             }
                             else if (column.ColumnName == "khách hàng")
                             {
-                                
-                                    dMBill.KhachHang = KH;
-                                
+
+                                dMBill.KhachHang = KH;
+
+                            }
+                            else if (column.ColumnName == "Lô")
+                            {
+                                if (dr["Lô"].ToString() != "" && dr["Lô"].ToString() != null)
+                                {
+                                    dMBill.Lo = dr["Lô"].ToString();
+                                }
+                                else
+                                {
+                                    dMBill.Lo = null;
+                                }
+                            }
+                            else if (column.ColumnName == "Đăng ký")
+                            {
+                                var day = dr["Đăng ký"].ToString();
+                                if (day != "")
+                                {
+                                    var a = Convert.ToDateTime(day).ToShortDateString();
+                                    dMBill.NgayDK = Convert.ToDateTime(a);
+                                }
+                                else
+                                {
+                                    dMBill.NgayDK = null;
+                                }
                             }
                             else if (column.ColumnName == "Cảng nhận")
                             {
@@ -296,5 +320,37 @@ namespace PhanLong.DAO
             }
 
         }
+
+        public List<TestItemClass> GetList(string TableName, string[] selectroles)
+        {
+            string sql = "SELECT " + string.Join(", ", selectroles) + " FROM " + TableName + " Order By " + selectroles[0];
+            var data = db.Database.SqlQuery<TestItemClass>(sql);
+            return data.ToList();
+
+        }
+
+       
+    }
+
+    public class TestItemClass
+    {
+        public long Id { get; set; }
+        public string SoToKhai { get; set; }
+
+        public string MaBill { get; set; }
+
+        public string NguoiGui { get; set; }
+
+        public DateTime? NgayTauDen { get; set; }
+
+        public long? CangNhan { get; set; }
+
+
+        public long? KhachHang { get; set; }
+
+        public long? CangTra { get; set; }
+
+        public DateTime? DateUpdate { get; set; }
+
     }
 }

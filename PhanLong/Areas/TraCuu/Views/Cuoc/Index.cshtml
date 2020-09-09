@@ -1,0 +1,147 @@
+﻿@model IEnumerable<PhanLong.EF.TraCuuCuoc>
+@using PhanLong.EF;
+@using PhanLong.DAO;
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    PhanLongDBContext db = new PhanLongDBContext();
+}
+
+
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+}
+@using (Html.BeginForm("Index", "Cuoc", FormMethod.Get))
+{
+    <div class="card">
+
+        <div class="card-header">
+            <h3 class="card-title">
+                Bộ lọc
+            </h3>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">                      
+                            <select name="KhachHang" class="form-control form-control-sm select2" data-placeholder="Chọn khách hàng">
+                                @if (ViewBag.MaKH != null)
+                                {
+                                    <option value="@ViewBag.MaKH">@ViewBag.MaKH - @ViewBag.KhachHang</option>
+                                }
+                                else
+                                {
+                                    <option value=""></option>
+                                }
+                                @foreach (var item in db.DMKhachHangs)
+                                {
+                                    <option value="@item.MaKH">@item.MaKH - @item.TenCongTy</option>
+                                }
+                            </select>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                            <select name="Kho" class="form-control form-control-sm select2" data-placeholder="Chọn kho">
+                                @if (ViewBag.MaKho != null)
+                                {
+                                    <option value="@ViewBag.MaKho">@ViewBag.MaKho - @ViewBag.Kho</option>
+                                }
+                                else
+                                {
+                                    <option value=""></option>
+                                }
+                                @foreach (var item in db.DMKhoes)
+                                {
+                                    <option value="@item.MaKho">@item.MaKho - @item.DiaChi</option>
+                                }
+                            </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                            <select name="CangNhan" class="form-control form-control-sm select2" data-placeholder="Chọn cảng nhận">
+                                @if (ViewBag.MaCangNhan != null)
+                                {
+                                    <option value="@ViewBag.MaCangNhan">@ViewBag.MaCangNhan - @ViewBag.CangNhan</option>
+                                }
+                                else
+                                {
+                                    <option value=""></option>
+                                }
+                                @foreach (var item in db.DMCangs)
+                                {
+                                    <option value="@item.MaCang">@item.MaCang - @item.TenCang</option>
+                                }
+                            </select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group row">
+                            <select name="CangTra" class="form-control form-control-sm select2" data-placeholder="Chọn cảng trả">
+                                @if (ViewBag.MaCangTra != null)
+                                {
+                                    <option value="@ViewBag.MaCangTra">@ViewBag.MaCangTra - @ViewBag.CangTra</option>
+                                }
+                                else
+                                {
+                                    <option value=""></option>
+                                }
+                                @foreach (var item in db.DMCangs)
+                                {
+                                    <option value="@item.MaCang">@item.MaCang - @item.TenCang</option>
+                                }
+                            </select>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <input type="submit" name="Search" value="Tìm" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">
+            Tra cứu cước
+        </h3>
+    </div>
+    <div class="card-body">
+
+        <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="max-width:100%;">
+            <thead>
+                <tr>
+                    <th title="Mã khách hàng">Khách hàng </th>
+                    <th title="Kho">Kho</th>
+                    <th title="Cảng nhận">Cảng nhận</th>
+                    <th title="Cảng trả">Cảng trả</th>
+                    <th title="Cước">Cước</th>
+                    <th title="Cước tài xế">Cước tài xế</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                    <td title="@(item.Kho != null ? item.DMKho.DiaChi : null)">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
+                    <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
+                    <td title="@(item.CangTra != null ? item.DMCang1.TenCang : null)">@(item.CangTra != null ? item.DMCang1.MaCang : null)</td>
+                    <td title="">@String.Format("{0:0,0}", (item.Cuoc)) </td>
+                    <td title="">@String.Format("{0:0,0}", (item.CuocTX)) </td>
+
+                </tr>
+                }
+            </tbody>
+
+        </table>
+
+
+
+    </div>
+</div>

@@ -10,7 +10,7 @@
 @using (Html.BeginForm("Create", "PhatSinhBill", new { area = "NhapLieu" }, FormMethod.Post))
 {
     <h4><b>@ViewBag.MaBill</b></h4>
-    <span><b>Khách hàng: </b> @(ViewBag.KH != null ? ViewBag.KH : "Chưa có") </span> <span>|</span>  <span><b>Cảng nhận: </b> @(ViewBag.CN != null ? ViewBag.CN : "Chưa có") </span> <span>|</span> <span><b>Cảng trả: </b> @(ViewBag.CT != null ? ViewBag.CT : "Chưa có") </span> <span>|</span> <span><b>Ngày tàu đến: </b> @(ViewBag.TD != null ? ViewBag.TD : "Chưa có") </span>
+    <span><b>Khách hàng: </b> @(ViewBag.KH != null ? ViewBag.KH : "Chưa có") </span> <span>|</span> <span><b>Cảng nhận: </b> @(ViewBag.CN != null ? ViewBag.CN : "Chưa có") </span> <span>|</span> <span><b>Cảng trả: </b> @(ViewBag.CT != null ? ViewBag.CT : "Chưa có") </span> <span>|</span> <span><b>Ngày tàu đến: </b> @(ViewBag.TD != null ? ViewBag.TD : "Chưa có") </span>
     <div class="card">
         <div class="card-header">
             <h5>
@@ -62,13 +62,19 @@
                                     }
                                     else
                                     {
-                                        <td style="color:red"> @(ngayluubai > 0 ? "Còn( " + ngayluubai + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluubai) + " Ngày)") </td>
-
+                                        if (ngayluubai > 3)
+                                        {
+                                            <td> @("Còn ( " + ngayluubai + " Ngày)") </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluubai > 0 ? "Còn( " + ngayluubai + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluubai) + " Ngày)") </td>
+                                        }
                                     }
                                 }
                                 else
                                 {
-                        <td style="color:red">Chưa nhập hạn lưu Bãi</td>
+                                    <td style="color:red">Chưa nhập hạn lưu Bãi</td>
                                 }
                                 if (item.HanLuuCont != null)
                                 {
@@ -80,13 +86,19 @@
                                     }
                                     else
                                     {
-                                        <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
-
+                                        if (ngayluucont > 3)
+                                        {
+                                            <td> @("Còn ( " + ngayluucont + " Ngày)") </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
+                                        }
                                     }
                                 }
                                 else
                                 {
-                        <td style="color:red"> Chưa nhập hạn lưu cont</td>
+                                    <td style="color:red"> Chưa nhập hạn lưu cont</td>
                                 }
                                 if (item.HanLuuRong != null)
                                 {
@@ -98,24 +110,30 @@
                                     }
                                     else
                                     {
-                                        <td style="color:red"> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
-
+                                        if (ngayluurong > 3)
+                                        {
+                                            <td> @("Còn ( " + ngayluurong + " Ngày)") </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
+                                        }
                                     }
                                 }
                                 else
                                 {
-                                 <td  style="color:red"> Chưa nhập hạn lưu rỗng</td>
+                                    <td style="color:red"> Chưa nhập hạn lưu rỗng</td>
                                 }
                             }
                             else if (item.NgayGiao != null)
                             {
                                 <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : "Chưa nhập hạn lưu bãi")</td>
-                                <td >@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : "Chưa nhập hạn lưu cont")</td>
-                                <td >@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : "Chưa nhập hạn lưu rỗng ")</td>
+                                <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : "Chưa nhập hạn lưu cont")</td>
+                                <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : "Chưa nhập hạn lưu rỗng ")</td>
                             }
                             else if (item.NgayGui != null)
                             {
-                                <td >@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : "Chưa nhập hạn lưu bãi")</td>
+                                <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : "Chưa nhập hạn lưu bãi")</td>
 
 
                                 if (item.HanLuuCont != null)
@@ -128,31 +146,43 @@
                                     }
                                     else
                                     {
-                                        <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
-
+                                        if (ngayluucont > 3)
+                                        {
+                                            <td> @("Còn ( " + ngayluucont + " Ngày)") </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
+                                        }
                                     }
                                 }
                                 else
                                 {
-                        <td > Chưa nhập hạn lưu cont</td>
+                                    <td> Chưa nhập hạn lưu cont</td>
                                 }
                                 if (item.HanLuuRong != null)
                                 {
                                     var ngayluurong = (item.HanLuuRong.Value.Date - DateTime.Now.Date).TotalDays;
                                     if (ngayluurong == 0)
                                     {
-                                        <td > Tới hạn </td>
+                                        <td> Tới hạn </td>
 
                                     }
                                     else
                                     {
-                                        <td> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
-
+                                        if (ngayluurong > 3)
+                                        {
+                                            <td> @("Còn ( " + ngayluurong + " Ngày)") </td>
+                                        }
+                                        else
+                                        {
+                                            <td> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
+                                        }
                                     }
                                 }
                                 else
                                 {
-                                     <td > Chưa nhập hạn lưu rỗng</td>
+                                    <td> Chưa nhập hạn lưu rỗng</td>
                                 }
                             }
 
@@ -173,6 +203,9 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu" role="menu" style="">
+                        <input type="submit" value="Gia hạn lưu rỗng" name="giahanluurong" id="giahanluurong" class="dropdown-item" />
+                        <input type="submit" value="Gia hạn lưu cont" name="giahanluucont" id="giahanluucont" class="dropdown-item" />
+                        <input type="submit" value="Gia hạn lưu bãi" name="giahanluubai" id="giahanluubai" class="dropdown-item" />
                         <input type="submit" value="Thêm ngày gửi bãi" name="themngayguibai" id="themngayguibai" class="dropdown-item" />
                         <input type="submit" value="Thêm ngày giao" name="themngaygiao" id="themngaygiao" class="dropdown-item" />
                     </div>

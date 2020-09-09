@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Phát Sinh Bill:  " + ViewBag.MaBill;
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.url = "/NhapLieu/PhatSinhBill/";
+    ViewBag.url = "/ThongKe/Bill/";
     ViewBag.Back = "Trở lại";
     var stt = 0;
 }
@@ -61,13 +61,20 @@
                                     }
                                     else
                                     {
-                                        <td style="color:red"> @(ngayluubai > 0 ? "Còn( " + ngayluubai + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluubai) + " Ngày)") </td>
 
+                                        if (ngayluubai > 3)
+                                        {
+                                            <td> @("Còn ( " + ngayluubai + " Ngày)") </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluubai > 0 ? "Còn( " + ngayluubai + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluubai) + " Ngày)") </td>
+                                        }
                                     }
                                 }
                                 else
                                 {
-                        <td style="color:red">Chưa nhập hạn lưu Bãi</td>
+                                    <td style="color:red">Chưa nhập hạn lưu Bãi</td>
                                 }
                                 if (item.HanLuuCont != null)
                                 {
@@ -79,13 +86,19 @@
                                     }
                                     else
                                     {
-                                        <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
-
+                                        if (ngayluucont > 3)
+                                        {
+                                            <td> @("Còn ( " + ngayluucont + " Ngày)") </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
+                                        }
                                     }
                                 }
                                 else
                                 {
-                        <td style="color:red"> Chưa nhập hạn lưu cont</td>
+                                    <td style="color:red"> Chưa nhập hạn lưu cont</td>
                                 }
                                 if (item.HanLuuRong != null)
                                 {
@@ -97,8 +110,14 @@
                                     }
                                     else
                                     {
-                                        <td style="color:red"> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
-
+                                        if (ngayluurong > 3)
+                                        {
+                                            <td> @("Còn ( " + ngayluurong + " Ngày)") </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
+                                        }
                                     }
                                 }
                                 else
@@ -127,8 +146,14 @@
                                     }
                                     else
                                     {
-                                        <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
-
+                                        if (ngayluucont > 3)
+                                        {
+                                            <td> @("Còn ( " + ngayluucont + " Ngày)") </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
+                                        }
                                     }
                                 }
                                 else
@@ -145,8 +170,14 @@
                                     }
                                     else
                                     {
-                                        <td> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
-
+                                        if (ngayluurong > 3)
+                                        {
+                                            <td> @("Còn ( " + ngayluurong + " Ngày)") </td>
+                                        }
+                                        else
+                                        {
+                                            <td> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
+                                        }
                                     }
                                 }
                                 else
@@ -172,6 +203,9 @@
                         <span class="sr-only">Toggle Dropdown</span>
                     </button>
                     <div class="dropdown-menu" role="menu" style="">
+                        <input type="submit" value="Gia hạn lưu bãi" name="giahanluubai" id="giahanluubai" class="dropdown-item" />
+                        <input type="submit" value="Gia hạn lưu cont" name="giahanluucont" id="giahanluucont" class="dropdown-item" />
+                        <input type="submit" value="Gia hạn lưu rỗng" name="giahanluurong" id="giahanluurong" class="dropdown-item" />
                         <input type="submit" value="Thêm ngày gửi bãi" name="themngayguibai" id="themngayguibai" class="dropdown-item" />
                         <input type="submit" value="Thêm ngày giao" name="themngaygiao" id="themngaygiao" class="dropdown-item" />
                         <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />

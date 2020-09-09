@@ -59,7 +59,7 @@ namespace PhanLong.DAO
                         {
                             foreach (var item in db.DMLoais)
                             {
-                                if (item.MaLoai == MaLoai || item.MoTa == MaLoai || item.MoTa1 == MaLoai)
+                                if (item.MaLoai == MaLoai)
                                 {
                                     Loai = item.Id;
                                 }

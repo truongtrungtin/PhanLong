@@ -55,8 +55,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="EPPlus, Version=5.1.2.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
-      <HintPath>..\packages\EPPlus.5.1.2\lib\net45\EPPlus.dll</HintPath>
+    <Reference Include="EPPlus, Version=5.2.1.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.5.2.1\lib\net45\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="GemBox.Spreadsheet, Version=45.0.0.1176, Culture=neutral, PublicKeyToken=b1b72c69714d4847, processorArchitecture=MSIL">
       <HintPath>..\packages\GemBox.Spreadsheet.45.0.1176\lib\net35\GemBox.Spreadsheet.dll</HintPath>
@@ -170,7 +170,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Areas\BangKe\BangKeAreaRegistration.cs" />
+    <Compile Include="Areas\ThongKe\Controllers\BaseController.cs" />
+    <Compile Include="Areas\TraCuu\Controllers\CuocController.cs" />
+    <Compile Include="Areas\TraCuu\TraCuuAreaRegistration.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\DMThoiGianController.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\HinhThucTTController.cs" />
     <Compile Include="Areas\DanhMuc\DanhMucAreaRegistration.cs" />
@@ -184,6 +186,10 @@
     <Compile Include="Areas\DanhMuc\Controllers\DMNhanVienController.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\DMPhiController.cs" />
     <Compile Include="Areas\DanhMuc\Controllers\DMXeController.cs" />
+    <Compile Include="Areas\Khac\Controllers\BaseController.cs" />
+    <Compile Include="Areas\Khac\Controllers\ExportDataToExcelController.cs" />
+    <Compile Include="Areas\Khac\Controllers\ImportDataWithExcelController.cs" />
+    <Compile Include="Areas\Khac\KhacAreaRegistration.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\BaseController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\HoaDonController.cs" />
     <Compile Include="Areas\NhapLieu\Controllers\PhatSinhBillController.cs" />
@@ -192,7 +198,7 @@
     <Compile Include="Areas\NhapLieu\Controllers\SoPhuNganHangController.cs" />
     <Compile Include="Areas\NhapLieu\NhapLieuAreaRegistration.cs" />
     <Compile Include="Areas\ThongKe\Controllers\CongNoController.cs" />
-    <Compile Include="Areas\ThongKe\Controllers\BaseController.cs" />
+    <Compile Include="Areas\TraCuu\Controllers\BaseController.cs" />
     <Compile Include="Areas\ThongKe\Controllers\BillController.cs" />
     <Compile Include="Areas\ThongKe\Controllers\ChiHoController.cs" />
     <Compile Include="Areas\ThongKe\Controllers\ChiThuController.cs" />
@@ -234,6 +240,7 @@
     <Compile Include="DAO\DMThoiGianDao.cs" />
     <Compile Include="DAO\DmXeDao.cs" />
     <Compile Include="DAO\HinhThucTTDao.cs" />
+    <Compile Include="DAO\NotificationsDao.cs" />
     <Compile Include="DAO\PhatSinhBillDao.cs" />
     <Compile Include="DAO\PhatSinhChiDao.cs" />
     <Compile Include="DAO\PhatSinhChiThuDao.cs" />
@@ -242,8 +249,10 @@
     <Compile Include="DAO\PhatSinhThuDao.cs" />
     <Compile Include="DAO\RolesDao.cs" />
     <Compile Include="DAO\SoPhuNganHangDao.cs" />
+    <Compile Include="DAO\TableDao.cs" />
     <Compile Include="DAO\ThongKeLuong.cs" />
     <Compile Include="DAO\ThongKeBillDao.cs" />
+    <Compile Include="DAO\TraCuuCuocDao.cs" />
     <Compile Include="DAO\UserDao.cs" />
     <Compile Include="EF\Credential.cs" />
     <Compile Include="EF\CTBill.cs" />
@@ -268,6 +277,7 @@
     <Compile Include="EF\PhatSinhChiThu.cs" />
     <Compile Include="EF\Role.cs" />
     <Compile Include="EF\SoPhuNganHang.cs" />
+    <Compile Include="EF\TraCuuCuoc.cs" />
     <Compile Include="EF\User.cs" />
     <Compile Include="EF\UserGroup.cs" />
     <Compile Include="Global.asax.cs">
@@ -276,8 +286,11 @@
     <Compile Include="Models\ChiLuongModel.cs" />
     <Compile Include="Models\CongNoModel.cs" />
     <Compile Include="Models\LoginModel.cs" />
+    <Compile Include="Models\NotificationsModel.cs" />
     <Compile Include="Models\PhatSinhChiThuModel.cs" />
     <Compile Include="Models\PhatSinhLuongModel.cs" />
+    <Compile Include="Models\ColModel.cs" />
+    <Compile Include="Models\TableModel.cs" />
     <Compile Include="Models\ThanhToanLuongModel.cs" />
     <Compile Include="Models\ThongKeBillModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -1920,6 +1933,10 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Images\Avatar\admin\default2039.jpg" />
+    <Content Include="Images\Avatar\default.jpg" />
+    <Content Include="Images\Avatar\Phan Long\6294455228908828232012.jpg" />
+    <Content Include="Images\Avatar\trungtin.230599\89419274_731374924063267_5210478771013943296_o2057.jpg" />
     <Content Include="Images\logo.png" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Web.config" />
@@ -1938,15 +1955,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\BangKe\Controllers\" />
-    <Folder Include="Areas\BangKe\Data\" />
-    <Folder Include="Areas\BangKe\Views\Shared\" />
     <Folder Include="Areas\DanhMuc\Data\" />
     <Folder Include="Areas\DanhMuc\Views\Shared\" />
+    <Folder Include="Areas\Khac\Data\" />
+    <Folder Include="Areas\Khac\Views\Shared\" />
     <Folder Include="Areas\NhapLieu\Data\" />
     <Folder Include="Areas\NhapLieu\Views\Shared\" />
     <Folder Include="Areas\ThongKe\Data\" />
     <Folder Include="Areas\ThongKe\Views\Shared\" />
+    <Folder Include="Areas\TraCuu\Data\" />
+    <Folder Include="Areas\TraCuu\Views\Shared\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -1956,7 +1974,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Mvc.sitemap" />
     <Content Include="Areas\DanhMuc\Views\web.config" />
-    <Content Include="Areas\BangKe\Views\web.config" />
+    <Content Include="Areas\TraCuu\Views\web.config" />
     <Content Include="Areas\NhapLieu\Views\web.config" />
     <Content Include="Areas\ThongKe\Views\web.config" />
     <Content Include="Areas\NhapLieu\Views\PhatSinhChi\Index.cshtml" />
@@ -2173,6 +2191,13 @@
     <Content Include="Areas\ThongKe\Views\CongNo\Index.cshtml" />
     <Content Include="Areas\ThongKe\Views\HoaDon\ThanhToanHoaDon.cshtml" />
     <Content Include="Areas\NhapLieu\Views\PhatSinh\ajaxInputCont.cshtml" />
+    <Content Include="Areas\Khac\Views\web.config" />
+    <Content Include="Areas\Khac\Views\ImportDataWithExcel\Index.cshtml" />
+    <Content Include="Areas\Khac\Views\ExportDataToExcel\Index.cshtml" />
+    <Content Include="Areas\Khac\Views\ExportDataToExcel\GetColumnInTable.cshtml" />
+    <Content Include="Content\Uploads\PhatSinh\PhanLong.xls" />
+    <Content Include="Content\Excel\PhanLong.xls" />
+    <Content Include="Areas\TraCuu\Views\Cuoc\Index.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

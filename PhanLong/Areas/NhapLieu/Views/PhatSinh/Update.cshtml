@@ -301,20 +301,7 @@
                         <div class="form-group row">
                             @Html.LabelFor(model => model.PhiKH, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-5" })
                             <div class="col-sm-7">
-                                <select name="PhiKH" class="form-control form-control-sm select2" data-placeholder="Chọn phí KH">
-                                    @if (Model.PhiKH != null)
-                                    {
-                                        <option value="@Model.PhiKH">@Model.DMPhi1.TenPhi</option>
-                                    }
-                                    else
-                                    {
-                                        <option value=""></option>
-                                    }
-                                    @foreach (var item in db.DMPhis)
-                                    {
-                                        <option value="@item.Id">@item.MaPhi</option>
-                                    }
-                                </select>
+                                <input type="text" name="PhiKH" class="form-control form-control-sm" value="@Model.PhiKH" />
                                 @Html.ValidationMessageFor(model => model.PhiKH, "", new { @class = "text-danger" })
                             </div>
                         </div>

@@ -46,7 +46,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
 
         [HttpPost]
-        public ActionResult Create(CTBill cTBill, int[] chkId, string themngayguibai = null, string themngaygiao = null, string gui = null, string giao = null, string update = null, string delete = null)
+        public ActionResult Create(CTBill cTBill, int[] chkId, string themngayguibai = null, string themngaygiao = null, string giahanluubai= null, string giahanluucont = null, string giahanluurong = null, string gui = null, string giao = null, string luubai = null, string luucont = null, string luurong = null, string update = null, string delete = null)
         {
             var bill = new DMBillDao().GetById(cTBill.Bill);
             var dao = new PhatSinhBillDao();
@@ -55,13 +55,27 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             ViewBag.Bill = bill.MaBill;
             if (themngayguibai != null)
             {
-
                 ViewBag.Ngay = "Thêm ngày gửi bãi";
                 return View(model);
             }
             else if (themngaygiao != null)
             {
                 ViewBag.Ngay = "Thêm ngày giao";
+                return View(model);
+            }
+            else if (giahanluubai != null)
+            {
+                ViewBag.Ngay = "Gia hạn lưu bãi";
+                return View(model);
+            }
+            else if (giahanluucont != null)
+            {
+                ViewBag.Ngay = "Gia hạn lưu cont";
+                return View(model);
+            }
+            else if (giahanluurong != null)
+            {
+                ViewBag.Ngay = "Gia hạn lưu rỗng";
                 return View(model);
             }
             else if (delete != null && chkId != null)
@@ -71,7 +85,6 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                 {
                     SetAlert("Đã xóa thành công!", "success");
                     return RedirectToAction("CTBill", "PhatSinhBill", new { id = cTBill.Bill });
-
                 }
                 else
                 {
@@ -85,7 +98,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             }
             else
             {
-                var resutl = dao.checkbox(cTBill, chkId, gui, giao);
+                var resutl = dao.checkbox(cTBill, chkId, gui, giao, luubai, luucont, luurong);
                 if (gui != null)
                 {
                     if (resutl)
@@ -95,6 +108,39 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                     else
                     {
                         SetAlert("Thêm ngày gửi không thành công", "warning");
+                    }
+                }
+                else if (luubai != null)
+                {
+                    if (resutl)
+                    {
+                        SetAlert("Gia hạn lưu bãi thành công", "success");
+                    }
+                    else
+                    {
+                        SetAlert("Gia hạn lưu bãi không thành công", "warning");
+                    }
+                }
+                else if (luucont != null)
+                {
+                    if (resutl)
+                    {
+                        SetAlert("Gia hạn lưu cont thành công", "success");
+                    }
+                    else
+                    {
+                        SetAlert("Gia hạn lưu cont không thành công", "warning");
+                    }
+                }
+                else if (luurong != null)
+                {
+                    if (resutl)
+                    {
+                        SetAlert("Gia hạn lưu rỗng thành công", "success");
+                    }
+                    else
+                    {
+                        SetAlert("Gia hạn lưu rỗng không thành công", "warning");
                     }
                 }
                 else
@@ -108,7 +154,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                         SetAlert("Thêm ngày giao không thành công", "warning");
                     }
                 }
-                return RedirectToAction("CTBill", "PhatSinhBill", new { id = cTBill.Bill });
+                return RedirectToAction("CTBill", "Bill", new { area = "ThongKe", id = cTBill.Bill });
             }
         }
 

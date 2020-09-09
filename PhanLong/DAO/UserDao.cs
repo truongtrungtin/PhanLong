@@ -47,6 +47,7 @@ namespace PhanLong.DAO
             
             entity.Status = true;
             entity.CreatedDate = DateTime.Now;
+            entity.Avatar = "/Images/Avatar/default.jpg";
             db.Users.Add(entity);
             db.SaveChanges();
             if (selectroles != null)
@@ -61,7 +62,7 @@ namespace PhanLong.DAO
                     db.Credentials.Add(article);
                 }
                 db.SaveChanges();
-            }
+            } 
             return entity.Id;
         }
         public long InsertForFacebook(User entity)
@@ -101,6 +102,24 @@ namespace PhanLong.DAO
             }
 
         }
+
+        public bool UpdateAvatar(User entity)
+        {
+            try
+            {
+                var user = db.Users.Find(entity.Id);
+                user.Avatar = entity.Avatar;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                //logging
+                return false;
+            }
+
+        }
+
         public bool UpdateProfile(User entity)
         {
             try
@@ -161,6 +180,7 @@ namespace PhanLong.DAO
                 user.Telephone = entity.Telephone;
                 user.ModifiedBy = entity.ModifiedBy;
                 user.ModifiedDate = DateTime.Now;
+                user.GroupID = entity.GroupID;
                 user.Status = entity.Status;
                 db.SaveChanges();
                 return true;
@@ -193,6 +213,7 @@ namespace PhanLong.DAO
             var data = (from a in db.Credentials
                         join b in db.Users on a.UserId equals b.Id
                         join c in db.Roles on a.RoleId equals c.Id
+                        where b.Id == user.Id
                         select new
                         {
                             RoleID = a.RoleId,

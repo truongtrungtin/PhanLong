@@ -1,0 +1,81 @@
+﻿@using PhanLong.EF
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    PhanLongDBContext db = new PhanLongDBContext();
+    List<string> TableName = db.Database.SqlQuery<string>("Select name from sys.tables ORDER BY name").ToList();
+}
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/Content/plugins/daterangepicker/daterangepicker.css">
+    <!-- Bootstrap4 Duallistbox -->
+    <link rel="stylesheet" href="/Content/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
+}
+
+
+@using (Html.BeginForm("Index", "ExportDataToExcel", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="card">
+        <div class="container">
+            <div class="card-header">
+                <h5>
+                    <b>Chọn thông tin cần xuất data</b>
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-4 row">
+                        <label class="col-sm-2">Bảng: </label>
+                        <div class="col-sm-8">
+                            <select name="TableName" class="form-control form-control-sm" id="TableName" data-placeholder="Chọn bảng">
+                                <option value=""></option>
+                                @foreach (var item in TableName)
+                                {
+                                    <option value="@item">@item</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-8 row" id="Col">
+                    </div>
+                </div>
+                <input type="submit" name="Export" value="Export" />
+            </div>
+        </div>
+    </div>
+}
+
+@section js{
+    <!-- Bootstrap4 Duallistbox -->
+    <script src="/Content/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
+    <script>
+        //Bootstrap Duallistbox
+        var demo2 = $('.duallistbox').bootstrapDualListbox({
+        });
+
+        var demo1 = $('select[name="selectroles[]"]').bootstrapDualListbox();
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#TableName').on('change', function () {
+                var Table = $(this).val();
+                if (Table) {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'ExportDataToExcel/GetColumnInTable/' + Table,
+                        data: 'TableName=' + Table,
+                        success: function (html) {
+                            $('#Col').html(html);
+                        }
+                    });
+                }
+
+            });
+        });
+    </script>
+
+}

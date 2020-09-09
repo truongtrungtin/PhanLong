@@ -16,7 +16,7 @@
         <div class="row d-flex align-items-stretch">
             @foreach (var item in Model)
             {
-                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch" id="row_@item.Id">
+                <div class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch" id="row_@item.Id">
                     <div class="card bg-light">
                         <div class="card-header text-muted border-bottom-0">
                         </div>
@@ -31,7 +31,7 @@
                                     </ul>
                                 </div>
                                 <div class="col-5 text-center">
-                                    <img src="/Content/dist/img/user2-160x160.jpg" alt="user-avatar" class="img-circle img-fluid">
+                                    <img src="@item.Avatar" alt="user-avatar"  class="img-circle img-lg">
                                 </div>
                             </div>
                         </div>
@@ -43,7 +43,7 @@
                                        Confirm = "Bạn có chắc muốn xoá không ??",
                                        OnComplete = "$('#row_" + item.Id + "').remove()",
                                        HttpMethod = "Delete"
-                                   }, new { @class = "btn btn-sm bg-teal" })
+                                   }, new { @class = "btn btn-sm btn-danger" })
                                 <a href="/User/Update/@item.Id" class="btn btn-sm btn-primary">
                                     <i class="fas fa-user"></i> Chỉnh sửa
 

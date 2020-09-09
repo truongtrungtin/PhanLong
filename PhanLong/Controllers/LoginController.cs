@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace PhanLong.Controllers
 {
@@ -33,10 +34,12 @@ namespace PhanLong.Controllers
                     userSession.GroupID = user.GroupID;
                     userSession.fullname = user.Name;
                     userSession.Email = user.Email;
+                    userSession.avatar = user.Avatar;
                     var listCredentials = dao.GetListCredential(model.UserName);
 
                     Session.Add(CommonConstants.SESSION_CREDENTIALS, listCredentials);
                     Session.Add(CommonConstants.USER_SESSION, userSession);
+                    FormsAuthentication.SetAuthCookie(user.Username, model.RememberMe);
                     return RedirectToAction("Index", "Home");
                 }
                 else if (result == 0)

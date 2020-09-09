@@ -54,7 +54,8 @@
         [Display(Name = "Tiền hạ: ")]
         public decimal? TienHa { get; set; }
         [Display(Name = "Phí khách hàng: ")]
-        public long? PhiKH { get; set; }
+        [StringLength(250)]
+        public string PhiKH { get; set; }
         [Display(Name = "Tiền phí KH: ")]
         public decimal? TienPhiKH { get; set; }
         [Display(Name = "Phí công ty: ")]
@@ -65,7 +66,7 @@
         [StringLength(250)]
         [Display(Name = "Ghi chú: ")]
         public string GhiChu { get; set; }
-
+   
         [StringLength(250)]
         [Display(Name = "Ghi chú lương: ")]
         public string GhiChuLuong { get; set; }
@@ -93,8 +94,6 @@
         public virtual DMNhanVien DMNhanVien { get; set; }
 
         public virtual DMPhi DMPhi { get; set; }
-
-        public virtual DMPhi DMPhi1 { get; set; }
 
         public virtual DMThoiGian DMThoiGian { get; set; }
 

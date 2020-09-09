@@ -1,9 +1,13 @@
 ﻿@model List<PhanLong.EF.PhatSinh>
+@using PhanLong.EF
 @{
     ViewBag.Title = "Thanh toán lương";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.url = "/ThongKe/Luong/Index";
     ViewBag.Back = "Trở lại";
+
+    PhanLongDBContext db = new PhanLongDBContext();
+
     DateTime ngaybd = Convert.ToDateTime(ViewBag.NgayBD);
     DateTime ngaykt = Convert.ToDateTime(ViewBag.NgayKT);
     var phichi = ViewBag.ChiLuong;
@@ -91,7 +95,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                 </div>
-                                <input type="text" name="NgayKT" class="form-control form-control-sm" value="@ngaykt" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                <input type="text" name="NgayKT" class="form-control form-control-sm" value="@ngaykt.ToShortDateString()" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                             </div>
                         </div>
                     </div>
@@ -185,7 +189,7 @@
                     <tr>
                         <td>@sttc</td>
                         <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
-                        <td>@(item.Loai != null ? item.Loai : null)</td>
+                        <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
                         <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                         <td style="text-align:left">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
                         <td style="text-align:left">@(item.SoCont != null ? item.SoCont : null)</td>

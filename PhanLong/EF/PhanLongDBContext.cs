@@ -34,6 +34,7 @@ namespace PhanLong.EF
         public virtual DbSet<PhatSinhChiThu> PhatSinhChiThus { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<SoPhuNganHang> SoPhuNganHangs { get; set; }
+        public virtual DbSet<TraCuuCuoc> TraCuuCuocs { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
 
@@ -77,6 +78,10 @@ namespace PhanLong.EF
 
             modelBuilder.Entity<DMBill>()
                 .Property(e => e.SoToKhai)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DMBill>()
+                .Property(e => e.Lo)
                 .IsUnicode(false);
 
             modelBuilder.Entity<DMBill>()
@@ -124,6 +129,16 @@ namespace PhanLong.EF
                 .WithOptional(e => e.DMCang1)
                 .HasForeignKey(e => e.CangTra);
 
+            modelBuilder.Entity<DMCang>()
+                .HasMany(e => e.TraCuuCuocs)
+                .WithOptional(e => e.DMCang)
+                .HasForeignKey(e => e.CangNhan);
+
+            modelBuilder.Entity<DMCang>()
+                .HasMany(e => e.TraCuuCuocs1)
+                .WithOptional(e => e.DMCang1)
+                .HasForeignKey(e => e.CangTra);
+
             modelBuilder.Entity<DMKhachHang>()
                 .Property(e => e.MST)
                 .IsUnicode(false);
@@ -162,6 +177,11 @@ namespace PhanLong.EF
                 .WithOptional(e => e.DMKhachHang)
                 .HasForeignKey(e => e.MaKH);
 
+            modelBuilder.Entity<DMKhachHang>()
+                .HasMany(e => e.TraCuuCuocs)
+                .WithOptional(e => e.DMKhachHang)
+                .HasForeignKey(e => e.KhachHang);
+
             modelBuilder.Entity<DMKho>()
                 .Property(e => e.SoDienThoai)
                 .IsUnicode(false);
@@ -181,6 +201,11 @@ namespace PhanLong.EF
 
             modelBuilder.Entity<DMKho>()
                 .HasMany(e => e.PhatSinhs)
+                .WithOptional(e => e.DMKho)
+                .HasForeignKey(e => e.Kho);
+
+            modelBuilder.Entity<DMKho>()
+                .HasMany(e => e.TraCuuCuocs)
                 .WithOptional(e => e.DMKho)
                 .HasForeignKey(e => e.Kho);
 
@@ -230,11 +255,6 @@ namespace PhanLong.EF
                 .HasMany(e => e.PhatSinhs)
                 .WithOptional(e => e.DMPhi)
                 .HasForeignKey(e => e.PhiCT);
-
-            modelBuilder.Entity<DMPhi>()
-                .HasMany(e => e.PhatSinhs1)
-                .WithOptional(e => e.DMPhi1)
-                .HasForeignKey(e => e.PhiKH);
 
             modelBuilder.Entity<DMPhi>()
                 .HasMany(e => e.SoPhuNganHangs)
@@ -385,6 +405,14 @@ namespace PhanLong.EF
 
             modelBuilder.Entity<SoPhuNganHang>()
                 .Property(e => e.TienThu)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<TraCuuCuoc>()
+                .Property(e => e.Cuoc)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<TraCuuCuoc>()
+                .Property(e => e.CuocTX)
                 .HasPrecision(18, 0);
 
             modelBuilder.Entity<User>()

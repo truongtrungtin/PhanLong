@@ -54,7 +54,7 @@ namespace PhanLong.Common
             {
 
                 oledbConn.Open();
-                using (OleDbCommand cmd = new OleDbCommand("SELECT * FROM [" + sheet + "]", oledbConn))
+                using (OleDbCommand cmd = new OleDbCommand("SELECT * FROM [" + sheet + "$]", oledbConn))
                 {
                     OleDbDataAdapter oleda = new OleDbDataAdapter();
                     oleda.SelectCommand = cmd;

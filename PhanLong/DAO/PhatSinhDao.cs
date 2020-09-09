@@ -64,7 +64,6 @@ namespace PhanLong.DAO
                         long? CangTra = null;
                         long? TaiXe = null;
                         long? Xe = null;
-                        long? phikh = null;
                         long? phict = null;
                         long? thoigian = null;
                         if (MaLoai != "")
@@ -74,6 +73,7 @@ namespace PhanLong.DAO
                                 if (item.MaLoai == MaLoai || item.MoTa == MaLoai || item.MoTa1 == MaLoai)
                                 {
                                     Loai = item.Id;
+                                    continue;
                                 }
                             }
                             if (Loai == null)
@@ -127,7 +127,7 @@ namespace PhanLong.DAO
                         {
                             Kho = null;
                         }
-                        
+
                         if (MaCangNhan != "")
                         {
                             foreach (var item in db.DMCangs)
@@ -200,7 +200,7 @@ namespace PhanLong.DAO
                             }
                             if (Bill == null)
                             {
-                                var dao = new DMBillDao().InsertBill(dMBill, MaBill, KH ,CangNhan, CangTra);
+                                var dao = new DMBillDao().InsertBill(dMBill, MaBill, KH, CangNhan, CangTra);
                                 Bill = dao;
                             }
                         }
@@ -229,26 +229,6 @@ namespace PhanLong.DAO
                         {
                             Xe = null;
                         }
-                        if (MaPhiKH != "")
-                        {
-                            foreach (var item in db.DMPhis)
-                            {
-                                if (item.MaPhi == MaPhiKH || item.TenPhi == MaPhiKH)
-                                {
-                                    phikh = item.Id;
-                                }
-
-                            }
-                            if (phikh == null)
-                            {
-                                var dao = new DMPhiDao().InsertPhi(dMPhi, MaPhiKH,1);
-                                phikh = dao;
-                            }
-                        }
-                        else
-                        {
-                            phikh = null;
-                        }
                         if (MaPhict != "")
                         {
                             foreach (var item in db.DMPhis)
@@ -261,7 +241,7 @@ namespace PhanLong.DAO
                             }
                             if (phict == null)
                             {
-                                var dao = new DMPhiDao().InsertPhi(dMPhi, MaPhict,1);
+                                var dao = new DMPhiDao().InsertPhi(dMPhi, MaPhict, 1);
                                 phict = dao;
                             }
                         }
@@ -303,19 +283,19 @@ namespace PhanLong.DAO
                             }
                             else if (column.ColumnName == "Loại")
                             {
-                                    phatSinh.Loai = Loai;
-                              
+                                phatSinh.Loai = Loai;
+
                             }
                             else if (column.ColumnName == "Khách hàng")
                             {
-                                    phatSinh.KhachHang = KH;
-                                
+                                phatSinh.KhachHang = KH;
+
                             }
                             else if (column.ColumnName == "Kho")
                             {
 
-                                    phatSinh.Kho = Kho;
-                               
+                                phatSinh.Kho = Kho;
+
                             }
                             else if (column.ColumnName == "Cont")
                             {
@@ -336,7 +316,9 @@ namespace PhanLong.DAO
                                             bill.NgayGiao = phatSinh.Ngay;
                                             bill.SoXe = Xe;
                                             new CTBillDao().Insert(bill);
-                                        }else{
+                                        }
+                                        else
+                                        {
                                             CTBill bill = new CTBill();
                                             bill.Bill = dao.Id;
                                             bill.Cont = dr["Cont"].ToString();
@@ -345,8 +327,8 @@ namespace PhanLong.DAO
                                             new CTBillDao().UpdateNgayGiao(bill);
                                         }
                                     }
-                                   
-                                   
+
+
                                 }
                                 else
                                 {
@@ -356,19 +338,19 @@ namespace PhanLong.DAO
                             }
                             else if (column.ColumnName == "Số Bill")
                             {
-                                    phatSinh.SoBill = Bill;
-                               
+                                phatSinh.SoBill = Bill;
+
                             }
                             else if (column.ColumnName == "Cảng nhận")
                             {
-                               
-                                    phatSinh.CangNhan = CangNhan;
-                                
+
+                                phatSinh.CangNhan = CangNhan;
+
                             }
                             else if (column.ColumnName == "Cảng trả")
                             {
-                                    phatSinh.CangTra = CangTra;
-                               
+                                phatSinh.CangTra = CangTra;
+
                             }
                             else if (column.ColumnName == "Cước khách hàng")
                             {
@@ -396,21 +378,21 @@ namespace PhanLong.DAO
                             }
                             else if (column.ColumnName == "Tài Xế")
                             {
-                                
-                                    phatSinh.TenTX = TaiXe;
-                                
+
+                                phatSinh.TenTX = TaiXe;
+
                             }
                             else if (column.ColumnName == "Xe")
                             {
-                                
-                                    phatSinh.Xe = Xe;
-                                
+
+                                phatSinh.Xe = Xe;
+
                             }
                             else if (column.ColumnName == "Chi Phí riêng")
                             {
-                                
-                                    phatSinh.PhiCT = phict;
-                                
+
+                                phatSinh.PhiCT = phict;
+
                             }
                             else if (column.ColumnName == "Hoá đơn nâng")
                             {
@@ -437,7 +419,7 @@ namespace PhanLong.DAO
                                 {
                                     phatSinh.TienNang = null;
                                 }
-                                
+
                             }
                             else if (column.ColumnName == "Hoá đơn hạ")
                             {
@@ -468,7 +450,14 @@ namespace PhanLong.DAO
                             }
                             else if (column.ColumnName == "Hoá đơn khác")
                             {
-                                    phatSinh.PhiKH = phikh;
+                                if (dr["Hoá đơn khác"].ToString() != "")
+                                {
+                                    phatSinh.PhiKH = dr["Hoá đơn khác"].ToString();
+                                }
+                                else
+                                {
+                                    phatSinh.PhiKH = null;
+                                }
                             }
                             else if (column.ColumnName == "Tiền khác")
                             {
@@ -497,7 +486,7 @@ namespace PhanLong.DAO
                             else if (column.ColumnName == "Thời gian")
                             {
 
-                                    phatSinh.Thoigian = thoigian;    
+                                phatSinh.Thoigian = thoigian;
 
                             }
                             else if (column.ColumnName == "Ghi chú")
@@ -560,12 +549,12 @@ namespace PhanLong.DAO
             }
             else
             {
-                sdate = DateTime.Now.Date.AddDays(-30); 
+                sdate = DateTime.Now.Date.AddDays(-30);
                 model = model.Where(x => x.Ngay >= sdate);
             }
             if (!string.IsNullOrEmpty(eday))
             {
-                
+
                 model = model.Where(x => (eday == "") || (x.Ngay <= edate));
             }
             else
@@ -608,14 +597,14 @@ namespace PhanLong.DAO
         }
 
         public PhatSinh GetNvByXe(long? id)
-        { 
-            return db.PhatSinhs.Where(x => x.Xe == id).OrderByDescending(x=>x.TenTX).FirstOrDefault();
+        {
+            return db.PhatSinhs.Where(x => x.Xe == id).FirstOrDefault();
         }
         public long Insert(PhatSinh entity)
         {
             var data = db.PhatSinhs.Add(entity);
             var a = Convert.ToString(entity.CuocKH).Replace(",", " ").Trim();
-            data.CuocKH = Convert.ToDecimal(a.Replace(" ",""));
+            data.CuocKH = Convert.ToDecimal(a.Replace(" ", ""));
             db.SaveChanges();
             return entity.Id;
         }

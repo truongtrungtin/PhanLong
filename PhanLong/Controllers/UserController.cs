@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.IO;
 
 namespace PhanLong.Controllers
 {
@@ -59,6 +60,42 @@ namespace PhanLong.Controllers
             return View(Model);
         }
 
+        [HttpPost]
+        public ActionResult Profile(User user, HttpPostedFileBase AvatarFile)
+        {
+            var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+            var dao = new UserDao();
+            if (ModelState.IsValid)
+            {
+                if (AvatarFile != null)
+                {
+                    string fileName = Path.GetFileNameWithoutExtension(AvatarFile.FileName);
+                    string extension = Path.GetExtension(AvatarFile.FileName);
+                    fileName = fileName + DateTime.Now.ToString("yymm") + extension;
+                    user.Avatar = "/Images/Avatar/" + session.UserName + "/" + fileName;
+                    fileName = Path.Combine(Server.MapPath("~/Images/Avatar/" + session.UserName), fileName);
+                    if (!Directory.Exists(Server.MapPath("~/Images/Avatar/" + session.UserName)))
+                    {
+                        Directory.CreateDirectory(Server.MapPath("~/Images/Avatar/" + session.UserName));
+                    }
+                    AvatarFile.SaveAs(fileName);
+                    user.Id = session.UserID;
+                    if (dao.UpdateAvatar(user))
+                    {
+                        SetAlert("Đổi avatar thành công!", "success");
+                        return RedirectToAction("Profile", "User");
+                    }
+                    else
+                    {
+                        SetAlert("Đổi avatar không thành công!", "warning");
+
+                    }
+                }
+               
+            }
+            return RedirectToAction("Profile", "User");
+        }
+
         [ChildActionOnly]
         public PartialViewResult ChangeProfile()
         {
@@ -77,7 +114,7 @@ namespace PhanLong.Controllers
                 if (result)
                 {
                     SetAlert("Sửa thông tin tài khoản thành công!", "success");
-                    return RedirectToAction("Profile", "User", new { id = user.Id });
+                    return RedirectToAction("Profile", "User");
                 }
                 else
                 {
@@ -85,7 +122,7 @@ namespace PhanLong.Controllers
 
                 }
             }
-            return RedirectToAction("Profile", "User", new { id = user.Id });
+            return RedirectToAction("Profile", "User");
         }
 
         [ChildActionOnly]

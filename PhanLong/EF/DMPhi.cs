@@ -14,7 +14,6 @@
         {
             CTChiThus = new HashSet<CTChiThu>();
             PhatSinhs = new HashSet<PhatSinh>();
-            PhatSinhs1 = new HashSet<PhatSinh>();
             SoPhuNganHangs = new HashSet<SoPhuNganHang>();
         }
 
@@ -44,9 +43,6 @@
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinh> PhatSinhs { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhatSinh> PhatSinhs1 { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SoPhuNganHang> SoPhuNganHangs { get; set; }

@@ -10,7 +10,7 @@ namespace PhanLong.DAO
     {
         PhanLongDBContext db = new PhanLongDBContext();
 
-        public bool checkbox(CTBill cTBill,int[] chkId, string gui, string giao)
+        public bool checkbox(CTBill cTBill, int[] chkId, string gui, string giao, string luubai, string luucont, string luurong)
         {
             try
             {
@@ -31,6 +31,28 @@ namespace PhanLong.DAO
                         if (cTBill.SoXe != null)
                         {
                             article.SoXe = cTBill.SoXe;
+                        }
+                    }
+                    if (luubai != null)
+                    {
+                        if (cTBill.HanLuuBai != null)
+                        {
+                            article.HanLuuBai = cTBill.HanLuuBai;
+                        }
+
+                    }
+                    if (luucont != null)
+                    {
+                        if (cTBill.HanLuuCont != null)
+                        {
+                            article.HanLuuCont = cTBill.HanLuuCont;
+                        }
+                    }
+                    if (luurong != null)
+                    {
+                        if (cTBill.HanLuuRong != null)
+                        {
+                            article.HanLuuRong = cTBill.HanLuuRong;
                         }
                     }
                     if (giao != null)
@@ -85,6 +107,6 @@ namespace PhanLong.DAO
             }
             return model.ToList();
         }
-        
+
     }
 }

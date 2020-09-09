@@ -57,6 +57,8 @@ namespace PhanLong.DAO
         public long InsertMaLoai(DMLoai entity,string maloai)
         {
             entity.MaLoai = maloai;
+            entity.MoTa = maloai;
+            entity.MoTa1 = maloai;
             db.DMLoais.Add(entity);
             db.SaveChanges();
             return entity.Id;

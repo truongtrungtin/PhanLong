@@ -14,5 +14,6 @@ namespace PhanLong.Common
         public string Email { set; get; }
         public string GroupID { set; get; }
         public string fullname { get; set; }
+        public string avatar { get; set; }
     }
 }

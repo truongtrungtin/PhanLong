@@ -39,7 +39,9 @@ namespace PhanLong.DAO
             var data = from xe in db.DMXes
                        join psc in db.PhatSinhChiThus on xe.Id equals psc.Xe
                        join ctc in db.CTChiThus on psc.Id equals ctc.PhatSinhChiThu
-                       where xe.Id == id where ctc.DMPhi.MaPhi == "T.ứng"
+                       join phi in db.DMPhis on ctc.Phi equals phi.Id
+                       join loaiPhi in db.LoaiPhis on phi.LoaiPhi equals loaiPhi.Id
+                       where xe.Id == id where loaiPhi.Id == 1 where phi.Id == 18 where psc.Xe != null  
                        select new ChiLuongModel()
                        {
                            Id = psc.Id,

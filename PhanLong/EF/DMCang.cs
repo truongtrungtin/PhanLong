@@ -17,11 +17,13 @@
             DMBills1 = new HashSet<DMBill>();
             PhatSinhs = new HashSet<PhatSinh>();
             PhatSinhs1 = new HashSet<PhatSinh>();
+            TraCuuCuocs = new HashSet<TraCuuCuoc>();
+            TraCuuCuocs1 = new HashSet<TraCuuCuoc>();
         }
 
         public long Id { get; set; }
 
-        [StringLength(10)]
+        [StringLength(50)]
         [Required, Display(Name = "Mã: ")]
         public string MaCang { get; set; }
 
@@ -49,5 +51,11 @@
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinh> PhatSinhs1 { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TraCuuCuoc> TraCuuCuocs { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TraCuuCuoc> TraCuuCuocs1 { get; set; }
     }
 }

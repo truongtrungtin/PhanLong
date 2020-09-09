@@ -430,7 +430,7 @@
                                             <td>@item.Id</td>
                                             <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
                                             <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
-                                            <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null )</td>
+                                            <td>@(item.NguoiNhan != null ? item.DMKhachHang1.MaKH : null )</td>
                                             <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
                                             <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                                             <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
@@ -487,7 +487,7 @@
                                         <td>@item.Id</td>
                                         <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
                                         <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
-                                        <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null )</td>
+                                        <td>@(item.NguoiNhan != null ? item.DMKhachHang1.MaKH : null )</td>
                                         <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
                                         <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                                         <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
@@ -549,7 +549,7 @@
                                     <td>@item.Id</td>
                                     <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
                                     <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
-                                    <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null )</td>
+                                    <td>@(item.NguoiNhan != null ? item.DMKhachHang1.MaKH : null )</td>
                                     <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
                                     <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                                     <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
@@ -606,7 +606,7 @@
                                 <td>@item.Id</td>
                                 <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
                                 <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
-                                <td>@(item.NguoiNhan != null ? item.DMNhanVien.MaNV : null )</td>
+                                <td>@(item.NguoiNhan != null ? item.DMKhachHang1.MaKH : null )</td>
                                 <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
                                 <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                                 <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
@@ -614,7 +614,7 @@
                                 <td>@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
                                 <td> @(maphi.DMPhi.LoaiPhi == 1 ? maphi.DMPhi.MaPhi : null)</td>
                                 <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
-                                <td>@(item.Bill != null ? item.Bill : null)</td>
+                                <td>@(item.Bill != null ? item.DMBill.MaBill : null)</td>
                                 <td>@(item.SoHD != null ? item.SoHD : null)</td>
                                 @if (maphi.DMPhi.LoaiPhi == 1)
                                 {

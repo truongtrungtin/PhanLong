@@ -9,7 +9,7 @@
 <div class="card">
     <div class="card-header">
         <h5>
-            Bill:  <b>@ViewBag.Bill</b> | Số tờ khai: <b>@ViewBag.SoTK</b>
+            Bill:  <b>@ViewBag.Bill</b> | Số tờ khai: <b>@ViewBag.SoTK</b>| Lô: <b>@ViewBag.Lo</b>| Ngày ĐK: <b>@ViewBag.NgayDK</b>
 
         </h5>
         <span>
@@ -184,6 +184,8 @@
                         <span class="sr-only">Hành động</span>
                     </button>
                     <div class="dropdown-menu" role="menu">
+                        <input type="submit" value="Thêm ngày gửi bãi" name="themngayguibai" id="themngayguibai" class="dropdown-item" />
+                        <input type="submit" value="Thêm ngày giao" name="themngaygiao" id="themngaygiao" class="dropdown-item" />
                         <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
                         <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
                     </div>

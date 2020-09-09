@@ -47,6 +47,54 @@
                                 </div>
                             </div>
                         }
+                        else if (ViewBag.Ngay == "Gia hạn lưu bãi")
+                        {
+                            <div class="col-sm-3">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-4" style="text-align:right">Ngày: </label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="text" name="HanLuuBai" class="form-control form-control-sm" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else if (ViewBag.Ngay == "Gia hạn lưu cont")
+                        {
+                            <div class="col-sm-3">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-4" style="text-align:right">Ngày:</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="text" name="HanLuuCont" class="form-control form-control-sm" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else if (ViewBag.Ngay == "Gia hạn lưu rỗng")
+                        {
+                            <div class="col-sm-3">
+                                <div class="form-group row">
+                                    <label class="col-form-label col-sm-4" style="text-align:right">Ngày:</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input type="text" name="HanLuuRong" class="form-control form-control-sm" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
                         else
                         {
                             <div class="col-sm-3">
@@ -92,22 +140,32 @@
                             </div>
 
                         }
-                        <div class="col-sm-3">
-                            <div class="form-group row">
-                                <label class="col-form-label col-sm-3" style="text-align:right">Ghi chú:</label>
-                                <div class="col-sm-9">
-                                    <div class="input-group">
-                                        <input type="text" name="GhiChu" class="form-control form-control-sm" placeholder="Thêm ghi chú ...">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-sm-1" style="text-align:center">
                             @if (ViewBag.Ngay == "Thêm ngày giao")
                             {
                                 <div class="input-group">
 
                                     <input type="submit" class="btn btn-primary" style="text-align:right" name="giao" value="Giao" />
+                                </div>
+                            }
+                            else if (ViewBag.Ngay == "Gia hạn lưu cont")
+                            {
+                                <div class="input-group">
+
+                                    <input type="submit" class="btn btn-primary" style="text-align:right" name="luucont" value="Gia hạn" />
+                                </div>
+                            }
+                            else if (ViewBag.Ngay == "Gia hạn lưu bãi")
+                            {
+                                <div class="input-group">
+
+                                    <input type="submit" class="btn btn-primary" style="text-align:right" name="luubai" value="Gia hạn" />
+                                </div>
+                            }
+                            else if (ViewBag.Ngay == "Gia hạn lưu rỗng")
+                            {
+                                <div class="input-group">
+                                    <input type="submit" class="btn btn-primary" style="text-align:right" name="luurong" value="Gia hạn" />
                                 </div>
                             }
                             else
@@ -139,7 +197,7 @@
             <div class="card-body">
                 <h4></h4>
                 <div class="table-responsive">
-                    <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
+                    <table class="table table-bordered table-hover table-striped" width="100%">
                         <thead>
                             <tr>
                                 <th>STT</th>
@@ -147,19 +205,31 @@
                                 <th>Độ Dày</th>
                                 <th>Quy cách</th>
                                 <th>Hạn lưu bãi</th>
+                                <th>Hạn lưu cont</th>
+                                <th>Hạn lưu rỗng</th>
+                                <th>Ngày gửi bãi</th>
+                                <th>Bãi gửi</th>
+                                <th>Xe gửi</th>
+                                <th>Ngày giao</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
                                 { i += 1; }
-                                <tr>
-                                    <td>@i <input type="hidden" checked name="chkId[]" value="@item.Id" /></td>
-                                    <td>@item.Cont</td>
-                                    <td>@item.DoDay</td>
-                                    <td>@item.QuyCach</td>
-                                    <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : null)</td>
-                                </tr>
+                            <tr>
+                                <td>@i <input type="hidden" checked name="chkId[]" value="@item.Id" /></td>
+                                <td>@item.Cont</td>
+                                <td>@item.DoDay</td>
+                                <td>@item.QuyCach</td>
+                                <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : "Chưa nhập hạn lưu bãi")</td>
+                                <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : "Chưa nhập hạn lưu cont")</td>
+                                <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : "Chưa nhập hạn lưu rỗng")</td>
+                                <td>@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : "Chưa gửi bãi")</td>
+                                <td>@item.BaiGui</td>
+                                <td>@(item.SoXe != null ? item.DMXe.MaXe : null)</td>
+                                <td>@(item.NgayGiao != null ? item.NgayGiao.Value.ToShortDateString() : "Chưa giao")</td>
+                            </tr>
                             }
                         </tbody>
                     </table>

@@ -262,6 +262,8 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             ViewBag.CN = (Bill.CangNhan != null ? Bill.DMCang.TenCang : null);
             ViewBag.MaCT = (Bill.CangTra != null ? Bill.DMCang1.MaCang : null);
             ViewBag.CT = (Bill.CangTra != null ? Bill.DMCang1.TenCang : null);
+            ViewBag.Lo = (Bill.Lo != null ? Bill.Lo : null);
+            ViewBag.NgayDK = (Bill.NgayDK != null ? Bill.NgayDK.Value.ToShortDateString() : null);
             return View(model);
         }
 

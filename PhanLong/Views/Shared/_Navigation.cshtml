@@ -1,11 +1,15 @@
 ﻿    <!-- Navbar -->
 @using PhanLong.EF
 @using PhanLong.Common
+@using PhanLong.DAO
 @{
     PhanLongDBContext db = new PhanLongDBContext();
     var session = (UserLogin)Session[CommonConstants.USER_SESSION];
-}
+    var notificationluubai = new NotificationsDao().GetNotificationsLuuBai().Where(x => x.HanLuuBai != null && (Convert.ToDateTime(x.HanLuuBai) - DateTime.Now).TotalDays < 3 && ((x.Ngaygiao == null && x.NgayLuuBai == null)));
+    var notificationluucont = new NotificationsDao().GetNotificationsLuuCont().Where(x => x.HanLuuCont != null && (Convert.ToDateTime(x.HanLuuCont) - DateTime.Now).TotalDays < 3 && ((x.Ngaygiao == null && x.NgayLuuBai == null) || (x.Ngaygiao == null)));
+    var notificationluurong = new NotificationsDao().GetNotificationsLuuRong().Where(x => x.HanLuuRong != null && (Convert.ToDateTime(x.HanLuuRong) - DateTime.Now).TotalDays < 3 && ((x.Ngaygiao == null && x.NgayLuuBai == null) || (x.Ngaygiao == null)));
 
+}
 <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0 text-sm">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -33,17 +37,70 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
+                <i class="far fa-bell" style="font-size:1.5rem"></i>
+                <span class="badge badge-danger navbar-badge">@(notificationluubai.Count() + notificationluucont.Count() + notificationluurong.Count())</span>
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new messages
-                    <span class="float-right text-muted text-sm">3 mins</span>
-                </a>
-            </div>
+            @if ((notificationluubai.Count() + notificationluucont.Count() + notificationluurong.Count()) > 0)
+            {
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <span class="dropdown-item dropdown-header">@(notificationluubai.Count() + notificationluucont.Count() + notificationluurong.Count()) thông báo</span>
+                    <div class="dropdown-divider"></div>
+                    @foreach (var item in notificationluubai)
+                    {
+                        <a href="/ThongKe/Bill/CTBill/@item.IdBill" class="dropdown-item">
+                            @item.Bill - @item.Cont
+                            @if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) < 0)
+                            {
+                                <span class="float-right text-muted text-sm">Quá hạn @(Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays))) ngày lưu bãi</span>
+                            }
+                            else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) > 0)
+                            {
+                                <span class="float-right text-muted text-sm">Còn @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays)) ngày lưu bãi</span>
+                            }
+                            else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) == 0)
+                            {
+                                <span class="float-right text-muted text-sm">Tới hạn lưu bãi</span>
+                            }
+                        </a>
+                    }
+                    @foreach (var item in notificationluucont)
+                    {
+                        <a href="/ThongKe/Bill/CTBill/@item.IdBill" class="dropdown-item">
+                            @item.Bill - @item.Cont
+                            @if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) < 0)
+                            {
+                                <span class="float-right text-muted text-sm">Quá hạn @(Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays))) ngày lưu cont</span>
+                            }
+                            else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) > 0)
+                            {
+                                <span class="float-right text-muted text-sm">Còn @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays)) ngày lưu cont</span>
+                            }
+                            else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) == 0)
+                            {
+                                <span class="float-right text-muted text-sm">Tới hạn lưu cont</span>
+                            }
+                        </a>
+                    }
+                    @foreach (var item in notificationluurong)
+                    {
+                        <a href="/ThongKe/Bill/CTBill/@item.IdBill" class="dropdown-item">
+                            @item.Bill - @item.Cont
+                            @if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) < 0)
+                            {
+                                <span class="float-right text-muted text-sm">Quá hạn @(Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays))) ngày lưu rỗng</span>
+                            }
+                            else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) > 0)
+                            {
+                                <span class="float-right text-muted text-sm">Còn @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays)) ngày lưu rỗng</span>
+                            }
+                            else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) == 0)
+                            {
+                                <span class="float-right text-muted text-sm">Tới hạn rỗng bãi</span>
+                            }
+                        </a>
+                    }
+                </div>
+            }
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             @if (session != null)
@@ -72,7 +129,8 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="/Content/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+
+                <img src="@db.Users.Find(session.UserID).Avatar" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 @if (session != null)
@@ -90,29 +148,106 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu" data-accordion="false">
-                   @foreach (var item in db.Menus)
-                    {
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                @foreach (var item in db.Menus)
+                {
+                    var role = db.Credentials.Where(x => x.UserId == session.UserID);
 
-                            <i class="nav-icon fas @item.Icon"></i>
-                            <p>
-                                @item.TenMenu
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            @foreach (var ct in db.CTMenus.Where(x => x.Menu1.TenMenu == item.TenMenu))
-                            {
-                                
-                                <li class="nav-item">
-                                    <a href="/@ct.Url" class="nav-link">
-                                        <p>@ct.Ten</p>
-                                    </a>
-                                </li>
-                            }
-                        </ul>
-                    </li>
+                    if (item.TenMenu == "Quản lý tài khoản")
+                    {
+                        if (role.Where(x => x.RoleId == "VIEW_USER" || x.RoleId == "EDIT_USER" || x.RoleId == "ADD_USER" || x.RoleId == "DELETE_USER").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                        {
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+
+                                    <i class="nav-icon fas @item.Icon"></i>
+                                    <p>
+                                        @item.TenMenu
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @foreach (var ct in db.CTMenus.Where(x => x.Menu1.TenMenu == item.TenMenu))
+                                    {
+
+                                        if (ct.Ten == "Danh sách tài khoản" && role.Where(x => x.RoleId == "VIEW_USER").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/@ct.Url" class="nav-link">
+                                                    <p>@ct.Ten</p>
+                                                </a>
+                                            </li>
+                                        }
+                                        else if (ct.Ten == "Thêm tài khoản" && role.Where(x => x.RoleId == "ADD_USER").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/@ct.Url" class="nav-link">
+                                                    <p>@ct.Ten</p>
+                                                </a>
+                                            </li>
+                                        }
+
+
+
+                                    }
+                                </ul>
+                            </li>
+                        }
+
+                    }
+                    else if (item.TenMenu == "Khác")
+                    {
+                        if (role.Where(x => x.RoleId == "IMPORT_DATA").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                        {
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+
+                                    <i class="nav-icon fas @item.Icon">#</i>
+                                    <p>
+                                        @item.TenMenu
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @foreach (var ct in db.CTMenus.Where(x => x.Menu1.TenMenu == item.TenMenu))
+                                    {
+                                        if (ct.Ten == "Import data" && role.Where(x => x.RoleId == "IMPORT_DATA").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                                        {
+                                            <li class="nav-item">
+                                                <a href="/@ct.Url" class="nav-link">
+                                                    <p>@ct.Ten</p>
+                                                </a>
+                                            </li>
+                                        }
+
+
+
+                                    }
+                                </ul>
+                            </li>
+                        }
+                    }
+                    else
+                    {
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas @item.Icon"></i>
+                                <p>
+                                    @item.TenMenu
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @foreach (var ct in db.CTMenus.Where(x => x.Menu1.TenMenu == item.TenMenu))
+                                {
+                                    <li class="nav-item">
+                                        <a href="/@ct.Url" class="nav-link">
+                                            <p>@ct.Ten</p>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                    }
                 }
             </ul>
         </nav>

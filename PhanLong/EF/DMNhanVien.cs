@@ -18,7 +18,7 @@ namespace PhanLong.EF
 
         public long Id { get; set; }
 
-        [StringLength(10), Display(Name = "Mã nhân viên: ")]
+        [StringLength(50), Display(Name = "Mã nhân viên: ")]
         public string MaNV { get; set; }
 
         [StringLength(250), Display(Name = "Tên nhân viên: ")]
