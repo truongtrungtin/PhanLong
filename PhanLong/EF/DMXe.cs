@@ -30,9 +30,6 @@
         [Column(TypeName = "date")]
         public DateTime? DateUpdate { get; set; }
 
-        [Column(TypeName = "xml")]
-        public string Files { get; set; }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTBill> CTBills { get; set; }
 
