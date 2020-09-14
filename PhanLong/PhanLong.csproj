@@ -1965,6 +1965,7 @@
     <Folder Include="Areas\ThongKe\Views\Shared\" />
     <Folder Include="Areas\TraCuu\Data\" />
     <Folder Include="Areas\TraCuu\Views\Shared\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -2247,7 +2248,6 @@
     <Content Include="Areas\DanhMuc\Views\DMBill\CreateCTBill.cshtml" />
     <Content Include="Areas\ThongKe\Views\Luong\Index.cshtml" />
     <Content Include="Areas\ThongKe\Views\Luong\CTTTLuong.cshtml" />
-    <None Include="Properties\PublishProfiles\PhanLong.pubxml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Error\Error401.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
