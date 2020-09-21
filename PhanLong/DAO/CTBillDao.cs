@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Xml;
+using System.IO;
+using System.Text;
 
 namespace PhanLong.DAO
 {
@@ -460,6 +463,45 @@ namespace PhanLong.DAO
 
                 return false;
             }
+        }
+
+        public bool AddDataToXML(CTBill cTBill, string UrlFiles, string path1)
+        {
+            var item = db.CTBills.Find(cTBill.Id);
+            string filename = path1;
+  
+            XmlDocument d = new XmlDocument();
+            XmlElement eUrlFile, eCont;
+            if (!System.IO.File.Exists(path1))
+            {
+             
+                XmlTextWriter textWriter = new XmlTextWriter(path1, Encoding.UTF8);
+                textWriter.WriteStartDocument();
+                textWriter.WriteStartElement(item.Cont);
+                textWriter.Close();
+                d.Load(filename);
+                //tao nut
+                eUrlFile = d.CreateElement("UrlFile");
+                eUrlFile.InnerText = UrlFiles;
+                //them vao nut goc
+
+                d.DocumentElement.AppendChild(eUrlFile);
+            }
+            else
+            {
+                d.Load(filename);
+
+                eUrlFile = d.CreateElement("UrlFile");
+                eUrlFile.InnerText = UrlFiles;
+
+                d.DocumentElement.AppendChild(eUrlFile);
+            }
+           
+            d.Save(filename);
+
+            item.Files = filename;
+            db.SaveChanges();
+            return true;
         }
     }
 }

@@ -300,6 +300,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Bill\XML\Bill.xml" />
     <Content Include="Content\build\config\postcss.config.js" />
     <Content Include="Content\build\config\rollup.config.js" />
     <Content Include="Content\build\js\AdminLTE.js" />

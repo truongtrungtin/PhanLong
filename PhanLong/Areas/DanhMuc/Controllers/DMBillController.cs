@@ -4,8 +4,9 @@ using PhanLong.EF;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web.Mvc;
-
+using System.Xml;
 
 namespace PhanLong.Areas.DanhMuc.Controllers
 {
@@ -579,10 +580,15 @@ namespace PhanLong.Areas.DanhMuc.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddFilesCTBill(CTBill cTBill)
+        public ActionResult AddFilesCTBill(CTBill cTBill, string UrlFiles)
         {
             CTBill model = new CTBillDao().GetById(cTBill.Id);
-            if (new CTBillDao().AddFiles(cTBill))
+            string path1 = string.Format("{0}", Server.MapPath("~/Bill/" + model.DMBill.MaBill + "/" + model.Cont + ".xml"));
+            if (!System.IO.File.Exists(path1))
+            {
+                Directory.CreateDirectory(Server.MapPath("~/Bill/" + model.DMBill.MaBill));
+            } 
+            if (new CTBillDao().AddDataToXML(cTBill, UrlFiles, path1))
             {
                 SetAlert("Đã thêm files thành công!", "success");
             }
