@@ -501,7 +501,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         [ActionName("ImportExcelCTPS")]
         [HttpPost]
-        [HasCredential(RoleId = "IMPORT_PHATSINHCHITHU")]
+        [HasCredential(RoleId = "IMPORT_PHATSINHCHI")]
         public ActionResult ImportExcelCTPS(CTChiThu cTChiThu, PhatSinhChiThu phatSinhChiThu, DMXe dMXe, DMMooc dMMooc, DMPhi dMPhi, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)

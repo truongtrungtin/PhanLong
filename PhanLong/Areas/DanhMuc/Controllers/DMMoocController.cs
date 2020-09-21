@@ -49,7 +49,6 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return PartialView(model);
         }
         [HttpGet]
-        [HasCredential(RoleId = "ADD_MOOC")]
         public ActionResult Create(long? id = null, string Copy = null)
         {
             if (id != null && Copy != null)
@@ -65,7 +64,6 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             }
         }
         [HttpPost]
-        [HasCredential(RoleId = "ADD_MOOC")]
         public ActionResult Create(DMMooc dMMooc, int[] chkId, string delete = null)
         {
             var item = new DMMoocDao();
@@ -114,7 +112,6 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return RedirectToAction("Create", "DMMooc");
         }
         [HttpGet]
-        [HasCredential(RoleId = "EDIT_MOOC")]
         public ActionResult Update(long id)
         {
             var dao = new DMMoocDao();
@@ -122,7 +119,6 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
-        [HasCredential(RoleId = "EDIT_MOOC")]
         public ActionResult Update(DMMooc dMMooc, int[] chkId, string delete = null)
         {
             var item = new DMMoocDao();

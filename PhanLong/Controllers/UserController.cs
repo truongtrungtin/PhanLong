@@ -109,8 +109,6 @@ namespace PhanLong.Controllers
         {
             if (ModelState.IsValid)
             {
-                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
-                user.Id = session.UserID;
                 var dao = new UserDao();
                 var result = dao.UpdateProfile(user);
                 if (result)

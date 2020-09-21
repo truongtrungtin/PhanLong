@@ -167,7 +167,7 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     @foreach (var ct in db.CTMenus.Where(x => x.Menu1.TenMenu == item.TenMenu))
-                                     {
+                                    {
 
                                         if (ct.Ten == "Danh sách tài khoản" && role.Where(x => x.RoleId == "VIEW_USER").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
                                         {
