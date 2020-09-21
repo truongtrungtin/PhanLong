@@ -1,9 +1,5 @@
 ﻿using PhanLong.DAO;
 using PhanLong.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PhanLong.Areas.DanhMuc.Controllers
@@ -59,7 +55,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Create(DMThoiGian dMThoiGian ,int[] chkId, string delete = null)
+        public ActionResult Create(DMThoiGian dMThoiGian, int[] chkId, string delete = null)
         {
             var item = new DMThoiGianDao();
             if (delete != null && chkId != null)

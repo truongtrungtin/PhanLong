@@ -2,17 +2,17 @@
 
 namespace PhanLong.Areas.ThongKe
 {
-    public class ThongKeAreaRegistration : AreaRegistration 
+    public class ThongKeAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "ThongKe";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
                 "ThongKe_default",

@@ -3,17 +3,17 @@ using System.Web.Mvc;
 
 namespace PhanLong.Areas.NhapLieu
 {
-    public class NhapLieuAreaRegistration : AreaRegistration 
+    public class NhapLieuAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "NhapLieu";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
                 "NhapLieu_default",

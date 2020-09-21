@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
-using System.Web;
 
 namespace PhanLong.DAO
 {
@@ -105,8 +103,8 @@ namespace PhanLong.DAO
                             }
                             else if (column.ColumnName == "Mã KH")
                             {
-                                    hoaDon.KH = KH;
-                                
+                                hoaDon.KH = KH;
+
                             }
                             else if (column.ColumnName == "Số Cont")
                             {
@@ -122,8 +120,8 @@ namespace PhanLong.DAO
                             }
                             else if (column.ColumnName == "Số Bill")
                             {
-                                    hoaDon.SoBill = Bill;
-                               
+                                hoaDon.SoBill = Bill;
+
                             }
                             else if (column.ColumnName == "Tiền cước trên HĐ")
                             {
@@ -250,7 +248,7 @@ namespace PhanLong.DAO
             return db.HoaDons.OrderByDescending(x => x.NgayHD).ToList();
         }
 
-        public IEnumerable<HoaDon> SearchHoaDon(HoaDon hoaDon,string NgayBD, string NgayKT)
+        public IEnumerable<HoaDon> SearchHoaDon(HoaDon hoaDon, string NgayBD, string NgayKT)
         {
             DateTime sdate = (NgayBD != "") ? Convert.ToDateTime(NgayBD).Date : new DateTime();
             DateTime edate = (NgayKT != "") ? Convert.ToDateTime(NgayKT).Date : new DateTime();
@@ -287,12 +285,12 @@ namespace PhanLong.DAO
             }
             else
             {
-                sdate = DateTime.Now.Date.AddDays(-30); 
+                sdate = DateTime.Now.Date.AddDays(-30);
                 model = model.Where(x => x.NgayHD >= sdate);
             }
             if (!string.IsNullOrEmpty(eday))
             {
-                
+
                 model = model.Where(x => (eday == "") || (x.NgayHD <= edate));
             }
             else

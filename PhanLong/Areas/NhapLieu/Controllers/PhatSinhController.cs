@@ -1,14 +1,10 @@
-﻿using PhanLong.DAO;
+﻿using PhanLong.Common;
+using PhanLong.DAO;
 using PhanLong.EF;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using PhanLong.Common;
-using Syncfusion.XlsIO;
 
 namespace PhanLong.Areas.NhapLieu.Controllers
 {
@@ -21,7 +17,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             return View(model);
         }
 
-        
+
         [HttpPost]
         public ActionResult Index(int[] chkId, string delete = null, string update = null, string kehoach = null)
         {
@@ -37,10 +33,12 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                 {
                     SetAlert("Xóa không thành công, vui lòng thử lại!", "warning");
                 }
-            }else if(update != null && chkId.Length == 1)
+            }
+            else if (update != null && chkId.Length == 1)
             {
-                return RedirectToAction("Update", "PhatSinh",new { id = chkId[0] });
-            }else if(kehoach != null && chkId.Length == 1)
+                return RedirectToAction("Update", "PhatSinh", new { id = chkId[0] });
+            }
+            else if (kehoach != null && chkId.Length == 1)
             {
                 return RedirectToAction("KeHoach", "PhatSinh", new { id = chkId[0] });
             }
@@ -69,7 +67,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         [HasCredential(RoleId = "ADD_PHATSINH")]
         public ActionResult Create(long? id = null, string Copy = null)
         {
-            
+
             if (id != null && Copy != null)
             {
                 var dao = new PhatSinhDao();
@@ -79,7 +77,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             }
             else
             {
-                
+
                 SetViewBag();
                 return View();
             }
@@ -87,7 +85,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         [HttpPost]
         [HasCredential(RoleId = "ADD_PHATSINH")]
-        public ActionResult Create(PhatSinh phatSinh, int[] chkId, string delete = null,string update = null, string kehoach = null)
+        public ActionResult Create(PhatSinh phatSinh, int[] chkId, string delete = null, string update = null, string kehoach = null)
         {
             var ps = new PhatSinhDao();
             if (delete != null && chkId != null)
@@ -114,7 +112,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
+
                     var dao = new PhatSinhDao();
                     long result = dao.Insert(phatSinh);
                     if (result > 0)
@@ -276,7 +274,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                         ViewBag.Data = dt;
                         var dao = new PhatSinhDao();
 
-                        if (dao.importData(dt, phatsinh,dMLoai,dMKhachHang,dMKho,dMXe,dMNhanVien,dMPhi,dMThoiGian, dMCang, dMBill))
+                        if (dao.importData(dt, phatsinh, dMLoai, dMKhachHang, dMKho, dMXe, dMNhanVien, dMPhi, dMThoiGian, dMCang, dMBill))
                         {
                             SetAlert("Thêm thành công!", "success");
                         }
@@ -311,5 +309,5 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         }
     }
 
-    
+
 }

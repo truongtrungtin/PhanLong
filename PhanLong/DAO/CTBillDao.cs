@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
 
 namespace PhanLong.DAO
 {
@@ -387,7 +386,7 @@ namespace PhanLong.DAO
         {
             try
             {
-                var item = db.CTBills.SingleOrDefault(x => x.Bill == cTBill.Bill &&  x.Cont == cTBill.Cont);
+                var item = db.CTBills.SingleOrDefault(x => x.Bill == cTBill.Bill && x.Cont == cTBill.Cont);
                 item.NgayGiao = cTBill.NgayGiao;
                 item.SoXe = cTBill.SoXe;
                 item.DateUpdate = DateTime.Now;
@@ -445,6 +444,21 @@ namespace PhanLong.DAO
                 return false;
             }
 
+        }
+
+        public bool AddFiles(CTBill cTBill)
+        {
+            try
+            {
+                var item = db.CTBills.Find(cTBill.Id);
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
         }
     }
 }

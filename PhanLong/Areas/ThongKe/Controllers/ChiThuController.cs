@@ -1,14 +1,9 @@
-﻿using Microsoft.Ajax.Utilities;
+﻿using PhanLong.Common;
 using PhanLong.DAO;
 using PhanLong.EF;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Data;
-using System.IO;
 using System.Web.Mvc;
-using PhanLong.Common;
 
 namespace PhanLong.Areas.ThongKe.Controllers
 {

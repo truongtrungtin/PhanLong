@@ -2,17 +2,17 @@
 
 namespace PhanLong.Areas.TraCuu
 {
-    public class TraCuuAreaRegistration : AreaRegistration 
+    public class TraCuuAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "TraCuu";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
                 "TraCuu_default",

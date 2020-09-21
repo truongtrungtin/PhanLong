@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace PhanLong.Common
+﻿namespace PhanLong.Common
 {
     public class NumberToText
     {
@@ -73,7 +68,7 @@ namespace PhanLong.Common
                 if ((i > 0) && (!string.IsNullOrEmpty(tmp))) KetQua += ",";//&& (!string.IsNullOrEmpty(tmp))
             }
             if (KetQua.Substring(KetQua.Length - 1, 1) == ",") KetQua = KetQua.Substring(0, KetQua.Length - 1);
-            KetQua = KetQua.Trim() + " "+ strTail;
+            KetQua = KetQua.Trim() + " " + strTail;
             return KetQua.Substring(0, 1).ToUpper() + KetQua.Substring(1);
         }
         // Hàm đọc số có 3 chữ số

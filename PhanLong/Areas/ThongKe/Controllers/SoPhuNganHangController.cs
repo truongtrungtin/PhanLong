@@ -1,9 +1,5 @@
 ﻿using PhanLong.DAO;
 using PhanLong.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace PhanLong.Areas.ThongKe.Controllers
@@ -36,14 +32,14 @@ namespace PhanLong.Areas.ThongKe.Controllers
                     ViewBag.LoaiPhi = "Chi";
                     ViewBag.id = loaiphi;
                 }
-                else if(loaiphi == 2)
+                else if (loaiphi == 2)
                 {
                     ViewBag.LoaiPhi = "Thu";
                     ViewBag.id = loaiphi;
                 }
             }
             var dao = new SoPhuNganHangDao();
-            var model = dao.TimKiemThongTin(soPhuNganHang, NgayBD, NgayKT,loaiphi);
+            var model = dao.TimKiemThongTin(soPhuNganHang, NgayBD, NgayKT, loaiphi);
             return View(model);
         }
     }

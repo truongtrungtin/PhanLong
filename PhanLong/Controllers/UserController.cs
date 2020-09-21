@@ -1,14 +1,11 @@
 ﻿using PhanLong.Common;
 using PhanLong.DAO;
 using PhanLong.EF;
-using PhanLong.Models;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
-using System.IO;
 
 namespace PhanLong.Controllers
 {
@@ -91,7 +88,7 @@ namespace PhanLong.Controllers
 
                     }
                 }
-               
+
             }
             return RedirectToAction("Profile", "User");
         }

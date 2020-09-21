@@ -1,10 +1,7 @@
-﻿ using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using PhanLong.DAO;
+﻿using PhanLong.DAO;
 using PhanLong.EF;
+using System;
+using System.Web.Mvc;
 
 namespace PhanLong.Areas.ThongKe.Controllers
 {
@@ -50,7 +47,7 @@ namespace PhanLong.Areas.ThongKe.Controllers
             {
                 SetAlert("Thêm không thành công, vui lòng thử lại!", "warning");
             }
-            return RedirectToAction("Index", "HoaDon", new {NgayBD = NgayBD, NgayKT = NgayKT });
+            return RedirectToAction("Index", "HoaDon", new { NgayBD = NgayBD, NgayKT = NgayKT });
         }
 
     }

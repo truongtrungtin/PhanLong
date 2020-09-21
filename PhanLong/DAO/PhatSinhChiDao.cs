@@ -1,10 +1,8 @@
-﻿using DocumentFormat.OpenXml.Drawing.Diagrams;
-using PhanLong.EF;
+﻿using PhanLong.EF;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
 
 namespace PhanLong.DAO
 {
@@ -54,7 +52,7 @@ namespace PhanLong.DAO
 
         }
 
-        public bool importData(DataTable dt, PhatSinhChiThu phatSinhChiThu, DMNhanVien dMNhanVien ,HinhThucTT hinhThucTT, DMKhachHang dMKhachHang, DMBill dMBill, DMXe dMXe, DMMooc dMMooc)
+        public bool importData(DataTable dt, PhatSinhChiThu phatSinhChiThu, DMNhanVien dMNhanVien, HinhThucTT hinhThucTT, DMKhachHang dMKhachHang, DMBill dMBill, DMXe dMXe, DMMooc dMMooc)
         {
             try
             {
@@ -102,7 +100,7 @@ namespace PhanLong.DAO
                         {
                             foreach (var item in db.DMKhachHangs)
                             {
-                                if (item.MaKH == NguoiNhan )
+                                if (item.MaKH == NguoiNhan)
                                 {
                                     nguoinhan = item.Id;
                                 }
@@ -277,7 +275,8 @@ namespace PhanLong.DAO
                                 {
                                     phatSinhChiThu.Bill = bill;
                                 }
-                                else {
+                                else
+                                {
                                     phatSinhChiThu.Bill = null;
                                 }
                             }

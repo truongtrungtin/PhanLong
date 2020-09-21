@@ -6,6 +6,22 @@
     ViewBag.Back = "Trở lại";
 }
 
+@*@using (Html.BeginForm("AddFilesCTBill", "DMBill", FormMethod.Post))
+{
+    <div class="modal fade" id="MyModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="ModalTitle">Update</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">&times;</a>
+                </div>
+                <div class="modal-body" id="myModalBodyDiv">
+                </div>
+            </div>
+        </div>
+    </div>
+}*@
+
 <div class="card">
     <div class="card-header">
         <h5>
@@ -27,7 +43,7 @@
     <div class="card-body">
         @using (Html.BeginForm("CTBill", "DMBill", FormMethod.Post))
         {
-        <input type="hidden" readonly name="Bill" value="@ViewBag.IdBill" />
+            <input type="hidden" readonly name="Bill" value="@ViewBag.IdBill" />
             <table class="table table-bordered table-hover table-striped" id="dataTable" width="100%">
                 <thead>
                     <tr>
@@ -47,6 +63,7 @@
                         <th>Xe</th>
                         <th>Bãi gửi</th>
                         <th>Ghi Chú</th>
+                        <th>#</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -55,7 +72,7 @@
                     <tr id="row_@item.Id">
                         <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
                         <td>@item.Cont</td>
-                        <td>@(item.Loai != null ? item.DMLoai.MaLoai: null)</td>
+                        <td></td>
                         <td title="@(item.Kho != null ? item.DMKho.DiaChi : null )">@(item.Kho != null ? item.DMKho.MaKho : null )</td>
                         <td>@item.SoDK</td>
                         <td>@item.Seal</td>
@@ -172,6 +189,7 @@
                         <td>@(item.BaiGui != null ? item.DMCang.TenCang : null)</td>
 
                         <td class="cell expand-maximum-on-hover">@item.GhiChu</td>
+                        <td class=""><button id="btnSelectFiles">Chọn files</button></td>
                     </tr>
                     }
                 </tbody>
@@ -207,5 +225,11 @@
 </div>
 
 
-
+<script>
+    $(document).ready(function () {
+        $('#btnSelectFiles').on('click', function () {
+            var finder = new CKFinder();
+        })
+    })
+</script>
 

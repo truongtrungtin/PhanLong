@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace PhanLong.DAO
 {
@@ -54,7 +53,7 @@ namespace PhanLong.DAO
             return entity.Id;
         }
 
-        public long InsertMaLoai(DMLoai entity,string maloai)
+        public long InsertMaLoai(DMLoai entity, string maloai)
         {
             entity.MaLoai = maloai;
             entity.MoTa = maloai;

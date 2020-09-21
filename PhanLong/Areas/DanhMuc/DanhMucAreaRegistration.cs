@@ -2,17 +2,17 @@
 
 namespace PhanLong.Areas.DanhMuc
 {
-    public class DanhMucAreaRegistration : AreaRegistration 
+    public class DanhMucAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "DanhMuc";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
                 "DanhMuc_default",

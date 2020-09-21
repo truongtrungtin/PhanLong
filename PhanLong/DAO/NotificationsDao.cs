@@ -1,9 +1,7 @@
 ﻿using PhanLong.EF;
 using PhanLong.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace PhanLong.DAO
 {
@@ -29,7 +27,7 @@ namespace PhanLong.DAO
                            NgayLuuBai = b.NgayGui,
                        };
 
-            return data.OrderBy(x=>x.HanLuuBai).ToList();
+            return data.OrderBy(x => x.HanLuuBai).ToList();
 
         }
         public List<NotificationsModel> GetNotificationsLuuCont()

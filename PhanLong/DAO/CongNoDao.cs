@@ -1,15 +1,13 @@
 ﻿using PhanLong.EF;
 using PhanLong.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace PhanLong.DAO
 {
     public class CongNoDao
     {
-        
+
         PhanLongDBContext db = null;
         public CongNoDao()
         {
@@ -22,11 +20,11 @@ namespace PhanLong.DAO
                        join ps in db.PhatSinhs on nv.Id equals ps.KhachHang
                        select new CongNoModel()
                        {
-                         Ngay = ps.Ngay,
-                         KhachHang = nv.MaKH,
-                         Cont = ps.SoCont,
-                         Cuoc = ps.CuocKH,
-                         ChiHo = ps.TienHa + ps.TienNang + ps.TienPhiKH,
+                           Ngay = ps.Ngay,
+                           KhachHang = nv.MaKH,
+                           Cont = ps.SoCont,
+                           Cuoc = ps.CuocKH,
+                           ChiHo = ps.TienHa + ps.TienNang + ps.TienPhiKH,
                        };
             var model = data;
             if (congNoModel.KhachHang != null)

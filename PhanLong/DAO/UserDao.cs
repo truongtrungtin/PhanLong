@@ -1,13 +1,9 @@
-﻿using System;
+﻿using PhanLong.Common;
+using PhanLong.EF;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using PhanLong.EF;
-using System.Configuration;
-using PhanLong.Common;
-using PhanLong.Models;
-using DocumentFormat.OpenXml.VariantTypes;
 
 namespace PhanLong.DAO
 {
@@ -44,7 +40,7 @@ namespace PhanLong.DAO
 
         public long Insert(User entity, string[] selectroles)
         {
-            
+
             entity.Status = true;
             entity.CreatedDate = DateTime.Now;
             entity.Avatar = "/Images/Avatar/default.jpg";
@@ -62,7 +58,7 @@ namespace PhanLong.DAO
                     db.Credentials.Add(article);
                 }
                 db.SaveChanges();
-            } 
+            }
             return entity.Id;
         }
         public long InsertForFacebook(User entity)

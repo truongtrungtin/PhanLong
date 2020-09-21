@@ -34,7 +34,7 @@ namespace PhanLong.DAO
 
         }
 
-        public bool importData(DataTable dt, DMBill dMBill, DMKhachHang dMKhachHang,DMCang dMCang)
+        public bool importData(DataTable dt, DMBill dMBill, DMKhachHang dMKhachHang, DMCang dMCang)
         {
             try
             {
@@ -125,7 +125,7 @@ namespace PhanLong.DAO
                                 {
                                     var a = Convert.ToDateTime(day).ToShortDateString();
                                     dMBill.NgayTauDen = Convert.ToDateTime(a);
-                                }     
+                                }
                             }
                             else if (column.ColumnName == "Người gửi")
                             {
@@ -170,15 +170,15 @@ namespace PhanLong.DAO
                             }
                             else if (column.ColumnName == "Cảng nhận")
                             {
-                                
-                                    dMBill.CangNhan = CangNhan;
-                                
+
+                                dMBill.CangNhan = CangNhan;
+
                             }
                             else if (column.ColumnName == "Cảng trả")
                             {
-                                
-                                    dMBill.CangTra = CangTra;
-                                
+
+                                dMBill.CangTra = CangTra;
+
                             }
 
                         }
@@ -235,7 +235,7 @@ namespace PhanLong.DAO
 
                 else
                 {
-                    model = db.DMBills.Where(x => (ToDate == "" && FromDate == "") ||( x.NgayTauDen >= sdate && x.NgayTauDen <= edate));
+                    model = db.DMBills.Where(x => (ToDate == "" && FromDate == "") || (x.NgayTauDen >= sdate && x.NgayTauDen <= edate));
                 }
             }
             else
@@ -287,7 +287,7 @@ namespace PhanLong.DAO
         public bool Update(DMBill dMBill)
         {
             try
-            { 
+            {
                 var item = db.DMBills.Find(dMBill.Id);
                 item.SoToKhai = dMBill.SoToKhai;
                 item.MaBill = dMBill.MaBill;
@@ -329,7 +329,7 @@ namespace PhanLong.DAO
 
         }
 
-       
+
     }
 
     public class TestItemClass

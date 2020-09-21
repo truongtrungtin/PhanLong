@@ -1,10 +1,8 @@
 ﻿namespace PhanLong.EF
 {
     using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("PhatSinh")]
     public partial class PhatSinh
@@ -66,7 +64,7 @@
         [StringLength(250)]
         [Display(Name = "Ghi chú: ")]
         public string GhiChu { get; set; }
-   
+
         [StringLength(250)]
         [Display(Name = "Ghi chú lương: ")]
         public string GhiChuLuong { get; set; }

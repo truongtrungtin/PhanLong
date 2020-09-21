@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Web;
 
 namespace PhanLong.DAO
 {
@@ -34,7 +33,7 @@ namespace PhanLong.DAO
             }
 
         }
-        public bool importData(DataTable dt,CTChiThu cTChiThu,PhatSinhChiThu phatSinhChiThu, DMXe dMXe, DMMooc dMMooc, DMPhi dMPhi)
+        public bool importData(DataTable dt, CTChiThu cTChiThu, PhatSinhChiThu phatSinhChiThu, DMXe dMXe, DMMooc dMMooc, DMPhi dMPhi)
         {
             try
             {
@@ -46,7 +45,7 @@ namespace PhanLong.DAO
 
                         var Phi = dr["Phí"].ToString();
                         long? psct = null;
-                  
+
                         long? phi = null;
 
                         if (PhatSinhCT != null && PhatSinhCT != "")
@@ -75,7 +74,7 @@ namespace PhanLong.DAO
                             }
                             if (phi == null)
                             {
-                                var dao = new DMPhiDao().InsertPhi(dMPhi, Phi,1);
+                                var dao = new DMPhiDao().InsertPhi(dMPhi, Phi, 1);
                                 phi = dao;
                             }
                         }
@@ -88,17 +87,17 @@ namespace PhanLong.DAO
 
                             if (column.ColumnName == "Phát sinh chi thu")
                             {
-                                
-                                    cTChiThu.PhatSinhChiThu = Convert.ToInt32(psct);
-                                
+
+                                cTChiThu.PhatSinhChiThu = Convert.ToInt32(psct);
+
                             }
                             else if (column.ColumnName == "Phí")
                             {
-                                
-                                    cTChiThu.Phi = phi;
-                                
+
+                                cTChiThu.Phi = phi;
+
                             }
-                           
+
                             else if (column.ColumnName == "Cont")
                             {
                                 if (dr["Cont"].ToString() != "")

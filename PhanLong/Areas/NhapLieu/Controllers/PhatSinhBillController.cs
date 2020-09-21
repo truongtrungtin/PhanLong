@@ -34,7 +34,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             }
             else if (update != null && chkId.Length == 1)
             {
-                return RedirectToAction("Update", "DMBill", new {area = "DanhMuc" , id = chkId[0]});
+                return RedirectToAction("Update", "DMBill", new { area = "DanhMuc", id = chkId[0] });
             }
             else if (chitiet != null && chkId.Length == 1)
             {
@@ -46,7 +46,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
 
         [HttpPost]
-        public ActionResult Create(CTBill cTBill, int[] chkId, string themngayguibai = null, string themngaygiao = null, string giahanluubai= null, string giahanluucont = null, string giahanluurong = null, string gui = null, string giao = null, string luubai = null, string luucont = null, string luurong = null, string update = null, string delete = null)
+        public ActionResult Create(CTBill cTBill, int[] chkId, string themngayguibai = null, string themngaygiao = null, string giahanluubai = null, string giahanluucont = null, string giahanluurong = null, string gui = null, string giao = null, string luubai = null, string luucont = null, string luurong = null, string update = null, string delete = null)
         {
             var bill = new DMBillDao().GetById(cTBill.Bill);
             var dao = new PhatSinhBillDao();

@@ -3,16 +3,12 @@ using PhanLong.DAO;
 using PhanLong.EF;
 using PhanLong.Models;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
 namespace PhanLong.Controllers
 {
-    public class LoginController: BaseLoginController
+    public class LoginController : BaseLoginController
     {
         // GET: Login
         public ActionResult Index()
@@ -152,7 +148,7 @@ namespace PhanLong.Controllers
                 var dao = new UserDao();
                 if (dao.CheckEmail(user.Email))
                 {
-                    int tokenkey = dao.RandomNumber(100000,999999);
+                    int tokenkey = dao.RandomNumber(100000, 999999);
 
                     string content = System.IO.File.ReadAllText(Server.MapPath("~/Content/templates/ForgotPassword.html"));
 
@@ -161,7 +157,7 @@ namespace PhanLong.Controllers
                     new MailHelper().SendMail(user.Email, "Phanlong.com", content, "Đặt lại mật khẩu");
 
 
-                    return RedirectToAction("RecoverPassword", "Login", new {@email=user.Email,  @token = Encryptor.MD5Hash(Convert.ToString(tokenkey)) });
+                    return RedirectToAction("RecoverPassword", "Login", new { @email = user.Email, @token = Encryptor.MD5Hash(Convert.ToString(tokenkey)) });
                 }
                 else
                 {
@@ -214,7 +210,7 @@ namespace PhanLong.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 var dao = new UserDao();
                 var encryptedMd5Pas = Encryptor.MD5Hash(NewPassword);
                 user.Id = dao.GetByEmail(user.Email).Id;
@@ -234,7 +230,7 @@ namespace PhanLong.Controllers
                     ModelState.AddModelError("", "Lỗi! vui lòng thử lại.");
 
                 }
-                
+
             }
             return View();
         }

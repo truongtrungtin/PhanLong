@@ -45,7 +45,7 @@ namespace PhanLong.DAO
                         foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
                         {
 
-                            
+
                         }
                         db.TraCuuCuocs.Add(traCuuCuoc);
                         db.SaveChanges();

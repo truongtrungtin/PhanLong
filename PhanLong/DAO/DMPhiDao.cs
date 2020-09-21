@@ -13,7 +13,7 @@ namespace PhanLong.DAO
         {
             db = new PhanLongDBContext();
         }
-        public long InsertPhi(DMPhi entity, string phi,long loai)
+        public long InsertPhi(DMPhi entity, string phi, long loai)
         {
             entity.MaPhi = phi;
             entity.TenPhi = phi;

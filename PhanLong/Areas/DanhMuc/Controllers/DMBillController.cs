@@ -1,12 +1,9 @@
 ﻿using PhanLong.Common;
 using PhanLong.DAO;
 using PhanLong.EF;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 
@@ -109,7 +106,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
                         else
                         {
                             SetAlert("Đã thêm Bill thành công !", "success");
-                            
+
 
                         }
                         if (luuthem != null)
@@ -285,7 +282,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             }
             else if (update != null && chkId.Length == 1)
             {
-                return RedirectToAction("UpdateCTBill", "DMBill", new { CTBill = chkId[0] , id = bill });
+                return RedirectToAction("UpdateCTBill", "DMBill", new { CTBill = chkId[0], id = bill });
             }
             var Bill = new DMBillDao().GetById(bill);
             var model = dao.ListAll(bill);
@@ -337,7 +334,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
                 {
                     return RedirectToAction("CTBill", "DMBill", new { id = idbill });
                 }
-                else if(luuthem != null)
+                else if (luuthem != null)
                 {
                     return RedirectToAction("CreateCTBill", "DMBill", new { id = idbill });
                 }
@@ -571,6 +568,28 @@ namespace PhanLong.Areas.DanhMuc.Controllers
                 }
             }
             return RedirectToAction("Index", "DMBill");
+        }
+
+        [HttpGet]
+        public PartialViewResult AddFilesCTBill(long id)
+        {
+            CTBill model = new CTBillDao().GetById(id);
+
+            return PartialView("AddFilesCTBill", model);
+        }
+        [HttpPost]
+        public ActionResult AddFilesCTBill(CTBill cTBill)
+        {
+            CTBill model = new CTBillDao().GetById(cTBill.Id);
+            if (new CTBillDao().AddFiles(cTBill))
+            {
+                SetAlert("Đã thêm ghi chú lương thành công!", "success");
+            }
+            else
+            {
+                SetAlert("Thêm ghi chú lương không thành công, vui lòng thử lại!", "warning");
+            }
+            return PartialView("AddFilesCTBill", model);
         }
     }
 }

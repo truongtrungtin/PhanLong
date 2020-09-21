@@ -1,10 +1,8 @@
-﻿using System;
+﻿using PhanLong.EF;
+using PhanLong.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.WebPages;
-using PhanLong.EF;
-using PhanLong.Models;
 
 namespace PhanLong.DAO
 {
@@ -20,16 +18,16 @@ namespace PhanLong.DAO
         {
             DateTime sdate = (ngayBD != "") ? Convert.ToDateTime(ngayBD).Date : new DateTime();
             DateTime edate = (ngayKT != "") ? Convert.ToDateTime(ngayKT).Date : new DateTime();
-            IQueryable<PhatSinh> model = db.PhatSinhs.Where(x=>x.Xe == id);
+            IQueryable<PhatSinh> model = db.PhatSinhs.Where(x => x.Xe == id);
             if (!string.IsNullOrEmpty(ngayBD) && !string.IsNullOrEmpty(ngayKT))
             {
-                model = model.Where(x => x.SoCont != "" && x.Loai != null &&( (ngayBD == "" && ngayKT == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
+                model = model.Where(x => x.SoCont != "" && x.Loai != null && ((ngayBD == "" && ngayKT == "") || (x.Ngay >= sdate && x.Ngay <= edate)));
             }
 
             return model.OrderBy(x => x.Ngay).ToList();
         }
 
-        
+
 
         public List<ChiLuongModel> ChiLuong(long? id, string ngayBD, string ngayKT)
         {
@@ -41,7 +39,10 @@ namespace PhanLong.DAO
                        join ctc in db.CTChiThus on psc.Id equals ctc.PhatSinhChiThu
                        join phi in db.DMPhis on ctc.Phi equals phi.Id
                        join loaiPhi in db.LoaiPhis on phi.LoaiPhi equals loaiPhi.Id
-                       where xe.Id == id where loaiPhi.Id == 1 where phi.Id == 18 where psc.Xe != null  
+                       where xe.Id == id
+                       where loaiPhi.Id == 1
+                       where phi.Id == 18
+                       where psc.Xe != null
                        select new ChiLuongModel()
                        {
                            Id = psc.Id,
@@ -62,4 +63,4 @@ namespace PhanLong.DAO
     }
 
 }
-   
+

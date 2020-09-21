@@ -1,11 +1,6 @@
-﻿using PhanLong.EF;
-using PhanLong.DAO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using PhanLong.DAO;
 using PhanLong.Models;
+using System.Web.Mvc;
 
 namespace PhanLong.Areas.ThongKe.Controllers
 {

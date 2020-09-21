@@ -1,9 +1,7 @@
 ﻿using PhanLong.EF;
-using PhanLong.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 
 namespace PhanLong.DAO
 {
@@ -15,7 +13,7 @@ namespace PhanLong.DAO
             db = new PhanLongDBContext();
         }
 
-        
+
 
         public bool checkbox(int[] chkId)
         {
@@ -59,9 +57,9 @@ namespace PhanLong.DAO
             }
             if (phatSinhChiThu.KhachHang != null)
             {
-                model = model.Where(x => x.KhachHang == phatSinhChiThu.KhachHang);             
+                model = model.Where(x => x.KhachHang == phatSinhChiThu.KhachHang);
             }
-            if(phatSinhChiThu.Bill != null)
+            if (phatSinhChiThu.Bill != null)
             {
                 model = model.Where(x => x.Bill == phatSinhChiThu.Bill);
             }

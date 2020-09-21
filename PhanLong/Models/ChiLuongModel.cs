@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace PhanLong.Models
 {
-    public   class ChiLuongModel
+    public class ChiLuongModel
     {
         public long Id { get; set; }
         public DateTime NgayChi { get; set; }

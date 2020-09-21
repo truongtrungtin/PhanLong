@@ -1,12 +1,8 @@
 ﻿using PhanLong.DAO;
 using PhanLong.EF;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using PhanLong.Models;
-using Newtonsoft.Json;
 
 namespace PhanLong.Areas.ThongKe.Controllers
 {
@@ -40,7 +36,7 @@ namespace PhanLong.Areas.ThongKe.Controllers
             {
                 NgayKT = DateTime.Now.ToShortDateString();
             }
-            
+
             var xe = new DMXeDao().GetById(id);
             var model = new CTTTLuongDao().PhatSinhLuong(id, NgayBD, NgayKT);
             var ChiLuong = new CTTTLuongDao().ChiLuong(id, NgayBD, NgayKT);
@@ -77,7 +73,7 @@ namespace PhanLong.Areas.ThongKe.Controllers
             ViewBag.N40 = model.Where(x => x.DMLoai.MaLoai == "40N").Count();
             ViewBag.X40 = model.Where(x => x.DMLoai.MaLoai == "40X").Count();
             ViewBag.Tong = (ViewBag.N20 + ViewBag.X20 + ViewBag.N40 + ViewBag.X40);
-            
+
             return RedirectToAction("CTTTLuong", "Luong", new { id = phatSinh.TenTX, NgayBD = NgayBD, NgayKT = NgayKT });
         }
 

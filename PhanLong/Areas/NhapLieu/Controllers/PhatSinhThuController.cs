@@ -1,12 +1,7 @@
 ﻿using PhanLong.Common;
 using PhanLong.DAO;
 using PhanLong.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Windows.Forms;
 
 namespace PhanLong.Areas.NhapLieu.Controllers
 {
@@ -120,7 +115,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                             SetAlert("Thêm phí không thành công, vui lòng truy cập chi tiết để thêm phí!", "warning");
                             return RedirectToAction("CTThu", "PhatSinhThu", new { id = result });
                         }
-                        
+
                     }
                     else
                     {
@@ -379,7 +374,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         [HasCredential(RoleId = "EDIT_PHATSINHTHU")]
         public ActionResult UpdateCTThu(long id)
         {
-          
+
             var model = new CTChiDao().GetById(id);
             ViewBag.HoaDon = model.PhatSinhChiThu != null ? model.PhatSinhChiThu1.SoHD : null;
             ViewBag.IdThu = model.PhatSinhChiThu;

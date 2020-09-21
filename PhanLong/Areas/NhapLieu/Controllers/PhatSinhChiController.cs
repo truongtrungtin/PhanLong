@@ -1,14 +1,10 @@
 ﻿using PhanLong.Common;
 using PhanLong.DAO;
 using PhanLong.EF;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Windows.Forms;
 
 namespace PhanLong.Areas.NhapLieu.Controllers
 {
@@ -121,7 +117,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                             SetAlert("Thêm phí không thành công, vui lòng truy cập chi tiết để thêm phí!", "warning");
                             return RedirectToAction("CTChi", "PhatSinhChi", new { id = result });
                         }
-                        
+
                     }
                     else
                     {

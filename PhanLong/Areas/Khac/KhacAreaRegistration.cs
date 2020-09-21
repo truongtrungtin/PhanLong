@@ -2,17 +2,17 @@
 
 namespace PhanLong.Areas.Khac
 {
-    public class KhacAreaRegistration : AreaRegistration 
+    public class KhacAreaRegistration : AreaRegistration
     {
-        public override string AreaName 
+        public override string AreaName
         {
-            get 
+            get
             {
                 return "Khac";
             }
         }
 
-        public override void RegisterArea(AreaRegistrationContext context) 
+        public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
                 "Khac_default",

@@ -1,13 +1,10 @@
-﻿using PhanLong.EF;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using System.Data;
-using PhanLong.Common;
-using System.IO;
+﻿using PhanLong.Common;
 using PhanLong.DAO;
+using PhanLong.EF;
+using System.Data;
+using System.IO;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace PhanLong.Areas.Khac.Controllers
 {
@@ -32,7 +29,7 @@ namespace PhanLong.Areas.Khac.Controllers
                     string connString = "";
                     string[] validFileTypes = { ".xls" };
 
-                    string path1 = string.Format("{0}/{1}", Server.MapPath("~/Content/Uploads/"+ item), Request.Files["FileUpload"].FileName);
+                    string path1 = string.Format("{0}/{1}", Server.MapPath("~/Content/Uploads/" + item), Request.Files["FileUpload"].FileName);
                     if (!Directory.Exists(path1))
                     {
                         Directory.CreateDirectory(Server.MapPath("~/Content/Uploads/" + item));
@@ -41,8 +38,8 @@ namespace PhanLong.Areas.Khac.Controllers
                     {
                         DataTable dt;
                         if (System.IO.File.Exists(path1))
-                        { 
-                            System.IO.File.Delete(path1); 
+                        {
+                            System.IO.File.Delete(path1);
                         }
                         Request.Files["FileUpload"].SaveAs(path1);
                         if (extension.Trim() == ".xls")
@@ -220,7 +217,7 @@ namespace PhanLong.Areas.Khac.Controllers
                                         return RedirectToAction("Index", "ImportDataWithExcel");
                                     }
                                 }
-                               
+
 
                             }
                             else
@@ -231,7 +228,7 @@ namespace PhanLong.Areas.Khac.Controllers
                         }
                     }
                 }
-                
+
             }
             return RedirectToAction("Index", "ImportDataWithExcel");
         }

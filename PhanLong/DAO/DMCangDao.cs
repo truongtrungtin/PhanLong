@@ -51,7 +51,7 @@ namespace PhanLong.DAO
                     {
                         foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
                         {
-                           
+
                             if (column.ColumnName == "Mã cảng")
                             {
                                 dMCang.MaCang = dr["Mã cảng"].ToString();
