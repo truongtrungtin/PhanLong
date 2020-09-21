@@ -577,19 +577,20 @@ namespace PhanLong.Areas.DanhMuc.Controllers
 
             return PartialView("AddFilesCTBill", model);
         }
+
         [HttpPost]
         public ActionResult AddFilesCTBill(CTBill cTBill)
         {
             CTBill model = new CTBillDao().GetById(cTBill.Id);
             if (new CTBillDao().AddFiles(cTBill))
             {
-                SetAlert("Đã thêm ghi chú lương thành công!", "success");
+                SetAlert("Đã thêm files thành công!", "success");
             }
             else
             {
-                SetAlert("Thêm ghi chú lương không thành công, vui lòng thử lại!", "warning");
+                SetAlert("Thêm files không thành công, vui lòng thử lại!", "warning");
             }
-            return PartialView("AddFilesCTBill", model);
+            return RedirectToAction("CTBill", "DMBill",new { id = model.DMBill.Id});
         }
     }
 }

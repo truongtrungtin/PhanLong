@@ -451,6 +451,7 @@ namespace PhanLong.DAO
             try
             {
                 var item = db.CTBills.Find(cTBill.Id);
+                item.Files = cTBill.Files;
                 db.SaveChanges();
                 return true;
             }
