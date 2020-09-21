@@ -116,18 +116,25 @@
                         tongngaycong += socont.Select(x => x.Ngay).Distinct().Count();
                     }
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="2">Tổng:</td>
-                        <td>@tongcont</td>
-                        <td>@tongngaycong</td>
-                        <td style="text-align:right">@String.Format("{0:0,0}", (tongtien * 60 / 100))</td>
-                        <td style="text-align:right">@String.Format("{0:0,0}", (tongtien * 60 / 100 / tongngaycong))</td>
-                        <td></td>
-                    </tr>
+                @if (Model.Select(x => new { x.Xe }).Distinct().Count() > 0)
+                {
+                    <tfoot>
+                        <tr>
 
-                </tfoot>
-            </table>
+                            <td colspan="2">Tổng:</td>
+                            <td>@tongcont</td>
+                            <td>@tongngaycong</td>
+                            <td style="text-align:right">@String.Format("{0:0,0}", (tongtien * 60 / 100))</td>
+                            <td style="text-align:right">@String.Format("{0:0,0}", (tongtien * 60 / 100 / tongngaycong))</td>
+                            <td></td>
+                         
+
+                        </tr>
+
+                    </tfoot>
+                }
+                </table>
+             
         </div>
     </div>
 </div>

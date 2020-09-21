@@ -1965,7 +1965,6 @@
     <Folder Include="Areas\ThongKe\Views\Shared\" />
     <Folder Include="Areas\TraCuu\Data\" />
     <Folder Include="Areas\TraCuu\Views\Shared\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -2261,6 +2260,8 @@
     <Content Include="Views\Login\_Layout.cshtml" />
     <Content Include="Views\Login\RecoverPassword.cshtml" />
     <Content Include="Views\Login\NewPassword.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\IISProfile.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,4 +1,5 @@
-﻿using PhanLong.DAO;
+﻿using PhanLong.Common;
+using PhanLong.DAO;
 using PhanLong.EF;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,9 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             var model = dao.ListAll();
             return PartialView(model);
         }
+
         [HttpGet]
+        [HasCredential(RoleId = "ADD_LOAICONT")]
         public ActionResult Create(long? id = null, string Copy = null)
         {
             if (id != null && Copy != null)
@@ -60,6 +63,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             }
         }
         [HttpPost]
+        [HasCredential(RoleId = "ADD_LOAICONT")]
         public ActionResult Create(DMLoai dMLoai, int[] chkId, string delete = null)
         {
             var item = new DMLoaiDao();
@@ -108,6 +112,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return RedirectToAction("Create", "DMLoai");
         }
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_LOAICONT")]
         public ActionResult Update(long id)
         {
             var dao = new DMLoaiDao();
@@ -115,6 +120,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_LOAICONT")]
         public ActionResult Update(DMLoai dMLoai, int[] chkId, string delete = null)
         {
             var item = new DMLoaiDao();
@@ -166,6 +172,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
 
         // Delete
         [HttpDelete]
+        [HasCredential(RoleId = "DELETE_LOAICONT")]
         public ActionResult Delete(long id)
         {
             var result = new DMXeDao().Delete(id);

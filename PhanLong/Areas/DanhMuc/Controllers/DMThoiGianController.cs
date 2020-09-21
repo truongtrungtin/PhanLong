@@ -1,4 +1,5 @@
 ﻿using PhanLong.DAO;
+using PhanLong.Common;
 using PhanLong.EF;
 using System;
 using System.Collections.Generic;
@@ -44,6 +45,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return PartialView(model);
         }
         [HttpGet]
+        [HasCredential(RoleId = "ADD_DMTHOIGIAN")]
         public ActionResult Create(long? id = null, string Copy = null)
         {
             if (id != null && Copy != null)
@@ -59,6 +61,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             }
         }
         [HttpPost]
+        [HasCredential(RoleId = "ADD_DMTHOIGIAN")]
         public ActionResult Create(DMThoiGian dMThoiGian ,int[] chkId, string delete = null)
         {
             var item = new DMThoiGianDao();
@@ -108,6 +111,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return RedirectToAction("Create", "DMThoiGian");
         }
         [HttpGet]
+        [HasCredential(RoleId = "EDIT_DMTHOIGIAN")]
         public ActionResult Update(long id)
         {
             var dao = new DMThoiGianDao();
@@ -115,6 +119,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
+        [HasCredential(RoleId = "EDIT_DMTHOIGIAN")]
         public ActionResult Update(DMThoiGian dMThoiGian, int[] chkId, string delete = null)
         {
             var item = new DMThoiGianDao();
@@ -165,6 +170,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return View("Index");
         }
         [HttpDelete]
+        [HasCredential(RoleId = "DELETE_DMTHOIGIAN")]
         public ActionResult Delete(long id)
         {
             var result = new DMThoiGianDao().Delete(id);
