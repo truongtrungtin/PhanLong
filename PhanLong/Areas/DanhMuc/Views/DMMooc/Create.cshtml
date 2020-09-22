@@ -20,11 +20,11 @@
                 <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     <div class="row">
-                        <div class="col-sm-2">
+                        <div class="col-sm-3">
                             <div class="form-group row">
-                                @Html.LabelFor(model => model.MaMooc, htmlAttributes: new { @class = "col-form-label col-sm-3" })
-                                <div class="col-sm-9">
-                                    @Html.EditorFor(model => model.MaMooc, new { htmlAttributes = new {@class = "form-control form-control-sm", @required = true } })
+                                @Html.LabelFor(model => model.MaMooc, htmlAttributes: new { @class = "col-form-label col-sm-2" })
+                                <div class="col-sm-7">
+                                    @Html.EditorFor(model => model.MaMooc, new { htmlAttributes = new { @class = "form-control form-control-sm", @required = true } })
                                     @Html.ValidationMessageFor(model => model.MaMooc, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -32,9 +32,23 @@
                         <div class="col-sm-3">
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.BienSo, htmlAttributes: new { @class = "col-form-label col-sm-3" })
-                                <div class="col-sm-9">
+                                <div class="col-sm-7">
                                     @Html.EditorFor(model => model.BienSo, new { htmlAttributes = new { @class = "form-control form-control-sm", @required = true } })
                                     @Html.ValidationMessageFor(model => model.BienSo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.NgayDangKiem, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-5" })
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="text" name="NgayDangKiem" class="form-control form-control-sm" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.NgayDangKiem, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>

@@ -300,7 +300,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Bill\XML\Bill.xml" />
     <Content Include="Content\build\config\postcss.config.js" />
     <Content Include="Content\build\config\rollup.config.js" />
     <Content Include="Content\build\js\AdminLTE.js" />
@@ -2354,10 +2353,10 @@
     <Folder Include="Areas\ThongKe\Views\Shared\" />
     <Folder Include="Areas\TraCuu\Data\" />
     <Folder Include="Areas\TraCuu\Views\Shared\" />
+    <Folder Include="Bill\" />
     <Folder Include="Data\files\" />
     <Folder Include="Data\flash\" />
     <Folder Include="Data\images\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
@@ -2660,6 +2659,7 @@
     <Content Include="Views\Login\_Layout.cshtml" />
     <Content Include="Views\Login\RecoverPassword.cshtml" />
     <Content Include="Views\Login\NewPassword.cshtml" />
+    <None Include="Properties\PublishProfiles\PublicNew.pubxml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

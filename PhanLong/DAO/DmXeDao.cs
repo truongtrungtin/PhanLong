@@ -103,7 +103,7 @@ namespace PhanLong.DAO
                 var item = db.DMXes.Find(dMKho.Id);
                 item.MaXe = dMKho.MaXe;
                 item.BienSo = dMKho.BienSo;
-                item.DateUpdate = DateTime.Now;
+                item.NgayDangKiem = dMKho.NgayDangKiem;
                 db.SaveChanges();
                 return true;
             }

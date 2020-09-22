@@ -32,10 +32,24 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group row">
-                                @Html.LabelFor(model => model.BienSo, htmlAttributes: new {@class = "col-form-label col-sm-4", @required =true })
+                                @Html.LabelFor(model => model.BienSo, htmlAttributes: new { @class = "col-form-label col-sm-4", @required = true })
                                 <div class="col-sm-8">
                                     @Html.EditorFor(model => model.BienSo, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(model => model.BienSo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.NgayDangKiem, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-5" })
+                                <div class="col-sm-7">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                        </div>
+                                        <input type="text" name="NgayDangKiem" class="form-control form-control-sm" value="@(Model.NgayDangKiem != null ? Model.NgayDangKiem.Value.ToShortDateString(): null)" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.NgayDangKiem, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                         </div>
