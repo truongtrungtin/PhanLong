@@ -1,6 +1,9 @@
 namespace PhanLong.EF
 {
+    using System;
     using System.Data.Entity;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
 
     public partial class PhanLongDBContext : DbContext
     {
@@ -31,16 +34,13 @@ namespace PhanLong.EF
         public virtual DbSet<PhatSinhChiThu> PhatSinhChiThus { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<SoPhuNganHang> SoPhuNganHangs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TraCuuCuoc> TraCuuCuocs { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Credential>()
-                .Property(e => e.RoleId)
-                .IsUnicode(false);
-
             modelBuilder.Entity<CTBill>()
                 .Property(e => e.Cont)
                 .IsUnicode(false);
@@ -54,6 +54,11 @@ namespace PhanLong.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<CTBill>()
+                .Property(e => e.ViTri)
+                .IsFixedLength()
+                .IsUnicode(false);
+
+            modelBuilder.Entity<CTBill>()
                 .Property(e => e.DoDay)
                 .IsUnicode(false);
 
@@ -62,19 +67,19 @@ namespace PhanLong.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<CTChiThu>()
-                .Property(e => e.Cont)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<CTChiThu>()
                 .Property(e => e.DonGia)
                 .HasPrecision(18, 0);
 
-            modelBuilder.Entity<CTMenu>()
-                .Property(e => e.Url)
+            modelBuilder.Entity<CTChiThu>()
+                .Property(e => e.Files)
                 .IsUnicode(false);
 
             modelBuilder.Entity<DMBill>()
                 .Property(e => e.SoToKhai)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DMBill>()
+                .Property(e => e.MaBill)
                 .IsUnicode(false);
 
             modelBuilder.Entity<DMBill>()
@@ -107,14 +112,14 @@ namespace PhanLong.EF
                 .HasForeignKey(e => e.BaiGui);
 
             modelBuilder.Entity<DMCang>()
+                .HasMany(e => e.CTBills1)
+                .WithOptional(e => e.DMCang1)
+                .HasForeignKey(e => e.HaRong);
+
+            modelBuilder.Entity<DMCang>()
                 .HasMany(e => e.DMBills)
                 .WithOptional(e => e.DMCang)
                 .HasForeignKey(e => e.CangNhan);
-
-            modelBuilder.Entity<DMCang>()
-                .HasMany(e => e.DMBills1)
-                .WithOptional(e => e.DMCang1)
-                .HasForeignKey(e => e.CangTra);
 
             modelBuilder.Entity<DMCang>()
                 .HasMany(e => e.PhatSinhs)
@@ -146,8 +151,9 @@ namespace PhanLong.EF
 
             modelBuilder.Entity<DMKhachHang>()
                 .HasMany(e => e.DMBills)
-                .WithOptional(e => e.DMKhachHang)
-                .HasForeignKey(e => e.KhachHang);
+                .WithRequired(e => e.DMKhachHang)
+                .HasForeignKey(e => e.KhachHang)
+                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<DMKhachHang>()
                 .HasMany(e => e.HoaDons)
@@ -184,14 +190,6 @@ namespace PhanLong.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<DMKho>()
-                .Property(e => e.LoTrinh)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<DMKho>()
-                .Property(e => e.GioCam)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<DMKho>()
                 .HasMany(e => e.CTBills)
                 .WithOptional(e => e.DMKho)
                 .HasForeignKey(e => e.Kho);
@@ -212,11 +210,6 @@ namespace PhanLong.EF
 
             modelBuilder.Entity<DMLoai>()
                 .HasMany(e => e.CTBills)
-                .WithOptional(e => e.DMLoai)
-                .HasForeignKey(e => e.Loai);
-
-            modelBuilder.Entity<DMLoai>()
-                .HasMany(e => e.PhatSinhs)
                 .WithOptional(e => e.DMLoai)
                 .HasForeignKey(e => e.Loai);
 
@@ -257,6 +250,10 @@ namespace PhanLong.EF
                 .HasMany(e => e.SoPhuNganHangs)
                 .WithOptional(e => e.DMPhi)
                 .HasForeignKey(e => e.Phi);
+
+            modelBuilder.Entity<DMThoiGian>()
+                .Property(e => e.MaTG)
+                .IsUnicode(false);
 
             modelBuilder.Entity<DMThoiGian>()
                 .HasMany(e => e.PhatSinhs)
@@ -321,30 +318,14 @@ namespace PhanLong.EF
                 .HasPrecision(18, 0);
 
             modelBuilder.Entity<LoaiPhi>()
-                .Property(e => e.Loai)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<LoaiPhi>()
                 .HasMany(e => e.DMPhis)
                 .WithOptional(e => e.LoaiPhi1)
                 .HasForeignKey(e => e.LoaiPhi);
 
             modelBuilder.Entity<Menu>()
-                .Property(e => e.Url)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Menu>()
-                .Property(e => e.Icon)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Menu>()
                 .HasMany(e => e.CTMenus)
                 .WithOptional(e => e.Menu1)
                 .HasForeignKey(e => e.Menu);
-
-            modelBuilder.Entity<PhatSinh>()
-                .Property(e => e.SoCont)
-                .IsUnicode(false);
 
             modelBuilder.Entity<PhatSinh>()
                 .Property(e => e.CuocKH)
@@ -355,16 +336,8 @@ namespace PhanLong.EF
                 .HasPrecision(18, 0);
 
             modelBuilder.Entity<PhatSinh>()
-                .Property(e => e.HDNang)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<PhatSinh>()
                 .Property(e => e.TienNang)
                 .HasPrecision(18, 0);
-
-            modelBuilder.Entity<PhatSinh>()
-                .Property(e => e.HDHa)
-                .IsUnicode(false);
 
             modelBuilder.Entity<PhatSinh>()
                 .Property(e => e.TienHa)
@@ -379,22 +352,9 @@ namespace PhanLong.EF
                 .HasPrecision(18, 0);
 
             modelBuilder.Entity<PhatSinhChiThu>()
-                .Property(e => e.SoHD)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<PhatSinhChiThu>()
                 .HasMany(e => e.CTChiThus)
                 .WithOptional(e => e.PhatSinhChiThu1)
                 .HasForeignKey(e => e.PhatSinhChiThu);
-
-            modelBuilder.Entity<Role>()
-                .Property(e => e.Id)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Role>()
-                .HasMany(e => e.Credentials)
-                .WithRequired(e => e.Role)
-                .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<SoPhuNganHang>()
                 .Property(e => e.TienChi)
@@ -411,30 +371,6 @@ namespace PhanLong.EF
             modelBuilder.Entity<TraCuuCuoc>()
                 .Property(e => e.CuocTX)
                 .HasPrecision(18, 0);
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.Username)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.Password)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.GroupID)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.Email)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<User>()
-                .Property(e => e.Avatar)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<UserGroup>()
-                .Property(e => e.Id)
-                .IsUnicode(false);
 
             modelBuilder.Entity<UserGroup>()
                 .HasMany(e => e.Users)

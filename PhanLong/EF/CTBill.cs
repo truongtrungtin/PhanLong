@@ -1,8 +1,10 @@
 ﻿namespace PhanLong.EF
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     [Table("CTBill")]
     public partial class CTBill
@@ -25,8 +27,12 @@
 
         [StringLength(50)]
         [Display(Name = "Seal: ")]
-
         public string Seal { get; set; }
+
+        [StringLength(25)]
+        [Display(Name = "Vị trí: ")]
+        public string ViTri { get; set; }
+
         [Display(Name = "Kho: ")]
         public long? Kho { get; set; }
 
@@ -36,22 +42,18 @@
 
         [Column(TypeName = "date")]
         [Display(Name = "Hạn lưu bãi: ")]
-
         public DateTime? HanLuuBai { get; set; }
 
         [Column(TypeName = "date")]
         [Display(Name = "Hạn lưu rỗng: ")]
-
         public DateTime? HanLuuRong { get; set; }
 
         [Column(TypeName = "date")]
         [Display(Name = "Ngày giao:")]
-
         public DateTime? NgayGiao { get; set; }
 
         [Column(TypeName = "date")]
         [Display(Name = "Ngày gửi:")]
-
         public DateTime? NgayGui { get; set; }
 
         [StringLength(20)]
@@ -77,9 +79,14 @@
         [Column(TypeName = "xml")]
         public string Files { get; set; }
 
+        [Display(Name = "Hạ rỗng: ")]
+        public long? HaRong { get; set; }
+
         public virtual DMBill DMBill { get; set; }
 
         public virtual DMCang DMCang { get; set; }
+
+        public virtual DMCang DMCang1 { get; set; }
 
         public virtual DMKho DMKho { get; set; }
 

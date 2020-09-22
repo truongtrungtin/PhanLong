@@ -5058,7 +5058,6 @@ input[type="button"].btn-block {
 }
 
 .card-header {
-    padding: 5px 5px !important;
     margin-bottom: 0;
     background-color: rgba(0, 0, 0, 0.03);
     border-bottom: 0 solid rgba(0, 0, 0, 0.125);

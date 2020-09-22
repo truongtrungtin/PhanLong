@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     [Table("DMBill")]
     public partial class DMBill
@@ -42,8 +43,6 @@
         [Display(Name = "Khách hàng: ")]
         public long? KhachHang { get; set; }
 
-        [Display(Name = "Cảng trả: ")]
-        public long? CangTra { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? DateUpdate { get; set; }
@@ -63,8 +62,6 @@
         public virtual ICollection<CTBill> CTBills { get; set; }
 
         public virtual DMCang DMCang { get; set; }
-
-        public virtual DMCang DMCang1 { get; set; }
 
         public virtual DMKhachHang DMKhachHang { get; set; }
 
