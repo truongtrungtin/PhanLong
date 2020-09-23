@@ -13,18 +13,19 @@
             <tr>
                 <th width="1%"><input type='checkbox' id='check' value='' /></th>
                 <th>Số Cont</th>
-                <th>Loại</th>
-                <th>Mã kho</th>
                 <th>Số DK</th>
-                <th>Seal</th>
-                <th>Độ dày</th>
-                <th>Quy Cách</th>
+                <th>Loại</th>
+                <th>Hạ rỗng</th>
                 <th>Hạn Lưu Bãi</th>
                 <th>Hạn lưu Cont</th>
                 <th>Hạn Lưu rỗng</th>
-                <th>Ngày gữi bãi</th>
+                <th>Vị trí</th>
+                <th>Độ dày</th>
+                <th>Quy Cách</th>
                 <th>Ngày giao</th>
                 <th>Xe</th>
+                <th>Kho</th>
+                <th>Ngày gửi</th>
                 <th>Bãi gửi</th>
                 <th>Ghi Chú</th>
             </tr>
@@ -35,12 +36,10 @@
             <tr id="row_@item.Id">
                 <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
                 <td>@item.Cont</td>
-                <td>@(item.Loai != null ? item.DMLoai.MaLoai: null)</td>
-                <td title="@(item.Kho != null ? item.DMKho.DiaChi : null )">@(item.Kho != null ? item.DMKho.MaKho : null )</td>
                 <td>@item.SoDK</td>
-                <td>@item.Seal</td>
-                <td>@item.DoDay</td>
-                <td>@item.QuyCach</td>
+                <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
+                <td title="@(item.HaRong != null ? item.DMCang1.TenCang : null)">@(item.HaRong != null ? item.DMCang1.MaCang : null)</td>
+
                 @if (item.NgayGui == null && item.NgayGiao == null)
                 {
                     if (item.HanLuuBai != null)
@@ -53,7 +52,7 @@
                         }
                         else
                         {
-                            <td style="color:red"> @(ngayluubai > 0 ? item.HanLuuBai.Value.ToShortDateString() + "(Còn" + ngayluubai + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluubai) + " Ngày)") </td>
+                            <td style="color:red"> @(ngayluubai > 0 ? item.HanLuuBai.Value.ToShortDateString() + " (Còn " + ngayluubai + " Ngày)" : item.HanLuuBai.Value.ToShortDateString() + " (Quá hạn " + Math.Abs(ngayluubai) + " Ngày)") </td>
 
                         }
                     }
@@ -71,7 +70,7 @@
                         }
                         else
                         {
-                            <td style="color:red"> @(ngayluucont > 0 ? item.HanLuuCont.Value.ToShortDateString() + "(Còn" + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
+                            <td style="color:red"> @(ngayluucont > 0 ? item.HanLuuCont.Value.ToShortDateString() + " (Còn " + ngayluucont + " Ngày)" : item.HanLuuCont.Value.ToShortDateString() + " (Quá hạn " + Math.Abs(ngayluucont) + " Ngày)") </td>
 
                         }
                     }
@@ -89,7 +88,7 @@
                         }
                         else
                         {
-                            <td style="color:red"> @(ngayluurong > 0 ? item.HanLuuRong.Value.ToShortDateString() + "(Còn" + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
+                            <td style="color:red"> @(ngayluurong > 0 ? item.HanLuuRong.Value.ToShortDateString() + " (Còn " + ngayluurong + " Ngày)" : item.HanLuuCont.Value.ToShortDateString() + " (Quá hạn " + Math.Abs(ngayluurong) + " Ngày)") </td>
 
                         }
                     }
@@ -119,7 +118,7 @@
                         }
                         else
                         {
-                            <td style="color:red"> @(ngayluucont > 0 ? item.HanLuuCont.Value.ToShortDateString() + "(Còn " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
+                            <td style="color:red"> @(ngayluucont > 0 ? item.HanLuuCont.Value.ToShortDateString() + " (Còn " + ngayluucont + " Ngày)" : item.HanLuuCont.Value.ToShortDateString() + " (Quá hạn " + Math.Abs(ngayluucont) + " Ngày)") </td>
 
                         }
                     }
@@ -137,7 +136,7 @@
                         }
                         else
                         {
-                            <td style="color:red"> @(ngayluurong > 0 ? item.HanLuuRong.Value.ToShortDateString() + "(Còn" + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
+                            <td style="color:red"> @(ngayluurong > 0 ? item.HanLuuRong.Value.ToShortDateString() + " (Còn " + ngayluurong + " Ngày)" : item.HanLuuRong.Value.ToShortDateString() + " (Quá hạn " + Math.Abs(ngayluurong) + " Ngày)") </td>
 
                         }
                     }
@@ -146,11 +145,14 @@
                         <td> Chưa có hạn lưu rỗng</td>
                     }
                 }
-                <td style="color:@(item.NgayGui != null ? "Blue" : "Red")">@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : "Chưa gửi bãi")</td>
+                <td>@item.ViTri</td>
+                <td>@item.DoDay</td>
+                <td>@item.QuyCach</td>
                 <td style="color:@(item.NgayGiao != null ? "Blue" : "Red")">@(item.NgayGiao != null ? item.NgayGiao.Value.ToShortDateString() : "Chưa giao")</td>
                 <td>@(item.SoXe != null ? item.DMXe.BienSo : null)</td>
-                <td>@(item.BaiGui != null ? item.DMCang.TenCang : null)</td>
-
+                <td title="@(item.Kho != null ? item.DMKho.DiaChi : null )">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
+                <td style="color:@(item.NgayGui != null ? "Blue" : "Red")">@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : "Chưa gửi bãi")</td>
+                <td title="@(item.BaiGui != null ? item.DMCang.TenCang : null)">@(item.BaiGui != null ? item.DMCang.MaCang : null)</td>
                 <td class="cell expand-maximum-on-hover">@item.GhiChu</td>
             </tr>
             }

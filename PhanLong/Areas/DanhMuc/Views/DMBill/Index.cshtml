@@ -28,7 +28,6 @@
                         <th>Người gửi</th>
                         <th>Khách Hàng</th>
                         <th>Cảng Nhận</th>
-                        <th>Cảng Trả</th>
                         <th>Hạn Lưu Bãi</th>
                         <th>Hạn Lưu Cont</th>
                         <th>Hạn Lưu Rỗng</th>
@@ -59,7 +58,6 @@
                                         <td>@(item.NguoiGui != null ? item.NguoiGui : null)</td>
                                         <td>@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)</td>
                                         <td>@(item.CangNhan != null ? item.DMCang.TenCang : null)</td>
-                                        <td>@(item.CangTra != null ? item.DMCang1.TenCang : null)</td>
                                         <td>Đã hoàn tất</td>
                                         <td>Đã hoàn tất</td>
                                         <td>Đã hoàn tất</td>
@@ -79,7 +77,6 @@
                                         <td>@(item.NguoiGui != null ? item.NguoiGui : null)</td>
                                         <td>@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)</td>
                                         <td>@(item.CangNhan != null ? item.DMCang.TenCang : null)</td>
-                                        <td>@(item.CangTra != null ? item.DMCang1.TenCang : null)</td>
                                         <td>Đã hoàn tất</td>
                                         <td>Đã hoàn tất</td>
                                         <td>Đã hoàn tất</td>
@@ -99,10 +96,8 @@
                                         <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null)</td>
                                         <td>@(item.NguoiGui != null ? item.NguoiGui : null)</td>
                                         <td>@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)</td>
-                                        <td>@(item.CangNhan != null ? item.DMCang.TenCang : null)</td>
-                                        <td>@(item.CangTra != null ? item.DMCang1.TenCang : null)</td>
-               
-                                    
+                                        <td>@(item.CangNhan != null ? item.DMCang.TenCang : null)</td>               
+                                   
                                         @if (ngaygiao != null && ngaygui != null)
                                         {
 
@@ -252,7 +247,6 @@
                                     <td>@(item.NguoiGui != null ? item.NguoiGui : null)</td>
                                     <td>@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)</td>
                                     <td>@(item.CangNhan != null ? item.DMCang.TenCang : null)</td>
-                                    <td>@(item.CangTra != null ? item.DMCang1.TenCang : null)</td>
                                     <td>Chưa có cont</td>
                                     <td>Chưa có cont</td>
                                     <td>Chưa có cont</td>

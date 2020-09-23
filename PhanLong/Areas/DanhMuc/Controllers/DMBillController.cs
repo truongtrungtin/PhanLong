@@ -4,9 +4,7 @@ using PhanLong.EF;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
-using System.Xml;
 
 namespace PhanLong.Areas.DanhMuc.Controllers
 {
@@ -258,8 +256,6 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             ViewBag.KH = (Bill.KhachHang != null ? Bill.DMKhachHang.TenCongTy : null);
             ViewBag.MaCN = (Bill.CangNhan != null ? Bill.DMCang.MaCang : null);
             ViewBag.CN = (Bill.CangNhan != null ? Bill.DMCang.TenCang : null);
-            ViewBag.MaCT = (Bill.CangTra != null ? Bill.DMCang1.MaCang : null);
-            ViewBag.CT = (Bill.CangTra != null ? Bill.DMCang1.TenCang : null);
             ViewBag.Lo = (Bill.Lo != null ? Bill.Lo : null);
             ViewBag.NgayDK = (Bill.NgayDK != null ? Bill.NgayDK.Value.ToShortDateString() : null);
             return View(model);
@@ -293,8 +289,6 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             ViewBag.KH = (Bill.KhachHang != null ? Bill.DMKhachHang.TenCongTy : null);
             ViewBag.MaCN = (Bill.CangNhan != null ? Bill.DMCang.MaCang : null);
             ViewBag.CN = (Bill.CangNhan != null ? Bill.DMCang.TenCang : null);
-            ViewBag.MaCT = (Bill.CangTra != null ? Bill.DMCang1.MaCang : null);
-            ViewBag.CT = (Bill.CangTra != null ? Bill.DMCang1.TenCang : null);
             return View(model);
         }
 
@@ -587,7 +581,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             if (!System.IO.File.Exists(path1))
             {
                 Directory.CreateDirectory(Server.MapPath("~/Bill/" + model.DMBill.MaBill));
-            } 
+            }
             if (new CTBillDao().AddDataToXML(cTBill, UrlFiles, path1))
             {
                 SetAlert("Đã thêm files thành công!", "success");
@@ -596,7 +590,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             {
                 SetAlert("Thêm files không thành công, vui lòng thử lại!", "warning");
             }
-            return RedirectToAction("CTBill", "DMBill",new { id = model.DMBill.Id});
+            return RedirectToAction("CTBill", "DMBill", new { id = model.DMBill.Id });
         }
     }
 }

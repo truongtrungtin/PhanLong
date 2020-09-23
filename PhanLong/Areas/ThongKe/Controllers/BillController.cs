@@ -29,7 +29,6 @@ namespace PhanLong.Areas.ThongKe.Controllers
             ViewBag.KH = (bill.KhachHang != null ? bill.DMKhachHang.TenCongTy : null);
             ViewBag.TD = (bill.NgayTauDen != null ? bill.NgayTauDen.Value.ToShortDateString() : null);
             ViewBag.CN = (bill.CangNhan != null ? bill.DMCang.TenCang : null);
-            ViewBag.CT = (bill.CangTra != null ? bill.DMCang1.TenCang : null);
             var model = dao.ListAll(id);
             return View(model);
         }

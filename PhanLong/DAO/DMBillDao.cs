@@ -44,10 +44,8 @@ namespace PhanLong.DAO
                     {
                         var MaKH = dr["khách hàng"].ToString();
                         var MaCangNhan = dr["Cảng nhận"].ToString();
-                        var MaCangTra = dr["Cảng trả"].ToString();
                         long? KH = null;
                         long? CangNhan = null;
-                        long? CangTra = null;
                         if (MaKH != null && MaKH != "")
                         {
                             foreach (var item in db.DMKhachHangs)
@@ -90,27 +88,6 @@ namespace PhanLong.DAO
                         {
                             CangNhan = null;
                         }
-                        if (MaCangTra != null && MaCangTra != "")
-                        {
-                            foreach (var item in db.DMCangs)
-                            {
-                                if (item.MaCang == MaCangTra)
-                                {
-                                    CangTra = item.Id;
-                                }
-
-                            }
-                            if (CangTra == null)
-                            {
-                                var dao = new DMCangDao().InsertCang(dMCang, MaCangTra);
-                                CangTra = dao;
-                            }
-                        }
-                        else
-                        {
-                            CangTra = null;
-                        }
-
                         foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
                         {
 
@@ -174,12 +151,6 @@ namespace PhanLong.DAO
                                 dMBill.CangNhan = CangNhan;
 
                             }
-                            else if (column.ColumnName == "Cảng trả")
-                            {
-
-                                dMBill.CangTra = CangTra;
-
-                            }
 
                         }
                         var data = db.DMBills.Add(dMBill);
@@ -200,10 +171,6 @@ namespace PhanLong.DAO
             if (CangNhan != null)
             {
                 entity.CangNhan = CangNhan;
-            }
-            if (CangTra != null)
-            {
-                entity.CangTra = CangTra;
             }
             db.DMBills.Add(entity);
             db.SaveChanges();
@@ -293,7 +260,6 @@ namespace PhanLong.DAO
                 item.MaBill = dMBill.MaBill;
                 item.NgayTauDen = dMBill.NgayTauDen;
                 item.CangNhan = dMBill.CangNhan;
-                item.CangTra = dMBill.CangTra;
                 item.KhachHang = dMBill.KhachHang;
                 item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
@@ -328,8 +294,6 @@ namespace PhanLong.DAO
             return data.ToList();
 
         }
-
-
     }
 
     public class TestItemClass

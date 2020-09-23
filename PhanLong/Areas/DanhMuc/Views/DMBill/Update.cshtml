@@ -144,28 +144,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-2">
-                        <div class="form-group row">
-                            @Html.LabelFor(model => model.CangTra, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
-                            <div class="col-sm-8">
-                                <select name="CangTra" class="form-control form-control-sm select2" data-placeholder="Chọn cảng trả">
-                                    @if (Model.CangTra != null)
-                                    {
-                                        <option value="@Model.CangTra">@Model.DMCang1.MaCang - @Model.DMCang1.TenCang</option>
-                                    }
-                                    else
-                                    {
-                                        <option value=""></option>
-                                    }
-                                    @foreach (var item in db.DMCangs)
-                                    {
-                                        <option value="@item.Id">@item.MaCang -@item.TenCang</option>
-                                    }
-                                </select>
-                                @Html.ValidationMessageFor(model => model.CangTra, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="form-group">
                     <div class="col-md-10">
@@ -176,3 +155,7 @@
         }
     </div>
 </div>
+
+@section js{
+
+}

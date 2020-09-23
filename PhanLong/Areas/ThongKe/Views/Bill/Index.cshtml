@@ -143,7 +143,6 @@
                     <td>@item.NguoiGui</td>
                     <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                     <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
-                    <td title="@(item.CangTra != null ? item.DMCang1.TenCang : null)">@(item.CangTra != null ? item.DMCang1.MaCang : null)</td>
                     @{ var ngaygiao = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGiao == null).FirstOrDefault();}
                     @{ var ngaygui = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGui == null).FirstOrDefault();}
                     @if (item.CTBills.Count > 0)

@@ -3,9 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Xml;
-using System.IO;
 using System.Text;
+using System.Xml;
 
 namespace PhanLong.DAO
 {
@@ -52,11 +51,13 @@ namespace PhanLong.DAO
                         var MaBill = dr["Số Bill"].ToString();
                         var MaCang = dr["Bãi gửi"].ToString();
                         var MaXe = dr["Số Xe"].ToString();
+                        var HaRong = dr["Hạ rỗng"].ToString();
                         long? Loai = null;
                         long? Kho = null;
                         long? Bill = null;
                         long? BaiGui = null;
                         long? Xe = null;
+                        long? harong = null;
                         if (MaLoai != "")
                         {
                             foreach (var item in db.DMLoais)
@@ -133,6 +134,26 @@ namespace PhanLong.DAO
                         {
                             BaiGui = null;
                         }
+                        if (HaRong != "")
+                        {
+                            foreach (var item in db.DMCangs)
+                            {
+                                if (item.MaCang == HaRong || item.TenCang == HaRong)
+                                {
+                                    harong = item.Id;
+                                }
+
+                            }
+                            if (harong == null)
+                            {
+                                var dao = new DMCangDao().InsertCang(dMCang, MaCang);
+                                harong = dao;
+                            }
+                        }
+                        else
+                        {
+                            harong = null;
+                        }
                         if (MaXe != "")
                         {
                             foreach (var item in db.DMXes)
@@ -141,7 +162,6 @@ namespace PhanLong.DAO
                                 {
                                     Xe = item.Id;
                                 }
-
                             }
 
                             if (Xe == null)
@@ -188,21 +208,9 @@ namespace PhanLong.DAO
                             {
                                 cTBill.Loai = Loai;
                             }
-                            else if (column.ColumnName == "Seal")
+                            else if (column.ColumnName == "Hạ rỗng")
                             {
-                                if (dr["Seal"].ToString() != "")
-                                {
-                                    cTBill.Seal = dr["Seal"].ToString();
-                                }
-                                else
-                                {
-                                    cTBill.Seal = null;
-                                }
-
-                            }
-                            else if (column.ColumnName == "Kho")
-                            {
-                                cTBill.Kho = Kho;
+                                cTBill.HaRong = harong;
                             }
                             else if (column.ColumnName == "Hạn lưu cont")
                             {
@@ -243,35 +251,17 @@ namespace PhanLong.DAO
                                     cTBill.HanLuuRong = null;
                                 }
                             }
-                            else if (column.ColumnName == "Ngày giao")
+                            else if (column.ColumnName == "Vị trí")
                             {
-                                var Ngiao = dr["Ngày giao"].ToString();
-                                if (Ngiao != "")
+                                if (dr["Vị trí"].ToString() != "")
                                 {
-                                    var ngaygiao = Convert.ToDateTime(Ngiao).ToShortDateString();
-                                    cTBill.NgayGiao = Convert.ToDateTime(ngaygiao);
+                                    cTBill.ViTri = dr["Vị trí"].ToString();
                                 }
                                 else
                                 {
-                                    cTBill.NgayGiao = null;
+                                    cTBill.ViTri = null;
                                 }
-                            }
-                            else if (column.ColumnName == "Ngày gửi")
-                            {
-                                var Ngui = dr["Ngày gửi"].ToString();
-                                if (Ngui != "")
-                                {
-                                    var Ngaygui = Convert.ToDateTime(Ngui).ToShortDateString();
-                                    cTBill.NgayGui = Convert.ToDateTime(Ngaygui);
-                                }
-                                else
-                                {
-                                    cTBill.NgayGui = null;
-                                }
-                            }
-                            else if (column.ColumnName == "Bãi gửi")
-                            {
-                                cTBill.BaiGui = BaiGui;
+
                             }
                             else if (column.ColumnName == "Độ dày")
                             {
@@ -296,9 +286,43 @@ namespace PhanLong.DAO
                                 }
 
                             }
+                            else if (column.ColumnName == "Ngày giao")
+                            {
+                                var Ngiao = dr["Ngày giao"].ToString();
+                                if (Ngiao != "")
+                                {
+                                    var ngaygiao = Convert.ToDateTime(Ngiao).ToShortDateString();
+                                    cTBill.NgayGiao = Convert.ToDateTime(ngaygiao);
+                                }
+                                else
+                                {
+                                    cTBill.NgayGiao = null;
+                                }
+                            }
                             else if (column.ColumnName == "Số Xe")
                             {
                                 cTBill.SoXe = Xe;
+                            }
+                            else if (column.ColumnName == "Kho")
+                            {
+                                cTBill.Kho = Kho;
+                            }
+                            else if (column.ColumnName == "Ngày gửi")
+                            {
+                                var Ngui = dr["Ngày gửi"].ToString();
+                                if (Ngui != "")
+                                {
+                                    var Ngaygui = Convert.ToDateTime(Ngui).ToShortDateString();
+                                    cTBill.NgayGui = Convert.ToDateTime(Ngaygui);
+                                }
+                                else
+                                {
+                                    cTBill.NgayGui = null;
+                                }
+                            }
+                            else if (column.ColumnName == "Bãi gửi")
+                            {
+                                cTBill.BaiGui = BaiGui;
                             }
                             else if (column.ColumnName == "Ghi chú")
                             {
@@ -469,12 +493,12 @@ namespace PhanLong.DAO
         {
             var item = db.CTBills.Find(cTBill.Id);
             string filename = path1;
-  
+
             XmlDocument d = new XmlDocument();
-            XmlElement eUrlFile, eCont;
+            XmlElement eUrlFile;
             if (!System.IO.File.Exists(path1))
             {
-             
+
                 XmlTextWriter textWriter = new XmlTextWriter(path1, Encoding.UTF8);
                 textWriter.WriteStartDocument();
                 textWriter.WriteStartElement(item.Cont);
@@ -496,7 +520,7 @@ namespace PhanLong.DAO
 
                 d.DocumentElement.AppendChild(eUrlFile);
             }
-           
+
             d.Save(filename);
 
             item.Files = filename;

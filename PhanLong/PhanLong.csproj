@@ -281,7 +281,6 @@
     <Compile Include="EF\PhatSinhChiThu.cs" />
     <Compile Include="EF\Role.cs" />
     <Compile Include="EF\SoPhuNganHang.cs" />
-    <Compile Include="EF\sysdiagram.cs" />
     <Compile Include="EF\TraCuuCuoc.cs" />
     <Compile Include="EF\User.cs" />
     <Compile Include="EF\UserGroup.cs" />
