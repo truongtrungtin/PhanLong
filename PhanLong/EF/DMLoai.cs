@@ -22,11 +22,11 @@
         public string MaLoai { get; set; }
 
         [StringLength(250)]
-        [Required, Display(Name = "Loại cont: ")]
+        [Display(Name = "Loại cont: ")]
         public string MoTa { get; set; }
 
         [StringLength(250)]
-        [Required, Display(Name = "Loại hàng: ")]
+        [Display(Name = "Loại hàng: ")]
         public string MoTa1 { get; set; }
 
         [Column(TypeName = "date")]

@@ -34,7 +34,7 @@
         public DateTime? DateUpdate { get; set; }
 
         [Column(TypeName = "xml")]
-        [Required, Display(Name = "Files: ")]
+        [Display(Name = "Files: ")]
         public string Files { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

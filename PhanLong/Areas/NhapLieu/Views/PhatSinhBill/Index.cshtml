@@ -29,8 +29,6 @@
                         <th>Ngày tàu đến</th>
                         <th>Khách hàng</th>
                         <th>Cảng nhận</th>
-                        <th>Cảng trả</th>
-
                     </tr>
                 </thead>
                 <tbody>
@@ -50,7 +48,6 @@
                             <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null)</td>
                             <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                             <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
-                            <td title="@(item.CangTra != null ? item.DMCang1.TenCang : null)">@(item.CangTra != null ? item.DMCang1.MaCang : null)</td>
 
                         </tr>
                     }

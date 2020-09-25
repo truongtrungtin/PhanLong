@@ -12,6 +12,7 @@ namespace PhanLong.Areas.ThongKe.Controllers
             var model = dao.ListAll();
             return View(model);
         }
+
         [HttpPost]
         public ActionResult Index(string searchString)
         {

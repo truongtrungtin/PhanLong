@@ -58,9 +58,7 @@ namespace PhanLong.DAO
                             }
                             else if (column.ColumnName == "Tên cảng")
                             {
-
                                 dMCang.TenCang = dr["Tên cảng"].ToString();
-
                             }
                         }
                         db.DMCangs.Add(dMCang);

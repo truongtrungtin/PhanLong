@@ -23,7 +23,7 @@
         public string MaKho { get; set; }
 
         [StringLength(250)]
-        [Required, Display(Name = "Địa chỉ: ")]
+        [Display(Name = "Địa chỉ: ")]
         public string DiaChi { get; set; }
 
         [StringLength(250)]

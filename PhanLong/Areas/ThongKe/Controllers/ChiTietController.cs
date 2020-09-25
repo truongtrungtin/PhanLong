@@ -43,10 +43,10 @@ namespace PhanLong.Areas.ThongKe.Controllers
             ViewBag.sday = sday;
             ViewBag.eday = eday;
             var model = dao.Listtk(phatSinh, sday, eday);
-            ViewBag.N20 = model.Where(x => x.Loai == 1).Count();
-            ViewBag.N40 = model.Where(x => x.Loai == 3).Count();
-            ViewBag.X20 = model.Where(x => x.Loai == 2).Count();
-            ViewBag.X40 = model.Where(x => x.Loai == 4).Count();
+            ViewBag.N20 = model.Where(x => x.DMLoai.MaLoai == "20N").Count();
+            ViewBag.N40 = model.Where(x => x.DMLoai.MaLoai == "40N").Count();
+            ViewBag.X20 = model.Where(x => x.DMLoai.MaLoai == "20X").Count();
+            ViewBag.X40 = model.Where(x => x.DMLoai.MaLoai == "40X").Count();
             ViewBag.All = (ViewBag.N20 + ViewBag.N40 + ViewBag.X20 + ViewBag.X40);
             var startday = model.Count() > 0 ? model.OrderBy(x => x.Ngay).FirstOrDefault().Ngay.ToShortDateString() : null;
             var endday = model.Count() > 0 ? model.OrderByDescending(x => x.Ngay).FirstOrDefault().Ngay.ToShortDateString() : null;

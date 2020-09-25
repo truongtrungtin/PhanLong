@@ -601,8 +601,16 @@ namespace PhanLong.DAO
         public long Insert(PhatSinh entity)
         {
             var data = db.PhatSinhs.Add(entity);
-            var a = Convert.ToString(entity.CuocKH).Replace(",", " ").Trim();
-            data.CuocKH = Convert.ToDecimal(a.Replace(" ", ""));
+            //if (entity.CuocKH != null)
+            //{
+            //    var a = Convert.ToString(entity.CuocKH).Replace(",", " ").Trim();
+            //    data.CuocKH = Convert.ToDecimal(a.Replace(" ", ""));
+            //}
+            //if (entity.CuocTX != null)
+            //{
+            //    var a = Convert.ToString(entity.CuocTX).Replace(",", " ").Trim();
+            //    data.CuocTX = Convert.ToDecimal(a.Replace(" ", ""));
+            //}
             db.SaveChanges();
             return entity.Id;
         }

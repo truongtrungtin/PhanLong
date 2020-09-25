@@ -10,7 +10,7 @@
 @using (Html.BeginForm("Create", "PhatSinhBill", new { area = "NhapLieu" }, FormMethod.Post))
 {
     <h4><b>@ViewBag.MaBill</b></h4>
-    <span><b>Khách hàng: </b> @(ViewBag.KH != null ? ViewBag.KH : "Chưa có") </span> <span>|</span> <span><b>Cảng nhận: </b> @(ViewBag.CN != null ? ViewBag.CN : "Chưa có") </span> <span>|</span> <span><b>Cảng trả: </b> @(ViewBag.CT != null ? ViewBag.CT : "Chưa có") </span> <span>|</span> <span><b>Ngày tàu đến: </b> @(ViewBag.TD != null ? ViewBag.TD : "Chưa có") </span>
+    <span><b>Khách hàng: </b> @(ViewBag.KH != null ? ViewBag.KH : "Chưa có") </span> <span>|</span> <span><b>Cảng nhận: </b> @(ViewBag.CN != null ? ViewBag.CN : "Chưa có") </span><span>|</span> <span><b>Ngày tàu đến: </b> @(ViewBag.TD != null ? ViewBag.TD : "Chưa có") </span>
     <div class="card">
         <div class="card-header">
             <h5>
@@ -25,21 +25,24 @@
                         <th width="1%"><input type='checkbox' id='check' value='' /></th>
                         <th>STT</th>
                         <th>Số Cont</th>
-                        <th>Số Seal</th>
-                        <th>Độ dày</th>
-                        <th>Quy cách</th>
+                        <th>Số đăng ký</th>
+                        <th>loại cont</th>
+                        <th>Hạ rỗng</th>
                         <th>Hạn lưu bãi</th>
                         <th>Hạn lưu cont</th>
                         <th>Hạn lưu rỗng</th>
-                        <th>Ngày gửi bãi</th>
+                        <th>Vị trí</th>
+                        <th>Độ dày</th>
+                        <th>Quy cách</th>
                         <th>Ngày giao</th>
-                        <th>Số xe</th>
+                        <th>Kho giao</th>
+                        <th>Ngày gửi</th>
+                        <th>Xe gửi</th>
                         <th>Bãi gửi</th>
                         <th>Ghi Chú</th>
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach (var item in Model)
                     {
                         stt += 1;
@@ -47,9 +50,9 @@
                             <td width="1%"><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
                             <td>@stt</td>
                             <td>@item.Cont</td>
-                            <td>@item.Seal</td>
-                            <td>@item.DoDay</td>
-                            <td>@item.QuyCach</td>
+                            <td>@item.SoDK</td>
+                            <td title="@(item.Loai != null ? item.DMLoai.MoTa + " " + item.DMLoai.MoTa1 : null)">@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
+                            <td title="@(item.HaRong != null ? item.DMCang1.TenCang : null)">@(item.HaRong != null ? item.DMCang1.MaCang : null)</td>
                             @if (item.NgayGui == null && item.NgayGiao == null)
                             {
                                 if (item.HanLuuBai != null)
@@ -185,11 +188,14 @@
                                     <td> Chưa nhập hạn lưu rỗng</td>
                                 }
                             }
-
-                            <td style="color:@(item.NgayGui != null ? "black" : "red")">@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : "Chưa gửi bãi")</td>
+                            <td>@item.ViTri</td>
+                            <td>@item.DoDay</td>
+                            <td>@item.QuyCach</td>
                             <td style="color:@(item.NgayGiao != null ? "black" : "red")">@(item.NgayGiao != null ? item.NgayGiao.Value.ToShortDateString() : "Chưa giao")</td>
-                            <td>@(item.SoXe != null ? item.DMXe.BienSo : null)</td>
-                            <td>@(item.BaiGui != null ? item.DMCang.TenCang : null)</td>
+                            <td title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet + " " + item.DMKho.NguoiLienHe : null)">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
+                            <td style="color:@(item.NgayGui != null ? "black" : "red")">@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : "Chưa gửi bãi")</td>
+                            <td title="@(item.SoXe != null ? item.DMXe.BienSo : null)">@(item.SoXe != null ? item.DMXe.MaXe : null)</td>
+                            <td title="@(item.BaiGui != null ? item.DMCang.TenCang : null)">@(item.BaiGui != null ? item.DMCang.MaCang : null)</td>
                             <td>@(item.GhiChu != null ? item.GhiChu : null)</td>
                         </tr>
                     }

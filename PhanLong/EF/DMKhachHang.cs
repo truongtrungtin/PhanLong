@@ -28,7 +28,7 @@
         public string MaKH { get; set; }
 
         [StringLength(250)]
-        [Required, Display(Name = "Tên công ty: ")]
+        [Display(Name = "Tên công ty: ")]
         public string TenCongTy { get; set; }
 
         [StringLength(10)]

@@ -30,7 +30,7 @@
             <div class="card-body">
                 <div class="form-horizontal">
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    <div class="row" style="height: 30px;">
+                    <div class="row">
                         @if (ViewBag.Ngay == "Thêm ngày giao")
                         {
                             <div class="col-sm-3">
@@ -46,6 +46,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         }
                         else if (ViewBag.Ngay == "Gia hạn lưu bãi")
                         {
@@ -128,7 +129,7 @@
                                 <div class="form-group row">
                                     <label class="col-form-label col-sm-4" style="text-align:right">Xe gửi:</label>
                                     <div class="col-sm-8">
-                                        <select name="Xe" class="form-control form-control-sm select2" data-placeholder="Chọn xe gửi bãi">
+                                        <select name="Xe" class="form-control form-control-sm select2" data-placeholder="Chọn xe">
                                             <option value="">Chọn xe</option>
                                             @foreach (var item in db.DMXes)
                                             {
@@ -138,8 +139,8 @@
                                     </div>
                                 </div>
                             </div>
-
                         }
+                      
                         <div class="col-sm-1" style="text-align:center">
                             @if (ViewBag.Ngay == "Thêm ngày giao")
                             {
@@ -207,10 +208,10 @@
                                 <th>Hạn lưu bãi</th>
                                 <th>Hạn lưu cont</th>
                                 <th>Hạn lưu rỗng</th>
-                                <th>Ngày gửi bãi</th>
+                                <th>Ngày giao</th>
                                 <th>Bãi gửi</th>
                                 <th>Xe gửi</th>
-                                <th>Ngày giao</th>
+                                <th>Ngày gửi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -225,10 +226,10 @@
                                 <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : "Chưa nhập hạn lưu bãi")</td>
                                 <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : "Chưa nhập hạn lưu cont")</td>
                                 <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : "Chưa nhập hạn lưu rỗng")</td>
-                                <td>@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : "Chưa gửi bãi")</td>
+                                <td>@(item.NgayGiao != null ? item.NgayGiao.Value.ToShortDateString() : "Chưa giao")</td>
                                 <td>@item.BaiGui</td>
                                 <td>@(item.SoXe != null ? item.DMXe.MaXe : null)</td>
-                                <td>@(item.NgayGiao != null ? item.NgayGiao.Value.ToShortDateString() : "Chưa giao")</td>
+                                <td>@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : "Chưa gửi bãi")</td>
                             </tr>
                             }
                         </tbody>

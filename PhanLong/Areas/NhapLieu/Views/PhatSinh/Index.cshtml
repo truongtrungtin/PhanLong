@@ -49,10 +49,9 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach (var item in Model)
                     {
-                        if ((DateTime.Now - item.Ngay).TotalDays < 30)
+                        if ((DateTime.Now - item.Ngay).TotalDays < 2)
                         {
                             <tr id="row_@item.Id">
                                 <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
@@ -80,7 +79,6 @@
                                 <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
                             </tr>
                         }
-
                     }
                 </tbody>
             </table>

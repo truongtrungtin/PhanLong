@@ -192,7 +192,6 @@
                     </tr>
                     }
                 </tbody>
-
             </table>
             <div class="margin">
                 <div class="btn-group">
@@ -201,15 +200,13 @@
                         <span class="sr-only">Hành động</span>
                     </button>
                     <div class="dropdown-menu" role="menu">
-                        <input type="submit" value="Thêm ngày gửi bãi" name="themngayguibai" id="themngayguibai" class="dropdown-item" />
-                        <input type="submit" value="Thêm ngày giao" name="themngaygiao" id="themngaygiao" class="dropdown-item" />
                         <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
                         <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
                     </div>
                 </div>
             </div>
         }
-        <div style="text-align:right">
+        @*<div style="text-align:right">
             @using (Html.BeginForm("ImportExcelCTBill", "DMBill", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <input type="hidden" name="Sheet" value="CTBill$" />
@@ -218,7 +215,7 @@
                     <input type="file" id="FileUpload" name="FileUpload" aria-label="EXCEL" />
                 </label>
             }
-        </div>
+        </div>*@
     </div>
 
 </div>
