@@ -123,45 +123,91 @@
                 <ul class="todo-list" data-widget="todo-list">
                     @foreach (var item in db.TodoLists)
                     {
-                        <li id="row_@item.Id">
-                            <!-- drag handle -->
-                            <!-- checkbox -->
-                            <div class="icheck-primary d-inline ml-2">
-                                <input type="checkbox" value="" data-id="@item.Id" @(item.IsActive == false ? "checked" : null) name="todo1" id="todoCheck-@item.Id">
-                                <label for="todoCheck1"></label>
-                            </div>
-                            <span class="text">@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</span>
-                            <span class="text">-</span>
-                            <!-- todo text -->
-                            <span class="text">@item.Mota</span>
-                            <span class="text">-</span>
-                            <!-- Emphasis label -->
-                            <small class="badge badge-danger">
-                                <i class="far fa-clock">
-                                    @if ((item.Ngay - DateTime.Now).TotalDays - 0.5 < 0)
-                                    {
-                                        @(Convert.ToInt32((item.Ngay - DateTime.Now).TotalHours));
-                                        <b> Giờ</b>
-                                    }
-                                    else
-                                    {
-                                        @Convert.ToInt32((item.Ngay - DateTime.Now).TotalDays);
-                                        <b> Ngày</b>
-                                    }
-                                </i>
-                            </small>
-                            <!-- General tools such as edit or delete-->
-                            <div class="tools">
-                                <a href="#" onclick='EditTodoList(@item.Id)'><i class="fas fa-edit"></i></a>
-                                @Ajax.ActionLink(" ", "Delete", new { @id = item.Id },
-                                  new AjaxOptions
-                                  {
-                                      Confirm = "Bạn có chắc muốn xoá không ??",
-                                      OnComplete = "$('#row_" + item.Id + "').remove()",
-                                      HttpMethod = "Delete"
-                                  }, new { @class = "fas fa-trash" })
-                            </div>
-                        </li>
+                        if ((item.Ngay - DateTime.Now).TotalDays >= 0)
+                        {
+                            <li id="row_@item.Id">
+                                <!-- drag handle -->
+                                <!-- checkbox -->
+                                <div class="icheck-primary d-inline ml-2">
+                                    <input type="checkbox" class="todoCheck" value="" data-id="@item.Id" @(item.IsActive == false ? "checked" : null) name="todo1" onchange="todoCheck(@item.Id)" id="todoCheck-@item.Id">
+                                    <label for="todoCheck-@item.Id"></label>
+                                </div>
+                                <span class="text">@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</span>
+                                <span class="text">-</span>
+                                <!-- todo text -->
+                                <span class="text">@item.Mota</span>
+                                <span class="text">-</span>
+                                <!-- Emphasis label -->
+                                <small class="badge badge-danger">
+                                    <i class="far fa-clock">
+                                        @if ((item.Ngay - DateTime.Now).TotalDays - 0.5 < 0)
+                                        {
+                                            @(Convert.ToInt32((item.Ngay - DateTime.Now).TotalHours));
+                                            <b> Giờ</b>
+                                        }
+                                        else
+                                        {
+                                            @Convert.ToInt32((item.Ngay - DateTime.Now).TotalDays);
+                                            <b> Ngày</b>
+                                        }
+                                    </i>
+                                </small>
+                                <!-- General tools such as edit or delete-->
+                                <div class="tools">
+                                    <a href="#" onclick='EditTodoList(@item.Id)'><i class="fas fa-edit"></i></a>
+                                    @Ajax.ActionLink(" ", "Delete", new { @id = item.Id },
+                                   new AjaxOptions
+                                   {
+                                       Confirm = "Bạn có chắc muốn xoá không ??",
+                                       OnComplete = "$('#row_" + item.Id + "').remove()",
+                                       HttpMethod = "Delete"
+                                   }, new { @class = "fas fa-trash" })
+                                </div>
+                            </li>
+                        }
+                        else if (item.IsActive == true)
+                        {
+                            <li id="row_@item.Id">
+                                <!-- drag handle -->
+                                <!-- checkbox -->
+                                <div class="icheck-primary d-inline ml-2">
+                                    <input type="checkbox" class="todoCheck" value="" data-id="@item.Id" @(item.IsActive == false ? "checked" : null) name="todo1" onchange="todoCheck(@item.Id)" id="todoCheck-@item.Id">
+                                    <label for="todoCheck-@item.Id"></label>
+                                </div>
+                                <span class="text">@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</span>
+                                <span class="text">-</span>
+                                <!-- todo text -->
+                                <span class="text">@item.Mota</span>
+                                <span class="text">-</span>
+                                <!-- Emphasis label -->
+                                <small class="badge badge-danger">
+                                    <i class="far fa-clock">
+                                        @if ((item.Ngay - DateTime.Now).TotalDays - 0.5 < 0)
+                                        {
+                                            @(Convert.ToInt32((item.Ngay - DateTime.Now).TotalHours));
+                                            <b> Giờ</b>
+                                        }
+                                        else
+                                        {
+                                            @Convert.ToInt32((item.Ngay - DateTime.Now).TotalDays);
+                                            <b> Ngày</b>
+                                        }
+                                    </i>
+                                </small>
+                                <!-- General tools such as edit or delete-->
+                                <div class="tools">
+                                    <a href="#" onclick='EditTodoList(@item.Id)'><i class="fas fa-edit"></i></a>
+                                    @Ajax.ActionLink(" ", "Delete", new { @id = item.Id },
+                                   new AjaxOptions
+                                   {
+                                       Confirm = "Bạn có chắc muốn xoá không ??",
+                                       OnComplete = "$('#row_" + item.Id + "').remove()",
+                                       HttpMethod = "Delete"
+                                   }, new { @class = "fas fa-trash" })
+                                </div>
+                            </li>
+                        }
+
                     }
                 </ul>
             </div>
@@ -249,7 +295,6 @@
     <script src="/Content/plugins/summernote/summernote-bs4.min.js"></script>
     <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script>
-
         // Make the dashboard widgets sortable Using jquery UI
         $('.connectedSortable').sortable({
             placeholder: 'sort-highlight',
@@ -310,32 +355,26 @@
             options: salesGraphChartOptions
         })
 
-        document.getElementById("todoCheck").onclick = function () {
-            var id = $(this).data('id');
-            if (document.getElementById("todoCheck-"+id).checked) {
-                
+        function todoCheck(id) {
+            if (document.getElementById("todoCheck-" + id).checked) {
                 $.ajax({
                     url: "/Home/ChangeStatus",
                     data: { id: id },
                     dataType: "json",
                     type: "POST",
-                    success: function (response) {
-                        console.log(response);
-                    }
+
                 });
             } else {
-                var id = $(this).data('id');
                 $.ajax({
                     url: "/Home/ChangeStatus",
                     data: { id: id },
                     dataType: "json",
                     type: "POST",
-                    success: function (response) {
-                        console.log(response);
-                    }
+
                 });
             }
-        };
+
+        }
 
     </script>
 }

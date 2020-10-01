@@ -15,32 +15,40 @@ namespace PhanLong.Controllers
         public ActionResult Index()
         {
             if (Request.Cookies["UserName"] != null && Request.Cookies["Password"] != null)
-            {
-                LoginModel model = new LoginModel();
-                var dao = new UserDao();
-                model.UserName = Request.Cookies["UserName"].Value;
-                model.Password = Request.Cookies["Password"].Value;
-                var result = dao.Login(model.UserName, model.Password, true);
-                if (result == 1)
+            {   
+                if( Request.Cookies["UserName"].Value == "" || Request.Cookies["Password"].Value == "")
                 {
-                    var user = dao.GetById(model.UserName);
-                    var userSession = new UserLogin();
-                    userSession.UserName = user.Username;
-                    userSession.UserID = user.Id;
-                    userSession.GroupID = user.GroupID;
-                    userSession.fullname = user.Name;
-                    userSession.Email = user.Email;
-                    userSession.avatar = user.Avatar;
-                    var listCredentials = dao.GetListCredential(model.UserName);
-
-                    Session.Add(CommonConstants.SESSION_CREDENTIALS, listCredentials);
-                    Session.Add(CommonConstants.USER_SESSION, userSession);
-                    Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
-                    Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
-                    FormsAuthentication.SetAuthCookie(user.Username, model.RememberMe);
-
+                    Response.Cookies.Remove("UserName");
+                    Response.Cookies.Remove("Password");
                 }
-                return RedirectToAction("Index", "Home");
+                else
+                {
+                    LoginModel model = new LoginModel();
+                    var dao = new UserDao();
+                    model.UserName = Request.Cookies["UserName"].Value;
+                    model.Password = Request.Cookies["Password"].Value;
+                    var result = dao.Login(model.UserName, model.Password, true);
+                    if (result == 1)
+                    {
+                        var user = dao.GetById(model.UserName);
+                        var userSession = new UserLogin();
+                        userSession.UserName = user.Username;
+                        userSession.UserID = user.Id;
+                        userSession.GroupID = user.GroupID;
+                        userSession.fullname = user.Name;
+                        userSession.Email = user.Email;
+                        userSession.avatar = user.Avatar;
+                        var listCredentials = dao.GetListCredential(model.UserName);
+
+                        Session.Add(CommonConstants.SESSION_CREDENTIALS, listCredentials);
+                        Session.Add(CommonConstants.USER_SESSION, userSession);
+                        Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
+                        Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
+                        FormsAuthentication.SetAuthCookie(user.Username, model.RememberMe);
+                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                
             }
             return View("Index");
         }
