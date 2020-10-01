@@ -7,6 +7,10 @@
 }
 
 @section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet" href="/Content/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
     <!-- iCheck -->
@@ -14,14 +18,160 @@
     <!-- JQVMap -->
     <link rel="stylesheet" href="/Content/plugins/jqvmap/jqvmap.min.css">
     <!-- Theme style -->
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="/Content/plugins/daterangepicker/daterangepicker.css">
+
 }
-
-
 <!-- Content Wrapper. Contains page content -->
 <!-- /.row -->
 <!-- Main row -->
-<div class="row">
 
+@using (Html.BeginForm("AddTodoList", "Home", FormMethod.Post))
+{
+    <div class="modal fade" id="MyModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="ModalTitle">Thêm kế hoạch</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">&times;</a>
+                </div>
+                <div class="modal-body" id="myModalBodyDiv">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("EditTodoList", "Home", FormMethod.Post))
+{
+    <div class="modal fade" id="MyModalEditTodoList">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="ModalTitle">Chỉnh sửa</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">&times;</a>
+                </div>
+                <div class="modal-body" id="myModalEditTodoList">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="row">
+    <section class="col-lg-5 connectedSortable">
+        <!-- /.card -->
+        <!-- solid sales graph -->
+        <div class="card ">
+            <div class="card-header border-0">
+                <h3 class="card-title">
+                    <i class="fas fa-th mr-1"></i>
+                    Giao - Nhận
+                </h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="width:100%;">
+                    <thead>
+                        <tr>
+                            <th title="ngày giao">Ngày giao</th>
+                            <th title="Kho">Kho</th>
+                            <th title="Loại">Loại</th>
+                            <th title="Số Cont">Số Cont</th>
+                            <th title="Số Bill">Số Bill</th>
+                            <th title="Cảng Nhận">Cảng nhận</th>
+                            <th title="Cảng trả">Cảng trả</th>
+                            <th title="Tên tài xế">Tài xế</th>
+                            <th title="Số Xe">Xe</th>
+                            <th title="Thời gian">Thời gian</th>
+                            <th title="Ghi chú">Ghi Chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in db.PhatSinhs)
+                        {
+                            if ((item.Ngay - DateTime.Now).TotalDays >= 0)
+                            {
+                                <tr id="row_@item.Id">
+                                    <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                                    <td title="@(item.Kho != null ? item.DMKho.DiaChi: null )">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
+                                    <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
+                                    <td>@(item.SoCont != null ? item.SoCont : null)</td>
+                                    <td>@(item.SoBill != null ? item.DMBill.MaBill: null)</td>
+                                    <td title="@(item.CangNhan != null ? item.DMCang.TenCang: null )">@(item.CangNhan != null ? item.DMCang.MaCang: null)</td>
+                                    <td title="@(item.CangTra != null ? item.DMCang1.TenCang: null )">@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
+                                    <td>@(item.DMNhanVien != null ? item.DMNhanVien.MaNV : null)</td>
+                                    <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                                    <td>@(item.Thoigian != null ? item.DMThoiGian.ThoiGian : null)</td>
+                                    <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">
+                    <i class="ion ion-clipboard mr-1"></i>
+                    Kế hoạch
+                </h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <ul class="todo-list" data-widget="todo-list">
+                    @foreach (var item in db.TodoLists)
+                    {
+                        <li id="row_@item.Id">
+                            <!-- drag handle -->
+                            <!-- checkbox -->
+                            <div class="icheck-primary d-inline ml-2">
+                                <input type="checkbox" value="" data-id="@item.Id" @(item.IsActive == false ? "checked" : null) name="todo1" id="todoCheck-@item.Id">
+                                <label for="todoCheck1"></label>
+                            </div>
+                            <span class="text">@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</span>
+                            <span class="text">-</span>
+                            <!-- todo text -->
+                            <span class="text">@item.Mota</span>
+                            <span class="text">-</span>
+                            <!-- Emphasis label -->
+                            <small class="badge badge-danger">
+                                <i class="far fa-clock">
+                                    @if ((item.Ngay - DateTime.Now).TotalDays - 0.5 < 0)
+                                    {
+                                        @(Convert.ToInt32((item.Ngay - DateTime.Now).TotalHours));
+                                        <b> Giờ</b>
+                                    }
+                                    else
+                                    {
+                                        @Convert.ToInt32((item.Ngay - DateTime.Now).TotalDays);
+                                        <b> Ngày</b>
+                                    }
+                                </i>
+                            </small>
+                            <!-- General tools such as edit or delete-->
+                            <div class="tools">
+                                <a href="#" onclick='EditTodoList(@item.Id)'><i class="fas fa-edit"></i></a>
+                                @Ajax.ActionLink(" ", "Delete", new { @id = item.Id },
+                                  new AjaxOptions
+                                  {
+                                      Confirm = "Bạn có chắc muốn xoá không ??",
+                                      OnComplete = "$('#row_" + item.Id + "').remove()",
+                                      HttpMethod = "Delete"
+                                  }, new { @class = "fas fa-trash" })
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <!-- /.card-body -->
+            <div class="card-footer clearfix">
+                <a href="#" class="btn btn-info float-right" onclick='AddTodoList()'><i class="fas fa-plus"></i> Add item</a>
+            </div>
+        </div>
+        <!-- /.card -->
+    </section>
     <!-- /.Left col -->
     <!-- right col (We are only adding the ID to make the widgets sortable)-->
     <section class="col-lg-5 connectedSortable">
@@ -35,13 +185,13 @@
                 </h3>
 
                 @*<div class="card-tools">
-                    <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>*@
+                        <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>*@
             </div>
             <div class="card-body">
                 <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
@@ -76,6 +226,7 @@
         </div>
         <!-- /.card -->
     </section>
+
     <!-- right col -->
 </div>
 <!-- /.row (main row) -->
@@ -96,7 +247,9 @@
     <script src="/Content/plugins/jquery-knob/jquery.knob.min.js"></script>
     <!-- Summernote -->
     <script src="/Content/plugins/summernote/summernote-bs4.min.js"></script>
+    <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script>
+
         // Make the dashboard widgets sortable Using jquery UI
         $('.connectedSortable').sortable({
             placeholder: 'sort-highlight',
@@ -114,7 +267,7 @@
         var salesGraphChartData = {
             labels: [],
             datasets: [
-               
+
             ]
         }
 
@@ -156,5 +309,33 @@
             data: salesGraphChartData,
             options: salesGraphChartOptions
         })
+
+        document.getElementById("todoCheck").onclick = function () {
+            var id = $(this).data('id');
+            if (document.getElementById("todoCheck-"+id).checked) {
+                
+                $.ajax({
+                    url: "/Home/ChangeStatus",
+                    data: { id: id },
+                    dataType: "json",
+                    type: "POST",
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            } else {
+                var id = $(this).data('id');
+                $.ajax({
+                    url: "/Home/ChangeStatus",
+                    data: { id: id },
+                    dataType: "json",
+                    type: "POST",
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            }
+        };
+
     </script>
 }

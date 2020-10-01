@@ -1,0 +1,40 @@
+﻿@using PhanLong.EF
+@using PhanLong.Common
+@using PhanLong.DAO
+@{
+    PhanLongDBContext db = new PhanLongDBContext();
+    var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+}
+
+<input type="hidden" readonly name="UserCreate" value="@session.UserName" />
+<div class="row">
+    <div class="col-sm-5">
+        <div class="form-group row">
+            <label style="text-align:right" class="col-form-label col-sm-2" for="Ngay">Ngày:</label>
+            <div class="col-sm-9">
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                    </div>
+                    <input type="text" name="ngay" id="datemask" class="form-control form-control-sm" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-7">
+        <div class="form-group row">
+            <label style="text-align:right" class="col-form-label col-sm-3" for="Mota">Mô tả:</label>
+            <div class="col-sm-9">
+                <input type="text" name="Mota" id="Mota" placeholder="Nhập mô tả ..." class="form-control form-control-sm" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group form-group-sm text-right">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+    <input type="submit" href="#" class="btn btn-primary" value="Lưu" id="SaveGhiChu" />
+</div>
+<script>
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    $('[data-mask]').inputmask()
+</script>

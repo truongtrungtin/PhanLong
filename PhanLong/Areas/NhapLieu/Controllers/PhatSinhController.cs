@@ -112,7 +112,6 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
                     var dao = new PhatSinhDao();
                     long result = dao.Insert(phatSinh);
                     if (result > 0)
@@ -125,10 +124,8 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                         SetAlert("Thêm bảng ghi không thành công, vui lòng thử lại!", "warning");
                         return RedirectToAction("Create", "PhatSinh");
                     }
-
                 }
                 SetAlert("Vui lòng nhập đầy đủ các ô trống!", "warning");
-
             }
             return RedirectToAction("Create", "PhatSinh");
 

@@ -10,19 +10,18 @@
     <!-- /.login-logo -->
     <div class="card">
         <div class="card-body login-card-body">
-            @using (Html.BeginForm("Login", "Login", FormMethod.Post))
+            @using (Html.BeginForm("Index", "Login", FormMethod.Post))
             {
-                @Html.ValidationSummary(false, "", new { @class = "text-danger" });
                 <div class="input-group mb-3">
-                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", @autofocus = "autofocus", @placeholder = "Nhập tên tài khoản ..." })
-                    <div class="input-group-append">
+                    @Html.TextBoxFor(model => model.UserName, new {@required = true, @class = "form-control", @autofocus = "autofocus", @placeholder = "Nhập tên tài khoản ..." })
+                    <div class="input-group-append" re>
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
                         </div>
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", @placeholder = "Nhập password ..." })
+                    @Html.PasswordFor(model => model.Password, new { @required = true, @class = "form-control", @placeholder = "Nhập password ..." })
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>

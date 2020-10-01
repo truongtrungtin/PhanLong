@@ -256,6 +256,7 @@
     <Compile Include="DAO\TableDao.cs" />
     <Compile Include="DAO\ThongKeLuong.cs" />
     <Compile Include="DAO\ThongKeBillDao.cs" />
+    <Compile Include="DAO\ToDolistDao.cs" />
     <Compile Include="DAO\TraCuuCuocDao.cs" />
     <Compile Include="DAO\UserDao.cs" />
     <Compile Include="EF\Credential.cs" />
@@ -281,6 +282,8 @@
     <Compile Include="EF\PhatSinhChiThu.cs" />
     <Compile Include="EF\Role.cs" />
     <Compile Include="EF\SoPhuNganHang.cs" />
+    <Compile Include="EF\sysdiagram.cs" />
+    <Compile Include="EF\TodoList.cs" />
     <Compile Include="EF\TraCuuCuoc.cs" />
     <Compile Include="EF\User.cs" />
     <Compile Include="EF\UserGroup.cs" />
@@ -2588,7 +2591,6 @@
     <Content Include="Areas\Khac\Views\ExportDataToExcel\Index.cshtml" />
     <Content Include="Areas\Khac\Views\ExportDataToExcel\GetColumnInTable.cshtml" />
     <Content Include="Content\Uploads\PhatSinh\PhanLong.xls" />
-    <Content Include="Content\Excel\PhanLong.xls" />
     <Content Include="Areas\TraCuu\Views\Cuoc\Index.cshtml" />
     <Content Include="Areas\DanhMuc\Views\DMBill\AddFilesCTBill.cshtml" />
     <Content Include="Content\plugins\ckfinder\plugins\fileeditor\codemirror\LICENSE" />
@@ -2597,6 +2599,7 @@
     <Content Include="Content\plugins\ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\plugins\ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\plugins\ckfinder\userfiles\.htaccess" />
+    <Content Include="Content\Excel\PhanLong.xls" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -2660,6 +2663,8 @@
     <Content Include="Views\Login\RecoverPassword.cshtml" />
     <Content Include="Views\Login\NewPassword.cshtml" />
     <None Include="Properties\PublishProfiles\PublicNew.pubxml" />
+    <Content Include="Views\Home\AddTodoList.cshtml" />
+    <Content Include="Views\Home\EditTodoList.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -145,6 +145,17 @@ namespace PhanLong.DAO
                                     dMBill.NgayDK = null;
                                 }
                             }
+                            else if (column.ColumnName == "Số tờ khai")
+                            {
+                                if (dr["Số tờ khai"].ToString() != "" && dr["Số tờ khai"].ToString() != null)
+                                {
+                                    dMBill.SoToKhai = dr["Số tờ khai"].ToString();
+                                }
+                                else
+                                {
+                                    dMBill.SoToKhai = null;
+                                }
+                            }
                             else if (column.ColumnName == "Cảng nhận")
                             {
 

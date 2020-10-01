@@ -576,6 +576,10 @@ namespace PhanLong.DAO
             {
                 model = model.Where(x => x.Xe == phatSinh.Xe);
             }
+            if (phatSinh.SoBill != null)
+            {
+                model = model.Where(x => x.SoBill == phatSinh.SoBill);
+            }
 
             return model.OrderBy(x => x.Ngay).ToList();
         }
@@ -600,7 +604,7 @@ namespace PhanLong.DAO
         }
         public long Insert(PhatSinh entity)
         {
-            var data = db.PhatSinhs.Add(entity);
+            db.PhatSinhs.Add(entity);
             //if (entity.CuocKH != null)
             //{
             //    var a = Convert.ToString(entity.CuocKH).Replace(",", " ").Trim();

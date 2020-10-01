@@ -64,7 +64,7 @@
                 <div class="col-sm-2">
                     <div class="form-group row">
                         <label class=" col-form-label col-sm-3" for="NgayBD">Từ ngày:</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-9">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
@@ -77,7 +77,7 @@
                 <div class="col-sm-2">
                     <div class="form-group row">
                         <label class="col-form-label col-sm-4" for="NgayKT">Đến ngày:</label>
-                        <div class="col-sm-7">
+                        <div class="col-sm-8">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
@@ -110,10 +110,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-1">
                     <div class="form-group row">
-                        <label class="col-form-label col-sm-2" for="Xe">Xe:</label>
-                        <div class="col-sm-4">
+                        <label class="col-form-label col-sm-4" for="Xe">Xe:</label>
+                        <div class="col-sm-8">
                             <select name="Xe" class="form-control form-control-sm select2" data-placeholder="Chọn Xe">
                                 @if (ViewBag.IdXe != null)
                                 {
@@ -126,6 +126,28 @@
                                 @foreach (var item in db.DMXes)
                                 {
                                     <option value="@item.Id">@item.MaXe</option>
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-3">
+                    <div class="form-group row">
+                        <label class="col-form-label col-sm-2" for="Bill">Bill:</label>
+                        <div class="col-sm-8">
+                            <select name="SoBill" class="form-control form-control-sm select2" data-placeholder="Chọn Bill">
+                                @if (ViewBag.IdBill != null)
+                                {
+                                    <option value="@ViewBag.IdBill">@ViewBag.Bill</option>
+                                }
+                                else
+                                {
+                                    <option value="">All</option>
+                                }
+                                @foreach (var item in db.DMBills)
+                                {
+                                    <option value="@item.Id">@item.MaBill</option>
                                 }
 
                             </select>
@@ -354,6 +376,7 @@
                             <th title="Khách hàng">Khách hàng</th>
                             <th title="Kho">Kho</th>
                             <th title="Số Cont">Số Cont</th>
+                            <th title="Số Bill">Bill</th>
                             <th title="Cước">Cước (VNĐ)</th>
                             <th title="Nhân viên">Nhân viên</th>
                             <th title="Số Xe">Xe</th>
@@ -381,6 +404,7 @@
                             <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy: null )">@(item.KhachHang != null ? item.DMKhachHang.MaKH: null )</td>
                             <td title="@(item.Kho != null ? item.DMKho.DiaChi : null )">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
                             <td>@(item.SoCont != null ? item.SoCont : null)</td>
+                            <td>@(item.SoBill != null ? item.DMBill.MaBill : null)</td>
                             <td style="text-align:right">@(item.CuocKH != null ? String.Format("{0:0,0}", (item.CuocKH)) : null)</td>
                             <td title="@(item.TenTX != null ? item.DMNhanVien.TenNV : null )">@(item.TenTX != null ? item.DMNhanVien.MaNV : null)</td>
                             <td title="@(item.Xe != null ? item.DMXe.BienSo : null )">@(item.Xe != null ? item.DMXe.MaXe : null)</td>

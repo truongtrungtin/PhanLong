@@ -40,6 +40,12 @@ namespace PhanLong.Areas.ThongKe.Controllers
                 ViewBag.Loai = loai.MaLoai;
                 ViewBag.IdLoai = loai.Id;
             }
+            if (phatSinh.SoBill != null)
+            {
+                var Bill = new DMBillDao().GetById(phatSinh.SoBill);
+                ViewBag.Bill = Bill.MaBill;
+                ViewBag.IdBill = Bill.Id;
+            }
             ViewBag.sday = sday;
             ViewBag.eday = eday;
             var model = dao.Listtk(phatSinh, sday, eday);
