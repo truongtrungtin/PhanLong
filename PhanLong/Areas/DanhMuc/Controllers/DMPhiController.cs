@@ -18,6 +18,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             var model = dao.ListAll();
             return View(model);
         }
+
         [HttpPost]
         public ActionResult Index(int[] chkId, string delete = null)
         {

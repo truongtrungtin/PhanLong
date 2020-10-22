@@ -129,7 +129,7 @@
                                 <div class="form-group row">
                                     <label class="col-form-label col-sm-4" style="text-align:right">Xe gửi:</label>
                                     <div class="col-sm-8">
-                                        <select name="Xe" class="form-control form-control-sm select2" data-placeholder="Chọn xe">
+                                        <select name="SoXe" class="form-control form-control-sm select2" data-placeholder="Chọn xe">
                                             <option value="">Chọn xe</option>
                                             @foreach (var item in db.DMXes)
                                             {
@@ -227,8 +227,8 @@
                                 <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : "Chưa nhập hạn lưu cont")</td>
                                 <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : "Chưa nhập hạn lưu rỗng")</td>
                                 <td>@(item.NgayGiao != null ? item.NgayGiao.Value.ToShortDateString() : "Chưa giao")</td>
-                                <td>@item.BaiGui</td>
-                                <td>@(item.SoXe != null ? item.DMXe.MaXe : null)</td>
+                                <td title="@(item.BaiGui != null ? item.DMCang.TenCang : null)">@(item.BaiGui != null ? item.DMCang.MaCang : null)</td>
+                                <td title="@(item.SoXe != null ? item.DMXe.BienSo : null)">@(item.SoXe != null ? item.DMXe.MaXe : null)</td>
                                 <td>@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : "Chưa gửi bãi")</td>
                             </tr>
                             }

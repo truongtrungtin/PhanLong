@@ -1,11 +1,17 @@
-﻿@using PhanLong.EF;
+﻿@using PhanLong.EF
+@using PhanLong.Common
+@using PhanLong.DAO
 @{
     ViewBag.Title = "Home";
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     PhanLongDBContext db = new PhanLongDBContext();
-}
+    var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+    var notificationluubai = new NotificationsDao().GetNotificationsLuuBai().Where(x => x.HanLuuBai != null && (Convert.ToDateTime(x.HanLuuBai) - DateTime.Now).TotalDays < 3  && ((x.Ngaygiao == null && x.NgayLuuBai == null) ));
+    var notificationluucont = new NotificationsDao().GetNotificationsLuuCont().Where(x => x.HanLuuCont != null && (Convert.ToDateTime(x.HanLuuCont) - DateTime.Now).TotalDays < 3 && ((x.Ngaygiao == null && x.NgayLuuBai == null)));
+    var notificationluurong = new NotificationsDao().GetNotificationsLuuRong().Where(x => x.HanLuuRong != null && (Convert.ToDateTime(x.HanLuuRong) - DateTime.Now).TotalDays < 3 && ((x.Ngaygiao == null && x.NgayLuuBai == null)));
 
+}
 @section css{
     <!-- Select2 -->
     <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
@@ -20,12 +26,121 @@
     <!-- Theme style -->
     <!-- Daterange picker -->
     <link rel="stylesheet" href="/Content/plugins/daterangepicker/daterangepicker.css">
-
+    <script type="text/javascript">
+        function codeAddress() {
+            document.getElementById("buttonAlert").click(); // Click on the checkbox
+        }
+        window.onload = codeAddress;
+    </script>
 }
 <!-- Content Wrapper. Contains page content -->
 <!-- /.row -->
 <!-- Main row -->
+<a href="#" hidden data-toggle="modal" id="buttonAlert" data-target="#modal-xl">content</a>
+@if ((notificationluubai.Count() + notificationluucont.Count() + notificationluurong.Count()) > 0)
+{
+    <div class="modal fade" id="modal-xl">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Thông báo</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
+                    <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="max-width:100%;">
+                        <thead>
+                            <tr>
+                                <th title="Bill">Bill</th>
+                                <th title="Số Cont">Số Cont</th>
+                                <th title="Loại">Loại</th>
+                                <th title="Loại">Khách hàng</th>
+                                <th title="Ghi chú">Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in notificationluubai)
+                            {
+                                <tr>
+                                    <td><a href="/ThongKe/Bill/CTBill/@item.IdBill">@item.Bill</a></td>
+                                    <td>@item.Cont</td>
+                                    <td>@db.CTBills.SingleOrDefault(x => x.Cont == item.Cont && x.Bill == item.IdBill).DMLoai.MaLoai</td>
+                                    <td title="@db.DMBills.SingleOrDefault(x=> x.Id == item.IdBill).DMKhachHang.TenCongTy">@db.DMBills.SingleOrDefault(x => x.Id == item.IdBill).DMKhachHang.MaKH</td>
+                                    <td>
+                                        @if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) < 0)
+                                        {
+                                            <span class="float-right text-muted text-sm">Quá hạn @(Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays))) ngày lưu bãi</span>
+                                        }
+                                        else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) > 0)
+                                        {
+                                            <span class="float-right text-muted text-sm">Còn @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays)) ngày lưu bãi</span>
+                                        }
+                                        else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) == 0)
+                                        {
+                                            <span class="float-right text-muted text-sm">Tới hạn lưu bãi</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                            @foreach (var item in notificationluucont)
+                            {
+                                <tr>
+                                    <td><a href="/ThongKe/Bill/CTBill/@item.IdBill">@item.Bill</a></td>
+                                    <td>@item.Cont</td>
+                                    <td>@db.CTBills.SingleOrDefault(x => x.Cont == item.Cont && x.Bill == item.IdBill).DMLoai.MaLoai</td>
+                                    <td title="@db.DMBills.SingleOrDefault(x=> x.Id == item.IdBill).DMKhachHang.TenCongTy">@db.DMBills.SingleOrDefault(x => x.Id == item.IdBill).DMKhachHang.MaKH</td>
+                                    <td>
+                                        @if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) < 0)
+                                        {
+                                            <span class="float-right text-muted text-sm">Quá hạn @(Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays))) ngày lưu cont</span>
+                                        }
+                                        else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) > 0)
+                                        {
+                                            <span class="float-right text-muted text-sm">Còn @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays)) ngày lưu cont</span>
+                                        }
+                                        else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) == 0)
+                                        {
+                                            <span class="float-right text-muted text-sm">Tới hạn lưu cont</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                            @foreach (var item in notificationluurong)
+                            {
+                                <tr>
+                                    <td><a href="/ThongKe/Bill/CTBill/@item.IdBill">@item.Bill</a></td>
+                                    <td>@item.Cont</td>
+                                    <td>@db.CTBills.SingleOrDefault(x => x.Cont == item.Cont && x.Bill == item.IdBill).DMLoai.MaLoai</td>
+                                    <td title="@db.DMBills.SingleOrDefault(x=> x.Id == item.IdBill).DMKhachHang.TenCongTy">@db.DMBills.SingleOrDefault(x => x.Id == item.IdBill).DMKhachHang.MaKH</td>
+                                    <td>
+                                        @if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) < 0)
+                                        {
+                                            <span class="float-right text-muted text-sm">Quá hạn @(Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays))) ngày lưu rỗng</span>
+                                        }
+                                        else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) > 0)
+                                        {
+                                            <span class="float-right text-muted text-sm">Còn @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays)) ngày lưu rỗng</span>
+                                        }
+                                        else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) == 0)
+                                        {
+                                            <span class="float-right text-muted text-sm">Tới hạn rỗng bãi</span>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+}
 @using (Html.BeginForm("AddTodoList", "Home", FormMethod.Post))
 {
     <div class="modal fade" id="MyModal">
@@ -59,7 +174,7 @@
 }
 
 <div class="row">
-    <section class="col-lg-5 connectedSortable">
+    <section class="col-lg-7 connectedSortable">
         <!-- /.card -->
         <!-- solid sales graph -->
         <div class="card ">
@@ -70,7 +185,7 @@
                 </h3>
             </div>
             <div class="card-body">
-                <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="width:100%;">
+                <table class="table table-hover table-bordered table-striped table-sm" id="dataTable" style="width:100%;">
                     <thead>
                         <tr>
                             <th title="ngày giao">Ngày giao</th>
@@ -89,7 +204,7 @@
                     <tbody>
                         @foreach (var item in db.PhatSinhs)
                         {
-                            if ((item.Ngay - DateTime.Now).TotalDays >= 0)
+                            if ((item.Ngay - DateTime.Now).TotalDays + 0.7 >= 0)
                             {
                                 <tr id="row_@item.Id">
                                     <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>

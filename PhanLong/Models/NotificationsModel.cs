@@ -14,7 +14,6 @@ namespace PhanLong.Models
         public DateTime? HanLuuRong { set; get; }
 
         public DateTime? Ngaygiao { set; get; }
-
         public DateTime? NgayLuuBai { set; get; }
     }
 }

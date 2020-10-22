@@ -40,8 +40,7 @@ namespace PhanLong.DAO
                        join phi in db.DMPhis on ctc.Phi equals phi.Id
                        join loaiPhi in db.LoaiPhis on phi.LoaiPhi equals loaiPhi.Id
                        where xe.Id == id
-                       where loaiPhi.Id == 1
-                       where phi.Id == 18
+                       where loaiPhi.Id == 3
                        where psc.Xe != null
                        select new ChiLuongModel()
                        {

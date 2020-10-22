@@ -1,5 +1,6 @@
 ﻿using PhanLong.EF;
 using PhanLong.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,8 +15,10 @@ namespace PhanLong.DAO
             db = new PhanLongDBContext();
         }
 
-        public List<CongNoModel> ListAll(CongNoModel congNoModel)
+        public List<CongNoModel> ListAll(CongNoModel congNoModel, string ngayBD, string ngayKT)
         {
+            DateTime sdate = (ngayBD != "") ? Convert.ToDateTime(ngayBD).Date : new DateTime();
+            DateTime edate = (ngayKT != "") ? Convert.ToDateTime(ngayKT).Date : new DateTime();
             var data = from nv in db.DMKhachHangs
                        join ps in db.PhatSinhs on nv.Id equals ps.KhachHang
                        select new CongNoModel()
@@ -24,9 +27,15 @@ namespace PhanLong.DAO
                            KhachHang = nv.MaKH,
                            Cont = ps.SoCont,
                            Cuoc = ps.CuocKH,
-                           ChiHo = ps.TienHa + ps.TienNang + ps.TienPhiKH,
+                           TienNang = ps.TienNang,
+                           TienHa = ps.TienHa,
+                           TienKhachHang = ps.TienPhiKH,
                        };
             var model = data;
+            if (!string.IsNullOrEmpty(ngayBD) && !string.IsNullOrEmpty(ngayKT))
+            {
+                model = model.Where(x=> (ngayBD == "" && ngayKT == "") || (x.Ngay >= sdate && x.Ngay <= edate));
+            }
             if (congNoModel.KhachHang != null)
             {
                 model = model.Where(x => x.KhachHang == congNoModel.KhachHang);

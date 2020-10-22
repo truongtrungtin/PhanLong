@@ -583,7 +583,40 @@ namespace PhanLong.DAO
 
             return model.OrderBy(x => x.Ngay).ToList();
         }
+        public IEnumerable<PhatSinh> ThanhToanCuoc(PhatSinh phatSinh, string sday, string eday)
+        {
+            IQueryable<PhatSinh> model = db.PhatSinhs;
+            DateTime sdate = (sday != "") ? Convert.ToDateTime(sday).Date : new DateTime();
+            DateTime edate = (eday != "") ? Convert.ToDateTime(eday).Date : new DateTime();
+            if (!string.IsNullOrEmpty(sday))
+            {
+                model = model.Where(x => (sday == "") || (x.Ngay >= sdate));
+            }
+            else
+            {
+                sdate = DateTime.Now.Date.AddDays(-30);
+                model = model.Where(x => x.Ngay >= sdate);
+            }
+            if (!string.IsNullOrEmpty(eday))
+            {
 
+                model = model.Where(x => (eday == "") || (x.Ngay <= edate));
+            }
+            else
+            {
+                edate = DateTime.Now;
+                model = model.Where(x => x.Ngay <= edate);
+            }
+            if (phatSinh.KhachHang != null)
+            {
+                model = model.Where(x => x.KhachHang == phatSinh.KhachHang);
+            }
+            if (phatSinh.SoBill != null)
+            {
+                model = model.Where(x => x.SoBill == phatSinh.SoBill);
+            }
+            return model.OrderBy(x => x.Ngay).ToList();
+        }
         public PhatSinh GetById(long? id)
         {
             return db.PhatSinhs.Where(x => x.Id == id).SingleOrDefault();

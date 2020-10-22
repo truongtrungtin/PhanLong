@@ -2354,6 +2354,7 @@
     <Folder Include="Areas\NhapLieu\Views\Shared\" />
     <Folder Include="Areas\ThongKe\Data\" />
     <Folder Include="Areas\ThongKe\Views\Shared\" />
+    <Folder Include="Areas\ThongKe\Views\ThanhToanCuocKhachHang\" />
     <Folder Include="Areas\TraCuu\Data\" />
     <Folder Include="Areas\TraCuu\Views\Shared\" />
     <Folder Include="Bill\" />
@@ -2600,6 +2601,7 @@
     <Content Include="Content\plugins\ckfinder\skins\bootstrap\assets\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\plugins\ckfinder\userfiles\.htaccess" />
     <Content Include="Content\Excel\PhanLong.xls" />
+    <Content Include="Areas\ThongKe\Views\ChiTiet\ThanhToanCuoc.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

@@ -18,7 +18,7 @@ namespace PhanLong.Areas.ThongKe.Controllers
                 ViewBag.MaKH = kh.MaKH;
                 ViewBag.IDKhachHang = kh.Id;
             }
-            var model = new CongNoDao().ListAll(congNoModel);
+            var model = new CongNoDao().ListAll(congNoModel, ngayBD, ngayKT);
             return View(model);
         }
     }

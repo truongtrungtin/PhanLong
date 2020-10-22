@@ -43,7 +43,7 @@
     }
 
     var total = Model.Select(x => x.Ngay).Distinct().Count();
-    var cont = Model.Select(x => x.SoCont).Distinct().Count();
+    var cont = ViewBag.All;
 
 }
 @section css{
@@ -51,6 +51,7 @@
     <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
     <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
 }
+
 @using (Html.BeginForm("Index", "ChiTiet", FormMethod.Get))
 {
     <div class="card">
@@ -163,7 +164,7 @@
                             <select name="KhachHang" class="form-control form-control-sm select2" data-placeholder="Chọn khách hàng">
                                 @if (ViewBag.IdKH != null)
                                 {
-                                <option value="@ViewBag.IdKH">@ViewBag.MaKh - @ViewBag.KH</option>
+                                    <option value="@ViewBag.IdKH">@ViewBag.MaKh - @ViewBag.KH</option>
                                 }
                                 else
                                 {
@@ -200,7 +201,8 @@
                 </div>
 
                 <div class="col-sm-2">
-                    <input type="submit" name="Search" value="Tìm" class="btn btn-primary" />
+                    <input type="submit" name="_Search" value="Tìm" class="btn btn-primary" />
+                    <input type="submit" name="_ThanhToanCuoc" value="Thanh toán cước" class="btn btn-success" />
                 </div>
             </div>
         </div>

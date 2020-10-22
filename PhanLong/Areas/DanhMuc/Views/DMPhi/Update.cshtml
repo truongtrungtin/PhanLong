@@ -64,7 +64,11 @@
                                         }
                                         @foreach (var item in db.LoaiPhis)
                                         {
-                                            <option value="@item.Id">@item.Loai</option>
+                                            if (item.Id  != Model.LoaiPhi)
+                                            {
+                                                <option value="@item.Id">@item.Loai</option>
+                                            }
+
                                         }
                                     </select>
                                     @Html.ValidationMessageFor(model => model.LoaiPhi, "", new { @class = "text-danger" })

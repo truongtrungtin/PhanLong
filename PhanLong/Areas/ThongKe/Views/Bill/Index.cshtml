@@ -131,172 +131,178 @@
                 {
                     var billchuaguibai = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGui == null).ToList();
                     var billchuagiao = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGiao == null).ToList();
+                    var ngaygiao = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGiao == null).FirstOrDefault();
+                    var ngaygui = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGui == null).FirstOrDefault();
                     stt += 1;
-                <tr>
-                    <td>@Html.ActionLink("Chi tiết", "CTBill", new { id = item.Id }, new { @class = "btn btn-primary" })</td>
-                    <td>@stt</td>
-                    <td>@item.SoToKhai</td>
-                    <td>@item.MaBill</td>
-                    <td>@item.CTBills.Where(x => x.Bill == item.Id).Count()</td>
-                    <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null )</td>
-                    <td>@item.NguoiGui</td>
-                    <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
-                    <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
-                    @{ var ngaygiao = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGiao == null).FirstOrDefault();}
-                    @{ var ngaygui = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGui == null).FirstOrDefault();}
-                    @if (item.CTBills.Count > 0)
+                    if (item.CTBills.Count > 0)
                     {
                         if (ngaygiao == null && ngaygui == null)
                         {
-                            <td>Đã hoàn tất</td>
-                            <td>Đã hoàn tất</td>
-                            <td>Đã hoàn tất</td>
+                            <tr>
+                                <td>@Html.ActionLink("Chi tiết", "CTBill", new { id = item.Id }, new { @class = "btn btn-primary" })</td>
+                                <td>@stt</td>
+                                <td>@item.SoToKhai</td>
+                                <td>@item.MaBill</td>
+                                <td>@item.CTBills.Where(x => x.Bill == item.Id).Count()</td>
+                                <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null )</td>
+                                <td>@item.NguoiGui</td>
+                                <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                                <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
+                                <td>Đã hoàn tất</td>
+                                <td>Đã hoàn tất</td>
+                                <td>Đã hoàn tất</td>
+                                <td>@billchuaguibai.Count()</td>
+                                <td>@billchuagiao.Count()</td>
+                            </tr>
                         }
-                        else if (ngaygiao == null)
+                        else if (ngaygiao == null && ngaygui != null)
                         {
-                            <td>Đã hoàn tất</td>
-                            <td>Đã hoàn tất</td>
-                            <td>Đã hoàn tất</td>
-                        }
-                        else if (ngaygiao != null && ngaygui != null)
-                        {
-
-                            if (ngaygui.HanLuuBai != null)
-                            {
-                                var ngayluubai = (ngaygui.HanLuuBai.Value.Date - DateTime.Now.Date).TotalDays;
-                                if (ngayluubai == 0)
-                                {
-                                    <td style="color:red"> Tới hạn </td>
-                                }
-                                else
-                                {
-                                    if (ngayluubai > 3)
-                                    {
-                                        <td> @("Còn ( " + ngayluubai + " Ngày)") </td>
-                                    }
-                                    else
-                                    {
-                                        <td style="color:red"> @(ngayluubai > 0 ? "Còn ( " + ngayluubai + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluubai) + " Ngày)") </td>
-                                    }
-
-                                }
-                            }
-                            else
-                            {
-                                <td>Chưa có hạn lưu Bãi</td>
-                            }
-                            if (ngaygui.HanLuuCont != null)
-                            {
-                                var ngayluucont = (ngaygui.HanLuuCont.Value.Date - DateTime.Now.Date).TotalDays;
-                                if (ngayluucont == 0)
-                                {
-                                    <td style="color:red"> Tới hạn </td>
-
-                                }
-                                else
-                                {
-                                    if (ngayluucont > 3)
-                                    {
-                                        <td> @("Còn ( " + ngayluucont + " Ngày)") </td>
-                                    }
-                                    else
-                                    {
-                                        <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                <td> Chưa có hạn lưu cont</td>
-                            }
-                            if (ngaygui.HanLuuRong != null)
-                            {
-                                var ngayluurong = (ngaygui.HanLuuRong.Value.Date - DateTime.Now.Date).TotalDays;
-                                if (ngayluurong == 0)
-                                {
-                                    <td style="color:red"> Tới hạn </td>
-
-                                }
-                                else
-                                {
-                                    if (ngayluurong > 3)
-                                    {
-                                        <td> @("Còn ( " + ngayluurong + " Ngày)") </td>
-                                    }
-                                    else
-                                    {
-                                        <td style="color:red"> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                <td> Chưa có hạn lưu rỗng</td>
-                            }
+                            <tr>
+                                <td>@Html.ActionLink("Chi tiết", "CTBill", new { id = item.Id }, new { @class = "btn btn-primary" })</td>
+                                <td>@stt</td>
+                                <td>@item.SoToKhai</td>
+                                <td>@item.MaBill</td>
+                                <td>@item.CTBills.Where(x => x.Bill == item.Id).Count()</td>
+                                <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null )</td>
+                                <td>@item.NguoiGui</td>
+                                <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                                <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
+                                <td>Đã hoàn tất</td>
+                                <td>Đã hoàn tất</td>
+                                <td>Đã hoàn tất</td>
+                                <td>@billchuaguibai.Count()</td>
+                                <td>@billchuagiao.Count()</td>
+                            </tr>
                         }
                         else if (ngaygiao != null && ngaygui == null)
                         {
+                            <tr style="background-color:yellow">
+                                <td>@Html.ActionLink("Chi tiết", "CTBill", new { id = item.Id }, new { @class = "btn btn-primary" })</td>
+                                <td>@stt</td>
+                                <td>@item.SoToKhai</td>
+                                <td>@item.MaBill</td>
+                                <td>@item.CTBills.Where(x => x.Bill == item.Id).Count()</td>
+                                <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null )</td>
+                                <td>@item.NguoiGui</td>
+                                <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                                <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
+                                <td style="color:red">Đã gửi bãi (Chưa giao)</td>
+                                <td style="color:red">Đã gửi bãi (Chưa giao)</td>
+                                <td style="color:red">Đã gửi bãi (Chưa giao)</td>
+                                <td>@billchuaguibai.Count()</td>
+                                <td>@billchuagiao.Count()</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr style="background-color:deepskyblue">
+                                <td>@Html.ActionLink("Chi tiết", "CTBill", new { id = item.Id }, new { @class = "btn btn-primary" })</td>
+                                <td>@stt</td>
+                                <td>@item.SoToKhai</td>
+                                <td>@item.MaBill</td>
+                                <td>@item.CTBills.Where(x => x.Bill == item.Id).Count()</td>
+                                <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null )</td>
+                                <td>@item.NguoiGui</td>
+                                <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                                <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
 
-                            <td>Đã gửi bãi (Chưa giao)</td>
-                            if (ngaygiao.HanLuuCont != null)
-                            {
-                                var ngayluucont = (ngaygiao.HanLuuCont.Value.Date - DateTime.Now.Date).TotalDays;
-                                if (ngayluucont == 0)
+                                @if (ngaygiao.HanLuuBai != null)
                                 {
-                                    <td style="color:red"> Tới hạn </td>
-
-                                }
-                                else
-                                {
-                                    if (ngayluucont > 3)
+                                    var ngayluubai = (ngaygiao.HanLuuBai.Value.Date - DateTime.Now.Date).TotalDays;
+                                    if (ngayluubai == 0)
                                     {
-                                        <td> @("Còn ( " + ngayluucont + " Ngày)") </td>
+                                        <td style="color:red"> Tới hạn </td>
+
                                     }
                                     else
                                     {
-                                        <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
+                                        if (ngayluubai > 3)
+                                        {
+                                            <td> @("Còn ( " + ngayluubai + " Ngày)") </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluubai > 0 ? "Còn( " + ngayluubai + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluubai) + " Ngày)") </td>
+                                        }
                                     }
-                                }
-                            }
-                            else
-                            {
-                                <td> Chưa có hạn lưu cont</td>
-                            }
-                            if (ngaygiao.HanLuuRong != null)
-                            {
-                                var ngayluurong = (ngaygiao.HanLuuRong.Value.Date - DateTime.Now.Date).TotalDays;
-                                if (ngayluurong == 0)
-                                {
-                                    <td style="color:red"> Tới hạn </td>
-
                                 }
                                 else
                                 {
-                                    if (ngayluurong > 3)
+                                    <td> Chưa có hạn lưu bãi</td>
+                                }
+                                @if (ngaygiao.HanLuuCont != null)
+                                {
+                                    var ngayluucont = (ngaygiao.HanLuuCont.Value.Date - DateTime.Now.Date).TotalDays;
+                                    if (ngayluucont == 0)
                                     {
-                                        <td> @("Còn ( " + ngayluurong + " Ngày)") </td>
+                                        <td style="color:red"> Tới hạn </td>
+
                                     }
                                     else
                                     {
-                                        <td style="color:red"> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
+                                        if (ngayluucont > 3)
+                                        {
+                                            <td> @("Còn ( " + ngayluucont + " Ngày)") </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluucont > 0 ? "Còn( " + ngayluucont + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluucont) + " Ngày)") </td>
+                                        }
                                     }
                                 }
-                            }
-                            else
-                            {
-                                <td> Chưa có hạn lưu rỗng</td>
-                            }
+                                else
+                                {
+                                    <td> Chưa có hạn lưu cont</td>
+                                }
+                                @if (ngaygiao.HanLuuRong != null)
+                                {
+                                    var ngayluurong = (ngaygiao.HanLuuRong.Value.Date - DateTime.Now.Date).TotalDays;
+                                    if (ngayluurong == 0)
+                                    {
+                                        <td style="color:red"> Tới hạn </td>
+
+                                    }
+                                    else
+                                    {
+                                        if (ngayluurong > 3)
+                                        {
+                                            <td> @("Còn ( " + ngayluurong + " Ngày)") </td>
+                                        }
+                                        else
+                                        {
+                                            <td style="color:red"> @(ngayluurong > 0 ? "Còn( " + ngayluurong + " Ngày)" : "Quá hạn ( " + Math.Abs(ngayluurong) + " Ngày)") </td>
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    <td> Chưa có hạn lưu rỗng</td>
+                                }
+
+                                <td>@billchuaguibai.Count()</td>
+                                <td>@billchuagiao.Count()</td>
+                            </tr>
                         }
                     }
                     else
                     {
-                        <td>Chưa có cont</td>
-                        <td>Chưa có cont</td>
-                        <td>Chưa có cont</td>
+                        <tr>
+                            <td>@Html.ActionLink("Chi tiết", "CTBill", new { id = item.Id }, new { @class = "btn btn-primary" })</td>
+                            <td>@stt</td>
+                            <td>@item.SoToKhai</td>
+                            <td>@item.MaBill</td>
+                            <td>@item.CTBills.Where(x => x.Bill == item.Id).Count()</td>
+                            <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null )</td>
+                            <td>@item.NguoiGui</td>
+                            <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                            <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
+                            <td>Chưa có cont</td>
+                            <td>Chưa có cont</td>
+                            <td>Chưa có cont</td>
+                            <td>@billchuaguibai.Count()</td>
+                            <td>@billchuagiao.Count()</td>
+                        </tr>
                     }
-                    <td>@billchuaguibai.Count()</td>
-                    <td>@billchuagiao.Count()</td>
-                </tr>
                 }
 
 
