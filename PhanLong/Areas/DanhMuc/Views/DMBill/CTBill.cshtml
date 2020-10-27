@@ -1,9 +1,16 @@
 ﻿@model IEnumerable<PhanLong.EF.CTBill>
+@using PhanLong.EF
+@using PhanLong.Common
 @{
     ViewBag.Title = "Bill: " + ViewBag.Bill;
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.url = "/DanhMuc/DMBill";
     ViewBag.Back = "Trở lại";
+
+    PhanLongDBContext db = new PhanLongDBContext();
+    var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+    var role = db.Credentials.Where(x => x.UserId == session.UserID);
+    
 }
 
 @using (Html.BeginForm("AddFilesCTBill", "DMBill", FormMethod.Post))
@@ -34,9 +41,11 @@
             Cảng Nhận:
             <label title="@ViewBag.CN">@ViewBag.MaCN </label>
         </span>
-
-        @Html.ActionLink("Thêm cont", "CreateCTBill", new { id = @ViewBag.IdBill }, new { @class = "btn btn-primary mb-1" })
-    </div>
+        @if (role.Where(x => x.RoleId == "ADD_CTBILL").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+        {
+            @Html.ActionLink("Thêm cont", "CreateCTBill", new { id = @ViewBag.IdBill }, new { @class = "btn btn-primary mb-1" })
+        }
+        </div>
     <div class="card-body">
         @using (Html.BeginForm("CTBill", "DMBill", FormMethod.Post))
         {
@@ -61,7 +70,7 @@
                         <th>Xe gửi</th>
                         <th>Bãi gửi</th>
                         <th>Ghi Chú</th>
-                        <th>#</th>
+                        @*<th>#</th>*@      
                     </tr>
                 </thead>
                 <tbody>
@@ -188,25 +197,36 @@
                             <td>@(item.SoXe != null ? item.DMXe.BienSo : null)</td>
                             <td title="@(item.BaiGui != null ? item.DMCang.TenCang : null)">@(item.BaiGui != null ? item.DMCang.MaCang : null)</td>
                             <td class="cell expand-maximum-on-hover">@item.GhiChu</td>
-                            <td class=""><a href="#" class="btn btn-warning" onclick='AddFilesCTBill(@item.Id)'>Quản lý files</a></td>
+                            @*<td class=""><a href="#" class="btn btn-warning" onclick='AddFilesCTBill(@item.Id)'>Quản lý files</a></td>*@
                         </tr>
                     }
                 </tbody>
             </table>
-            <div class="margin">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                        Hành động
-                        <span class="sr-only">Hành động</span>
-                    </button>
-                    <div class="dropdown-menu" role="menu">
-                        <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
-                        <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
+            if (role.Where(x => x.RoleId == "EDIT_CTBILL" || x.RoleId == "DELETE_CTBILL").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+            {
+                <div class="margin">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                            Hành động
+                            <span class="sr-only">Hành động</span>
+                        </button>
+
+                        <div class="dropdown-menu" role="menu">
+                            @if (role.Where(x => x.RoleId == "EDIT_CTBILL").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                            {
+                                <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
+                            }
+                            @if (role.Where(x => x.RoleId == "DELETE_CTBILL").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                            {
+                                <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
+                            }
+                        </div>
+                       
                     </div>
                 </div>
-            </div>
+            }
         }
-        @*<div style="text-align:right">
+            @*<div style="text-align:right">
                 @using (Html.BeginForm("ImportExcelCTBill", "DMBill", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <input type="hidden" name="Sheet" value="CTBill$" />
@@ -216,7 +236,7 @@
                     </label>
                 }
             </div>*@
-    </div>
+        </div>
 
 </div>
 

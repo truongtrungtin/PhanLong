@@ -92,7 +92,8 @@
     .tg .tg-81u0 {
         background-color: #ffffff;
         border-left-color: #ffffff;
-        border-top-color: black;
+        border-top-color: #000000;
+        border-right-color: #000000;
         text-align: left;
         vertical-align: middle
     }

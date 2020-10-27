@@ -50,7 +50,6 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         {
             var dao = new PhatSinhDao();
             var model = dao.GetById(id);
-            SetViewBag();
             return View(model);
         }
 
@@ -166,12 +165,12 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                     if (result)
                     {
                         SetAlert("Cập nhật dữ liệu thành công!", "success");
-                        return RedirectToAction("Index", "PhatSinh");
+                        return RedirectToAction("Update", "PhatSinh", phatSinh.Id);
                     }
                     else
                     {
                         SetAlert("Cập nhật dữ liệu không thành công", "warning");
-                        return RedirectToAction("Update", "PhatSinh");
+                        return RedirectToAction("Update", "PhatSinh", phatSinh.Id);
                     }
                 }
                 SetAlert("Không có nội dung nào được chỉnh sửa", "warning");

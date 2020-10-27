@@ -52,7 +52,7 @@ namespace PhanLong.DAO
                         {
                             foreach (var item in db.PhatSinhChiThus)
                             {
-                                if (item.Id == Convert.ToInt32(PhatSinhCT))
+                                if (item.Id == Convert.ToInt64(PhatSinhCT))
                                 {
                                     psct = item.Id;
                                 }

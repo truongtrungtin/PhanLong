@@ -17,6 +17,9 @@
     Decimal tientru = 0;
 }
 
+@section css{
+    <link href="~/Content/dist/css/Print.css" media="print" rel="stylesheet" />
+}
 
 @using (Html.BeginForm("EditGhiChuChiPhi", "Luong", FormMethod.Post))
 {
@@ -104,7 +107,7 @@
     </div>
 }
 
-<div class="card">
+<div class="card invoice">
     <div class="card-header">
         <p style="text-align:right">Ngày lập:<b> @DateTime.Now.ToShortDateString()</b></p>
         <h3 class="card-title" style="float:none;text-align:center;">
@@ -114,6 +117,7 @@
             </button>
         </h3>
         <h6 style="text-align:center">Tài xế: <b>@ViewBag.tx</b></h6>
+        <h6 style="text-align:center">Số xe: <b>@ViewBag.Xe</b></h6>
         <h6 style="text-align:center">Từ ngày: <b>@ngaybd.Date.ToShortDateString()</b> - Đến ngày: <b>@ngaykt.Date.ToShortDateString()</b></h6>
         <div class="row" style="float:none;text-align:center">
             <div class="container">
@@ -149,11 +153,11 @@
                         </div>
                     </div>
                     @*<div class="col-sm-1">
-                        <div class="form-group">
-                            <label style="text-align:center">Tổng</label>
-                            <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@ViewBag.Tong">
-                        </div>
-                    </div>*@
+                            <div class="form-group">
+                                <label style="text-align:center">Tổng</label>
+                                <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@ViewBag.Tong">
+                            </div>
+                        </div>*@
                 </div>
             </div>
 
@@ -186,10 +190,10 @@
                         <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
                         <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
                         <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
-                        <td title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet : null)">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
+                        <td title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet : null)">@(item.Kho != null ? item.DMKho.DiaChi : null)</td>
                         <td style="text-align:left">@(item.SoCont != null ? item.SoCont : null)</td>
-                        <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
-                        <td title="@(item.CangTra != null ? item.DMCang1.TenCang : null)">@(item.CangTra != null ? item.DMCang1.MaCang : null)</td>
+                        <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.TenCang : null)</td>
+                        <td title="@(item.CangTra != null ? item.DMCang1.TenCang : null)">@(item.CangTra != null ? item.DMCang1.TenCang : null)</td>
                         <td class="tg-t1ow" style="text-align:right">@(item.CuocTX != null ? String.Format("{0:0,0}", (item.CuocTX)) : null)</td>
                         <td style="text-align:left">@(item.GhiChuLuong != null ? item.GhiChuLuong : null)</td>
                         <td class="no-print"><a href="#" class="btn btn-warning" onclick='EditGhiChu(@item.Id)'>Thêm ghi chú</a></td>

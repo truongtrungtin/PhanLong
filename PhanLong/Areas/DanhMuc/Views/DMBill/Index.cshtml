@@ -1,16 +1,22 @@
 ﻿@model IEnumerable<PhanLong.EF.DMBill>
+@using PhanLong.EF
+@using PhanLong.Common
 @{
     ViewBag.Title = "Danh mục";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    PhanLongDBContext db = new PhanLongDBContext();
+    var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+    var role = db.Credentials.Where(x => x.UserId == session.UserID);
 }
-
 <div class="card">
     <div class="card-header">
         <h5>
             <b>Danh Mục Bill</b>
-            @Html.ActionLink("Thêm Bill", "Create", null, new { @class = "btn btn-primary mb-1" })
-        </h5>
+            @if (role.Where(x => x.RoleId == "ADD_BILL").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+            {
+                @Html.ActionLink("Thêm Bill", "Create", null, new { @class = "btn btn-primary mb-1" })
+            }
+            </h5>
     </div>
     <div class="card-body">
         @using (Html.BeginForm("Index", "DMBill", FormMethod.Post))
@@ -216,39 +222,48 @@
                     }
                 </tbody>
             </table>
-            <div class="margin">
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
-                        Hành động
-                        <span class="sr-only">Hành động</span>
-                    </button>
-                    <div class="dropdown-menu" role="menu">
-                        <input type="submit" value="Chi tiết" name="chitiet" id="chitiet" class="dropdown-item" />
-                        <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
-                        <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
-                    </div>
-                </div>
-            </div>
-        }
-        <div class="col-md-2 float-sm-right">
-            @using (Html.BeginForm("ImportExcel", "DMBill", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            if (role.Where(x => x.RoleId == "DELETE_BILL" || x.RoleId == "EDIT_BILL").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
             {
-                <input type="hidden" name="Sheet" value="DMBill$" />
-                <div class="form-group">
-                    <label for="FileUpload">Thêm dữ liệu bằng file excel</label>
-                    <div class="input-group">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" name="FileUpload" id="FileUpload">
-                            <label class="custom-file-label" for="FileUpload">Chọn file</label>
-                        </div>
-                        <div class="input-group-append">
-                            <input type="submit" id="Submit" name="Submit" value="Import Excel" class="btn btn-success btn-flat" />
+                <div class="margin">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-icon" data-toggle="dropdown">
+                            Hành động
+                            <span class="sr-only">Hành động</span>
+                        </button>
+                        <div class="dropdown-menu" role="menu">
+                            <input type="submit" value="Chi tiết" name="chitiet" id="chitiet" class="dropdown-item" />
+                            @if (role.Where(x => x.RoleId == "EDIT_BILL").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                            {
+                                <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
+                            }
+                            @if (role.Where(x => x.RoleId == "DELETE_BILL").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                            {
+                                <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
+                            }
                         </div>
                     </div>
                 </div>
+                }
             }
+            @*<div class="col-md-2 float-sm-right">
+                @using (Html.BeginForm("ImportExcel", "DMBill", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" name="Sheet" value="DMBill$" />
+                    <div class="form-group">
+                        <label for="FileUpload">Thêm dữ liệu bằng file excel</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" name="FileUpload" id="FileUpload">
+                                <label class="custom-file-label" for="FileUpload">Chọn file</label>
+                            </div>
+                            <div class="input-group-append">
+                                <input type="submit" id="Submit" name="Submit" value="Import Excel" class="btn btn-success btn-flat" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>*@
         </div>
-    </div>
 </div>
 
 @section js{

@@ -621,6 +621,12 @@ namespace PhanLong.DAO
         {
             return db.PhatSinhs.Where(x => x.Id == id).SingleOrDefault();
         }
+
+        public CTBill Kehoach(String cont)
+        {
+            return db.CTBills.Where(x => x.Cont == cont).SingleOrDefault();
+        }
+
         public PhatSinh GetByData(PhatSinh phatSinh)
         {
             return db.PhatSinhs.Where(x => x.KhachHang == phatSinh.KhachHang || x.Xe == phatSinh.Xe || x.Loai == phatSinh.Xe || x.Kho == phatSinh.Kho).FirstOrDefault();
@@ -631,9 +637,12 @@ namespace PhanLong.DAO
             return db.PhatSinhs.Where(x => x.Xe == id).ToList();
         }
 
-        public PhatSinh GetNvByXe(long? id)
+        public PhatSinh GetNvByXe(long? id, string sday, string eday)
         {
-            return db.PhatSinhs.Where(x => x.Xe == id).FirstOrDefault();
+            DateTime sdate = (sday != "") ? Convert.ToDateTime(sday).Date : new DateTime();
+            DateTime edate = (eday != "") ? Convert.ToDateTime(eday).Date : new DateTime();
+            var model = db.PhatSinhs.Where(x => (sdate == null && edate == null) || (x.Ngay >= sdate && x.Ngay <= edate));
+            return model.Where(x => x.Xe == id).FirstOrDefault();
         }
         public long Insert(PhatSinh entity)
         {

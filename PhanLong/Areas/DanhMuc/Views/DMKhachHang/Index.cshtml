@@ -1,14 +1,21 @@
 ﻿@model IEnumerable<PhanLong.EF.DMKhachHang>
+@using PhanLong.EF
+@using PhanLong.Common
 @{
-    ViewBag.Title = "Danh mục";
+    ViewBag.Title = "Danh mục Khách Hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    PhanLongDBContext db = new PhanLongDBContext();
+    var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+    var role = db.Credentials.Where(x => x.UserId == session.UserID);
 }
 <div class="card">
     <div class="card-header">
         <h5>
             <b>Danh mục Khách Hàng</b>
-            @Html.ActionLink("Thêm Khách hàng", "Create", null, new { @class = "btn btn-primary mb-1" })
+            @if (role.Where(x => x.RoleId == "ADD_KHACHHANG").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+            {
+                @Html.ActionLink("Thêm Khách hàng", "Create", null, new { @class = "btn btn-primary mb-1" })
+            }
         </h5>
     </div>
     <div class="card-body">
@@ -25,7 +32,10 @@
                         <th>Địa chỉ</th>
                         <th>Người liên hệ</th>
                         <th>Số điện thoại</th>
-                        <th>#</th>
+                        @if (role.Where(x => x.RoleId == "EDIT_KHACHHANG").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                        {
+                            <th>#</th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
@@ -41,31 +51,37 @@
                             <td>@item.DiaChi</td>
                             <td>@item.NguoiLienHe</td>
                             <td>@item.SoDienThoai</td>
-                            <td>
-                                @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                            </td>
+                            @if (role.Where(x => x.RoleId == "EDIT_KHACHHANG").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                            {
+                                <td>
+                                    @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                </td>
+                            }
                         </tr>
                     }
                 </tbody>
 
             </table>
-            <div class="form-group">
-                <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
-            </div>
-        }
-        <div style="text-align:right">
-            @using (Html.BeginForm("ImportExcel", "DMKhachHang", FormMethod.Post, new { enctype = "multipart/form-data" }))
+           if (role.Where(x => x.RoleId == "DELETE_KHACHHANG").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
             {
-                <input type="hidden" name="Sheet" value="DMKhachHang$" />
-                <input type="submit" id="Submit" name="Submit" value="Import Excel" class="btn btn-success" />
-                <label>
-
-                    <input type="file" id="FileUpload" name="FileUpload" aria-label="EXCEL" />
-
-                </label>
+                <div class="form-group">
+                    <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+                </div>
+                }
             }
+            @*<div style="text-align:right">
+                @using (Html.BeginForm("ImportExcel", "DMKhachHang", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" name="Sheet" value="DMKhachHang$" />
+                    <input type="submit" id="Submit" name="Submit" value="Import Excel" class="btn btn-success" />
+                    <label>
+
+                        <input type="file" id="FileUpload" name="FileUpload" aria-label="EXCEL" />
+
+                    </label>
+                }
+            </div>*@
         </div>
-    </div>
 </div>
 
 

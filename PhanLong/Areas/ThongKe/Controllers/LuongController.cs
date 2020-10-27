@@ -36,15 +36,15 @@ namespace PhanLong.Areas.ThongKe.Controllers
             {
                 NgayKT = DateTime.Now.ToShortDateString();
             }
-
             var xe = new DMXeDao().GetById(id);
             var model = new CTTTLuongDao().PhatSinhLuong(id, NgayBD, NgayKT);
             var ChiLuong = new CTTTLuongDao().ChiLuong(id, NgayBD, NgayKT);
             var Loai = new PhatSinhDao().GetLoai(id);
-            var tx = new PhatSinhDao().GetNvByXe(id);
+            var tx = new PhatSinhDao().GetNvByXe(id, NgayBD, NgayKT);
             ViewBag.ChiLuong = ChiLuong;
             ViewBag.id = id;
             ViewBag.tx = tx.DMNhanVien.TenNV;
+            ViewBag.Xe = xe.BienSo;
             ViewBag.NgayBD = NgayBD;
             ViewBag.NgayKT = NgayKT;
             ViewBag.N20 = model.Where(x => x.DMLoai.MaLoai == "20N").Count();
@@ -62,10 +62,11 @@ namespace PhanLong.Areas.ThongKe.Controllers
             var model = new CTTTLuongDao().PhatSinhLuong(phatSinh.Xe, NgayBD, NgayKT);
             var ChiLuong = new CTTTLuongDao().ChiLuong(phatSinh.Xe, NgayBD, NgayKT);
             var dao = new PhatSinhDao();
+            var tx = new PhatSinhDao().GetNvByXe(phatSinh.Xe, NgayBD, NgayKT);
             var Loai = dao.GetLoai(xe.Id);
             ViewBag.ChiLuong = ChiLuong;
             ViewBag.id = phatSinh.Id;
-            ViewBag.tx = xe.TenNV;
+            ViewBag.tx = tx.DMNhanVien.TenNV;
             ViewBag.NgayBD = NgayBD;
             ViewBag.NgayKT = NgayKT;
             ViewBag.N20 = model.Where(x => x.DMLoai.MaLoai == "20N").Count();
@@ -73,7 +74,6 @@ namespace PhanLong.Areas.ThongKe.Controllers
             ViewBag.N40 = model.Where(x => x.DMLoai.MaLoai == "40N").Count();
             ViewBag.X40 = model.Where(x => x.DMLoai.MaLoai == "40X").Count();
             ViewBag.Tong = (ViewBag.N20 + ViewBag.X20 + ViewBag.N40 + ViewBag.X40);
-
             return RedirectToAction("CTTTLuong", "Luong", new { id = phatSinh.TenTX, NgayBD = NgayBD, NgayKT = NgayKT });
         }
 

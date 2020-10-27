@@ -293,7 +293,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
         }
 
         [HttpGet]
-        [HasCredential(RoleId = "ADD_BILL")]
+        [HasCredential(RoleId = "ADD_CTBILL")]
         public ActionResult CreateCTBill(long? id, long? cTBill = null, string Copy = null)
         {
             var dao = new DMBillDao().GetById(id);
@@ -315,7 +315,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             }
         }
         [HttpPost]
-        [HasCredential(RoleId = "ADD_BILL")]
+        [HasCredential(RoleId = "ADD_CTBILL")]
         public ActionResult CreateCTBill(CTBill dMBill, string luuthem, string luuthoat)
         {
 
@@ -356,7 +356,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
         }
 
         [HttpGet]
-        [HasCredential(RoleId = "EDIT_BILL")]
+        [HasCredential(RoleId = "EDIT_CTBILL")]
         public ActionResult UpdateCTBill(long id, long? CTBill = null)
         {
             var Bill = new DMBillDao().GetById(id);
@@ -369,7 +369,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
-        [HasCredential(RoleId = "EDIT_BILL")]
+        [HasCredential(RoleId = "EDIT_CTBILL")]
         public ActionResult UpdateCTBill(CTBill cTBill)
         {
             if (ModelState.IsValid)
@@ -395,7 +395,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
 
         // Delete
         [HttpDelete]
-        [HasCredential(RoleId = "DELETE_BILL")]
+        [HasCredential(RoleId = "DELETE_CTBILL")]
         public ActionResult DeleteCTBill(long id)
         {
             var bill = new CTBillDao().GetById(id).Bill;
@@ -498,7 +498,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
 
         [ActionName("ImportExcelCTBill")]
         [HttpPost]
-        [HasCredential(RoleId = "IMPORT_BILL")]
+        [HasCredential(RoleId = "IMPORT_CTBILL")]
         public ActionResult ImportExcelCTBill(DMLoai dMLoai, DMKhachHang dMKhachHang, DMKho dMKho, DMXe dMXe, DMNhanVien dMNhanVien, DMPhi dMPhi, DMThoiGian dMThoiGian, DMCang dMCang, DMBill dMBill, string sheet)
         {
             if (Request.Files["FileUpload"].ContentLength > 0)

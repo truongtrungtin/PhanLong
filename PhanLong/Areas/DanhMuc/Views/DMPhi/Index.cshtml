@@ -1,16 +1,23 @@
 ﻿@model IEnumerable<PhanLong.EF.DMPhi>
+@using PhanLong.EF
+@using PhanLong.Common
 @{
     ViewBag.Title = "Danh mục";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    PhanLongDBContext db = new PhanLongDBContext();
+    var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+    var role = db.Credentials.Where(x => x.UserId == session.UserID);
 }
 <div class="card">
     <div class="container">
         <div class="card-header">
             <h5>
                 Danh Mục Phí
-                @Html.ActionLink("Thêm Phí", "Create", null, new { @class = "btn btn-primary mb-1" })
-            </h5>
+                @if (role.Where(x => x.RoleId == "ADD_PHI").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                {
+                    @Html.ActionLink("Thêm Phí", "Create", null, new { @class = "btn btn-primary mb-1" })
+                }
+                </h5>
         </div>
         <div class="card-body">
             @using (Html.BeginForm("Index", "DMPhi", FormMethod.Post))
@@ -22,7 +29,10 @@
                             <th>Mã Phí</th>
                             <th>Tên Phí</th>
                             <th>Loại</th>
-                            <th>#</th>
+                            @if (role.Where(x => x.RoleId == "EDIT_PHI").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                            {
+                                <th>#</th>
+                            }
                         </tr>
                     </thead>
                     <tbody>
@@ -34,18 +44,24 @@
                                 <td>@item.MaPhi</td>
                                 <td>@item.TenPhi</td>
                                 <td>@(item.LoaiPhi != null ? item.LoaiPhi1.Loai : null)</td>
-                                <td>
-                                    @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                                </td>
+                                @if (role.Where(x => x.RoleId == "EDIT_PHI").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                                {
+                                    <td>
+                                        @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                    </td>
+                                }
                             </tr>
                         }
                     </tbody>
                 </table>
-                <div class="form-group">
-                    <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
-                </div>
-            }
-            <div style="text-align:right">
+               if (role.Where(x => x.RoleId == "DELETE_PHI").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                {
+                    <div class="form-group">
+                        <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+                    </div>
+                    }
+                }
+                @*<div style="text-align:right">
                 @using (Html.BeginForm("ImportExcel", "DMPhi", FormMethod.Post, new { enctype = "multipart/form-data" }))
                 {
                     <input type="hidden" name="Sheet" value="DMPhi$" />
@@ -55,8 +71,8 @@
 
                     </label>
                 }
+            </div>*@
             </div>
-        </div>
     </div>
 </div>
 

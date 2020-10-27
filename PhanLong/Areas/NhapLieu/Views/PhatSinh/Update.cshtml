@@ -244,7 +244,7 @@
                                 <select name="Xe" class="form-control form-control-sm select2" data-placeholder="Chọn Xe">
                                     @if (Model.Xe != null)
                                     {
-                                        <option value="@Model.Xe">@Model.DMXe.BienSo</option>
+                                        <option value="@Model.Xe">@Model.DMXe.MaXe - @Model.DMXe.BienSo</option>
                                     }
                                     else
                                     {
@@ -252,7 +252,7 @@
                                     }
                                     @foreach (var item in db.DMXes)
                                     {
-                                        <option value="@item.Id">@item.BienSo</option>
+                                        <option value="@item.Id">@item.MaXe - @item.BienSo</option>
                                     }
                                 </select>
                                 @Html.ValidationMessageFor(model => model.Xe, "", new { @class = "text-danger" })
@@ -310,7 +310,7 @@
                         <div class="form-group row">
                             @Html.LabelFor(model => model.TienPhiKH, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-6" })
                             <div class="col-sm-6">
-                                <input type="text" class="form-control form-control-sm" value="@Model.TienPhiKH" name="phikh" id="phikh" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'placeholder': '0'" style="text-align: right;"><br>
+                                <input type="text" class="form-control form-control-sm" value="@Model.TienPhiKH" name="TienPhiKH" id="TienPhiKH" data-inputmask="'alias': 'decimal', 'groupSeparator': ',', 'autoGroup': true, 'digits': 0, 'digitsOptional': false, 'placeholder': '0'" style="text-align: right;"><br>
                                 @Html.ValidationMessageFor(model => model.TienPhiKH, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -324,7 +324,7 @@
                                 <select name="PhiCT" class="form-control form-control-sm select2" data-placeholder="Chọn phí CT">
                                     @if (Model.PhiCT != null)
                                     {
-                                        <option value="@Model.PhiCT">@Model.DMPhi.TenPhi</option>
+                                        <option value="@Model.PhiCT">@Model.DMPhi.MaPhi - @Model.DMPhi.TenPhi</option>
                                     }
                                     else
                                     {
@@ -332,7 +332,7 @@
                                     }
                                     @foreach (var item in db.DMPhis)
                                     {
-                                        <option value="@item.Id">@item.MaPhi</option>
+                                        <option value="@item.Id">@item.MaPhi - @item.TenPhi</option>
                                     }
                                 </select>
                                 @Html.ValidationMessageFor(model => model.PhiCT, "", new { @class = "text-danger" })
@@ -388,6 +388,14 @@
         }
     </div>
 </div>
+
+<div class="card">
+    @using (Html.BeginForm("Create", "PhatSinh", FormMethod.Post))
+    {
+        Html.RenderAction("ViewPhatSinh", "PhatSinh");
+    }
+</div>
+
 
 
 

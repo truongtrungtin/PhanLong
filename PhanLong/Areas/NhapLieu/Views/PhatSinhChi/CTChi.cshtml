@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<PhanLong.EF.CTChiThu>
 
 @{
-    ViewBag.Title = "Phát Sinh Chi" + (ViewBag.HoaDon != "" ? "&nbsp;&nbsp;Hoá đơn số:" + ViewBag.HoaDon : null);
+    ViewBag.Title = "Phát Sinh Chi" + (ViewBag.HoaDon != "" ?  " - Hoá đơn số:" + ViewBag.HoaDon : null);
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.url = "/NhapLieu/PhatSinhChi";
     ViewBag.Back = "Trở lại";
@@ -159,7 +159,7 @@
             }
 
         </div>
-        <div style="text-align:right">
+        @*<div style="text-align:right">
             @using (Html.BeginForm("ImportExcelCTPS", "PhatSinhChi", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <input type="hidden" name="Sheet" value="CTChi$" />
@@ -169,7 +169,7 @@
                 </label>
 
             }
-        </div>
+        </div>*@
     </div>
 
 </div>

@@ -1,5 +1,11 @@
 ﻿@model IEnumerable<PhanLong.EF.PhatSinh>
-
+@using PhanLong.EF
+@using PhanLong.Common
+@{
+    PhanLongDBContext db = new PhanLongDBContext();
+    var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+    var role = db.Credentials.Where(x => x.UserId == session.UserID);
+}
 <div class="card-header">
     <h3 class="card-title">
         <b>Phát sinh</b>
@@ -13,7 +19,7 @@
                 <th title="ngày giao">Ngày giao</th>
                 <th title="Khách hàng">Khách hàng</th>
                 <th title="Kho">Kho</th>
-                <th data-field="Loại">Loại</th>
+                <th title="Loại">Loại</th>
                 <th title="Số Cont">Số Cont</th>
                 <th title="Số Bill">Số Bill</th>
                 <th title="Cảng Nhận">Cảng nhận</th>
@@ -35,10 +41,9 @@
             </tr>
         </thead>
         <tbody>
-
             @foreach (var item in Model)
             {
-                if ((DateTime.Now - item.Ngay).TotalDays < 30)
+                if ((DateTime.Now - item.Ngay).TotalDays < 32)
                 {
                     <tr id="row_@item.Id">
                         <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
@@ -66,7 +71,6 @@
                         <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
                     </tr>
                 }
-
             }
         </tbody>
     </table>
@@ -77,8 +81,14 @@
                 <span class="sr-only">Hành động</span>
             </button>
             <div class="dropdown-menu" role="menu">
-                <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
-                <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
+                @if (role.Where(x => x.RoleId == "DELETE_PHATSINH").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                {
+                    <input type="submit" value="Xóa" name="delete" id="delete" class="dropdown-item" />
+                }
+                @if (role.Where(x => x.RoleId == "EDIT_PHATSINH").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                {
+                    <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
+                }
                 <input type="submit" value="Kế hoạch" name="kehoach" id="kehoach" class="dropdown-item" />
             </div>
         </div>

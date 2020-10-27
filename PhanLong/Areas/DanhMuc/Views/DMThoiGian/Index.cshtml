@@ -1,15 +1,23 @@
 ﻿@model IEnumerable<PhanLong.EF.DMThoiGian>
+@using PhanLong.EF
+@using PhanLong.Common
 @{
-    ViewBag.Title = "Danh mục";
+    ViewBag.Title = "Danh mục Thời Gian";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    PhanLongDBContext db = new PhanLongDBContext();
+    var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+    var role = db.Credentials.Where(x => x.UserId == session.UserID);
 }
 <div class="card">
     <div class="container">
         <div class="card-header">
             <h5>
                 <b>Danh mục Thời Gian</b>
-                @Html.ActionLink("Thêm Thời Gian", "Create", null, new { @class = "btn btn-primary mb-1" })
-            </h5>
+                @if (role.Where(x => x.RoleId == "ADD_DMTHOIGIAN").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                {
+                    @Html.ActionLink("Thêm Thời Gian", "Create", null, new { @class = "btn btn-primary mb-1" })
+                }
+                </h5>
         </div>
         <div class="card-body">
             @using (Html.BeginForm("Index", "DMThoiGian", FormMethod.Post))
@@ -20,7 +28,10 @@
                             <th width="1%"><input type='checkbox' id='check' value='' /></th>
                             <th>Mã Thời Gian</th>
                             <th>Thời Gian</th>
-                            <th>#</th>
+                            @if (role.Where(x => x.RoleId == "EDIT_DMTHOIGIAN").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                            {
+                                <th>#</th>
+                            }
                         </tr>
                     </thead>
                     <tbody>
@@ -31,19 +42,25 @@
                                 <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
                                 <td>@item.MaTG</td>
                                 <td>@item.ThoiGian</td>
-                                <td>
-                                    @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
-                                </td>
+                                @if (role.Where(x => x.RoleId == "EDIT_DMTHOIGIAN").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                                {
+                                    <td>
+                                        @Html.ActionLink("Chỉnh sửa", "Update", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
+                                    </td>
+                                }
                             </tr>
                         }
                     </tbody>
 
                 </table>
-                <div class="form-group">
-                    <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
-                </div>
-            }
-        </div>
+               if (role.Where(x => x.RoleId == "DELETE_DMTHOIGIAN").Count() > 0 || session.GroupID == "ADMIN" || session.GroupID == "BOSS")
+                {
+                    <div class="form-group">
+                        <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
+                    </div>
+                    }
+                }
+            </div>
     </div>
 </div>
 

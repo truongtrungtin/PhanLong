@@ -7,7 +7,7 @@
     ViewBag.url = "/NhapLieu/PhatSinh/";
     ViewBag.Back = "Trở lại";
     PhanLongDBContext db = new PhanLongDBContext();
-    var data = db.CTBills.Where(x => x.Loai == Model.Loai && x.Cont == Model.SoCont).FirstOrDefault();
+    var data = db.CTBills.Where(x => x.Cont == Model.SoCont && x.Bill == Model.SoBill).SingleOrDefault();
 }
 
 
@@ -17,15 +17,9 @@
     <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
 }
 
-<div style="width:8in;height:5in" class="container">
-    <table class="tg" style="table-layout: fixed; width:8in;height:5in">
-        <colgroup>
-            <col style="width: 106px">
-            <col style="width: 197px">
-            <col style="width: 140px">
-            <col style="width: 141px">
-            <col style="width: 128px">
-        </colgroup>
+<div class="container card">
+    <table class="tg">
+    
         <thead>
             <tr>
                 <th class="tg-8n49" colspan="2"><img style="width:50px;height:50px" src="~/Images/logo.png" /><b>Công ty TNHH Phan Long</b></th>
@@ -58,38 +52,64 @@
                 <td class="tg-8n49" colspan="3">Cảng hạ:<b> @(Model.CangTra != null ? Model.DMCang1.TenCang : null) </b></td>
             </tr>
             <tr>
-                <td class="tg-8n49" colspan="5">Địa chỉ giao/nhận:<b>@(Model.Kho != null  ? Model.DMKho.DiaChi : null)  </b> </td>
+                <td class="tg-8n49" colspan="5">Địa chỉ giao/nhận:<b>@(Model.Kho != null  ? Model.DMKho.DiaChiChiTiet : null)  </b> </td>
             </tr>
             <tr>
                 <td class="tg-8n49" colspan="2">Người liên hệ:<b> @(Model.Kho != null ? Model.DMKho.NguoiLienHe : null)</b></td>
                 <td class="tg-8n49" colspan="3">Số điện thoại:<b>@(Model.Kho != null ? Model.DMKho.SoDienThoai : null) </b></td>
             </tr>
             <tr>
-                <td class="tg-8n49" colspan="5">Ghi chú:  <b>@Model.GhiChu</b></td>
+                <td class="tg-8n49" colspan="2">Ghi chú:  <b>@Model.GhiChu</b></td>
+                <td class="tg-8n49" colspan="3">Thời gian có mặt:  <b>@Model.DMThoiGian.ThoiGian</b></td>
+
             </tr>
             <tr>
                 <td class="tg-9wq7" colspan="2"><b>Bill/Booking:</b> @(Model.DMBill != null ? Model.DMBill.MaBill : null)</td>
-                <td class="tg-9wq6" colspan="3"><b>Ngày tàu đến:</b> @(Model.DMBill != null ? Model.DMBill.NgayTauDen : null)</td>
+                <td class="tg-9wq6" colspan="3"><b>Ngày tàu đến:</b> @(Model.DMBill != null ? Model.DMBill.NgayTauDen.Value.ToShortDateString() : null)</td>
             </tr>
             <tr>
-                <td class="tg-81u1" colspan="2"><b>Hạn lưu bãi: </b> @(data != null ? data.HanLuuBai.Value.ToShortDateString() : null)</td>
-                <td class="tg-81u0" colspan="3"><b>Hạn lưu rỗng: </b> @(data != null ? data.HanLuuRong.Value.ToShortDateString() : null)</td>
+                @if (data != null && data.HanLuuBai != null)
+                {
+                    <td class="tg-81u1" colspan="2">
+                        <b>Hạn lưu bãi: </b>@data.HanLuuBai.Value.ToShortDateString()
+                    </td>
+
+                }
+                else
+                {
+                    <td class="tg-81u1" colspan="2">
+                        <b>Hạn lưu bãi: </b>
+                    </td>
+                }
+                @if (data != null && data.HanLuuRong != null)
+                {
+                    <td class="tg-81u0" colspan="3">
+                        <b>Hạn lưu rỗng: </b>@data.HanLuuRong.Value.ToShortDateString()
+                    </td>
+                }
+                else
+                {
+                    <td class="tg-81u0" colspan="3">
+                        <b>Hạn lưu rỗng: </b>
+                    </td>
+                }
             </tr>
             <tr>
-                <td class="tg-vhtn" colspan="2"><b>Số Cont</b></td>
+                <td class="tg-vhtn"><b>Số Cont</b></td>
                 <td class="tg-vhtn"><b>Số đăng ký</b></td>
+                <td class="tg-vhtn"><b>Vị trí</b></td>
                 <td class="tg-vhtn"><b>Kích cỡ</b></td>
                 <td class="tg-vhtn"><b>loại hàng</b></td>
             </tr>
             <tr>
-                <td class="tg-vhtn" colspan="2">@(Model.SoCont != null ? Model.SoCont : null)</td>
+                <td class="tg-vhtn">@(Model.SoCont != null ? Model.SoCont : null)</td>
                 <td class="tg-vhtn">@(data != null ? data.SoDK : null)</td>
+                <td class="tg-vhtn">@(data != null ? data.ViTri : null)</td>
                 <td class="tg-vhtn">@(Model.Loai != null ? Model.DMLoai.MoTa : null)</td>
                 <td class="tg-vhtn">@(Model.Loai != null ? Model.DMLoai.MoTa1 : null)</td>
             </tr>
         </tbody>
     </table>
-    <button class="btn btn-primary hidden-print" onclick="window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
-
 </div>
+<button class="btn btn-primary hidden-print " onclick="window.print()"><span class="glyphicon glyphicon-print" aria-hidden="true"></span> Print</button>
 

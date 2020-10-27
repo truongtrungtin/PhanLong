@@ -202,7 +202,7 @@
                                     <option value=""></option>
                                     @foreach (var item in db.DMXes)
                                     {
-                                        <option value="@item.Id">@item.BienSo</option>
+                                        <option value="@item.Id">@item.MaXe - @item.BienSo</option>
                                     }
                                 </select>
                                 @Html.ValidationMessageFor(model => model.Xe, "", new { @class = "text-danger" })
@@ -275,7 +275,7 @@
                                     <option value=""></option>
                                     @foreach (var item in db.DMPhis)
                                     {
-                                        <option value="@item.Id">@item.MaPhi</option>
+                                        <option value="@item.Id">@item.MaPhi - @item.TenPhi</option>
                                     }
                                 </select>
                                 @Html.ValidationMessageFor(model => model.PhiCT, "", new { @class = "text-danger" })

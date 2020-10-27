@@ -75,7 +75,7 @@ namespace PhanLong.DAO
                         long? hinhttt = null;
                         long? bill = null;
 
-                        if (NguoiChiThu != null)
+                        if (NguoiChiThu != null && NguoiChiThu != "")
                         {
                             foreach (var item in db.DMNhanViens)
                             {
@@ -86,7 +86,6 @@ namespace PhanLong.DAO
 
                             }
                             if (nguoichithu == null)
-
                             {
                                 var dao = new DMNhanVienDao().InsertNV(dMNhanVien, NguoiChiThu);
                                 nguoichithu = dao;
@@ -96,7 +95,7 @@ namespace PhanLong.DAO
                         {
                             nguoichithu = null;
                         }
-                        if (NguoiNhan != null)
+                        if (NguoiNhan != null && NguoiNhan != "")
                         {
                             foreach (var item in db.DMKhachHangs)
                             {
@@ -116,7 +115,7 @@ namespace PhanLong.DAO
                         {
                             nguoinhan = null;
                         }
-                        if (KhachHang != null)
+                        if (KhachHang != null && KhachHang != "")
                         {
                             foreach (var item in db.DMKhachHangs)
                             {
@@ -135,7 +134,6 @@ namespace PhanLong.DAO
                         {
                             khachhang = null;
                         }
-
                         if (Mooc != null && Mooc != "")
                         {
                             foreach (var item in db.DMMoocs)
@@ -176,7 +174,7 @@ namespace PhanLong.DAO
                         {
                             xe = null;
                         }
-                        if (HinhThucTT != null)
+                        if (HinhThucTT != null && HinhThucTT != "")
                         {
                             foreach (var item in db.HinhThucTTs)
                             {
@@ -186,7 +184,7 @@ namespace PhanLong.DAO
                                 }
 
                             }
-                            if (khachhang == null)
+                            if (hinhttt == null)
                             {
                                 var dao = new HinhThucTTDao().InsertHTTT(hinhThucTT, HinhThucTT);
                                 hinhttt = dao;
@@ -196,7 +194,7 @@ namespace PhanLong.DAO
                         {
                             hinhttt = null;
                         }
-                        if (Bill != "")
+                        if (Bill != null && Bill != "")
                         {
                             foreach (var item in db.DMBills)
                             {

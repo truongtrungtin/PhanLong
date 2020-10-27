@@ -41,7 +41,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        var ct = db.CTChiThus.Where(x => x.DMPhi.LoaiPhi == 1 && x.PhatSinhChiThu == item.Id).FirstOrDefault();
+                        var ct = db.CTChiThus.Where(x => (x.DMPhi.LoaiPhi == 1 || x.DMPhi.LoaiPhi == 3) && x.PhatSinhChiThu == item.Id).FirstOrDefault();
                         if ((ct != null ? item.Id == ct.PhatSinhChiThu : false))
                         {
                             var model = new CTChiDao().ListAll(item.Id);
@@ -51,14 +51,14 @@
                         <td>@(item.Ngay != null? item.Ngay.ToShortDateString(): null)</td>
                         <td title="@(item.NguoiChiThu != null ? item.DMNhanVien.TenNV : null)">@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
                         <td title="@(item.NguoiNhan != null ? item.DMKhachHang1.TenCongTy : null)">@(item.NguoiNhan != null ? item.DMKhachHang1.MaKH : null)</td>
-                        <td title="@(item.HTTT != null ? item.HinhThucTT.MoTa : null)">@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>
+                        <td title="@(item.HTTT != null ? item.HinhThucTT.MoTa : null)">@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
                         <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                         <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
                         <td title="@(item.Xe != null ? item.DMXe.BienSo : null)">@(item.Xe != null ? item.DMXe.MaXe : null)</td>
                         <td title="@(item.Mooc != null ? item.DMMooc.BienSo : null)">@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
 
                      @{var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();}
-                        <td> @(maphi != null ? maphi.DMPhi.MaPhi : null)</td>
+                        <td title="@(maphi != null ? maphi.DMPhi.TenPhi : null)"> @(maphi != null ? maphi.DMPhi.MaPhi : null)</td>
                         @if (item.Bill != null)
                         {
                             <td>
