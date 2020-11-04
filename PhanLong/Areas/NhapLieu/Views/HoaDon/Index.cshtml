@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<PhanLong.EF.HoaDon>
+@using System.Globalization;
+
 @{
     ViewBag.Title = "Nhập liệu";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,7 +10,7 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-           Phát sinh hoá đơn @Html.ActionLink("Tạo Mới", "Create", null, new { @class = "btn btn-primary mb-1" })
+            Phát sinh hoá đơn @Html.ActionLink("Tạo Mới", "Create", null, new { @class = "btn btn-primary mb-1" })
         </h3>
     </div>
     <div class="card-body">
@@ -57,21 +59,21 @@
                             <td>@(item.SoBill != null ? item.DMBill.MaBill: null)</td>
                             <td>@(item.SoCont != null ? item.SoCont : null)</td>
                             <td>@(item.SoLuong != null ?item.SoLuong : null)</td>
-                            <td style="text-align:right">@(item.TienCuoc != null ? String.Format("{0:0,0}", (item.TienCuoc)) : null)</td>
+                            <td style="text-align:right">@(item.TienCuoc != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienCuoc)) : null)</td>
                             <td style="text-align:right">@(item.VAT != 0 ? (item.VAT * 100)+"%" : 0 + "%")</td>
                             @{ tienthue = Convert.ToDecimal(item.TienCuoc) * Convert.ToDecimal(item.VAT);
                                 thanhtien = Convert.ToDecimal(item.TienCuoc) + tienthue;
                                 tongno = Convert.ToDecimal(item.ChiHo) + thanhtien;
                                 candoi = tongno - Convert.ToDecimal(item.TienThanhToan);
                             }
-                            <td style="text-align:right">@(tienthue != null ? String.Format("{0:0,0}", (tienthue))  : null)</td>
-                            <td style="text-align:right">@(thanhtien != null ? String.Format("{0:0,0}", (thanhtien)) : null )</td>
-                            <td style="text-align:right">@(item.ChiHo != null ? String.Format("{0:0,0}", (item.ChiHo)) : null)</td>
-                            <td style="text-align:right">@(tongno != null ? String.Format("{0:0,0}", (tongno)): null )</td>
+                            <td style="text-align:right">@(tienthue != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienthue))  : null)</td>
+                            <td style="text-align:right">@(thanhtien != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (thanhtien)) : null )</td>
+                            <td style="text-align:right">@(item.ChiHo != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.ChiHo)) : null)</td>
+                            <td style="text-align:right">@(tongno != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongno)): null )</td>
 
                             <td>@(item.NgayThanhToan != null ? item.NgayThanhToan.Value.ToShortDateString() : null)</td>
-                            <td style="text-align:right">@(item.TienThanhToan != null ? String.Format("{0:0,0}", (item.TienThanhToan)): null )</td>
-                            <td style="text-align:right">@(candoi != null ? String.Format("{0:0,0}", (candoi)): null )</td>
+                            <td style="text-align:right">@(item.TienThanhToan != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienThanhToan)): null )</td>
+                            <td style="text-align:right">@(candoi != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (candoi)): null )</td>
                             <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
                         </tr>
 

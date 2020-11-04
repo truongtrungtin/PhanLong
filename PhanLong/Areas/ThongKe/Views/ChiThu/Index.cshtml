@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<PhanLong.EF.PhatSinhChiThu>
 @using PhanLong.EF;
 @using PhanLong.DAO;
+@using System.Globalization;
+
 @{
     ViewBag.Title = "Thống kê";
     ViewBag.Style = "";
@@ -360,7 +362,7 @@
                     <div class="col-sm-8">
                         <div class="input-group">
 
-                            <input type="text" class="form-control form-control-sm" value="@String.Format("{0:0,0}", (tongchi))" readonly style="text-align:right">
+                            <input type="text" class="form-control form-control-sm" value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongchi))" readonly style="text-align:right">
 
                         </div>
                     </div>
@@ -372,7 +374,7 @@
                     <div class="col-sm-8">
                         <div class="input-group">
 
-                            <input type="text" class="form-control form-control-sm" readonly value="@String.Format("{0:0,0}", (tongthu))" style="text-align:right">
+                            <input type="text" class="form-control form-control-sm" readonly value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongthu))" style="text-align:right">
 
                         </div>
                     </div>
@@ -450,7 +452,7 @@
                                                             tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
                                                             tc += tienchi;
                                                         }
-                                                    }@String.Format("{0:0,0}", (tc))
+                                                    }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tc))
                                                 </td>
                                             }
                                             else
@@ -467,7 +469,7 @@
                                                             tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
                                                             tt += tienthu;
                                                         }
-                                                    }@String.Format("{0:0,0}", (tt))
+                                                    }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tt))
                                                 </td>
                                             }
                                             else
@@ -508,7 +510,7 @@
                                                         tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
                                                         tc += tienchi;
                                                     }
-                                                }@String.Format("{0:0,0}", (tc))
+                                                }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tc))
                                             </td>
                                         }
                                         else
@@ -525,7 +527,7 @@
                                                         tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
                                                         tt += tienthu;
                                                     }
-                                                }@String.Format("{0:0,0}", (tt))
+                                                }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tt))
                                             </td>
                                         }
                                         else
@@ -569,7 +571,7 @@
                                                     tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
                                                     tc += tienchi;
                                                 }
-                                            }@String.Format("{0:0,0}", (tc))
+                                            }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tc))
                                         </td>
                                     }
                                     else
@@ -586,7 +588,7 @@
                                                     tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
                                                     tt += tienthu;
                                                 }
-                                            }@String.Format("{0:0,0}", (tt))
+                                            }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tt))
                                         </td>
                                     }
                                     else
@@ -626,7 +628,7 @@
                                                 tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
                                                 tc += tienchi;
                                             }
-                                        }@String.Format("{0:0,0}", (tc))
+                                        }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tc))
                                     </td>
                                 }
                                 else
@@ -643,7 +645,7 @@
                                                 tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
                                                 tt += tienthu;
                                             }
-                                        }@String.Format("{0:0,0}", (tt))
+                                        }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tt))
                                     </td>
                                 }
                                 else

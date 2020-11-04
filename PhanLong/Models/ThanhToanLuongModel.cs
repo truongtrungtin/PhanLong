@@ -16,6 +16,13 @@ namespace PhanLong.Models
 
         public decimal? tiencuoc { get; set; }
 
+        public decimal? tiennang { get; set; }
+        public decimal? tienha { get; set; }
+        public string phict { get; set; }
+        public decimal? tienphict { get; set; }
+        public string phikhachhang { get; set; }
+        public decimal? tienphikhachhang { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhatSinhLuongModel> PhatSinhLuongs { get; set; }
 

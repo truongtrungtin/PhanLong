@@ -2603,6 +2603,9 @@
     <Content Include="Content\plugins\ckfinder\userfiles\.htaccess" />
     <Content Include="Content\Excel\PhanLong.xls" />
     <Content Include="Areas\ThongKe\Views\ChiTiet\ThanhToanCuoc.cshtml" />
+    <Content Include="Areas\ThongKe\Views\Luong\Thanhtoanchiho.cshtml" />
+    <Content Include="Areas\ThongKe\Views\ChiTiet\EditGhiChuThanhToan.cshtml" />
+    <Content Include="Areas\ThongKe\Views\Luong\EditGhiChuChiHo.cshtml" />
     <None Include="MvcSiteMapSchema.xsd">
       <SubType>Designer</SubType>
     </None>

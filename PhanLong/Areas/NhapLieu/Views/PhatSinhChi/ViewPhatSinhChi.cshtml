@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<PhanLong.EF.PhatSinhChiThu>
 @using PhanLong.DAO
 @using PhanLong.EF
+@using System.Globalization;
+
 @{
     PhanLongDBContext db = new PhanLongDBContext();
 }
@@ -72,7 +74,7 @@
                                     tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
                                     a += tongtien;
                                 }
-                            }@String.Format("{0:0,0}", (a))
+                            }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (a))
                         </td>
                         <td>@item.GhiChu</td>
                     </tr>

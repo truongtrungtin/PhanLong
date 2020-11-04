@@ -27,7 +27,14 @@ namespace PhanLong.DAO
                            Xe = xe.Id,
                            TenTX = nv.TenNV,
                            Cont = ps.SoCont,
-                           tiencuoc = ps.CuocTX
+                           tiencuoc = ps.CuocTX,
+                           tiennang = ps.TienNang,
+                           tienha = ps.TienHa ,
+                           phict = ps.DMPhi.TenPhi,
+                           tienphict =ps.TienPhiCT,
+                           phikhachhang = ps.PhiKH,
+                           tienphikhachhang = ps.TienPhiKH,
+
                        };
             return data.OrderBy(x => x.Xe).ToList();
 

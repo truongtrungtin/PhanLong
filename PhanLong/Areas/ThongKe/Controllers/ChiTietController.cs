@@ -99,5 +99,29 @@ namespace PhanLong.Areas.ThongKe.Controllers
             return View(model);
         }
 
+
+        [HttpGet]
+        public PartialViewResult EditGhiChuThanhToan(long id)
+        {
+            PhatSinh model = new PhatSinhDao().GetById(id);
+
+            return PartialView("EditGhiChuThanhToan", model);
+        }
+
+
+        [HttpPost]
+        public ActionResult EditGhiChuThanhToan(PhatSinh phatSinh, string NgayBD, string NgayKT)
+        {
+            if (new PhatSinhDao().UpdateGhiChuThanhToan(phatSinh))
+            {
+                SetAlert("Đã thêm ghi chú lương thành công!", "success");
+            }
+            else
+            {
+                SetAlert("Thêm ghi chú lương không thành công, vui lòng thử lại!", "warning");
+            }
+            return RedirectToAction("ThanhToanCuoc", "ChiTiet", new { SoBill = phatSinh.SoBill, KhachHang = phatSinh.KhachHang, sday = NgayBD, eday = NgayKT });
+        }
+
     }
 }

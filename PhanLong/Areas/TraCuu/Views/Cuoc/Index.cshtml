@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<PhanLong.EF.TraCuuCuoc>
 @using PhanLong.EF;
 @using PhanLong.DAO;
+@using System.Globalization;
 
 @{
     ViewBag.Title = "Index";
@@ -125,15 +126,15 @@
 
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
-                    <td title="@(item.Kho != null ? item.DMKho.DiaChi : null)">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
-                    <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
-                    <td title="@(item.CangTra != null ? item.DMCang1.TenCang : null)">@(item.CangTra != null ? item.DMCang1.MaCang : null)</td>
-                    <td title="">@String.Format("{0:0,0}", (item.Cuoc)) </td>
-                    <td title="">@String.Format("{0:0,0}", (item.CuocTX)) </td>
+                    <tr>
+                        <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                        <td title="@(item.Kho != null ? item.DMKho.DiaChi : null)">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
+                        <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
+                        <td title="@(item.CangTra != null ? item.DMCang1.TenCang : null)">@(item.CangTra != null ? item.DMCang1.MaCang : null)</td>
+                        <td title="">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.Cuoc)) </td>
+                        <td title="">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocTX)) </td>
 
-                </tr>
+                    </tr>
                 }
             </tbody>
 

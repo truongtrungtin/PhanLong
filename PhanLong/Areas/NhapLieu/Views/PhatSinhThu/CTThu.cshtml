@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<PhanLong.EF.CTChiThu>
+@using System.Globalization;
 
 @{
     ViewBag.Title = "Phát Sinh Thu";
@@ -86,7 +87,7 @@
                                 a += tongtien;
                             }
                             @Html.Label("Tổng tiền thu:", htmlAttributes: new { @class = "control-label" })
-                            <input type="text" readonly style="text-align:right" value="@String.Format("{0:0,0}", (a))" class="form-control form-control-sm" />
+                            <input type="text" readonly style="text-align:right" value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (a))" class="form-control form-control-sm" />
                         </div>
                     </div>
                 </div>
@@ -126,9 +127,9 @@
                                 <td>@(item.Cont != null ? item.Cont : "NULL")</td>
                                 <td>@item.NoiDung</td>
                                 <td>@(item.Phi != null ? item.DMPhi.TenPhi : "NULL")</td>
-                                <td style="text-align:right">@String.Format("{0:0,0}", (item.DonGia))</td>
+                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.DonGia))</td>
                                 <td>@item.SoLuong</td>
-                                <td style="text-align:right"> @{ var tien = Convert.ToInt64(item.DonGia) * item.SoLuong;} @String.Format("{0:0,0}", (tien))</td>
+                                <td style="text-align:right"> @{ var tien = Convert.ToInt64(item.DonGia) * item.SoLuong;} @String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tien))</td>
                             </tr>
                         }
                     </tbody>

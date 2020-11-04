@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<PhanLong.EF.CTChiThu>
+@using System.Globalization;
 
 
 <h4><b>Danh sách</b></h4>
@@ -43,9 +44,9 @@
                     <td>@(item.Cont != null ? item.Cont : "NULL")</td>
                     <td>@item.NoiDung</td>
                     <td>@(item.Phi != null ? item.DMPhi.TenPhi : "NULL")</td>
-                    <td>@String.Format("{0:0,0}", (item.DonGia))</td>
+                    <td>@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.DonGia))</td>
                     <td>@item.SoLuong</td>
-                    <td> @{ var tien = Convert.ToInt64(item.DonGia) * item.SoLuong;} @String.Format("{0:0,0}", (tien))</td>
+                    <td> @{ var tien = Convert.ToInt64(item.DonGia) * item.SoLuong;} @String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tien))</td>
                     <td>
                         @Html.ActionLink("Chỉnh sửa", "UpdateCTChi", new { id = item.Id }, new { @class = "btn btn-primary mb-1" })
                     </td>
@@ -55,7 +56,7 @@
 
     </table>
     <div class="form-group">
-        <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" /> 
+        <input type="submit" value="Xóa" name="delete" id="delete" class="btn btn-warning" />
 
     </div>
 </div>

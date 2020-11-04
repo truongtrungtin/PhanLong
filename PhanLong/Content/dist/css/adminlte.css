@@ -11019,7 +11019,7 @@ a.text-dark:hover, a.text-dark:focus {
 
 
     h6{
-        font-size:12px;
+        font-size:11px;
     }
 
     .card {
@@ -11094,9 +11094,12 @@ a.text-dark:hover, a.text-dark:focus {
         border-collapse: collapse !important;
     }
 
-        .table td,
-        .table th {
+        .table td {
             background-color: #ffffff !important;
+        }
+
+        .table th {
+            background-color: #d1cbc3 !important;
         }
 
 

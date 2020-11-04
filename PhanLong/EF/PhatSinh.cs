@@ -79,6 +79,14 @@
         public string GhiChu { get; set; }
 
         [StringLength(250)]
+        [Display(Name = "Ghi chú chi hộ: ")]
+        public string GhiChuChiHo { get; set; }
+
+        [StringLength(250)]
+        [Display(Name = "Ghi chú thanh toán: ")]
+        public string GhiChuThanhToan { get; set; }
+
+        [StringLength(250)]
         [Display(Name = "Ghi chú lương: ")]
         public string GhiChuLuong { get; set; }
 

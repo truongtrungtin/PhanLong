@@ -1,5 +1,7 @@
 ﻿@model List<PhanLong.Models.ThanhToanLuongModel>
 @using PhanLong.EF
+@using System.Globalization;
+
 @{
     ViewBag.Title = "Thống kê";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -12,6 +14,7 @@
     decimal? tongtien = 0;
     var tongcont = 0;
     var tongngaycong = 0;
+    decimal? tongtienchiho = 0;
 }
 
 @section css{
@@ -82,6 +85,7 @@
                         <th>Số ngày công</th>
                         <th>Tiền cước</th>
                         <th>Trung bình</th>
+                        <th>Tiền chi hộ</th>
                         <th>#</th>
                     </tr>
                 </thead>
@@ -92,6 +96,11 @@
                         DateTime edate = (ViewBag.NgayKT != "") ? Convert.ToDateTime(ViewBag.NgayKT).Date : new DateTime();
                         var socont = db.PhatSinhs.Where(x => x.Xe == item.Xe && (x.Ngay >= sdate && x.Ngay <= edate));
                         var tiencuoc = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tiencuoc);
+                        var tiennang = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tiennang);
+                        var tienha = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tienha);
+                        var tienphict = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tienphict);
+                        var tienphikh = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tienphikhachhang);
+                        var tienchiho = tienha + tiennang + tienphict + tienphikh;
                         var tentx = Model.Where(x => x.Xe == item.Xe).FirstOrDefault().TenTX;
                         using (Html.BeginForm("CTTTLuong", "Luong", FormMethod.Get))
                         {
@@ -105,24 +114,27 @@
                                 <td>@tentx</td>
                                 <td>@socont.Count()</td>
                                 <td>@ngay</td>
-                                <td style="text-align:right">@String.Format("{0:0,0}", (tiencuoc * 60 / 100))</td>
-                                <td style="text-align:right">@String.Format("{0:0,0}", (tiencuoc * 60 / 100 / ngay))</td>
-                                <td><input type="submit" value="Chi tiết" class="btn btn-primary" /></td>
+                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc * 60 / 100))</td>
+                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc * 60 / 100 / ngay))</td>
+                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienchiho))</td>
+                                <td><input type="submit" value="Lương" name="_Submit" class="btn btn-primary" /> <input type="submit" value="Chi hộ" name="_Submit" class="btn btn-primary" /> </td>
                             </tr>
 
+                            }
+                            tongtien += tiencuoc;
+                            tongcont += socont.Count();
+                            tongngaycong += socont.Select(x => x.Ngay).Distinct().Count();
+                            tongtienchiho += tienchiho;
                         }
-                        tongtien += tiencuoc;
-                        tongcont += socont.Count();
-                        tongngaycong += socont.Select(x => x.Ngay).Distinct().Count();
-                    }
                 </tbody>
                 <tfoot>
                     <tr>
                         <td colspan="2">Tổng:</td>
                         <td>@tongcont</td>
                         <td>@tongngaycong</td>
-                        <td style="text-align:right">@String.Format("{0:0,0}", (tongtien * 60 / 100))</td>
-                        <td style="text-align:right">@String.Format("{0:0,0}", (tongtien * 60 / 100 / tongngaycong))</td>
+                        <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongtien * 60 / 100))</td>
+                        <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongtien * 60 / 100 / tongngaycong))</td>
+                        <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongtienchiho / tongngaycong))</td>
                         <td></td>
                     </tr>
 

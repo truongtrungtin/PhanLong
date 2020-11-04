@@ -1,0 +1,223 @@
+﻿@model List<PhanLong.EF.PhatSinh>
+@using PhanLong.EF
+@using System.Globalization;
+@{
+    ViewBag.Title = "Thanh toán chi hộ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.url = "/ThongKe/Luong/Index";
+    ViewBag.Back = "Trở lại";
+
+    PhanLongDBContext db = new PhanLongDBContext();
+
+    DateTime ngaybd = Convert.ToDateTime(ViewBag.NgayBD);
+    DateTime ngaykt = Convert.ToDateTime(ViewBag.NgayKT);
+    var phichi = ViewBag.ChiLuong;
+    int sttc = 0;
+    int sttt = 0;
+    Decimal tongtienchiho = 0;
+    foreach (var item in Model)
+    {
+        tongtienchiho += Convert.ToDecimal(item.TienNang);
+        tongtienchiho += Convert.ToDecimal(item.TienHa);
+        tongtienchiho += Convert.ToDecimal(item.TienPhiCT);
+        tongtienchiho += Convert.ToDecimal(item.TienPhiKH);
+    }
+
+}
+
+@section css{
+    <link href="~/Content/dist/css/Print.css" media="print" rel="stylesheet" />
+    <style>
+    </style>
+}
+
+@using (Html.BeginForm("EditGhiChuChiHo", "Luong", FormMethod.Post))
+{
+    <input type="hidden" readonly class="form-control form-control-sm" name="Xe" value="@ViewBag.id" />
+    <input type="hidden" readonly class="form-control form-control-sm" name="NgayBD" value="@ngaybd" />
+    <input type="hidden" readonly class="form-control form-control-sm" name="NgayKT" value="@ngaykt" />
+
+    <div class="modal fade" id="MyModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="ModalTitle">Update</h5>
+                    <a href="#" class="close" data-dismiss="modal" aria-label="Close">&times;</a>
+                </div>
+                <div class="modal-body" id="myModalBodyDiv">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("Thanhtoanchiho", "Luong", FormMethod.Get))
+{
+    <div class="card no-print">
+        <div class="card-header">
+            <h3 class="card-title">
+                Bộ Lọc
+            </h3>
+        </div>
+        <div class="card-body">
+
+            <input type="hidden" readonly class="form-control form-control-sm" name="id" value="@ViewBag.id" />
+
+            <div class="row">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group row">
+                        <label class="col-form-label col-12 col-sm-6 col-md-3" for="NgayBD">Từ ngày:</label>
+                        <div class="col-12 col-sm-6 col-md-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" name="NgayBD" class="form-control form-control-sm" value="@ngaybd.ToShortDateString()" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
+                    <div class="form-group row">
+                        <label class="col-form-label col-12 col-sm-6 col-md-4" for="NgayKT">Đến ngày:</label>
+                        <div class="col-12 col-sm-6 col-md-8">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" name="NgayKT" class="form-control form-control-sm" value="@ngaykt.ToShortDateString()" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <input type="submit" name="Search" value="Tìm" class="btn btn-primary" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="card invoice">
+    <div class="card-header">
+        <table style="width:100%">
+            <tr>
+                <td style="width:10%"><img style="width:50px;height:50px" src="~/Images/logo.png" /> <b>Công ty TNHH Phan Long</b> </td>
+            </tr>
+            <tr>
+                <td><p style="text-align:right">Ngày lập:<b> @DateTime.Now.ToShortDateString()</b></p></td>
+            </tr>
+        </table>
+
+        <h3 class="card-title" style="float:none;text-align:center;margin-bottom: 0.5rem !important">
+            <b>BẢNG ĐỀ NGHỊ THANH TOÁN</b>
+            <button class="btn btn-primary " onclick="window.print()">
+                <span class="glyphicon glyphicon-print d-print-none" aria-hidden="true"></span> Print
+            </button>
+        </h3>
+        <h6 style="text-align:center">Tài xế: <b>@ViewBag.tx</b></h6>
+        <h6 style="text-align:center">Số xe: <b>@ViewBag.Xe</b></h6>
+        <h6 style="text-align:center">Từ ngày: <b>@ngaybd.Date.ToShortDateString()</b> - Đến ngày: <b>@ngaykt.Date.ToShortDateString()</b></h6>
+        @*<div class="row" style="float:none;text-align:center">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-3 col-lg-3">
+                        </div>
+                        <div class="col-1 col-lg-1">
+                             text input
+                            <div class="form-group">
+                                <label style="text-align:center">20N</label>
+                                <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@ViewBag.N20">
+                            </div>
+                        </div>
+                        <div class="col-1 col-lg-1">
+                             text input
+                            <div class="form-group">
+                                <label style="text-align:center">20X</label>
+                                <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@ViewBag.X20">
+                            </div>
+                        </div>
+                        <div class="col-1 col-lg-1">
+                             text input
+                            <div class="form-group">
+                                <label style="text-align:center">40N</label>
+                                <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@ViewBag.N40">
+                            </div>
+                        </div>
+                        <div class="col-1 col-lg-1">
+                             text input
+                            <div class="form-group">
+                                <label style="text-align:center">40X</label>
+                                <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@ViewBag.X40">
+                            </div>
+                        </div>
+                        <div class="col-2 col-lg-2">
+                            <div class="form-group">
+                                <label style="text-align:center">Tổng chi hộ</label>
+                                <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc * 60 / 100 - tientru))">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>*@
+    </div>
+    <div class="card-body">
+        <table class="table table-hover table-bordered table-striped table-sm" width="100%">
+            <tbody>
+                <tr class="header" style="background-color:grey; height:30px">
+                    <th>STT</th>
+                    <th>Ngày giao</th>
+                    <th>Số Cont</th>
+                    <th>Kho</th>
+                    <th>Tiền nâng</th>
+                    <th>Tiền hạ</th>
+                    <th>Nội dung</th>
+                    <th>Số tiền</th>
+                    <th>Nội dung</th>
+                    <th>Số tiền</th>
+                    <th>Tổng</th>
+                    <th>Ghi chú</th>
+                    <th class="no-print">#</th>
+                </tr>
+            </tbody>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    sttc += 1;
+                    Decimal tiennang = Convert.ToDecimal(item.TienNang);
+                    Decimal TienHa = Convert.ToDecimal(item.TienHa);
+                    Decimal TienPhiCT = Convert.ToDecimal(item.TienPhiCT);
+                    Decimal TienPhiKH = Convert.ToDecimal(item.TienPhiKH);
+                    <tr>
+                        <td>@sttc</td>
+                        <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                        <td style="text-align:left">@(item.SoCont != null ? item.SoCont : null)</td>
+                        <td title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet : null)">@(item.Kho != null ? item.DMKho.DiaChi : null)</td>
+                        <td class="tg-t1ow" style="text-align:right">@(item.TienNang != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienNang)) : null)</td>
+                        <td class="tg-t1ow" style="text-align:right">@(item.TienHa != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienHa)) : null)</td>
+                        <td style="text-align:left">@(item.PhiKH != null ? item.PhiKH : null)</td>
+                        <td class="tg-t1ow" style="text-align:right">@(item.TienPhiKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienPhiKH)) : null)</td>
+                        <td style="text-align:left">@(item.PhiCT != null ? item.DMPhi.TenPhi : null)</td>
+                        <td class="tg-t1ow" style="text-align:right">@(item.TienPhiCT != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienPhiCT)) : null)</td>
+                        <td class="tg-t1ow" style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiennang + TienHa + TienPhiCT + TienPhiKH))</td>
+                        <td style="text-align:left">@(item.GhiChuChiHo != null ? item.GhiChuChiHo : null)</td>
+                        <td class="no-print"><a href="#" class="btn btn-warning" onclick='EditGhiChuChiHo(@item.Id)'>Thêm ghi chú</a></td>
+                    </tr>
+                }
+            </tbody>
+            <tbody>
+                <tr>
+                    <td class="hidden-border" colspan="10" style="text-align:right;border-color:white">Tổng tiền chi hộ:</td>
+                    <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongtienchiho))</td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+

@@ -36,6 +36,7 @@
         display: -ms-inline-flexbox !important;
         display: inline-flex !important;
     }
+
 }
 
 
@@ -48,9 +49,8 @@
         box-shadow: none !important;
     }
 
-
     h6 {
-        font-size: 12px;
+        font-size: 10px;
     }
 
     .card {
@@ -78,11 +78,13 @@
         border: 1px solid #adb5bd;
         page-break-inside: avoid;
     }
+   
 
     thead {
         display: table-header-group;
     }
 
+   
     tr,
     img {
         page-break-inside: avoid;
@@ -125,15 +127,18 @@
         border-collapse: collapse !important;
     }
 
-        .table td,
-        .table th {
+        .table td {
             background-color: #ffffff !important;
         }
 
+        .table th {
+            background-color: #808080 !important;
+        }
 
-    .table-dark {
-        color: black;
-    }
+
+        .table-dark {
+            color: black;
+        }
 
         .table-dark th,
         .table-dark td,
@@ -159,14 +164,11 @@
 
 
 @media print {
-    .no-print, .main-sidebar,
-    .main-header,
-    .content-header {
-        display: none !important;
+    .content-wrapper {
+        background: #ffffff !important;
     }
 
-    .content-wrapper,
-    .main-footer {
+    .content-wrapper, .main-footer {
         -webkit-transform: translate(0, 0);
         transform: translate(0, 0);
         margin-left: 0 !important;
@@ -188,13 +190,7 @@
         float: left;
         width: 33.3333333%;
     }
-
-    .table-responsive {
-        overflow: auto;
-    }
-
-        .table-responsive > .table tr th,
-        .table-responsive > .table tr td {
-            white-space: normal !important;
-        }
+   
 }
+
+

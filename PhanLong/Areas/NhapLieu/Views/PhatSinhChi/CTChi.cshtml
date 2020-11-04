@@ -1,7 +1,8 @@
 ﻿@model IEnumerable<PhanLong.EF.CTChiThu>
+@using System.Globalization;
 
 @{
-    ViewBag.Title = "Phát Sinh Chi" + (ViewBag.HoaDon != "" ?  " - Hoá đơn số:" + ViewBag.HoaDon : null);
+    ViewBag.Title = "Phát Sinh Chi" + (ViewBag.HoaDon != "" ? " - Hoá đơn số:" + ViewBag.HoaDon : null);
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.url = "/NhapLieu/PhatSinhChi";
     ViewBag.Back = "Trở lại";
@@ -92,14 +93,14 @@
                                 a += tongtien;
                             }
                             @Html.Label("Tổng tiền chi:", htmlAttributes: new { @class = "control-label" })
-                            <input type="text" readonly style="text-align:right" value="@String.Format("{0:0,0}", (a))" class="form-control form-control-sm" />
+                            <input type="text" readonly style="text-align:right" value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (a))" class="form-control form-control-sm" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-   
+
 </div>
 
 
@@ -136,9 +137,9 @@
                                 <td>@(item.Cont != null ? item.Cont : "NULL")</td>
                                 <td>@item.NoiDung</td>
                                 <td>@(item.Phi != null ? item.DMPhi.TenPhi : "NULL")</td>
-                                <td style="text-align:right">@String.Format("{0:0,0}", (item.DonGia))</td>
+                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.DonGia))</td>
                                 <td>@item.SoLuong</td>
-                                <td style="text-align:right"> @{ var tien = Convert.ToInt64(item.DonGia) * item.SoLuong;} @String.Format("{0:0,0}", (tien))</td>
+                                <td style="text-align:right"> @{ var tien = Convert.ToInt64(item.DonGia) * item.SoLuong;} @String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tien))</td>
                             </tr>
                         }
                     </tbody>
@@ -160,16 +161,16 @@
 
         </div>
         @*<div style="text-align:right">
-            @using (Html.BeginForm("ImportExcelCTPS", "PhatSinhChi", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                <input type="hidden" name="Sheet" value="CTChi$" />
-                <input type="submit" id="Submit" name="Submit" value="Import Excel" class="btn btn-success" />
-                <label>
-                    <input type="file" id="FileUpload" name="FileUpload" aria-label="EXCEL" />
-                </label>
+                @using (Html.BeginForm("ImportExcelCTPS", "PhatSinhChi", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <input type="hidden" name="Sheet" value="CTChi$" />
+                    <input type="submit" id="Submit" name="Submit" value="Import Excel" class="btn btn-success" />
+                    <label>
+                        <input type="file" id="FileUpload" name="FileUpload" aria-label="EXCEL" />
+                    </label>
 
-            }
-        </div>*@
+                }
+            </div>*@
     </div>
 
 </div>

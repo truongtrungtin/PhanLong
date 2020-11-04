@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<PhanLong.EF.SoPhuNganHang>
+@using System.Globalization;
+
 @{
     ViewBag.Title = "Nhập liệu";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,7 +9,7 @@
 <div class="card">
     <div class="card-header">
         <h3 class="card-title">
-           Sổ phụ ngân hàng @Html.ActionLink("Thêm Mới", "Create", null, new { @class = "btn btn-primary mb-1" })
+            Sổ phụ ngân hàng @Html.ActionLink("Thêm Mới", "Create", null, new { @class = "btn btn-primary mb-1" })
         </h3>
     </div>
     <div class="card-body">
@@ -30,18 +32,18 @@
                 <tbody>
 
                     @foreach (var item in Model)
-                    { 
-                    <tr id="row_@item.Id">
-                        <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                        <td>@(item.Ngay != null ? item.Ngay.Value.ToShortDateString() : null)</td>
-                        <td title="@(item.MaKH != null ? item.DMKhachHang.TenCongTy: null )">@(item.MaKH != null ? item.DMKhachHang.MaKH: null )</td>
-                        <td title="@(item.HTTT != null ? item.HinhThucTT.MoTa: null )">@(item.HTTT != null ? item.HinhThucTT.MaHT: null )</td>
-                        <td  style="text-align:left">@(item.NoiDung != null ? item.NoiDung : null)</td>
-                        <td title="@(item.Phi != null ? item.DMPhi.TenPhi: null)">@(item.Phi != null ? item.DMPhi.MaPhi: null)</td>
-                        <td style="text-align:right">@(item.TienChi != null ? String.Format("{0:0,0}", (item.TienChi)) : null)</td>
-                        <td style="text-align:right">@(item.TienThu != null ? String.Format("{0:0,0}", (item.TienThu)) : null)</td>
-                        <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
-                    </tr>
+                    {
+                        <tr id="row_@item.Id">
+                            <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                            <td>@(item.Ngay != null ? item.Ngay.Value.ToShortDateString() : null)</td>
+                            <td title="@(item.MaKH != null ? item.DMKhachHang.TenCongTy: null )">@(item.MaKH != null ? item.DMKhachHang.MaKH: null )</td>
+                            <td title="@(item.HTTT != null ? item.HinhThucTT.MoTa: null )">@(item.HTTT != null ? item.HinhThucTT.MaHT: null )</td>
+                            <td style="text-align:left">@(item.NoiDung != null ? item.NoiDung : null)</td>
+                            <td title="@(item.Phi != null ? item.DMPhi.TenPhi: null)">@(item.Phi != null ? item.DMPhi.MaPhi: null)</td>
+                            <td style="text-align:right">@(item.TienChi != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienChi)) : null)</td>
+                            <td style="text-align:right">@(item.TienThu != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienThu)) : null)</td>
+                            <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                        </tr>
 
                     }
                 </tbody>

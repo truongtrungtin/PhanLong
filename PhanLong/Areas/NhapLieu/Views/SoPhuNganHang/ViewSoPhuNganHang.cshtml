@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<PhanLong.EF.SoPhuNganHang>
+@using System.Globalization;
 
 <div class="card-header">
     <h3 class="card-title">
@@ -31,10 +32,10 @@
                         <td>@(item.Ngay != null ? item.Ngay.Value.ToShortDateString() : null)</td>
                         <td title="@(item.MaKH != null ? item.DMKhachHang.TenCongTy: null )">@(item.MaKH != null ? item.DMKhachHang.MaKH: null )</td>
                         <td title="@(item.HTTT != null ? item.HinhThucTT.MoTa: null )">@(item.HTTT != null ? item.HinhThucTT.MaHT: null )</td>
-                        <td style="text-align:left" >@(item.NoiDung != null ? item.NoiDung : null)</td>
+                        <td style="text-align:left">@(item.NoiDung != null ? item.NoiDung : null)</td>
                         <td title="@(item.Phi != null ? item.DMPhi.TenPhi: null)">@(item.Phi != null ? item.DMPhi.MaPhi: null)</td>
-                        <td style="text-align:right">@(item.TienChi != null ? String.Format("{0:0,0}", (item.TienChi)) : null)</td>
-                        <td style="text-align:right">@(item.TienThu != null ? String.Format("{0:0,0}", (item.TienThu)) : null)</td>
+                        <td style="text-align:right">@(item.TienChi != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienChi)) : null)</td>
+                        <td style="text-align:right">@(item.TienThu != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienThu)) : null)</td>
                         <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
                     </tr>
 

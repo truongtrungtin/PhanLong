@@ -19,7 +19,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
 
         [HttpPost]
-        public ActionResult Index(int[] chkId, string delete = null, string update = null, string kehoach = null)
+        public ActionResult Index(int[] chkId, string delete = null, string update = null, string kehoach = null, string Copy = null)
         {
             var dao = new PhatSinhDao();
             if (delete != null && chkId != null)
@@ -37,6 +37,10 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             else if (update != null && chkId.Length == 1)
             {
                 return RedirectToAction("Update", "PhatSinh", new { id = chkId[0] });
+            }
+            else if (Copy != null && chkId.Length == 1)
+            {
+                return RedirectToAction("Create", "PhatSinh", new { id = chkId[0], Copy = Copy });
             }
             else if (kehoach != null && chkId.Length == 1)
             {
@@ -71,20 +75,17 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             {
                 var dao = new PhatSinhDao();
                 var model = dao.GetById(id);
-                SetViewBag();
                 return View(model);
             }
             else
             {
-
-                SetViewBag();
                 return View();
             }
         }
 
         [HttpPost]
         [HasCredential(RoleId = "ADD_PHATSINH")]
-        public ActionResult Create(PhatSinh phatSinh, int[] chkId, string delete = null, string update = null, string kehoach = null)
+        public ActionResult Create(PhatSinh phatSinh, int[] chkId, string delete = null, string update = null, string kehoach = null, string Copy = null)
         {
             var ps = new PhatSinhDao();
             if (delete != null && chkId != null)
@@ -102,6 +103,10 @@ namespace PhanLong.Areas.NhapLieu.Controllers
             else if (update != null && chkId.Length == 1)
             {
                 return RedirectToAction("Update", "PhatSinh", new { id = chkId[0] });
+            }
+            else if (Copy != null && chkId.Length == 1)
+            {
+                return RedirectToAction("Create", "PhatSinh", new { id = chkId[0], Copy = Copy });
             }
             else if (kehoach != null && chkId.Length == 1)
             {

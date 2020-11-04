@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<PhanLong.EF.PhatSinh>
 @using PhanLong.EF
 @using PhanLong.Common
+@using System.Globalization;
+
 @{
     ViewBag.Title = "Nhập liệu";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -72,18 +74,18 @@
                                 <td>@(item.SoBill != null ? item.DMBill.MaBill: null)</td>
                                 <td title="@(item.CangNhan != null ? item.DMCang.TenCang: null )">@(item.CangNhan != null ? item.DMCang.MaCang: null)</td>
                                 <td title="@(item.CangTra != null ? item.DMCang1.TenCang: null )">@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
-                                <td style="text-align:right">@(item.CuocKH != null ? String.Format("{0:0,0}", (item.CuocKH)) : null)</td>
-                                <td style="text-align:right">@(item.CuocTX != null ? String.Format("{0:0,0}", (item.CuocTX)) : null)</td>
-                                <td>@(item.DMNhanVien != null ? item.DMNhanVien.MaNV : null)</td>
-                                <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                                <td style="text-align:right">@(item.CuocKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocKH)) : null)</td>
+                                <td style="text-align:right">@(item.CuocTX != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocTX)) : null)</td>
+                                <td title="@(item.DMNhanVien != null ? item.DMNhanVien.TenNV : null)" >@(item.DMNhanVien != null ? item.DMNhanVien.MaNV : null)</td>
+                                <td title="@(item.Xe != null ? item.DMXe.BienSo : null)">@(item.Xe != null ? item.DMXe.MaXe : null)</td>
                                 <td>@(item.HDNang != null ? item.HDNang : null)</td>
-                                <td style="text-align:right">@(item.TienNang != null ? String.Format("{0:0,0}", (item.TienNang))  : null)</td>
+                                <td style="text-align:right">@(item.TienNang != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienNang))  : null)</td>
                                 <td>@(item.HDHa != null ? item.HDHa : null)</td>
-                                <td style="text-align:right">@(item.TienHa != null ? String.Format("{0:0,0}", (item.TienHa)) : null )</td>
+                                <td style="text-align:right">@(item.TienHa != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienHa)) : null )</td>
                                 <td>@(item.PhiKH != null ? item.PhiKH : null)</td>
-                                <td style="text-align:right">@(item.TienPhiKH != null ? String.Format("{0:0,0}", (item.TienPhiKH)) : null)</td>
+                                <td style="text-align:right">@(item.TienPhiKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienPhiKH)) : null)</td>
                                 <td>@(item.PhiCT != null ? item.DMPhi.TenPhi : null)</td>
-                                <td style="text-align:right">@(item.TienPhiCT!= null ? String.Format("{0:0,0}", (item.TienPhiCT)): null )</td>
+                                <td style="text-align:right">@(item.TienPhiCT!= null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienPhiCT)): null )</td>
                                 <td>@(item.Thoigian != null ? item.DMThoiGian.ThoiGian : null)</td>
                                 <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
                             </tr>
@@ -106,6 +108,7 @@
                         {
                             <input type="submit" value="Chỉnh sửa" name="update" id="update" class="dropdown-item" />
                         }
+                        <input type="submit" value="Copy" name="Copy" id="Copy" class="dropdown-item" />
                         <input type="submit" value="Kế hoạch" name="kehoach" id="kehoach" class="dropdown-item" />
                     </div>
                 </div>

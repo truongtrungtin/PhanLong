@@ -677,6 +677,38 @@ namespace PhanLong.DAO
             }
         }
 
+        public bool UpdateGhiChuThanhToan(PhatSinh phatSinh)
+        {
+            try
+            {
+                var item = db.PhatSinhs.Find(phatSinh.Id);
+                item.GhiChuThanhToan = phatSinh.GhiChuThanhToan;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
+        public bool UpdateGhiChuChiHo(PhatSinh phatSinh)
+        {
+            try
+            {
+                var item = db.PhatSinhs.Find(phatSinh.Id);
+                item.GhiChuChiHo = phatSinh.GhiChuChiHo;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
         public bool Update(PhatSinh phatSinh)
         {
             try

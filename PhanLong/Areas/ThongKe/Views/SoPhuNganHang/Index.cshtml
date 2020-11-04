@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<PhanLong.EF.SoPhuNganHang>
 @using PhanLong.EF;
 @using PhanLong.DAO;
+@using System.Globalization;
+
 
 @{
     ViewBag.Title = "Index";
@@ -211,7 +213,7 @@
                     <div class="col-sm-7">
                         <div class="input-group">
 
-                            <input type="text" class="form-control form-control-sm" value="@String.Format("{0:0,0}", (tienchi))" readonly style="text-align:right">
+                            <input type="text" class="form-control form-control-sm" value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienchi))" readonly style="text-align:right">
 
                         </div>
                     </div>
@@ -223,7 +225,7 @@
                     <div class="col-sm-7">
                         <div class="input-group">
 
-                            <input type="text" class="form-control form-control-sm" readonly value="@String.Format("{0:0,0}", (tienthu))" style="text-align:right">
+                            <input type="text" class="form-control form-control-sm" readonly value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienthu))" style="text-align:right">
 
                         </div>
                     </div>
@@ -258,8 +260,8 @@
                             <td title="@(item.HTTT != null ? item.HinhThucTT.MoTa: null )">@(item.HTTT != null ? item.HinhThucTT.MaHT: null )</td>
                             <td style="text-align:left">@(item.NoiDung != null ? item.NoiDung : null)</td>
                             <td title="@(item.Phi != null ? item.DMPhi.TenPhi: null)">@(item.Phi != null ? item.DMPhi.MaPhi: null)</td>
-                            <td style="text-align:right">@(item.TienChi != null ? String.Format("{0:0,0}", (item.TienChi)) : null)</td>
-                            <td style="text-align:right">@(item.TienThu != null ? String.Format("{0:0,0}", (item.TienThu)) : null)</td>
+                            <td style="text-align:right">@(item.TienChi != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienChi)) : null)</td>
+                            <td style="text-align:right">@(item.TienThu != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienThu)) : null)</td>
                             <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
                         </tr>
 
