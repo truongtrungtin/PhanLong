@@ -61,7 +61,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                 </div>
-                                <input type="text" name="NgayBD" class="form-control form-control-sm" value="@ViewBag.NgayBD" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                <input type="text" name="NgayBD" class="form-control form-control-sm" value="@ngaybd" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                             </div>
                         </div>
                     </div>
@@ -74,7 +74,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                 </div>
-                                <input type="text" name="NgayKT" class="form-control form-control-sm" value="@ViewBag.NgayKT" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                <input type="text" name="NgayKT" class="form-control form-control-sm" value="@ngaykt" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                             </div>
                         </div>
                     </div>
@@ -94,7 +94,11 @@
                                 }
                                 @foreach (var item in db.LoaiPhis)
                                 {
-                                    <option value="@item.Id">@item.Loai</option>
+                                    if (ViewBag.IdChiThu != item.Id)
+                                    {
+                                        <option value="@item.Id">@item.Loai</option>
+                                    }
+
                                 }
                             </select>
                         </div>
@@ -193,7 +197,7 @@
 
                     var model = new CTChiDao().ListAll(item.Id);
 
-                    if (maphi.DMPhi.LoaiPhi == 1)
+                    if (maphi.DMPhi.LoaiPhi == 1 || maphi.DMPhi.LoaiPhi == 3 || maphi.DMPhi.LoaiPhi == 4)
                     {
                         tc = 0;
                         var tienchi = 0;
@@ -220,7 +224,7 @@
 
                 var model = new CTChiDao().ListAll(item.Id);
 
-                if (maphi.DMPhi.LoaiPhi == 1)
+                if (maphi.DMPhi.LoaiPhi == 1 || maphi.DMPhi.LoaiPhi == 3 || maphi.DMPhi.LoaiPhi == 4)
                 {
 
                     tc = 0;
@@ -285,7 +289,7 @@
 
         var model = new CTChiDao().ListAll(item.Id);
 
-        if (maphi.DMPhi.LoaiPhi == 1)
+        if (maphi.DMPhi.LoaiPhi == 1 || maphi.DMPhi.LoaiPhi == 3 || maphi.DMPhi.LoaiPhi == 4)
         {
             tc = 0;
             var tienchi = 0;
@@ -442,7 +446,7 @@
                                             <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
                                             <td>@(item.Bill != null ? item.DMBill.MaBill : null)</td>
                                             <td>@(item.SoHD != null ? item.SoHD : null)</td>
-                                            @if (maphi.DMPhi.LoaiPhi == 1)
+                                            @if (maphi.DMPhi.LoaiPhi == 1 || maphi.DMPhi.LoaiPhi == 3 || maphi.DMPhi.LoaiPhi == 4)
                                             {
                                                 <td style="text-align: right">
                                                     @{ tc = 0;
@@ -500,7 +504,7 @@
                                         <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
                                         <td>@(item.Bill != null ? item.DMBill.MaBill : null)</td>
                                         <td>@(item.SoHD != null ? item.SoHD : null)</td>
-                                        @if (maphi.DMPhi.LoaiPhi == 1)
+                                        @if (maphi.DMPhi.LoaiPhi == 1 || maphi.DMPhi.LoaiPhi == 3 || maphi.DMPhi.LoaiPhi == 4)
                                         {
                                             <td style="text-align: right">
                                                 @{ tc = 0;
@@ -561,7 +565,7 @@
                                     <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
                                     <td>@(item.Bill != null ? item.DMBill.MaBill : null)</td>
                                     <td>@(item.SoHD != null ? item.SoHD : null)</td>
-                                    @if (maphi.DMPhi.LoaiPhi == 1)
+                                    @if (maphi.DMPhi.LoaiPhi == 1 || maphi.DMPhi.LoaiPhi == 3 || maphi.DMPhi.LoaiPhi == 4)
                                     {
                                         <td style="text-align: right">
                                             @{ tc = 0;
@@ -618,7 +622,7 @@
                                 <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
                                 <td>@(item.Bill != null ? item.DMBill.MaBill : null)</td>
                                 <td>@(item.SoHD != null ? item.SoHD : null)</td>
-                                @if (maphi.DMPhi.LoaiPhi == 1)
+                                @if (maphi.DMPhi.LoaiPhi == 1 || maphi.DMPhi.LoaiPhi == 3 || maphi.DMPhi.LoaiPhi == 4)
                                 {
                                     <td style="text-align: right">
                                         @{ tc = 0;

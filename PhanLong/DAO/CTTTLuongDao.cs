@@ -59,6 +59,36 @@ namespace PhanLong.DAO
             return data.OrderBy(x => x.NgayChi).Distinct().ToList();
         }
 
+        public List<ThuongTaiXeModel> TienThuong(long? id, string ngayBD, string ngayKT)
+        {
+            DateTime sdate = (ngayBD != "") ? Convert.ToDateTime(ngayBD).Date : new DateTime();
+            DateTime edate = (ngayKT != "") ? Convert.ToDateTime(ngayKT).Date : new DateTime();
+
+            var data = from xe in db.DMXes
+                       join psc in db.PhatSinhChiThus on xe.Id equals psc.Xe
+                       join ctc in db.CTChiThus on psc.Id equals ctc.PhatSinhChiThu
+                       join phi in db.DMPhis on ctc.Phi equals phi.Id
+                       join loaiPhi in db.LoaiPhis on phi.LoaiPhi equals loaiPhi.Id
+                       where xe.Id == id
+                       where loaiPhi.Id == 4
+                       where psc.Xe != null
+                       select new ThuongTaiXeModel()
+                       {
+                           Id = psc.Id,
+                           Ngay = psc.Ngay,
+                           NoiDung = ctc.NoiDung,
+                           HinhThucTT = psc.HinhThucTT.MoTa,
+                           TienThuong = ctc.DonGia * ctc.SoLuong,
+                           ghichu = psc.GhiChu,
+                       };
+            if (!string.IsNullOrEmpty(ngayBD) && !string.IsNullOrEmpty(ngayKT))
+            {
+                var model = data.Where(x => (ngayBD == "" && ngayKT == "") || (x.Ngay >= sdate && x.Ngay <= edate));
+                return model.OrderBy(x => x.Ngay).Distinct().ToList();
+            }
+            return data.OrderBy(x => x.Ngay).Distinct().ToList();
+        }
+
     }
 
 }

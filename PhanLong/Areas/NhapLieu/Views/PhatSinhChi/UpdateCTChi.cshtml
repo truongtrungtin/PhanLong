@@ -60,7 +60,7 @@
                                     }
                                     @foreach (var item in db.DMPhis)
                                     {
-                                        if (item.LoaiPhi == 1 || item.LoaiPhi == 3)
+                                        if ((item.LoaiPhi == 1 || item.LoaiPhi == 3 || item.LoaiPhi == 4) && item.Id != Model.Phi)
                                         {
                                             <option value="@item.Id">@item.TenPhi</option>
 

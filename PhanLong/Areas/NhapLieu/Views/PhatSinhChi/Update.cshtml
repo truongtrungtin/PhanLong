@@ -58,7 +58,11 @@
                                     }
                                     @foreach (var item in db.DMNhanViens)
                                     {
-                                        <option value="@item.Id">@item.MaNV - @item.TenNV</option>
+                                        if (item.Id != Model.NguoiChiThu)
+                                        {
+                                            <option value="@item.Id">@item.MaNV - @item.TenNV</option>
+                                        }
+
                                     }
                                 </select>
                                 @Html.ValidationMessageFor(model => model.NguoiChiThu, "", new { @class = "text-danger" })
@@ -80,7 +84,12 @@
                                     }
                                     @foreach (var item in db.DMKhachHangs)
                                     {
-                                        <option value="@item.Id">@item.MaKH - @item.TenCongTy</option>
+                                        if (item.Id != Model.NguoiNhan)
+                                        {
+                                            <option value="@item.Id">@item.MaKH - @item.TenCongTy</option>
+                                        }
+
+
                                     }
                                 </select>
                                 @Html.ValidationMessageFor(model => model.NguoiNhan, "", new { @class = "text-danger" })
@@ -102,7 +111,11 @@
                                     }
                                     @foreach (var item in db.HinhThucTTs)
                                     {
-                                        <option value="@item.Id">@item.MoTa</option>
+                                        if (item.Id != Model.HTTT)
+                                        {
+                                            <option value="@item.Id">@item.MoTa</option>
+                                        }
+
                                     }
 
                                 </select>
@@ -117,7 +130,7 @@
                                 <select name="KhachHang" class="form-control form-control-sm select2" data-placeholder="Chọn khách hàng" required>
                                     @if (Model.KhachHang != null)
                                     {
-                                        <option value="@Model.KhachHang">@Model.DMKhachHang.TenCongTy</option>
+                                        <option value="@Model.KhachHang">@Model.DMKhachHang.MaKH - @Model.DMKhachHang.TenCongTy</option>
                                     }
                                     else
                                     {
@@ -125,7 +138,11 @@
                                     }
                                     @foreach (var item in db.DMKhachHangs)
                                     {
-                                        <option value="@item.Id">@item.MaKH - @item.TenCongTy</option>
+                                        if (item.Id != Model.KhachHang)
+                                        {
+                                            <option value="@item.Id">@item.MaKH - @item.TenCongTy</option>
+                                        }
+
                                     }
                                 </select>
                                 @Html.ValidationMessageFor(model => model.KhachHang, "", new { @class = "text-danger" })
@@ -153,7 +170,7 @@
                                 <select name="Xe" class="form-control form-control-sm select2" data-placeholder="Chọn Xe">
                                     @if (Model.Xe != null)
                                     {
-                                        <option value="@Model.Xe">@Model.DMXe.BienSo</option>
+                                        <option value="@Model.Xe">@Model.DMXe.MaXe - @Model.DMXe.BienSo</option>
                                     }
                                     else
                                     {
@@ -161,7 +178,11 @@
                                     }
                                     @foreach (var item in db.DMXes)
                                     {
-                                        <option value="@item.Id">@item.BienSo</option>
+                                        if (item.Id != Model.Xe)
+                                        {
+                                            <option value="@item.Id">@item.MaXe @item.BienSo</option>
+
+                                        }
                                     }
                                 </select>
                             </div>
@@ -174,7 +195,7 @@
                                 <select name="Mooc" class="form-control form-control-sm select2" data-placeholder="Chọn Mooc">
                                     @if (Model.Mooc != null)
                                     {
-                                        <option value="@Model.Mooc">@Model.DMMooc.BienSo</option>
+                                        <option value="@Model.Mooc">@Model.DMMooc.MaMooc - @Model.DMMooc.BienSo</option>
                                     }
                                     else
                                     {
@@ -182,7 +203,11 @@
                                     }
                                     @foreach (var item in db.DMMoocs)
                                     {
-                                        <option value="@item.Id">@item.BienSo</option>
+                                        if (item.Id != Model.Mooc)
+                                        {
+                                            <option value="@item.Id">@item.MaMooc - @item.BienSo</option>
+                                        }
+
                                     }
                                 </select>
                             </div>
@@ -203,7 +228,12 @@
                                     }
                                     @foreach (var item in db.DMBills)
                                     {
-                                        <option value="@item.Id">@item.MaBill</option>
+                                        if (item.Id != Model.Bill)
+                                        {
+                                            <option value="@item.Id">@item.MaBill</option>
+                                        }
+
+
                                     }
                                 </select>
                                 @Html.ValidationMessageFor(model => model.Bill, "", new { @class = "text-danger" })

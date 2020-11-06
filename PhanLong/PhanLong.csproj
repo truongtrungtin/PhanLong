@@ -300,6 +300,7 @@
     <Compile Include="Models\TableModel.cs" />
     <Compile Include="Models\ThanhToanLuongModel.cs" />
     <Compile Include="Models\ThongKeBillModel.cs" />
+    <Compile Include="Models\ThuongTaiXeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

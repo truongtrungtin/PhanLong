@@ -46,9 +46,11 @@ namespace PhanLong.Areas.ThongKe.Controllers
                 var xe = new DMXeDao().GetById(id);
                 var model = new CTTTLuongDao().PhatSinhLuong(id, NgayBD, NgayKT);
                 var ChiLuong = new CTTTLuongDao().ChiLuong(id, NgayBD, NgayKT);
+                var TienThuong = new CTTTLuongDao().TienThuong(id, NgayBD, NgayKT);
                 var Loai = new PhatSinhDao().GetLoai(id);
                 var tx = new PhatSinhDao().GetNvByXe(id, NgayBD, NgayKT);
                 ViewBag.ChiLuong = ChiLuong;
+                ViewBag.TienThuong = TienThuong;
                 ViewBag.id = id;
                 ViewBag.tx = tx.DMNhanVien.TenNV;
                 ViewBag.Xe = xe.BienSo;

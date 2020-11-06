@@ -202,7 +202,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in db.PhatSinhs)
+                        @foreach (var item in db.PhatSinhs.OrderBy(x=>x.Ngay))
                         {
                             if ((item.Ngay - DateTime.Now).TotalDays + 0.7 >= 0)
                             {

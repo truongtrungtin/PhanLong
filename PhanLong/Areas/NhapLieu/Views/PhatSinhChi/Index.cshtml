@@ -43,7 +43,7 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        var ct = db.CTChiThus.Where(x => (x.DMPhi.LoaiPhi == 1 || x.DMPhi.LoaiPhi == 3) && x.PhatSinhChiThu == item.Id).FirstOrDefault();
+                        var ct = db.CTChiThus.Where(x => (x.DMPhi.LoaiPhi == 1 || x.DMPhi.LoaiPhi == 3 || x.DMPhi.LoaiPhi == 4) && x.PhatSinhChiThu == item.Id).FirstOrDefault();
                         if ((ct != null ? item.Id == ct.PhatSinhChiThu : false))
                         {
                             var model = new CTChiDao().ListAll(item.Id);

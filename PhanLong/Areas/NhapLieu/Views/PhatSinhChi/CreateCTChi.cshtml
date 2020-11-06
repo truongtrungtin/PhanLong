@@ -50,7 +50,7 @@
                                     <option value=""></option>
                                     @foreach (var item in db.DMPhis)
                                     {
-                                        if (item.LoaiPhi == 1)
+                                        if (item.LoaiPhi == 1 || item.LoaiPhi == 3 || item.LoaiPhi == 4)
                                         {
                                             <option value="@item.Id">@item.TenPhi</option>
 
