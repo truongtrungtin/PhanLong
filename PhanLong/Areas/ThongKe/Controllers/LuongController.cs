@@ -49,7 +49,7 @@ namespace PhanLong.Areas.ThongKe.Controllers
                 var TienThuong = new CTTTLuongDao().TienThuong(id, NgayBD, NgayKT);
                 var Loai = new PhatSinhDao().GetLoai(id);
                 var tx = new PhatSinhDao().GetNvByXe(id, NgayBD, NgayKT);
-                ViewBag.ChiLuong = ChiLuong;
+                ViewBag.ChiLuong = ChiLuong.OrderBy(x=> x.NgayChi);
                 ViewBag.TienThuong = TienThuong;
                 ViewBag.id = id;
                 ViewBag.tx = tx.DMNhanVien.TenNV;

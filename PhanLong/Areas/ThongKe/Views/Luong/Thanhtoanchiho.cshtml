@@ -182,7 +182,7 @@
                 </tr>
             </tbody>
             <tbody>
-                @foreach (var item in Model)
+                @foreach (var item in Model.OrderBy(x=>x.Ngay))
                 {
                     sttc += 1;
                     Decimal tiennang = Convert.ToDecimal(item.TienNang);

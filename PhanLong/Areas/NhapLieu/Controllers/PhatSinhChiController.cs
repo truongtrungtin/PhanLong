@@ -75,7 +75,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         [HttpPost]
         [HasCredential(RoleId = "ADD_PHATSINHCHI")]
-        public ActionResult Create(PhatSinhChiThu phatSinhChi, CTChiThu cTChi, int[] chkId, string delete = null, string update = null, string chitiet = null)
+        public ActionResult Create(PhatSinhChiThu phatSinhChi, CTChiThu cTChi, int[] chkId, string delete = null, string update = null, string chitiet = null, string luuAndAdd = null)
         {
             var dao = new PhatSinhChiDao();
             var ctChi = new CTChiDao();
@@ -110,7 +110,17 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                         if (ctChi.Insert(cTChi, result) > 0)
                         {
                             SetAlert("Đã thêm bảng ghi thành công !", "success");
-                            return RedirectToAction("CTChi", "PhatSinhChi", new { id = result });
+                            if (luuAndAdd != null)
+                            {
+                                return RedirectToAction("Create", "PhatSinhChi");
+
+                            }
+                            else
+                            {
+                                return RedirectToAction("CTChi", "PhatSinhChi", new { id = result });
+
+                            }
+
                         }
                         else
                         {

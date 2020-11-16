@@ -9,6 +9,7 @@
     ViewBag.Back = "Trở lại";
     PhanLongDBContext db = new PhanLongDBContext();
     var stt = 0;
+    var stt1 = 0;
     decimal? chiho = 0;
     decimal? tongchi = 0;
     decimal cuoc = 0;
@@ -24,6 +25,9 @@
         khac += Convert.ToDecimal(item.TienPhiKH);
         chirieng += Convert.ToDecimal(item.TienPhiCT);
     }
+
+    long idKh = Convert.ToInt64(ViewBag.IdKH);
+    long idBill = Convert.ToInt64(ViewBag.IdBill);
     string ngaybd = "";
     string ngaykt = "";
     if (ViewBag.sday != "" && ViewBag.sday != null)
@@ -47,6 +51,11 @@
 
     var total = Model.Select(x => x.Ngay).Distinct().Count();
     var cont = ViewBag.All;
+    decimal phikhac = 0;
+    foreach (var item in db.CTChiThus.Where(x => x.PhatSinhChiThu1.Bill == idBill))
+    {
+        phikhac += Convert.ToInt32(item.SoLuong) * Convert.ToDecimal(item.DonGia);
+    }
 
 }
 @section css{
@@ -101,9 +110,28 @@
         <h3 class="card-title" style="float:none;padding-bottom:10px">
             <b>BẢNG KÊ THANH TOÁN</b>
         </h3>
-        <div class="row" style=" height:30px;">
-            <div class="col-2 col-md-2 col-lg-4">
-            </div>
+        <div class="row">
+            @if (ViewBag.Bill != null)
+            {
+                <div class="col-1 col-md-1 col-lg-1">
+                </div>
+                <div class="col-3 col-md-3 col-lg-3">
+                    <div class="form-group row">
+                        <label class="col-form-label col-2 col-md-2 col-lg-5" style="text-align:right" for="Bill">Bill: </label>
+                        <div class="col-7 col-md-7 col-lg-5">
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" value="@ViewBag.Bill" style="text-align:right" readonly>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="col-2 col-md-2 col-lg-4">
+                </div>
+            }
+
             <div class="col-4 col-md-4 col-lg-2">
                 <div class="form-group row">
                     <label style="text-align:right" class="col-form-label col-4 col-md-4" for="NgayBD">Từ ngày:</label>
@@ -133,21 +161,29 @@
         </div>
         <div class="row">
             <div class="col-0 col-md-2 col-lg-2"></div>
-            <div class="col-4 col-md-3 col-lg-3">
+            <div class="col-5 col-md-4 col-lg-3">
                 <div class="row">
-                    <div class="col-6 col-md-6">
+                    <div class="col-4 col-md-4">
                         <label class="col-form-label col-lg-12" for="tongchi">Tổng cộng</label>
                         <div class="col-lg-12">
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" value="@(cuoc != 0 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (cuoc + nang + ha + khac + chirieng)): null)" style="text-align:right" readonly>
+                                <input type="text" class="form-control form-control-sm" value="@(cuoc != 0 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (cuoc + nang + ha + khac + chirieng + phikhac)): null)" style="text-align:right" readonly>
                             </div>
                         </div>
                     </div>
-                    <div class="col-6 col-md-6">
-                        <label class="col-form-label col-md-12" for="Cuoc">Cước + VAT</label>
+                    <div class="col-4 col-md-4">
+                        <label class="col-form-label col-md-12" for="Cuoc">Cước(VAT)</label>
                         <div class="col-md-12">
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" value="@(cuoc != 0 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (cuoc)): null)" style="text-align:right" readonly>
+                                <input type="text" class="form-control form-control-sm" value="@(cuoc != 0 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (cuoc)): "0")" style="text-align:right" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4 col-md-4">
+                        <label class="col-form-label col-md-12" for="phikhac">Phí Khác</label>
+                        <div class="col-md-12">
+                            <div class="input-group">
+                                <input type="text" class="form-control form-control-sm" value="@(phikhac != 0 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (phikhac)): "0")" style="text-align:right" readonly>
                             </div>
                         </div>
                     </div>
@@ -175,7 +211,7 @@
                         <label class="col-form-label col-md-12" for="Chiho">Tổng chi hộ</label>
                         <div class="col-md-12">
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" value="@(cuoc != 0 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (nang + ha + khac)): null)" style="text-align:right" readonly>
+                                <input type="text" class="form-control form-control-sm" value="@(cuoc != 0 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (nang + ha + khac)): "0")" style="text-align:right" readonly>
                             </div>
                         </div>
                     </div>
@@ -216,7 +252,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div class="col-2 col-md-1 col-lg-1">
@@ -272,18 +307,18 @@
         </div>
     </div>
     <div class="card-body">
-        <table class="table table-hover table-bordered  table-striped table-sm" width="100%">
+        <table class="table table-hover table-bordered table-sm" width="100%">
             <tbody>
-                <tr>
+                <tr style="background-color:rgba(62, 54, 54, 0.1)">
                     <th rowspan="3">STT</th>
                     <th rowspan="3">Ngày</th>
                     <th rowspan="3">Loại</th>
                     <th rowspan="3">Kho giao</th>
                     <th rowspan="3">Số Cont</th>
-                    @if (ViewBag.IdBill != null)
-                    {
-                        <th rowspan="3">Bill</th>
-                    }
+                    @*@if (ViewBag.IdBill != null)
+                        {
+                            <th rowspan="3">Bill</th>
+                        }*@
                     <th rowspan="3">Cảng nhận</th>
                     <th rowspan="3">Cảng trả</th>
                     <th rowspan="3">Cước (VNĐ)</th>
@@ -291,12 +326,12 @@
                     <th rowspan="3">Ghi chú</th>
                     <th rowspan="3" class="no-print">#</th>
                 </tr>
-                <tr>
+                <tr style="background-color:rgba(62, 54, 54, 0.1)">
                     <th colspan="2">Nâng cont</th>
                     <th colspan="2">Hạ cont</th>
                     <th colspan="2">Phí khác</th>
                 </tr>
-                <tr>
+                <tr style="background-color:rgba(62, 54, 54, 0.1)">
                     <th>Hoá đơn</th>
                     <th>Tiền</th>
                     <th>Hoá đơn</th>
@@ -315,10 +350,10 @@
                         <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
                         <td style="text-align:left" title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet : null )">@(item.Kho != null ? item.DMKho.DiaChi : null)</td>
                         <td style="text-align:left">@(item.SoCont != null ? item.SoCont : null)</td>
-                        @if (ViewBag.IdBill != null)
-                        {
-                            <td style="text-align:left">@(item.SoBill != null ? item.DMBill.MaBill : null)</td>
-                        }
+                        @*@if (ViewBag.IdBill != null)
+                            {
+                                <td style="text-align:left">@(item.SoBill != null ? item.DMBill.MaBill : null)</td>
+                            }*@
                         <td style="text-align:left">@(item.CangNhan != null ? item.DMCang.TenCang : null)</td>
                         <td style="text-align:left">@(item.CangTra != null ? item.DMCang1.TenCang : null)</td>
                         <td style="text-align:right">@(item.CuocKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocKH)) : null)</td>
@@ -335,8 +370,52 @@
 
                 }
             </tbody>
+
         </table>
+
+
     </div>
+    @if (db.CTChiThus.Where(x => x.PhatSinhChiThu1.Bill == idBill).Count() > 0)
+    {
+        <div class="card-body">
+            <table class="table table-hover table-bordered table-sm" width="100%">
+                <tbody>
+                    <tr style="background-color:rgba(62, 54, 54, 0.1)">
+                        <th style="text-align:center" colspan="17">Phí Khác</th>
+                    </tr>
+                </tbody>
+                <tbody>
+                    <tr style="background-color:rgba(62, 54, 54, 0.1)">
+                        <th colspan="1">STT</th>
+                        <th colspan="1">Ngày</th>
+                        <th colspan="1">Cont</th>
+                        <th colspan="10">Nội dung</th>
+                        <th colspan="1">Hoá đơn</th>
+                        <th colspan="1">Số tiền</th>
+                        <th colspan="1">Ghi chú</th>
+                        <th colspan="1" class="no-print">#</th>
+                    </tr>
+                </tbody>
+                <tbody>
+                    @foreach (var item in db.CTChiThus.Where(x => x.PhatSinhChiThu1.Bill == idBill).OrderBy(x => x.PhatSinhChiThu1.Ngay))
+                    {
+                        stt1 += 1;
+                        <tr style="background-color:#ffffff">
+                            <td>@stt1</td>
+                            <td>@(item.PhatSinhChiThu1.Ngay != null ? item.PhatSinhChiThu1.Ngay.ToShortDateString() : null)</td>
+                            <td>@item.Cont</td>
+                            <td colspan="10">@item.NoiDung</td>
+                            <td>@item.PhatSinhChiThu1.SoHD</td>
+                            <td style="text-align:right">@(item.DonGia != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.DonGia * item.SoLuong)) : null)</td>
+                            <td>@item.PhatSinhChiThu1.GhiChu</td>
+                            <td class="no-print"></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
 </div>
 
 
