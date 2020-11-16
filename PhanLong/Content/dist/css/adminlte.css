@@ -64,7 +64,7 @@ body {
     font-size: 12px;
     font-weight: 400;
     line-height: 1.5;
-    color: #212529;
+    color: #000000;
     text-align: left;
     background-color: #ffffff;
 }
@@ -2243,7 +2243,7 @@ pre {
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
-    color: #495057;
+    color: #000000;
     background-color: #ffffff;
     background-clip: padding-box;
     border: 1px solid #ced4da;
@@ -2269,7 +2269,7 @@ pre {
 }
 
 .form-control:focus {
-    color: #495057;
+    color: #000000;
     background-color: #ffffff;
     border-color: #80bdff;
     outline: 0;
@@ -10965,11 +10965,11 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 .text-body {
-    color: #212529 !important;
+    color: #000000 !important;
 }
 
 .text-muted {
-    color: #6c757d !important;
+    color: #000000 !important;
 }
 
 .text-black-50 {
