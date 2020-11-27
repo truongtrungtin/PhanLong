@@ -55,13 +55,12 @@ namespace PhanLong.DAO
                        {
                            IdBill = a.Id,
                            Bill = a.MaBill,
-                           Cont = b.Cont,
                            Ngaygiao = b.NgayGiao,
                            NgayLuuBai = b.NgayGui,
                            HanLuuRong = b.HanLuuRong,
                        };
 
-            return data.OrderBy(x => x.HanLuuRong).ToList();
+            return data.ToList();
 
         }
     }

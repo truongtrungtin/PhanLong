@@ -225,7 +225,7 @@
 
                 }
             </tbody>
-            @if (phichi.Count > 0)
+            @if (ViewBag.TongChiLuong > 0)
             {
                 <tbody>
                     <tr class="header" style="background-color:grey; height:30px">
@@ -239,7 +239,7 @@
                     </tr>
                 </tbody>
                 <tbody>
-                    @foreach (var item in ViewBag.ChiLuong)
+                    @foreach (var item in phichi)
                     {
                         sttt += 1;
                         <tr>
@@ -269,7 +269,7 @@
                     </tr>
                 </tbody>
                 <tbody>
-                    @foreach (var item in ViewBag.TienThuong)
+                    @foreach (var item in tienthuong)
                     {
                         sttt += 1;
                         <tr>
