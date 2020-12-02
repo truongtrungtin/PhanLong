@@ -9,7 +9,7 @@
     var notificationluubai = new NotificationsDao().GetNotificationsLuuBai().Where(x => x.HanLuuBai != null && (Convert.ToDateTime(x.HanLuuBai) - DateTime.Now).TotalDays < 3 && ((x.Ngaygiao == null && x.NgayLuuBai == null)));
     var notificationluucont = new NotificationsDao().GetNotificationsLuuCont().Where(x => x.HanLuuCont != null && (Convert.ToDateTime(x.HanLuuCont) - DateTime.Now).TotalDays < 3 && ((x.Ngaygiao == null && x.NgayLuuBai == null)));
     var notificationluurong = new NotificationsDao().GetNotificationsLuuRong().Where(x => x.HanLuuRong != null && (Convert.ToDateTime(x.HanLuuRong) - DateTime.Now).TotalDays < 3 && ((x.Ngaygiao == null && x.NgayLuuBai == null)));
-    var notification = new NotificationsDao().GetNotificationsLuuRong().Where(x =>((x.HanLuuRong != null && (Convert.ToDateTime(x.HanLuuRong) - DateTime.Now).TotalDays < 3) || (x.HanLuuCont != null &&(Convert.ToDateTime(x.HanLuuCont) - DateTime.Now).TotalDays < 3) || (x.HanLuuBai != null && (Convert.ToDateTime(x.HanLuuBai) - DateTime.Now).TotalDays < 3)) && (x.Ngaygiao == null && x.NgayLuuBai == null)).Select(x=> new {x.IdBill, x.Bill,x.HanLuuBai, x.HanLuuRong, x.HanLuuCont }).Distinct();
+    var notification = new NotificationsDao().GetNotificationsLuuRong().Where(x => ((x.HanLuuRong != null && (Convert.ToDateTime(x.HanLuuRong) - DateTime.Now).TotalDays < 3) || (x.HanLuuCont != null && (Convert.ToDateTime(x.HanLuuCont) - DateTime.Now).TotalDays < 3) || (x.HanLuuBai != null && (Convert.ToDateTime(x.HanLuuBai) - DateTime.Now).TotalDays < 3)) && (x.Ngaygiao == null && x.NgayLuuBai == null)).Select(x => new { x.IdBill, x.Bill, x.HanLuuBai, x.HanLuuRong, x.HanLuuCont }).Distinct();
 
 }
 @section css{
@@ -65,35 +65,35 @@
                         <tbody>
                             @foreach (var item in notification)
                             {
-                            <tr>
-                                <td><a href="/ThongKe/Bill/CTBill/@item.IdBill">@item.Bill</a></td>
-                                <td title="@db.DMBills.SingleOrDefault(x=> x.Id == item.IdBill).DMKhachHang.TenCongTy">@db.DMBills.SingleOrDefault(x => x.Id == item.IdBill).DMKhachHang.MaKH</td>
-                                <td>Hãng tàu</td>
-                                <td>
-                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
-                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) > 0 ?
+                                <tr>
+                                    <td><a href="/ThongKe/Bill/CTBill/@item.IdBill">@item.Bill</a></td>
+                                    <td title="@db.DMBills.SingleOrDefault(x=> x.Id == item.IdBill).DMKhachHang.TenCongTy">@db.DMBills.SingleOrDefault(x => x.Id == item.IdBill).DMKhachHang.MaKH</td>
+                                    <td>Hãng tàu</td>
+                                    <td>
+                                        @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
+                                        @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) > 0 ?
                                     Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) :
                                     Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays))
                                     ) ngày
 
-                                </td>
-                                <td>
-                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
-                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) > 0 ?
+                                    </td>
+                                    <td>
+                                        @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
+                                        @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) > 0 ?
                                     Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) :
                                     Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays))
                                     ) ngày
-                                </td>
-                                <td>
-                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
-                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) > 0 ?
+                                    </td>
+                                    <td>
+                                        @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
+                                        @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) > 0 ?
                                     Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) :
                                     Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays))
                                     ) ngày
-                                </td>
+                                    </td>
 
-                                <td>Ghi chú</td>
-                            </tr>
+                                    <td>Ghi chú</td>
+                                </tr>
 
                             }
 
@@ -212,7 +212,7 @@
 }
 
 <div class="row">
-    <section class="col-lg-7 connectedSortable">
+    <section class="col-lg-12 connectedSortable">
         <!-- /.card -->
         <!-- solid sales graph -->
         <div class="card ">
@@ -264,6 +264,11 @@
             </div>
 
         </div>
+    
+        <!-- /.card -->
+    </section>
+    <section class="col-lg-7 connectedSortable">
+        <!-- /.card -->
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">
@@ -373,59 +378,57 @@
     </section>
     <!-- /.Left col -->
     <!-- right col (We are only adding the ID to make the widgets sortable)-->
-    <section class="col-lg-5 connectedSortable">
-        <!-- /.card -->
-        <!-- solid sales graph -->
-        <div class="card bg-gradient-info">
-            <div class="card-header border-0">
-                <h3 class="card-title">
-                    <i class="fas fa-th mr-1"></i>
-                    Thống kê lương
-                </h3>
+    <!--<section class="col-lg-5 connectedSortable">-->
+    <!-- /.card -->
+    <!-- solid sales graph -->
+    <!--<div class="card bg-gradient-info">
+        <div class="card-header border-0">
+            <h3 class="card-title">
+                <i class="fas fa-th mr-1"></i>
+                Thống kê lương
+            </h3>-->
+    <!-- <div class="card-tools">
+        <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
+            <i class="fas fa-minus"></i>
+        </button>
+        <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>-->
+    <!--</div>
+    <div class="card-body">
+        <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+    </div>-->
+    <!-- /.card-body -->
+    <!--<div class="card-footer bg-transparent">
+        <div class="row">
+            <div class="col-4 text-center">
+                <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
+                       data-fgColor="#39CCCC">
+                <div class="text-white">Mail-Orders</div>
+            </div>-->
+    <!-- ./col -->
+    <!--<div class="col-4 text-center">
+        <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
+               data-fgColor="#39CCCC">
 
-                @*<div class="card-tools">
-                        <button type="button" class="btn bg-info btn-sm" data-card-widget="collapse">
-                            <i class="fas fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn bg-info btn-sm" data-card-widget="remove">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>*@
-            </div>
-            <div class="card-body">
-                <canvas class="chart" id="line-chart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
-            </div>
-            <!-- /.card-body -->
-            <div class="card-footer bg-transparent">
-                <div class="row">
-                    <div class="col-4 text-center">
-                        <input type="text" class="knob" data-readonly="true" value="20" data-width="60" data-height="60"
-                               data-fgColor="#39CCCC">
-                        <div class="text-white">Mail-Orders</div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-4 text-center">
-                        <input type="text" class="knob" data-readonly="true" value="50" data-width="60" data-height="60"
-                               data-fgColor="#39CCCC">
+        <div class="text-white">Online</div>
+    </div>-->
+    <!-- ./col -->
+    <!--<div class="col-4 text-center">
+        <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
+               data-fgColor="#39CCCC">
 
-                        <div class="text-white">Online</div>
-                    </div>
-                    <!-- ./col -->
-                    <div class="col-4 text-center">
-                        <input type="text" class="knob" data-readonly="true" value="30" data-width="60" data-height="60"
-                               data-fgColor="#39CCCC">
-
-                        <div class="text-white">In-Store</div>
-                    </div>
-                    <!-- ./col -->
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.card-footer -->
-        </div>
-        <!-- /.card -->
-    </section>
-
+        <div class="text-white">In-Store</div>
+    </div>-->
+    <!-- ./col -->
+    <!--</div>-->
+    <!-- /.row -->
+    <!--</div>-->
+    <!-- /.card-footer -->
+    <!--</div>-->
+    <!-- /.card -->
+    <!--</section>-->
     <!-- right col -->
 </div>
 <!-- /.row (main row) -->

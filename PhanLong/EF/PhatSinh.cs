@@ -96,6 +96,8 @@
         [Column(TypeName = "date")]
         public DateTime? DateUpdate { get; set; }
 
+        public bool? VAT { get; set; }
+
         [Column(TypeName = "xml")]
         public string Files { get; set; }
 

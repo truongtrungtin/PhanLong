@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     [Table("DMBill")]
     public partial class DMBill
@@ -27,6 +28,9 @@
         [StringLength(250)]
         [Required, Display(Name = "Mã Bill: ")]
         public string MaBill { get; set; }
+
+        [StringLength(50)]
+        public string HangTau { get; set; }
 
         [StringLength(250)]
         [Display(Name = "Người gửi: ")]
@@ -56,6 +60,7 @@
         [Column(TypeName = "date")]
         [Display(Name = "Ngày ĐK: ")]
         public DateTime? NgayDK { get; set; }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTBill> CTBills { get; set; }

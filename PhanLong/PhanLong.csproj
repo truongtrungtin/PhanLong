@@ -274,6 +274,7 @@
     <Compile Include="EF\DMThoiGian.cs" />
     <Compile Include="EF\DMXe.cs" />
     <Compile Include="EF\HinhThucTT.cs" />
+    <Compile Include="EF\History.cs" />
     <Compile Include="EF\HoaDon.cs" />
     <Compile Include="EF\LoaiPhi.cs" />
     <Compile Include="EF\Menu.cs" />
@@ -282,7 +283,6 @@
     <Compile Include="EF\PhatSinhChiThu.cs" />
     <Compile Include="EF\Role.cs" />
     <Compile Include="EF\SoPhuNganHang.cs" />
-    <Compile Include="EF\sysdiagram.cs" />
     <Compile Include="EF\TodoList.cs" />
     <Compile Include="EF\TraCuuCuoc.cs" />
     <Compile Include="EF\User.cs" />

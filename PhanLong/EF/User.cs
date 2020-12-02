@@ -4,6 +4,7 @@ namespace PhanLong.EF
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     [Table("User")]
     public partial class User
@@ -56,6 +57,8 @@ namespace PhanLong.EF
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Credential> Credentials { get; set; }
+
+        public virtual History History { get; set; }
 
         public virtual UserGroup UserGroup { get; set; }
     }

@@ -1,6 +1,9 @@
 namespace PhanLong.EF
 {
+    using System;
     using System.Data.Entity;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
 
     public partial class PhanLongDBContext : DbContext
     {
@@ -24,6 +27,7 @@ namespace PhanLong.EF
         public virtual DbSet<DMThoiGian> DMThoiGians { get; set; }
         public virtual DbSet<DMXe> DMXes { get; set; }
         public virtual DbSet<HinhThucTT> HinhThucTTs { get; set; }
+        public virtual DbSet<History> Histories { get; set; }
         public virtual DbSet<HoaDon> HoaDons { get; set; }
         public virtual DbSet<LoaiPhi> LoaiPhis { get; set; }
         public virtual DbSet<Menu> Menus { get; set; }
@@ -31,7 +35,6 @@ namespace PhanLong.EF
         public virtual DbSet<PhatSinhChiThu> PhatSinhChiThus { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<SoPhuNganHang> SoPhuNganHangs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TodoList> TodoLists { get; set; }
         public virtual DbSet<TraCuuCuoc> TraCuuCuocs { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -149,9 +152,8 @@ namespace PhanLong.EF
 
             modelBuilder.Entity<DMKhachHang>()
                 .HasMany(e => e.DMBills)
-                .WithRequired(e => e.DMKhachHang)
-                .HasForeignKey(e => e.KhachHang)
-                .WillCascadeOnDelete(false);
+                .WithOptional(e => e.DMKhachHang)
+                .HasForeignKey(e => e.KhachHang);
 
             modelBuilder.Entity<DMKhachHang>()
                 .HasMany(e => e.HoaDons)
@@ -353,7 +355,8 @@ namespace PhanLong.EF
             modelBuilder.Entity<PhatSinhChiThu>()
                 .HasMany(e => e.CTChiThus)
                 .WithOptional(e => e.PhatSinhChiThu1)
-                .HasForeignKey(e => e.PhatSinhChiThu);
+                .HasForeignKey(e => e.PhatSinhChiThu)
+                .WillCascadeOnDelete();
 
             modelBuilder.Entity<SoPhuNganHang>()
                 .Property(e => e.TienChi)
@@ -374,6 +377,10 @@ namespace PhanLong.EF
             modelBuilder.Entity<TraCuuCuoc>()
                 .Property(e => e.CuocTX)
                 .HasPrecision(18, 0);
+
+            modelBuilder.Entity<User>()
+                .HasOptional(e => e.History)
+                .WithRequired(e => e.User1);
 
             modelBuilder.Entity<UserGroup>()
                 .HasMany(e => e.Users)
