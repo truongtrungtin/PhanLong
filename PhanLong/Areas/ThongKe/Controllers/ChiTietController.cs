@@ -123,5 +123,15 @@ namespace PhanLong.Areas.ThongKe.Controllers
             return RedirectToAction("ThanhToanCuoc", "ChiTiet", new { SoBill = phatSinh.SoBill, KhachHang = phatSinh.KhachHang, sday = NgayBD, eday = NgayKT });
         }
 
+        [HttpPost]
+        public JsonResult ChangeStatusVAT(long id)
+        {
+            var result = new PhatSinhDao().ChangeStatusVAT(id);
+            return Json(new
+            {
+                VAT = result
+            });
+        }
+
     }
 }

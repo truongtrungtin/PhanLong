@@ -1,10 +1,10 @@
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Linq;
+
 namespace PhanLong.EF
 {
-    using System;
-    using System.Data.Entity;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Linq;
-
     public partial class PhanLongDBContext : DbContext
     {
         public PhanLongDBContext()
@@ -35,6 +35,7 @@ namespace PhanLong.EF
         public virtual DbSet<PhatSinhChiThu> PhatSinhChiThus { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<SoPhuNganHang> SoPhuNganHangs { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TodoList> TodoLists { get; set; }
         public virtual DbSet<TraCuuCuoc> TraCuuCuocs { get; set; }
         public virtual DbSet<User> Users { get; set; }

@@ -1,8 +1,10 @@
 ﻿namespace PhanLong.EF
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     [Table("PhatSinh")]
     public partial class PhatSinh
@@ -96,6 +98,7 @@
         [Column(TypeName = "date")]
         public DateTime? DateUpdate { get; set; }
 
+        [Display(Name = "VAT: ")]
         public bool? VAT { get; set; }
 
         [Column(TypeName = "xml")]

@@ -677,6 +677,15 @@ namespace PhanLong.DAO
             }
         }
 
+        public bool? ChangeStatusVAT(long id)
+        {
+            var item = db.PhatSinhs.Find(id);
+            item.VAT = !item.VAT;
+            db.SaveChanges();
+
+            return item.VAT;
+        }
+
         public bool UpdateGhiChuThanhToan(PhatSinh phatSinh)
         {
             try
@@ -735,6 +744,7 @@ namespace PhanLong.DAO
                 item.PhiCT = phatSinh.PhiCT;
                 item.TienPhiCT = phatSinh.TienPhiCT;
                 item.GhiChu = phatSinh.GhiChu;
+                item.VAT = phatSinh.VAT;
                 item.Thoigian = phatSinh.Thoigian;
                 item.DateUpdate = DateTime.Now;
                 db.SaveChanges();

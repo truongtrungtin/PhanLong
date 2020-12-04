@@ -365,7 +365,7 @@
                                     {
                                         if (item.Id != Model.PhiCT)
                                         {
-                                        <option value="@item.Id">@item.MaPhi - @item.TenPhi</option>
+                                            <option value="@item.Id">@item.MaPhi - @item.TenPhi</option>
                                         }
                                     }
                                 </select>
@@ -399,7 +399,7 @@
                                     {
                                         if (item.Id != Model.Thoigian)
                                         {
-                                        <option value="@item.Id">@item.ThoiGian</option>
+                                            <option value="@item.Id">@item.ThoiGian</option>
                                         }
                                     }
                                 </select>
@@ -407,10 +407,38 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-1">
                         <div class="form-group row">
-                            <label class="col-form-label col-sm-1" style="text-align:right" for="GhiChu">Ghi chú:</label>
-                            <div class="col-sm-11">
+                            @Html.LabelFor(model => model.VAT, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
+                            <div class="col-sm-8">
+                                <select name="VAT" class="form-control form-control-sm">
+                                    @if (Model.VAT != null)
+                                    {
+                                        <option value="@Model.VAT.ToString()">@(Model.VAT == true ? "Có" : "không")</option>
+                                        if (Model.VAT == true)
+                                        {
+                                            <option value="false">Không</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="true">Có</option>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <option value="">Chọn</option>
+                                        <option value="true">Có</option>
+                                        <option value="false">Không</option>
+                                    }
+
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="form-group row">
+                            <label class="col-form-label col-sm-2" style="text-align:right" for="GhiChu">Ghi chú:</label>
+                            <div class="col-sm-10">
                                 <textarea type="text" name="GhiChu" class="form-control form-control-sm" rows="1" placeholder="Ghi chú ....">@Model.GhiChu</textarea>
                             </div>
                         </div>
