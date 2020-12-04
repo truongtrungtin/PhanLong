@@ -272,6 +272,7 @@ namespace PhanLong.DAO
                 item.NgayTauDen = dMBill.NgayTauDen;
                 item.CangNhan = dMBill.CangNhan;
                 item.KhachHang = dMBill.KhachHang;
+                item.GhiChuBill = dMBill.GhiChuBill;
                 item.DateUpdate = DateTime.Now;
                 db.SaveChanges();
                 return true;

@@ -76,6 +76,7 @@ namespace PhanLong.DAO
                            HanLuuRong = b.HanLuuRong,
                            HanLuuCont = b.HanLuuCont,
                            HanLuuBai = b.HanLuuBai,
+                           GhiChuBill = a.GhiChuBill,
                        };
 
             return data.ToList();

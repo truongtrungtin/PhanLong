@@ -30,6 +30,7 @@
         public string MaBill { get; set; }
 
         [StringLength(50)]
+        [Display(Name = "Hãng tàu: ")]
         public string HangTau { get; set; }
 
         [StringLength(250)]
@@ -61,6 +62,9 @@
         [Display(Name = "Ngày ĐK: ")]
         public DateTime? NgayDK { get; set; }
 
+        [StringLength(250)]
+        [Display(Name = "Ghi chú: ")]
+        public string GhiChuBill { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CTBill> CTBills { get; set; }

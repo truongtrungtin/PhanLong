@@ -15,5 +15,7 @@ namespace PhanLong.Models
 
         public DateTime? Ngaygiao { set; get; }
         public DateTime? NgayLuuBai { set; get; }
+
+        public string GhiChuBill { set; get; }
     }
 }
