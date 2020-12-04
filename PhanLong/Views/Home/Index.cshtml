@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     PhanLongDBContext db = new PhanLongDBContext();
     var session = (UserLogin)Session[CommonConstants.USER_SESSION];
-    var notification = new NotificationsDao().GetNotifications().Where(x => ((x.HanLuuBai != null && (Convert.ToDateTime(x.HanLuuBai) - DateTime.Now.Date).TotalDays < 3) || (x.HanLuuRong != null && (Convert.ToDateTime(x.HanLuuRong) - DateTime.Now.Date).TotalDays < 3) || (x.HanLuuCont != null && (Convert.ToDateTime(x.HanLuuCont) - DateTime.Now.Date).TotalDays < 3)) && (x.Ngaygiao == null && x.NgayLuuBai == null)).Select(x => new { x.IdBill, x.Bill, x.HanLuuBai, x.HanLuuRong, x.HanLuuCont }).Distinct();
+    var notification = new NotificationsDao().GetNotifications().Where(x => ((x.HanLuuBai != null && (Convert.ToDateTime(x.HanLuuBai) - DateTime.Now.Date).TotalDays <= 3) || (x.HanLuuRong != null && (Convert.ToDateTime(x.HanLuuRong) - DateTime.Now.Date).TotalDays <= 3) || (x.HanLuuCont != null && (Convert.ToDateTime(x.HanLuuCont) - DateTime.Now.Date).TotalDays <= 3)) && (x.Ngaygiao == null && x.NgayLuuBai == null)).Select(x => new { x.IdBill, x.Bill, x.HanLuuBai, x.HanLuuRong, x.HanLuuCont }).Distinct();
 
 }
 @section css{
@@ -48,7 +48,6 @@
                 </div>
 
                 <div class="modal-body">
-
                     <table class="table table-hover table-bordered table-sm" id="dataTable" style="max-width:100%;">
                         <thead>
                             <tr>
@@ -271,7 +270,7 @@
                 </h3>
             </div>
             <div class="card-body">
-                <table class="table table-hover table-bordered table-striped table-sm" id="dataTable" style="width:100%;">
+                <table class="table table-hover table-bordered table-striped table-sm" id="GiaoNhanTable" >
                     <thead>
                         <tr>
                             <th width="10%" title="ngày giao">Ngày giao</th>
@@ -499,6 +498,10 @@
     <script src="/Content/plugins/summernote/summernote-bs4.min.js"></script>
     <script src="/Scripts/jquery.unobtrusive-ajax.min.js"></script>
     <script>
+        $('#GiaoNhanTable').DataTable({
+            "ordering": false
+        });
+
         // Make the dashboard widgets sortable Using jquery UI
         $('.connectedSortable').sortable({
             placeholder: 'sort-highlight',
