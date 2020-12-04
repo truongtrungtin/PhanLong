@@ -5,9 +5,8 @@
 @{
     PhanLongDBContext db = new PhanLongDBContext();
     var session = (UserLogin)Session[CommonConstants.USER_SESSION];
-    var notificationluubai = new NotificationsDao().GetNotificationsLuuBai().Where(x => x.HanLuuBai != null && (Convert.ToDateTime(x.HanLuuBai) - DateTime.Now).TotalDays < 3 && ((x.Ngaygiao == null && x.NgayLuuBai == null)));
-    var notificationluucont = new NotificationsDao().GetNotificationsLuuCont().Where(x => x.HanLuuCont != null && (Convert.ToDateTime(x.HanLuuCont) - DateTime.Now).TotalDays < 3 && ((x.Ngaygiao == null && x.NgayLuuBai == null)));
-    var notificationluurong = new NotificationsDao().GetNotificationsLuuRong().Where(x => x.HanLuuRong != null && (Convert.ToDateTime(x.HanLuuRong) - DateTime.Now).TotalDays < 3 && ((x.Ngaygiao == null && x.NgayLuuBai == null)));
+    var notification = new NotificationsDao().GetNotifications().Where(x => ((x.HanLuuBai != null && (Convert.ToDateTime(x.HanLuuBai) - DateTime.Now.Date).TotalDays <= 3) || (x.HanLuuRong != null && (Convert.ToDateTime(x.HanLuuRong) - DateTime.Now.Date).TotalDays <= 3) || (x.HanLuuCont != null && (Convert.ToDateTime(x.HanLuuCont) - DateTime.Now.Date).TotalDays <= 3)) && (x.Ngaygiao == null && x.NgayLuuBai == null)).Select(x => new { x.IdBill, x.Bill, x.HanLuuBai, x.HanLuuRong, x.HanLuuCont }).Distinct();
+
 
 }
 <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0 text-sm">
@@ -38,67 +37,178 @@
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell" style="font-size:1.5rem"></i>
-                <span class="badge badge-danger navbar-badge">@(notificationluubai.Count() + notificationluucont.Count() + notificationluurong.Count())</span>
+                <span class="badge badge-danger navbar-badge">@(notification.Count())</span>
             </a>
-            @if ((notificationluubai.Count() + notificationluucont.Count() + notificationluurong.Count()) > 0)
+            @if (notification.Count() > 0)
             {
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <span class="dropdown-item dropdown-header">@(notificationluubai.Count() + notificationluucont.Count() + notificationluurong.Count()) thông báo</span>
+                    <span class="dropdown-item dropdown-header font-weight-bold">@(notification.Count()) thông báo</span>
                     <div class="dropdown-divider"></div>
-                    @foreach (var item in notificationluubai)
-                    {
-                        <a href="/ThongKe/Bill/CTBill/@item.IdBill" class="dropdown-item">
-                            @item.Bill - @item.Cont
-                            @if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) < 0)
+                    <table class="table table-hover table-bordered table-sm" style="max-width:100%;">
+                        <thead>
+                            <tr>
+                                <th title="Bill">Bill</th>
+                                <th title="Lưu bãi">Lưu bãi</th>
+                                <th title="Lưu cont">Lưu cont</th>
+                                <th title="Lưu rỗng">Lưu rỗng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in notification)
                             {
-                                <span class="float-right text-muted text-sm">Quá hạn @(Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays))) ngày lưu bãi</span>
+
+                                if ((item.HanLuuBai != null & Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) < 2) || (item.HanLuuCont != null & Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) < 2) || (item.HanLuuRong != null & Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now.Date).TotalDays) < 2))
+                                {
+
+                                    <tr style="color:red">
+                                        <td><a href="/ThongKe/Bill/CTBill/@item.IdBill">@item.Bill</a></td>
+                                        @if (item.HanLuuBai == null)
+                                        {
+                                            <td style="color:red">Chưa nhập hạn lưu bãi</td>
+                                        }
+                                        else
+                                        {
+                                            if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) == 0)
+                                            {
+                                                <td style="color:red">
+                                                    Tới hạn (@item.HanLuuBai.Value.ToShortDateString())
+
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) > 0 ?
+                                    Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) :
+                                    Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays))
+                                    ) ngày (@item.HanLuuBai.Value.ToShortDateString())
+                                </td>
                             }
-                            else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) > 0)
-                            {
-                                <span class="float-right text-muted text-sm">Còn @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays)) ngày lưu bãi</span>
+                        }
+
+                                        @if (item.HanLuuBai == null)
+                                        {
+                                            <td style="color:red">Chưa nhập hạn lưu bãi</td>
+                                        }
+                                        else
+                                        {
+                                            if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) == 0)
+                                            {
+                                                <td style="color:red">
+                                                    Tới hạn (@item.HanLuuCont.Value.ToShortDateString())
+
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) > 0 ?
+                                    Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) :
+                                    Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays))
+                                    ) ngày (@item.HanLuuCont.Value.ToShortDateString())
+                                </td>
                             }
-                            else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now).TotalDays) == 0)
-                            {
-                                <span class="float-right text-muted text-sm">Tới hạn lưu bãi</span>
+                        }
+
+                                        @if (item.HanLuuRong == null)
+                                        {
+                                            <td style="color:red">Chưa nhập hạn lưu rỗng</td>
+                                        }
+                                        else
+                                        {
+                                            if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now.Date).TotalDays) == 0)
+                                            {
+                                                <td style="color:red">
+                                                    Tới hạn (@item.HanLuuRong.Value.ToShortDateString())
+
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now.Date).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now.Date).TotalDays) > 0 ? Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now.Date).TotalDays) :Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now.Date).TotalDays))) ngày (@item.HanLuuRong.Value.ToShortDateString())
+                                                </td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td><a href="/ThongKe/Bill/CTBill/@item.IdBill">@item.Bill</a></td>
+                                        @if (item.HanLuuBai == null)
+                                        {
+                                            <td style="color:red">Chưa nhập hạn lưu bãi</td>
+                                        }
+                                        else
+                                        {
+                                            if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) == 0)
+                                            {
+                                                <td style="color:red">
+                                                    Tới hạn (@item.HanLuuBai.Value.ToShortDateString())
+
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) > 0 ? Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) : Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays))) ngày (@item.HanLuuBai.Value.ToShortDateString())
+                                                </td>
+                                            }
+                                        }
+
+                                        @if (item.HanLuuBai == null)
+                                        {
+                                            <td style="color:red">Chưa nhập hạn lưu bãi</td>
+                                        }
+                                        else
+                                        {
+                                            if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) == 0)
+                                            {
+                                                <td style="color:red">
+                                                    Tới hạn (@item.HanLuuCont.Value.ToShortDateString())
+
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) > 0 ?Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) :Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays))) ngày (@item.HanLuuCont.Value.ToShortDateString())
+                                                </td>
+                                            }
+                                        }
+
+                                        @if (item.HanLuuRong == null)
+                                        {
+                                            <td style="color:red">Chưa nhập hạn lưu rỗng</td>
+                                        }
+                                        else
+                                        {
+                                            if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now.Date).TotalDays) == 0)
+                                            {
+                                                <td style="color:red">
+                                                    Tới hạn (@item.HanLuuRong.Value.ToShortDateString())
+
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td>
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now.Date).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now.Date).TotalDays) > 0 ? Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now.Date).TotalDays) :Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now.Date).TotalDays))) ngày (@item.HanLuuRong.Value.ToShortDateString())
+                                                </td>
+                                            }
+                                        }
+                                    </tr>
+                                }
                             }
-                        </a>
-                    }
-                    @foreach (var item in notificationluucont)
-                    {
-                        <a href="/ThongKe/Bill/CTBill/@item.IdBill" class="dropdown-item">
-                            @item.Bill - @item.Cont
-                            @if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) < 0)
-                            {
-                                <span class="float-right text-muted text-sm">Quá hạn @(Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays))) ngày lưu cont</span>
-                            }
-                            else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) > 0)
-                            {
-                                <span class="float-right text-muted text-sm">Còn @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays)) ngày lưu cont</span>
-                            }
-                            else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now).TotalDays) == 0)
-                            {
-                                <span class="float-right text-muted text-sm">Tới hạn lưu cont</span>
-                            }
-                        </a>
-                    }
-                    @foreach (var item in notificationluurong)
-                    {
-                        <a href="/ThongKe/Bill/CTBill/@item.IdBill" class="dropdown-item">
-                            @item.Bill - @item.Cont
-                            @if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) < 0)
-                            {
-                                <span class="float-right text-muted text-sm">Quá hạn @(Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays))) ngày lưu rỗng</span>
-                            }
-                            else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) > 0)
-                            {
-                                <span class="float-right text-muted text-sm">Còn @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays)) ngày lưu rỗng</span>
-                            }
-                            else if (Convert.ToInt64((Convert.ToDateTime(item.HanLuuRong) - DateTime.Now).TotalDays) == 0)
-                            {
-                                <span class="float-right text-muted text-sm">Tới hạn rỗng bãi</span>
-                            }
-                        </a>
-                    }
+                        </tbody>
+                    </table>
                 </div>
             }
         </li>

@@ -60,8 +60,25 @@ namespace PhanLong.DAO
                            HanLuuRong = b.HanLuuRong,
                        };
 
-            return data.ToList();
+            return data.OrderBy(x => x.HanLuuRong).ToList();
+        }
 
+        public List<NotificationsModel> GetNotifications()
+        {
+            var data = from a in db.DMBills
+                       join b in db.CTBills on a.Id equals b.Bill
+                       select new NotificationsModel()
+                       {
+                           IdBill = a.Id,
+                           Bill = a.MaBill,
+                           Ngaygiao = b.NgayGiao,
+                           NgayLuuBai = b.NgayGui,
+                           HanLuuRong = b.HanLuuRong,
+                           HanLuuCont = b.HanLuuCont,
+                           HanLuuBai = b.HanLuuBai,
+                       };
+
+            return data.ToList();
         }
     }
 }

@@ -22,6 +22,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
                 var result = dao.checkbox(chkId);
                 if (result)
                 {
+
                     SetAlert("Đã xóa thành công!", "success");
                 }
                 else
