@@ -14,6 +14,11 @@
     decimal? tongtien = 0;
     var tongcont = 0;
     var tongngaycong = 0;
+    decimal? tongtienchikhac = 0;
+    var _20N = 0;
+    var _20X = 0;
+    var _40N = 0;
+    var _40X = 0;
     decimal? tongtienchiho = 0;
 }
 
@@ -21,6 +26,8 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
     <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+    <link href="~/Content/dist/css/Print.css" media="print" rel="stylesheet" />
+
 }
 
 @using (Html.BeginForm("Index", "Luong", FormMethod.Get))
@@ -71,22 +78,28 @@
 <div class="card">
     <div class="container">
         <div class="card-header">
-            <h3 class="card-title">
-                Danh sách nhân viên nhận lương
+            <h3 class="card-title text-bold">
+                Danh sách thanh toán lương
             </h3>
+            <p style="text-align:right;" class="">Từ ngày<b> @ngaybd.ToShortDateString()</b> đến ngày<b> @ngaykt.ToShortDateString()</b></p>
         </div>
         <div class="card-body">
             <table class="table table-bordered table-hover table-striped" width="100%">
                 <thead>
                     <tr>
-                        <th>STT</th>
-                        <th>Tên nhân viên</th>
-                        <th>Số cont</th>
-                        <th>Số ngày công</th>
-                        <th>Tiền cước</th>
-                        <th>Trung bình</th>
-                        <th>Tiền chi hộ</th>
-                        <th>#</th>
+                        <th width="1%">STT</th>
+                        <th width="14%">Tên nhân viên</th>
+                        <th style="line-height:17px" width="3%">Ngày làm việc</th>
+                        <th style="line-height:17px" width="3%">Tổng cont</th>
+                        <th width="3%">20N</th>
+                        <th width="3%">20X</th>
+                        <th width="3%">40N</th>
+                        <th width="3%">40X</th>
+                        <th width="10%">Tiền cước</th>
+                        <th width="10%" style="line-height:17px">Tiền lương (60%)</th>
+                        <th width="10%">Tiền chi hộ</th>
+                        <th width="10%">Tiền chi khác</th>
+                        <th class="no-print" width="10%">#</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,7 +113,7 @@
                         var tienha = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tienha);
                         var tienphict = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tienphict);
                         var tienphikh = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tienphikhachhang);
-                        var tienchiho = tienha + tiennang + tienphict + tienphikh;
+                        var tienchiho = tienha + tiennang + tienphikh;
                         var tentx = Model.Where(x => x.Xe == item.Xe).FirstOrDefault().TenTX;
                         using (Html.BeginForm("CTTTLuong", "Luong", FormMethod.Get))
                         {
@@ -111,31 +124,48 @@
                             <tr>
                                 @{var ngay = socont.Select(x => x.Ngay).Distinct().Count();}
                                 <td>@stt</td>
-                                <td>@tentx</td>
-                                <td>@socont.Count()</td>
+                                <td class="text-left">@tentx</td>
                                 <td>@ngay</td>
+                                <td>@socont.Count()</td>
+                                <td>@socont.Where(x => x.Loai == 3).Count()</td>
+                                <td>@socont.Where(x => x.Loai == 2).Count()</td>
+                                <td>@socont.Where(x => x.Loai == 4).Count()</td>
+                                <td>@socont.Where(x => x.Loai == 1).Count()</td>
+                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc))</td>
                                 <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc * 60 / 100))</td>
-                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc * 60 / 100 / ngay))</td>
                                 <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienchiho))</td>
-                                <td><input type="submit" value="Lương" name="_Submit" class="btn btn-primary" /> <input type="submit" value="Chi hộ" name="_Submit" class="btn btn-primary" /> </td>
+                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienphict))</td>
+                                <td class="no-print"><input type="submit" value="Lương" name="_Submit" class="btn btn-primary" /> <input type="submit" value="Chi hộ" name="_Submit" class="btn btn-primary" /> </td>
                             </tr>
 
-                            }
-                            tongtien += tiencuoc;
-                            tongcont += socont.Count();
-                            tongngaycong += socont.Select(x => x.Ngay).Distinct().Count();
-                            tongtienchiho += tienchiho;
                         }
+                        tongtien += tiencuoc;
+                        tongcont += socont.Count();
+                        tongngaycong += socont.Select(x => x.Ngay).Distinct().Count();
+                        tongtienchiho += tienchiho;
+                        tongtienchikhac += tienphict;
+                        _20N += socont.Where(x => x.Loai == 3).Count();
+                        _20X += socont.Where(x => x.Loai == 2).Count();
+                        _40N += socont.Where(x => x.Loai == 4).Count();
+                        _40X += socont.Where(x => x.Loai == 1).Count();
+
+                    }
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="2">Tổng:</td>
-                        <td>@tongcont</td>
-                        <td>@tongngaycong</td>
-                        <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongtien * 60 / 100))</td>
-                        <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongtien * 60 / 100 / tongngaycong))</td>
-                        <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongtienchiho))</td>
                         <td></td>
+                        <td class="text-bold text-left">Tổng:</td>
+                        <td>@tongngaycong</td>
+                        <td>@tongcont</td>
+                        <td>@_20N</td>
+                        <td>@_20X</td>
+                        <td>@_40N</td>
+                        <td>@_40X</td>
+                        <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongtien))</td>
+                        <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongtien * 60 / 100))</td>
+                        <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongtienchiho))</td>
+                        <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongtienchikhac))</td>
+                        <td class="no-print"></td>
                     </tr>
 
                 </tfoot>

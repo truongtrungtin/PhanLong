@@ -72,7 +72,7 @@
     <link href="~/Content/dist/css/Print.css" media="print" rel="stylesheet" />
     <style>
         .table thead th {
-            line-height: 14px !important;
+            line-height: 13px !important;
         }
 
         body {
@@ -81,6 +81,13 @@
 
         .form-control-sm {
             font-size: 11px !important;
+        }
+
+        .card-header {
+            padding: 0px !important;
+        }
+        .table-sm th, .table-sm td {
+            padding: 0px 2px!important;
         }
     </style>
 }
@@ -398,7 +405,7 @@
                         <td style="text-align:left">@(item.CangNhan != null ? item.DMCang.TenCang : null)</td>
                         <td style="text-align:left">@(item.CangTra != null ? item.DMCang1.TenCang : null)</td>
                         <td style="text-align:right">@(item.CuocKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocKH)) : null)</td>
-                        <td style="padding-top: 4px"><input id="CheckVAT" onclick="UpdateVAT(@item.Id)" data-VATId="@item.Id" type="checkbox" name="VAT" @(item.VAT == true ? "Checked" : null) /></td>
+                        <td style="padding-top: 2px!important; font-size:5px" ><input id="CheckVAT" onclick="UpdateVAT(@item.Id)" data-VATId="@item.Id" type="checkbox" name="VAT" @(item.VAT == true ? "Checked" : null) /></td>
                         <td style="text-align:left">@(item.HDNang != null ? item.HDNang : null)</td>
                         <td style="text-align:right">@(item.TienNang != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienNang)) : null)</td>
                         <td style="text-align:left">@(item.HDHa != null ? item.HDHa : null)</td>
@@ -451,8 +458,17 @@
                     <tr style="background-color:rgba(62, 54, 54, 0.1)">
                         <th>STT</th>
                         <th>Ngày</th>
+                        <th></th>
                         <th>Cont</th>
-                        <th colspan="10">Nội dung</th>
+                        <th></th>
+                        <th>Nội dung</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
                         <th>Hoá đơn</th>
                         <th>Số tiền</th>
                         <th>Ghi chú</th>
@@ -463,16 +479,25 @@
                     @foreach (var item in db.CTChiThus.Where(x => x.PhatSinhChiThu1.Bill == idBill).OrderBy(x => x.PhatSinhChiThu1.Ngay))
                     {
                         stt1 += 1;
-                        <tr>
-                            <td>@stt1</td>
-                            <td>@(item.PhatSinhChiThu1.Ngay != null ? item.PhatSinhChiThu1.Ngay.ToShortDateString() : null)</td>
-                            <td>@item.Cont</td>
-                            <td colspan="10" style="text-align:left">@item.NoiDung</td>
-                            <td style="text-align:left">@item.PhatSinhChiThu1.SoHD</td>
-                            <td style="text-align:right">@(item.DonGia != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.DonGia * item.SoLuong)) : null)</td>
-                            <td>@item.PhatSinhChiThu1.GhiChu</td>
-                            <td class="no-print"><a href="/NhapLieu/PhatSinhChi/CTChi/@item.Id" class="btn btn-success">Chi tiết</a></td>
-                        </tr>
+                    <tr>
+                        <td>@stt1</td>
+                        <td>@(item.PhatSinhChiThu1.Ngay != null ? item.PhatSinhChiThu1.Ngay.ToShortDateString() : null)</td>
+                        <td></td>
+                        <td>@item.Cont</td>
+                        <td></td>
+                        <td style="text-align:left">@item.NoiDung</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td style="text-align:left">@item.PhatSinhChiThu1.SoHD</td>
+                        <td style="text-align:right">@(item.DonGia != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.DonGia * item.SoLuong)) : null)</td>
+                        <td>@item.PhatSinhChiThu1.GhiChu</td>
+                        <td class="no-print"><a href="/NhapLieu/PhatSinhChi/CTChi/@item.Id" class="btn btn-success">Chi tiết</a></td>
+                    </tr>
                     }
                 </tbody>
                 <tbody>
