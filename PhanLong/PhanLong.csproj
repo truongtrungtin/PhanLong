@@ -302,6 +302,7 @@
     <Compile Include="Models\ThanhToanLuongModel.cs" />
     <Compile Include="Models\ThongKeBillModel.cs" />
     <Compile Include="Models\ThuongTaiXeModel.cs" />
+    <Compile Include="Models\TienKhacModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

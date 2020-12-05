@@ -47,11 +47,13 @@ namespace PhanLong.Areas.ThongKe.Controllers
                 var model = new CTTTLuongDao().PhatSinhLuong(id, NgayBD, NgayKT);
                 var ChiLuong = new CTTTLuongDao().ChiLuong(id, NgayBD, NgayKT);
                 var TienThuong = new CTTTLuongDao().TienThuong(id, NgayBD, NgayKT);
+                var TienKhac = new CTTTLuongDao().TienKhac(id, NgayBD, NgayKT);
                 var Loai = new PhatSinhDao().GetLoai(id);
                 var tx = new PhatSinhDao().GetNvByXe(id, NgayBD, NgayKT);
                 ViewBag.ChiLuong = ChiLuong.OrderBy(x=> x.NgayChi);
                 ViewBag.TongChiLuong = ChiLuong.Count;
                 ViewBag.TienThuong = TienThuong;
+                ViewBag.TienKhac = TienKhac;
                 ViewBag.id = id;
                 ViewBag.tx = tx.DMNhanVien.TenNV;
                 ViewBag.Xe = xe.BienSo;
