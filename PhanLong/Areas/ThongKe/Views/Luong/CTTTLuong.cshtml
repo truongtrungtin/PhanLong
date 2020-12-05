@@ -314,7 +314,9 @@
                     <tr class="header" style="background-color:grey; height:30px">
                         <th>STT</th>
                         <th>Ngày cộng</th>
-                        <th colspan="3">Nội dung</th>
+                        <th></th>
+                        <th></th>
+                        <th>Nội dung</th>
                         <th>Hình thức</th>
                         <th>Tiền trừ</th>
                         <th>Tiền ứng</th>
@@ -330,8 +332,10 @@
                         <tr>
                             <td>@sttt</td>
                             <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
-                            <td colspan="3" style="text-align:left">@(item.NoiDung != null ? item.NoiDung : null)</td>
-                            <td>@(item.HinhThucTT != null ? item.HinhThucTT : null )</td>
+                            <td></td>
+                            <td></td>
+                            <td style="text-align:left">@(item.NoiDung != null ? item.NoiDung : null)</td>
+                            <td style="text-align:left">@(item.HinhThucTT != null ? item.HinhThucTT : null )</td>
                             <td style="text-align:right">@(item.TienKhac != null && item.LoaiPhi == 3 && item.Phi == 10046 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienKhac)) : null )</td>
                             <td style="text-align:right">@(item.TienKhac != null && item.LoaiPhi == 3 && item.Phi == 45 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienKhac)) : null )</td>
                             <td style="text-align:right">@(item.TienKhac != null && item.LoaiPhi == 4 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienKhac)) : null )</td>
