@@ -1,10 +1,10 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Linq;
-
 namespace PhanLong.EF
 {
+    using System;
+    using System.Data.Entity;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+
     public partial class PhanLongDBContext : DbContext
     {
         public PhanLongDBContext()
@@ -40,6 +40,7 @@ namespace PhanLong.EF
         public virtual DbSet<TraCuuCuoc> TraCuuCuocs { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -387,6 +388,10 @@ namespace PhanLong.EF
                 .HasMany(e => e.Users)
                 .WithOptional(e => e.UserGroup)
                 .HasForeignKey(e => e.GroupID);
+
+            modelBuilder.Entity<Notification>()
+                .Property(e => e.MaBill)
+                .IsUnicode(false);
         }
     }
 }

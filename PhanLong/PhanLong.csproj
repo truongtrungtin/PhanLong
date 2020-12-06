@@ -274,6 +274,7 @@
     <Compile Include="EF\HoaDon.cs" />
     <Compile Include="EF\LoaiPhi.cs" />
     <Compile Include="EF\Menu.cs" />
+    <Compile Include="EF\Notification.cs" />
     <Compile Include="EF\PhanLongDBContext.cs" />
     <Compile Include="EF\PhatSinh.cs" />
     <Compile Include="EF\PhatSinhChiThu.cs" />

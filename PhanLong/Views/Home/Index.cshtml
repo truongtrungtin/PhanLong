@@ -6,8 +6,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     PhanLongDBContext db = new PhanLongDBContext();
     var session = (UserLogin)Session[CommonConstants.USER_SESSION];
-    var notification = new NotificationsDao().GetNotifications().Where(x => ((x.HanLuuBai != null && (Convert.ToDateTime(x.HanLuuBai) - DateTime.Now.Date).TotalDays <= 3) || (x.HanLuuRong != null && (Convert.ToDateTime(x.HanLuuRong) - DateTime.Now.Date).TotalDays <= 3) || (x.HanLuuCont != null && (Convert.ToDateTime(x.HanLuuCont) - DateTime.Now.Date).TotalDays <= 3)) && (x.Ngaygiao == null && x.NgayLuuBai == null)).Select(x => new { x.IdBill, x.Bill, x.HanLuuBai, x.HanLuuRong, x.HanLuuCont, x.GhiChuBill }).Distinct();
-
+    //var notification = new NotificationsDao().GetNotifications().Where(x => ((x.HanLuuBai != null && (Convert.ToDateTime(x.HanLuuBai) - DateTime.Now.Date).TotalDays <= 3) || (x.HanLuuRong != null && (Convert.ToDateTime(x.HanLuuRong) - DateTime.Now.Date).TotalDays <= 3) || (x.HanLuuCont != null && (Convert.ToDateTime(x.HanLuuCont) - DateTime.Now.Date).TotalDays <= 3)) && (x.Ngaygiao == null && x.NgayLuuBai == null)).Select(x => new { x.IdBill, x.Bill, x.HanLuuBai, x.HanLuuRong, x.HanLuuCont, x.GhiChuBill }).Distinct();
+    var notification = db.Notifications.OrderBy(x => x.HanLuuBai);
 }
 @section css{
     <!-- Select2 -->
@@ -68,9 +68,9 @@
                                 {
 
                                     <tr style="color:red">
-                                        <td><a href="/ThongKe/Bill/CTBill/@item.IdBill">@item.Bill</a></td>
-                                        <td title="@db.DMBills.SingleOrDefault(x=> x.Id == item.IdBill).DMKhachHang.TenCongTy">@db.DMBills.SingleOrDefault(x => x.Id == item.IdBill).DMKhachHang.MaKH</td>
-                                        <td title="@db.DMBills.SingleOrDefault(x=> x.Id == item.IdBill).HangTau">@db.DMBills.SingleOrDefault(x => x.Id == item.IdBill).HangTau</td>
+                                        <td><a href="/ThongKe/Bill/CTBill/@item.Id">@item.MaBill</a></td>
+                                        <td title="@db.DMBills.SingleOrDefault(x=> x.Id == item.Id).DMKhachHang.TenCongTy">@db.DMBills.SingleOrDefault(x => x.Id == item.Id).DMKhachHang.MaKH</td>
+                                        <td title="@db.DMBills.SingleOrDefault(x=> x.Id == item.Id).HangTau">@db.DMBills.SingleOrDefault(x => x.Id == item.Id).HangTau</td>
                                         @if (item.HanLuuBai == null)
                                         {
                                             <td style="color:red">Chưa nhập hạn lưu bãi</td>
@@ -145,9 +145,9 @@
                                 else
                                 {
                                     <tr>
-                                        <td><a href="/ThongKe/Bill/CTBill/@item.IdBill">@item.Bill</a></td>
-                                        <td title="@db.DMBills.SingleOrDefault(x=> x.Id == item.IdBill).DMKhachHang.TenCongTy">@db.DMBills.SingleOrDefault(x => x.Id == item.IdBill).DMKhachHang.MaKH</td>
-                                        <td title="@db.DMBills.SingleOrDefault(x=> x.Id == item.IdBill).HangTau">@db.DMBills.SingleOrDefault(x => x.Id == item.IdBill).HangTau</td>
+                                        <td><a href="/ThongKe/Bill/CTBill/@item.Id">@item.MaBill</a></td>
+                                        <td title="@db.DMBills.SingleOrDefault(x=> x.Id == item.Id).DMKhachHang.TenCongTy">@db.DMBills.SingleOrDefault(x => x.Id == item.Id).DMKhachHang.MaKH</td>
+                                        <td title="@db.DMBills.SingleOrDefault(x=> x.Id == item.Id).HangTau">@db.DMBills.SingleOrDefault(x => x.Id == item.Id).HangTau</td>
                                         @if (item.HanLuuBai == null)
                                         {
                                             <td style="color:red">Chưa nhập hạn lưu bãi</td>
