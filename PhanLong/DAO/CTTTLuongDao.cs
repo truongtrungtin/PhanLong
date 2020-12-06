@@ -51,6 +51,7 @@ namespace PhanLong.DAO
                            TienTru = ctc.DonGia * ctc.SoLuong,
                            ghichu = psc.GhiChu,
                        };
+
             if (!string.IsNullOrEmpty(ngayBD) && !string.IsNullOrEmpty(ngayKT))
             {
                 var model = data.Where(x => (ngayBD == "" && ngayKT == "") || (x.NgayChi >= sdate && x.NgayChi <= edate));
@@ -58,6 +59,8 @@ namespace PhanLong.DAO
             }
             return data.OrderBy(x => x.NgayChi).Distinct().ToList();
         }
+
+
 
         public List<ThuongTaiXeModel> TienThuong(long? id, string ngayBD, string ngayKT)
         {

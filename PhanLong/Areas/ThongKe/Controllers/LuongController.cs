@@ -18,11 +18,11 @@ namespace PhanLong.Areas.ThongKe.Controllers
             }
             if (NgayKT == "" || NgayKT == null)
             {
-                NgayKT = DateTime.Now.ToShortDateString();
+                NgayKT = DateTime.Now.ToString("yyyy'-'MM'-'dd");
             }
             ViewBag.NgayBD = NgayBD;
             ViewBag.NgayKT = NgayKT;
-            var model = new ThongKeLuong().ListAll(NgayBD, NgayKT);
+            var model = new ThongKeLuong().DanhSachThanhToanLuong(NgayBD, NgayKT);
             return View(model);
         }
 

@@ -2,6 +2,8 @@
 using PhanLong.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace PhanLong.DAO
@@ -39,6 +41,21 @@ namespace PhanLong.DAO
             return data.OrderBy(x => x.Xe).ToList();
 
         }
+
+        public List<ThanhToanLuong> DanhSachThanhToanLuong(string ngayBD, string ngayKT)
+        {
+            DateTime sdate = (ngayBD != "") ? Convert.ToDateTime(ngayBD) : new DateTime();
+            DateTime edate = (ngayKT != "") ? Convert.ToDateTime(ngayKT).Date : new DateTime();
+            object[] parameters = 
+            {
+                new SqlParameter("@ngaybd",sdate.ToString("yyyy'-'MM'-'dd")),
+                new SqlParameter("@ngaykt",edate.ToString("yyyy'-'MM'-'dd"))
+            };
+            var res = db.Database.SqlQuery<ThanhToanLuong>("DanhSachThanhToanLuong @ngaybd, @ngaykt", parameters).ToList();
+
+            return res;
+        }
+
 
 
     }

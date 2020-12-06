@@ -1,4 +1,6 @@
-﻿@model List<PhanLong.Models.ThanhToanLuongModel>
+﻿@*@model List<PhanLong.Models.ThanhToanLuongModel>*@
+@model List<PhanLong.Models.ThanhToanLuong>
+
 @using PhanLong.EF
 @using System.Globalization;
 
@@ -103,52 +105,44 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Select(x => new { x.Xe }).Distinct())
+                    @foreach (var item in Model.OrderByDescending(x => x.cuoctx))
                     {
                         DateTime sdate = (ViewBag.NgayBD != "") ? Convert.ToDateTime(ViewBag.NgayBD).Date : new DateTime();
                         DateTime edate = (ViewBag.NgayKT != "") ? Convert.ToDateTime(ViewBag.NgayKT).Date : new DateTime();
-                        var socont = db.PhatSinhs.Where(x => x.Xe == item.Xe && (x.Ngay >= sdate && x.Ngay <= edate));
-                        var tiencuoc = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tiencuoc);
-                        var tiennang = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tiennang);
-                        var tienha = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tienha);
-                        var tienphict = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tienphict);
-                        var tienphikh = Model.Where(x => x.Xe == item.Xe).Sum(x => x.tienphikhachhang);
-                        var tienchiho = tienha + tiennang + tienphikh;
-                        var tentx = Model.Where(x => x.Xe == item.Xe).FirstOrDefault().TenTX;
+                        var socont = db.PhatSinhs.Where(x => x.Xe == item.IdXe && (x.Ngay >= sdate && x.Ngay <= edate));
                         using (Html.BeginForm("CTTTLuong", "Luong", FormMethod.Get))
                         {
-                            <input type="hidden" readonly class="form-control form-control-sm" name="id" value="@item.Xe" />
+                            <input type="hidden" readonly class="form-control form-control-sm" name="id" value="@item.IdXe" />
                             <input type="hidden" name="NgayBD" class="form-control form-control-sm" value="@ngaybd.ToShortDateString()" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                             <input type="hidden" name="NgayKT" class="form-control form-control-sm" value="@ngaykt.ToShortDateString()" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                             stt = stt + 1;
                             <tr>
-                                @{var ngay = socont.Select(x => x.Ngay).Distinct().Count();}
+                                @*@{var ngay = socont.Select(x => x.Ngay).Distinct().Count();}*@
                                 <td>@stt</td>
-                                <td class="text-left">@tentx</td>
-                                <td>@ngay</td>
-                                <td>@socont.Count()</td>
+                                <td class="text-left">@db.DMNhanViens.Find(item.IdTaiXe).TenNV</td>
+                                <td>@item.Ngay</td>
+                                <td>@item.SoCont</td>
                                 <td>@socont.Where(x => x.Loai == 3).Count()</td>
                                 <td>@socont.Where(x => x.Loai == 2).Count()</td>
                                 <td>@socont.Where(x => x.Loai == 4).Count()</td>
                                 <td>@socont.Where(x => x.Loai == 1).Count()</td>
-                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc))</td>
-                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc * 60 / 100))</td>
-                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienchiho))</td>
-                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienphict))</td>
+                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.cuoctx))</td>
+                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.cuoctx * 60 / 100))</td>
+                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (Convert.ToDecimal(item.tiennang) + Convert.ToDecimal(item.tienha) + Convert.ToDecimal(item.tienphikh)))</td>
+                                <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.tienphict))</td>
                                 <td class="no-print"><input type="submit" value="Lương" name="_Submit" class="btn btn-primary" /> <input type="submit" value="Chi hộ" name="_Submit" class="btn btn-primary" /> </td>
                             </tr>
 
                         }
-                        tongtien += tiencuoc;
-                        tongcont += socont.Count();
-                        tongngaycong += socont.Select(x => x.Ngay).Distinct().Count();
-                        tongtienchiho += tienchiho;
-                        tongtienchikhac += tienphict;
+                        tongtien += item.cuoctx;
+                        tongcont += item.SoCont;
+                        tongngaycong += item.Ngay;
+                        tongtienchiho += (Convert.ToDecimal(item.tiennang) + Convert.ToDecimal(item.tienha) + Convert.ToDecimal(item.tienphikh));
+                        tongtienchikhac += item.tienphict;
                         _20N += socont.Where(x => x.Loai == 3).Count();
                         _20X += socont.Where(x => x.Loai == 2).Count();
                         _40N += socont.Where(x => x.Loai == 4).Count();
                         _40X += socont.Where(x => x.Loai == 1).Count();
-
                     }
                 </tbody>
                 <tfoot>
