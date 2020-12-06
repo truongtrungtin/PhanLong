@@ -71,7 +71,6 @@ namespace PhanLong.DAO
                             {
                                 var dao = new DMLoaiDao().InsertMaLoai(dMLoai, MaLoai);
                                 Loai = dao;
-
                             }
                         }
                         else
@@ -106,7 +105,6 @@ namespace PhanLong.DAO
                                 {
                                     Bill = item.Id;
                                 }
-
                             }
                             if (Bill == null)
                             {
@@ -122,7 +120,6 @@ namespace PhanLong.DAO
                                 {
                                     BaiGui = item.Id;
                                 }
-
                             }
                             if (BaiGui == null)
                             {
@@ -142,7 +139,6 @@ namespace PhanLong.DAO
                                 {
                                     harong = item.Id;
                                 }
-
                             }
                             if (harong == null)
                             {
@@ -163,7 +159,6 @@ namespace PhanLong.DAO
                                     Xe = item.Id;
                                 }
                             }
-
                             if (Xe == null)
                             {
                                 var dao = new DMXeDao().InsertXe(dMXe, MaXe);
@@ -190,7 +185,6 @@ namespace PhanLong.DAO
                                 {
                                     cTBill.Cont = null;
                                 }
-
                             }
                             else if (column.ColumnName == "Số đăng ký")
                             {
@@ -207,6 +201,17 @@ namespace PhanLong.DAO
                             else if (column.ColumnName == "Loại")
                             {
                                 cTBill.Loai = Loai;
+                            }
+                            else if (column.ColumnName == "Seal")
+                            {
+                                if (dr["Seal"].ToString() != "")
+                                {
+                                    cTBill.Seal = dr["Seal"].ToString();
+                                }
+                                else
+                                {
+                                    cTBill.Seal = null;
+                                }
                             }
                             else if (column.ColumnName == "Hạ rỗng")
                             {

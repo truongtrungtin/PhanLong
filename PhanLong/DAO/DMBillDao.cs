@@ -66,7 +66,6 @@ namespace PhanLong.DAO
                         {
                             KH = null;
                         }
-
                         if (MaCangNhan != null && MaCangNhan != "")
                         {
                             foreach (var item in db.DMCangs)
@@ -91,9 +90,55 @@ namespace PhanLong.DAO
                         foreach (DataColumn column in (dt as System.Data.DataTable).Columns)
                         {
 
-                            if (column.ColumnName == "Mã bill")
+                            if (column.ColumnName == "Số tờ khai")
+                            {
+                                if (dr["Số tờ khai"].ToString() != "" && dr["Số tờ khai"].ToString() != null)
+                                {
+                                    dMBill.SoToKhai = dr["Số tờ khai"].ToString();
+                                }
+                                else
+                                {
+                                    dMBill.SoToKhai = null;
+                                }
+                            }
+                            else if (column.ColumnName == "Mã bill")
                             {
                                 dMBill.MaBill = dr["Mã bill"].ToString();
+                            }
+                            else if (column.ColumnName == "Lô")
+                            {
+                                if (dr["Lô"].ToString() != "" && dr["Lô"].ToString() != null)
+                                {
+                                    dMBill.Lo = dr["Lô"].ToString();
+                                }
+                                else
+                                {
+                                    dMBill.Lo = null;
+                                }
+                            }
+                            else if (column.ColumnName == "Ngày đăng ký")
+                            {
+                                var day = dr["Đăng ký"].ToString();
+                                if (day != "")
+                                {
+                                    var a = Convert.ToDateTime(day).ToShortDateString();
+                                    dMBill.NgayDK = Convert.ToDateTime(a);
+                                }
+                                else
+                                {
+                                    dMBill.NgayDK = null;
+                                }
+                            }
+                            else if (column.ColumnName == "Hãng tàu")
+                            {
+                                if (dr["Hãng tàu"].ToString() != "" && dr["Hãng tàu"].ToString() != null)
+                                {
+                                    dMBill.HangTau = dr["Hãng tàu"].ToString();
+                                }
+                                else
+                                {
+                                    dMBill.HangTau = null;
+                                }
                             }
                             else if (column.ColumnName == "Ngày tàu đến")
                             {
@@ -121,46 +166,22 @@ namespace PhanLong.DAO
                                 dMBill.KhachHang = KH;
 
                             }
-                            else if (column.ColumnName == "Lô")
-                            {
-                                if (dr["Lô"].ToString() != "" && dr["Lô"].ToString() != null)
-                                {
-                                    dMBill.Lo = dr["Lô"].ToString();
-                                }
-                                else
-                                {
-                                    dMBill.Lo = null;
-                                }
-                            }
-                            else if (column.ColumnName == "Đăng ký")
-                            {
-                                var day = dr["Đăng ký"].ToString();
-                                if (day != "")
-                                {
-                                    var a = Convert.ToDateTime(day).ToShortDateString();
-                                    dMBill.NgayDK = Convert.ToDateTime(a);
-                                }
-                                else
-                                {
-                                    dMBill.NgayDK = null;
-                                }
-                            }
-                            else if (column.ColumnName == "Số tờ khai")
-                            {
-                                if (dr["Số tờ khai"].ToString() != "" && dr["Số tờ khai"].ToString() != null)
-                                {
-                                    dMBill.SoToKhai = dr["Số tờ khai"].ToString();
-                                }
-                                else
-                                {
-                                    dMBill.SoToKhai = null;
-                                }
-                            }
                             else if (column.ColumnName == "Cảng nhận")
                             {
 
                                 dMBill.CangNhan = CangNhan;
 
+                            }
+                            else if (column.ColumnName == "Ghi chú")
+                            {
+                                if (dr["Ghi chú"].ToString() != "" && dr["Ghi chú"].ToString() != null)
+                                {
+                                    dMBill.GhiChuBill = dr["Ghi chú"].ToString();
+                                }
+                                else
+                                {
+                                    dMBill.GhiChuBill = null;
+                                }
                             }
 
                         }

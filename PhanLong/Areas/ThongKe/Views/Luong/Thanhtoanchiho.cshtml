@@ -15,19 +15,35 @@
     int sttc = 0;
     int sttt = 0;
     Decimal tongtienchiho = 0;
+    Decimal tiennang = 0;
+    Decimal TienHa = 0;
+    Decimal TienPhiCT = 0;
+    Decimal TienPhiKH = 0;
     foreach (var item in Model)
     {
-        tongtienchiho += Convert.ToDecimal(item.TienNang);
-        tongtienchiho += Convert.ToDecimal(item.TienHa);
-        tongtienchiho += Convert.ToDecimal(item.TienPhiCT);
-        tongtienchiho += Convert.ToDecimal(item.TienPhiKH);
+        tiennang += Convert.ToDecimal(item.TienNang);
+        TienHa += Convert.ToDecimal(item.TienHa);
+        TienPhiCT += Convert.ToDecimal(item.TienPhiCT);
+        TienPhiKH += Convert.ToDecimal(item.TienPhiKH);
     }
+    tongtienchiho = Convert.ToDecimal(tiennang) + Convert.ToDecimal(TienHa) + Convert.ToDecimal(TienPhiKH) + Convert.ToDecimal(TienPhiCT);
 
 }
 
 @section css{
     <link href="~/Content/dist/css/Print.css" media="print" rel="stylesheet" />
     <style>
+        label {
+            margin-bottom: 0px !important;
+        }
+
+        h6 {
+            font-size: 12px !important;
+        }
+
+        .row {
+            height: 45px !important;
+        }
     </style>
 }
 
@@ -94,19 +110,16 @@
                     <input type="submit" name="Search" value="Tìm" class="btn btn-primary" />
                 </div>
             </div>
+           
         </div>
     </div>
 }
 
 <div class="card invoice">
-    <div class="card-header">
+    <div class="card-header p-0">
+        <h3 class="card-title"><img style="width:50px;height:50px" src="~/Images/logo.png" /> <b>Công ty TNHH Phan Long</b></h3>
+        <p style="text-align:right;" class="mt-3 mb-0">Ngày lập:<b> @DateTime.Now.ToShortDateString()</b></p>
         <table style="width:100%">
-            <tr>
-                <td style="width:10%"><img style="width:50px;height:50px" src="~/Images/logo.png" /> <b>Công ty TNHH Phan Long</b> </td>
-            </tr>
-            <tr>
-                <td><p style="text-align:right">Ngày lập:<b> @DateTime.Now.ToShortDateString()</b></p></td>
-            </tr>
         </table>
 
         <h3 class="card-title" style="float:none;text-align:center;margin-bottom: 0.5rem !important">
@@ -118,65 +131,59 @@
         <h6 style="text-align:center">Tài xế: <b>@ViewBag.tx</b></h6>
         <h6 style="text-align:center">Số xe: <b>@ViewBag.Xe</b></h6>
         <h6 style="text-align:center">Từ ngày: <b>@ngaybd.Date.ToShortDateString()</b> - Đến ngày: <b>@ngaykt.Date.ToShortDateString()</b></h6>
-        @*<div class="row" style="float:none;text-align:center">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-3 col-lg-3">
+        <div class="container" style="float:none;text-align:center">
+             <div class="row">
+                <div class="col-1 col-lg-1">
+                </div>
+                <div class="col-4 col-lg-4">
+                    <!-- text input -->
+                    <div class="form-group row">
+                        <div class="col-6 col-lg-6">
+                            <label style="text-align:center">Tiền nâng<sup>(1)</sup></label>
+                            <input style="text-align:center" type="text" class="form-control form-control-sm" value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiennang))">
                         </div>
-                        <div class="col-1 col-lg-1">
-                             text input
-                            <div class="form-group">
-                                <label style="text-align:center">20N</label>
-                                <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@ViewBag.N20">
-                            </div>
-                        </div>
-                        <div class="col-1 col-lg-1">
-                             text input
-                            <div class="form-group">
-                                <label style="text-align:center">20X</label>
-                                <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@ViewBag.X20">
-                            </div>
-                        </div>
-                        <div class="col-1 col-lg-1">
-                             text input
-                            <div class="form-group">
-                                <label style="text-align:center">40N</label>
-                                <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@ViewBag.N40">
-                            </div>
-                        </div>
-                        <div class="col-1 col-lg-1">
-                             text input
-                            <div class="form-group">
-                                <label style="text-align:center">40X</label>
-                                <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@ViewBag.X40">
-                            </div>
-                        </div>
-                        <div class="col-2 col-lg-2">
-                            <div class="form-group">
-                                <label style="text-align:center">Tổng chi hộ</label>
-                                <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc * 60 / 100 - tientru))">
-                            </div>
+                        <div class="col-6 col-lg-6">
+                            <label style="text-align:center">Tiền hạ<sup>(2)</sup></label>
+                            <input style="text-align:center" type="text" class="form-control form-control-sm" value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (TienHa))">
                         </div>
                     </div>
                 </div>
+                <div class="col-2 col-lg-2">
+                    <label style="text-align:center">Tiền khác<sup>(3)</sup></label>
+                    <input style="text-align:center" type="text" class="form-control form-control-sm" value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (TienPhiKH))">
+                </div>
+                <div class="col-4 col-lg-4">
+                    <!-- text input -->
+                    <div class="form-group row">
+                        <div class="col-6 col-lg-6">
+                            <label style="text-align:center">Tiền khác<sup>(4)</sup></label>
+                            <input style="text-align:center" type="text" class="form-control form-control-sm" value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (TienPhiCT))">
+                        </div>
+                        <div class="col-6 col-lg-6">
+                            <label style="text-align:center">Tổng tiền <sup>(1  + 2 + 3 + 4)</sup></label>
+                            <input style="text-align:center" type="text" class="form-control form-control-sm" value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongtienchiho))">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-            </div>*@
+        </div>
     </div>
     <div class="card-body">
-        <table class="table table-hover table-bordered table-striped table-sm" width="100%">
+        <table class="table table-hover table-bordered table-sm" width="100%">
             <tbody>
                 <tr class="header" style="background-color:grey; height:30px">
-                    <th>STT</th>
-                    <th>Ngày giao</th>
-                    <th>Số Cont</th>
-                    <th>Kho</th>
-                    <th>Tiền nâng</th>
-                    <th>Tiền hạ</th>
-                    <th>Nội dung</th>
-                    <th>Số tiền</th>
-                    <th>Nội dung</th>
-                    <th>Số tiền</th>
-                    <th>Tổng</th>
+                    <th width="1%">STT</th>
+                    <th width="5%">Ngày giao</th>
+                    <th width="6%">Số Cont</th>
+                    <th width="12%">Kho</th>
+                    <th width="7%">Tiền nâng<sup>(1)</sup></th>
+                    <th width="7%">Tiền hạ<sup>(2)</sup></th>
+                    <th width="8%">Nội dung</th>
+                    <th width="7%">Số tiền<sup>(3)</sup></th>
+                    <th width="8%">Nội dung</th>
+                    <th width="7%">Số tiền<sup>(4)</sup></th>
+                    <th width="8%">Tổng</th>
                     <th>Ghi chú</th>
                     <th class="no-print">#</th>
                 </tr>
@@ -185,22 +192,18 @@
                 @foreach (var item in Model.OrderBy(x=>x.Ngay))
                 {
                     sttc += 1;
-                    Decimal tiennang = Convert.ToDecimal(item.TienNang);
-                    Decimal TienHa = Convert.ToDecimal(item.TienHa);
-                    Decimal TienPhiCT = Convert.ToDecimal(item.TienPhiCT);
-                    Decimal TienPhiKH = Convert.ToDecimal(item.TienPhiKH);
                     <tr>
                         <td>@sttc</td>
-                        <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                        <td >@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
                         <td style="text-align:left">@(item.SoCont != null ? item.SoCont : null)</td>
-                        <td title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet : null)">@(item.Kho != null ? item.DMKho.DiaChi : null)</td>
+                        <td style="text-align:left" title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet : null)">@(item.Kho != null ? item.DMKho.DiaChi : null)</td>
                         <td class="tg-t1ow" style="text-align:right">@(item.TienNang != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienNang)) : null)</td>
                         <td class="tg-t1ow" style="text-align:right">@(item.TienHa != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienHa)) : null)</td>
                         <td style="text-align:left">@(item.PhiKH != null ? item.PhiKH : null)</td>
                         <td class="tg-t1ow" style="text-align:right">@(item.TienPhiKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienPhiKH)) : null)</td>
                         <td style="text-align:left">@(item.PhiCT != null ? item.DMPhi.TenPhi : null)</td>
                         <td class="tg-t1ow" style="text-align:right">@(item.TienPhiCT != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienPhiCT)) : null)</td>
-                        <td class="tg-t1ow" style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiennang + TienHa + TienPhiCT + TienPhiKH))</td>
+                        <td class="tg-t1ow" style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (Convert.ToDecimal(item.TienNang) + Convert.ToDecimal(item.TienHa) + Convert.ToDecimal(item.TienPhiKH) + Convert.ToDecimal(item.TienPhiCT)))</td>
                         <td style="text-align:left">@(item.GhiChuChiHo != null ? item.GhiChuChiHo : null)</td>
                         <td class="no-print"><a href="#" class="btn btn-warning" onclick='EditGhiChuChiHo(@item.Id)'>Thêm ghi chú</a></td>
                     </tr>
@@ -208,7 +211,14 @@
             </tbody>
             <tbody>
                 <tr>
-                    <td class="hidden-border" colspan="10" style="text-align:right;border-color:white">Tổng tiền chi hộ:</td>
+                    <td class="hidden-border" colspan="3" style="text-align:right;border-color:white"></td>
+                    <td class="hidden-border" style="text-align:right;border-color:white">Cộng:</td>
+                    <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiennang))</td>
+                    <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (TienHa))</td>
+                    <td class="hidden-border" style="text-align:right;border-color:white"></td>
+                    <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (TienPhiKH))</td>
+                    <td class="hidden-border" style="text-align:right;border-color:white"></td>
+                    <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (TienPhiCT))</td>
                     <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tongtienchiho))</td>
 
                 </tr>

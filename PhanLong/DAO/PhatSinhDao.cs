@@ -113,7 +113,6 @@ namespace PhanLong.DAO
                                 {
                                     Kho = item.Id;
                                 }
-
                             }
                             if (Kho == null)
                             {
@@ -444,7 +443,6 @@ namespace PhanLong.DAO
                                 {
                                     phatSinh.TienHa = null;
                                 }
-
                             }
                             else if (column.ColumnName == "Hoá đơn khác")
                             {
@@ -497,19 +495,6 @@ namespace PhanLong.DAO
                                 else
                                 {
                                     phatSinh.GhiChu = null;
-                                }
-
-                            }
-                            else if (column.ColumnName == "Ghi chú lương")
-                            {
-                                if (dr["Ghi chú lương"].ToString() != "")
-                                {
-                                    phatSinh.GhiChuLuong = dr["Ghi chú lương"].ToString();
-
-                                }
-                                else
-                                {
-                                    phatSinh.GhiChuLuong = null;
                                 }
 
                             }
