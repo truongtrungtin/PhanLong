@@ -34,12 +34,13 @@ namespace PhanLong.EF
         public virtual DbSet<PhatSinh> PhatSinhs { get; set; }
         public virtual DbSet<PhatSinhChiThu> PhatSinhChiThus { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Setting> Settings { get; set; }
         public virtual DbSet<SoPhuNganHang> SoPhuNganHangs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TodoList> TodoLists { get; set; }
         public virtual DbSet<TraCuuCuoc> TraCuuCuocs { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserGroup> UserGroups { get; set; }
+        public virtual DbSet<UserSetting> UserSettings { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -360,6 +361,11 @@ namespace PhanLong.EF
                 .HasForeignKey(e => e.PhatSinhChiThu)
                 .WillCascadeOnDelete();
 
+            modelBuilder.Entity<Setting>()
+                .HasMany(e => e.UserSettings)
+                .WithOptional(e => e.Setting)
+                .HasForeignKey(e => e.Settings);
+
             modelBuilder.Entity<SoPhuNganHang>()
                 .Property(e => e.TienChi)
                 .HasPrecision(18, 0);
@@ -383,6 +389,11 @@ namespace PhanLong.EF
             modelBuilder.Entity<User>()
                 .HasOptional(e => e.History)
                 .WithRequired(e => e.User1);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.UserSettings)
+                .WithOptional(e => e.User1)
+                .HasForeignKey(e => e.User);
 
             modelBuilder.Entity<UserGroup>()
                 .HasMany(e => e.Users)

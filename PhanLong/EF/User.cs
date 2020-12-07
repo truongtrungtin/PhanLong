@@ -13,6 +13,7 @@ namespace PhanLong.EF
         public User()
         {
             Credentials = new HashSet<Credential>();
+            UserSettings = new HashSet<UserSetting>();
         }
 
         public long Id { get; set; }
@@ -59,6 +60,9 @@ namespace PhanLong.EF
         public virtual ICollection<Credential> Credentials { get; set; }
 
         public virtual History History { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserSetting> UserSettings { get; set; }
 
         public virtual UserGroup UserGroup { get; set; }
     }

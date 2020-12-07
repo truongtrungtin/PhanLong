@@ -77,5 +77,16 @@ namespace PhanLong.Controllers
                 status = result
             });
         }
+
+        [HttpPost]
+        public JsonResult ChangeSettings(long id)
+        {
+            var result = new ToDolistDao().ChangeSetting(id);
+            return Json(new
+            {
+                VAT = result
+            });
+        }
+
     }
 }

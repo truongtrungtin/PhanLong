@@ -80,5 +80,14 @@ namespace PhanLong.DAO
             db.SaveChanges();
             return user.IsActive;
         }
+
+        public bool? ChangeSetting(long id)
+        {
+            var user = db.UserSettings.Find(id);
+            user.Status = !user.Status;
+            db.SaveChanges();
+            return user.Status;
+        }
+
     }
 }

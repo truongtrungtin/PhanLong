@@ -223,6 +223,11 @@
             }
 
         </li>
+        <li class="nav-item  d-none d-sm-inline-block">
+            <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                <i class="fas fa-th-large"></i>
+            </a>
+        </li>
     </ul>
 </nav>
 
@@ -365,3 +370,19 @@
     </div>
     <!-- /.sidebar -->
 </aside>
+
+<aside class="control-sidebar control-sidebar-light">
+    <!-- Control sidebar content goes here -->
+    <div class="p-3 control-sidebar-content">
+        <h5>Settings (Thử nghiệm)</h5>
+        <hr class="mb-2" />
+        <div class="mb-4'">
+            @foreach (var item in db.UserSettings.Where(x=> x.User == session.UserID))
+            {
+                <input id="darkmode" type="checkbox" @(item.Status == true ? "Checked" : null) onclick="ChangeSettings(@item.Id)" class="mr-1" />
+                <span>@item.Setting.Function</span>
+            }
+        </div>
+    </div>
+</aside>
+

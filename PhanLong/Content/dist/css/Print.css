@@ -49,6 +49,10 @@
         box-shadow: none !important;
     }
 
+    .dark-mode body {
+        color: #000;
+    }
+
     h6 {
         font-size: 10px;
     }
@@ -160,8 +164,12 @@
     .hidden-border {
         border-color: white !important;
     }
-}
 
+
+}
+.dark-mode .hidden-border {
+    border-color: white !important;
+}
 
 @media print {
     .content-wrapper {
