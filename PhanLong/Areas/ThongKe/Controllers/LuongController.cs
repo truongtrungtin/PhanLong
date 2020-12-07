@@ -27,21 +27,23 @@ namespace PhanLong.Areas.ThongKe.Controllers
         }
 
 
-        public ActionResult CTTTLuong(long id, string NgayBD, string NgayKT, string _Submit = null)
+        public ActionResult CTTTLuong(long id, string NgayBD, string NgayKT)
         {
-            if (_Submit == "Chi hộ")
-            {
-                return RedirectToAction("Thanhtoanchiho", "Luong", new { id = id, NgayBD = NgayBD, NgayKT = NgayKT });
-            }
-            else
-            {
+            
                 if (NgayBD == "" || NgayBD == null)
                 {
                     NgayBD = "2020-06-01";
                 }
                 if (NgayKT == "" || NgayKT == null)
                 {
-                    NgayKT = DateTime.Now.ToShortDateString();
+                    NgayKT = DateTime.Now.ToString("yyyy'-'MM'-'dd");
+                }
+                if (id != null)
+                {
+                    var mXe = new DMXeDao().GetById(id);
+                    ViewBag.Xe = mXe.BienSo;
+                    ViewBag.MaXe = mXe.MaXe;
+                    ViewBag.IdXe = mXe.Id;
                 }
                 var xe = new DMXeDao().GetById(id);
                 var model = new CTTTLuongDao().PhatSinhLuong(id, NgayBD, NgayKT);
@@ -65,7 +67,7 @@ namespace PhanLong.Areas.ThongKe.Controllers
                 ViewBag.X40 = model.Where(x => x.DMLoai.MaLoai == "40X").Count();
                 ViewBag.Tong = (ViewBag.N20 + ViewBag.X20 + ViewBag.N40 + ViewBag.X40);
                 return View(model);
-            }
+            
             
         }
 
@@ -91,6 +93,7 @@ namespace PhanLong.Areas.ThongKe.Controllers
             return RedirectToAction("CTTTLuong", "Luong", new { id = phatSinh.Xe, NgayBD = NgayBD, NgayKT = NgayKT });
         }
 
+        [HttpGet]
         public ActionResult Thanhtoanchiho(long id, string NgayBD, string NgayKT)
         {
             if (NgayBD == "" || NgayBD == null)
@@ -99,7 +102,14 @@ namespace PhanLong.Areas.ThongKe.Controllers
             }
             if (NgayKT == "" || NgayKT == null)
             {
-                NgayKT = DateTime.Now.ToShortDateString();
+                NgayKT = DateTime.Now.ToString("yyyy'-'MM'-'dd");
+            }
+            if (id != null)
+            {
+                var mXe = new DMXeDao().GetById(id);
+                ViewBag.Xe = mXe.BienSo;
+                ViewBag.MaXe = mXe.MaXe;
+                ViewBag.IdXe = mXe.Id;
             }
             var xe = new DMXeDao().GetById(id);
             var model = new CTTTLuongDao().PhatSinhLuong(id, NgayBD, NgayKT);

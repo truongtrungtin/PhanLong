@@ -44,6 +44,9 @@
 }
 
 @section css{
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+
     <link href="~/Content/dist/css/Print.css" media="print" rel="stylesheet" />
     <style>
         label {
@@ -108,9 +111,6 @@
             </h3>
         </div>
         <div class="card-body">
-
-            <input type="hidden" readonly class="form-control form-control-sm" name="id" value="@ViewBag.id" />
-
             <div class="row">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
                     <div class="form-group row">
@@ -135,6 +135,32 @@
                                 </div>
                                 <input type="text" name="NgayKT" class="form-control form-control-sm" value="@ngaykt.ToShortDateString()" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl-1">
+                    <div class="form-group row">
+                        <label class="col-form-label col-12 col-sm-6 col-md-3" for="Xe">Xe:</label>
+                        <div class="col-12 col-sm-6 col-md-8">
+                            <select name="id" class="form-control form-control-sm select2" data-placeholder="Chọn Xe">
+                                @if (ViewBag.IdXe != null)
+                                {
+                                    <option value="@ViewBag.IdXe">@ViewBag.MaXe</option>
+                                }
+                                else
+                                {
+                                    <option value="">All</option>
+                                }
+                                @foreach (var item in db.DMXes)
+                                {
+                                    if (item.Id != ViewBag.IdXe)
+                                    {
+                                        <option value="@item.Id">@item.MaXe</option>
+                                    }
+
+                                }
+
+                            </select>
                         </div>
                     </div>
                 </div>

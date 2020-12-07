@@ -31,6 +31,8 @@
 }
 
 @section css{
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
     <link href="~/Content/dist/css/Print.css" media="print" rel="stylesheet" />
     <style>
         label {
@@ -76,9 +78,6 @@
             </h3>
         </div>
         <div class="card-body">
-
-            <input type="hidden" readonly class="form-control form-control-sm" name="id" value="@ViewBag.id" />
-
             <div class="row">
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2">
                     <div class="form-group row">
@@ -106,11 +105,37 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12 col-sm-6 col-md-4 col-lg-2 col-xl-1">
+                    <div class="form-group row">
+                        <label class="col-form-label col-12 col-sm-6 col-md-3" for="Xe">Xe:</label>
+                        <div class="col-12 col-sm-6 col-md-8">
+                            <select name="id" class="form-control form-control-sm select2" data-placeholder="Chọn Xe">
+                                @if (ViewBag.IdXe != null)
+                                {
+                                    <option value="@ViewBag.IdXe">@ViewBag.MaXe</option>
+                                }
+                                else
+                                {
+                                    <option value="">All</option>
+                                }
+                                @foreach (var item in db.DMXes)
+                                {
+                                    if (item.Id != ViewBag.IdXe)
+                                    {
+                                        <option value="@item.Id">@item.MaXe</option>
+                                    }
+
+                                }
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-sm-2">
                     <input type="submit" name="Search" value="Tìm" class="btn btn-primary" />
                 </div>
             </div>
-           
+
         </div>
     </div>
 }
@@ -132,7 +157,7 @@
         <h6 style="text-align:center">Số xe: <b>@ViewBag.Xe</b></h6>
         <h6 style="text-align:center">Từ ngày: <b>@ngaybd.Date.ToShortDateString()</b> - Đến ngày: <b>@ngaykt.Date.ToShortDateString()</b></h6>
         <div class="container" style="float:none;text-align:center">
-             <div class="row">
+            <div class="row">
                 <div class="col-1 col-lg-1">
                 </div>
                 <div class="col-4 col-lg-4">
@@ -189,12 +214,12 @@
                 </tr>
             </tbody>
             <tbody>
-                @foreach (var item in Model.OrderBy(x=>x.Ngay))
+                @foreach (var item in Model.OrderBy(x => x.Ngay))
                 {
                     sttc += 1;
                     <tr>
                         <td>@sttc</td>
-                        <td >@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                        <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
                         <td style="text-align:left">@(item.SoCont != null ? item.SoCont : null)</td>
                         <td style="text-align:left" title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet : null)">@(item.Kho != null ? item.DMKho.DiaChi : null)</td>
                         <td class="tg-t1ow" style="text-align:right">@(item.TienNang != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienNang)) : null)</td>
