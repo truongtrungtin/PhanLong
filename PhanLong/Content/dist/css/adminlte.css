@@ -11079,9 +11079,6 @@ a.text-dark:hover, a.text-dark:focus {
         page-break-after: avoid;
     }
 
-    @page {
-        size: a3;
-    }
 
     body {
         min-width: 992px !important;
@@ -11099,35 +11096,6 @@ a.text-dark:hover, a.text-dark:focus {
         border: 1px solid #000;
     }
 
-    .table {
-        border-collapse: collapse !important;
-    }
-
-        .table td,
-        .table th {
-            background-color: #fff !important;
-        }
-
-    .table-bordered th,
-    .table-bordered td {
-        border: 1px solid #dee2e6 !important;
-    }
-
-    .table-dark {
-        color: inherit;
-    }
-
-        .table-dark th,
-        .table-dark td,
-        .table-dark thead th,
-        .table-dark tbody + tbody {
-            border-color: #dee2e6;
-        }
-
-    .table .thead-dark th {
-        color: inherit;
-        border-color: #dee2e6;
-    }
 }
 
 html.scroll-smooth {
