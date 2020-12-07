@@ -12578,7 +12578,7 @@ body.sidebar-collapse:not(.sidebar-mini-md):not(.sidebar-mini) .main-header::bef
         border-color: #343a40 !important;
     }
     .dark-mode .content-wrapper {
-        background-color: #454d55;
+        background-color: #000000;
         color: #fff;
     }
 
