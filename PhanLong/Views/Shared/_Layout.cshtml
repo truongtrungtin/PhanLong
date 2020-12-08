@@ -96,7 +96,8 @@
     <script src="/Content/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
     <!-- bs-custom-file-input -->
     <script src="/Content/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-
+    <script src="~/Scripts/jquery.signalR-2.2.2.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <!-- InputMask -->
     <script src="/Content/plugins/inputmask/jquery.inputmask.min.js"></script>
     <!-- page script -->
@@ -105,6 +106,17 @@
 
     <!-- AdminLTE for demo purposes -->
     <script src="/Content/dist/js/demo.js"></script>
+    <script>
+        $(function () {
+            var counterHub = $.connection.online;
+            $.connection.hub.start().done(function () {
+
+            });
+            counterHub.client.online = function (count) {
+                $("#counter").text(count);
+            }
+        });
+    </script>
 
 </body>
 </html>

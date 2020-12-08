@@ -35,7 +35,8 @@ namespace PhanLong.Controllers
             return Redirect(returnUrl);
         }
 
-
+       
+        
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var session = (UserLogin)Session[CommonConstants.USER_SESSION];

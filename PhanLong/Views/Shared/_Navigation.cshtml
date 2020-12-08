@@ -79,13 +79,10 @@
                                             {
                                                 <td>
                                                     @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
-                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) > 0 ?
-                                    Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) :
-                                    Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays))
-                                    ) ngày (@item.HanLuuBai.Value.ToShortDateString())
-                                </td>
-                            }
-                        }
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) > 0 ? Convert.ToInt64((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays) :Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuBai) - DateTime.Now.Date).TotalDays))) ngày (@item.HanLuuBai.Value.ToShortDateString())
+                                                </td>
+                                            }
+                                        }
 
                                         @if (item.HanLuuBai == null)
                                         {
@@ -104,13 +101,10 @@
                                             {
                                                 <td>
                                                     @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) > 0 ? "Còn " : "Quá Hạn ")
-                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) > 0 ?
-                                    Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) :
-                                    Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays))
-                                    ) ngày (@item.HanLuuCont.Value.ToShortDateString())
-                                </td>
-                            }
-                        }
+                                                    @(Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) > 0 ? Convert.ToInt64((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays) : Convert.ToInt64(Math.Abs((Convert.ToDateTime(item.HanLuuCont) - DateTime.Now.Date).TotalDays))) ngày (@item.HanLuuCont.Value.ToShortDateString())
+                                                </td>
+                                            }
+                                        }
 
                                         @if (item.HanLuuRong == null)
                                         {
@@ -221,7 +215,9 @@
             {
                 <a href="/" class="nav-link">Đăng nhập</a>
             }
-
+        </li>
+        <li class="nav-item  d-none d-sm-inline-block">
+            <strong id="counter"></strong>
         </li>
         <li class="nav-item  d-none d-sm-inline-block">
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
@@ -333,9 +329,6 @@
                                                 </a>
                                             </li>
                                         }
-
-
-
                                     }
                                 </ul>
                             </li>
@@ -377,7 +370,7 @@
         <h5>Settings (Thử nghiệm)</h5>
         <hr class="mb-2" />
         <div class="mb-4'">
-            @foreach (var item in db.UserSettings.Where(x=> x.User == session.UserID))
+            @foreach (var item in db.UserSettings.Where(x => x.User == session.UserID))
             {
                 <input id="darkmode" type="checkbox" @(item.Status == true ? "Checked" : null) onclick="ChangeSettings(@item.Id)" class="mr-1" />
                 <span>@item.Setting.Function</span>
