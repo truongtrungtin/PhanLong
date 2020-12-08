@@ -32,50 +32,42 @@
 
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in Model.Where(x => x.CTChiThus.FirstOrDefault().DMPhi.LoaiPhi == 2 && x.Ngay > DateTime.Now.Date.AddDays(-30)))
             {
-                var ct = db.CTChiThus.Where(x => x.DMPhi.LoaiPhi == 2 && x.PhatSinhChiThu == item.Id).FirstOrDefault();
-                if ((ct != null ? item.Id == ct.PhatSinhChiThu : false))
-                {
-                    var model = new CTThuDao().ListAll(item.Id);
-                    <tr id="row_@item.Id">
 
-                        <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                        <td>@(item.Ngay != null? item.Ngay.ToShortDateString(): null)</td>
-                        <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
-                        <td>@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>
-                        <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
-                        <td title="@(item.Xe != null ? item.DMXe.BienSo : null)">@(item.Xe != null ? item.DMXe.MaXe : null)</td>
-                        <td title="@(item.Mooc != null ? item.DMMooc.BienSo : null)">@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
-                        @{var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();}
-                        <td> @(maphi.Phi != null ? maphi.DMPhi.MaPhi : null)</td>
-                        @if (item.Bill != null)
-                        {
-                            <td>
-                                @Html.ActionLink(item.DMBill.MaBill, "CTThu", new { id = item.Id })
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                Null
-                            </td>
-
-                        }
-                        <td>@item.SoHD</td>
-                        <td style="text-align: right">
-                            @{ var a = 0;
-                                var tongtien = 0;
-                                foreach (var tien in item.CTChiThus)
-                                {
-                                    tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                    a += tongtien;
-                                }
-                            }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (a))
+                <tr id="row_@item.Id">
+                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                    <td>@(item.Ngay != null? item.Ngay.ToShortDateString(): null)</td>
+                    <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
+                    <td>@(item.HTTT != null ? item.HinhThucTT.MaHT : null)</td>
+                    <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                    <td title="@(item.Xe != null ? item.DMXe.BienSo : null)">@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                    <td title="@(item.Mooc != null ? item.DMMooc.BienSo : null)">@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
+                    <td title="@(item.CTChiThus.FirstOrDefault().Phi != null ? item.CTChiThus.FirstOrDefault().DMPhi.TenPhi : null)"> @(item.CTChiThus.FirstOrDefault().Phi != null ? item.CTChiThus.FirstOrDefault().DMPhi.MaPhi : null)</td>
+                    @if (item.Bill != null)
+                    {
+                        <td>
+                            @Html.ActionLink(item.DMBill.MaBill, "CTThu", new { id = item.Id })
                         </td>
-                        <td>@item.GhiChu</td>
-                    </tr>
-                }
+                    }
+                    else
+                    {
+                        <td></td>
+                    }
+                    <td>@item.SoHD</td>
+                    <td style="text-align: right">
+                        @{ var a = 0;
+                            var tongtien = 0;
+                            foreach (var tien in item.CTChiThus)
+                            {
+                                tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                a += tongtien;
+                            }
+                        }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (a))
+                    </td>
+                    <td>@item.GhiChu</td>
+                </tr>
+
             }
 
         </tbody>

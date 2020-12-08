@@ -38,54 +38,45 @@
                         <th>Tiền Chi (VNĐ)</th>
                         <th>Ghi Chú</th>
                     </tr>
-
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Where(x => x.CTChiThus.FirstOrDefault().DMPhi.LoaiPhi != 2 && x.Ngay > DateTime.Now.Date.AddDays(-30)))
                     {
-                        var ct = db.CTChiThus.Where(x => (x.DMPhi.LoaiPhi == 1 || x.DMPhi.LoaiPhi == 3 || x.DMPhi.LoaiPhi == 4) && x.PhatSinhChiThu == item.Id).FirstOrDefault();
-                        if ((ct != null ? item.Id == ct.PhatSinhChiThu : false))
-                        {
-                            var model = new CTChiDao().ListAll(item.Id);
-                            <tr id="row_@item.Id">
-
-                                <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                                <td>@(item.Ngay != null? item.Ngay.ToShortDateString(): null)</td>
-                                <td title="@(item.NguoiChiThu != null ? item.DMNhanVien.TenNV : null)">@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
-                                <td title="@(item.NguoiNhan != null ? item.DMKhachHang1.TenCongTy : null)">@(item.NguoiNhan != null ? item.DMKhachHang1.MaKH : null)</td>
-                                <td title="@(item.HTTT != null ? item.HinhThucTT.MoTa : null)">@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
-                                <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
-                                <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
-                                <td title="@(item.Xe != null ? item.DMXe.BienSo : null)">@(item.Xe != null ? item.DMXe.MaXe : null)</td>
-                                <td title="@(item.Mooc != null ? item.DMMooc.BienSo : null)">@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
-
-                                @{var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();}
-                                <td title="@(maphi != null ? maphi.DMPhi.TenPhi : null)"> @(maphi != null ? maphi.DMPhi.MaPhi : null)</td>
-                                @if (item.Bill != null)
-                                {
-                                    <td>
-                                        @Html.ActionLink(item.DMBill.MaBill, "CTChi", new { id = item.Id })
-                                    </td>
-                                }
-                                else
-                                {
-                                    <td></td>
-
-                                }
-                                <td>@item.SoHD</td>
-                                <td style="text-align: right">
-                                    @{ var a = 0;
-                                        var tongtien = 0;
-                                        foreach (var tien in item.CTChiThus)
-                                        {
-                                            tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                            a += tongtien;
-                                        }
-                                    }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (a))
+                        <tr id="row_@item.Id">
+                            <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                            <td>@(item.Ngay != null? item.Ngay.ToShortDateString(): null)</td>
+                            <td title="@(item.NguoiChiThu != null ? item.DMNhanVien.TenNV : null)">@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
+                            <td title="@(item.NguoiNhan != null ? item.DMKhachHang1.TenCongTy : null)">@(item.NguoiNhan != null ? item.DMKhachHang1.MaKH : null)</td>
+                            <td title="@(item.HTTT != null ? item.HinhThucTT.MoTa : null)">@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
+                            <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                            <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
+                            <td title="@(item.Xe != null ? item.DMXe.BienSo : null)">@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                            <td title="@(item.Mooc != null ? item.DMMooc.BienSo : null)">@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
+                            <td title="@(item.CTChiThus.FirstOrDefault().Phi != null ? item.CTChiThus.FirstOrDefault().DMPhi.TenPhi : null)"> @(item.CTChiThus.FirstOrDefault().Phi != null ? item.CTChiThus.FirstOrDefault().DMPhi.MaPhi : null)</td>
+                            @if (item.Bill != null)
+                            {
+                                <td>
+                                    @Html.ActionLink(item.DMBill.MaBill, "CTChi", new { id = item.Id })
                                 </td>
-                                <td>@item.GhiChu</td>
-                            </tr>
-                        }
+                            }
+                            else
+                            {
+                                <td></td>
+
+                            }
+                            <td>@item.SoHD</td>
+                            <td style="text-align: right">
+                                @{ var a = 0;
+                                    var tongtien = 0;
+                                    foreach (var tien in item.CTChiThus)
+                                    {
+                                        tongtien = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
+                                        a += tongtien;
+                                    }
+                                }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (a))
+                            </td>
+                            <td>@item.GhiChu</td>
+                        </tr>
                     }
                 </tbody>
             </table>
@@ -103,7 +94,7 @@
                 </div>
             </div>
         }
-        <div style="text-align:right">
+        @*<div style="text-align:right">
             @using (Html.BeginForm("ImportExcel", "PhatSinhChi", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <input type="hidden" name="Sheet" value="PhatSinhChiThu$" />
@@ -112,7 +103,7 @@
                     <input type="file" id="FileUpload" name="FileUpload" aria-label="EXCEL" />
                 </label>
             }
-        </div>
+        </div>*@
     </div>
 </div>
 
