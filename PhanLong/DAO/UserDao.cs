@@ -222,7 +222,7 @@ namespace PhanLong.DAO
             return data.Select(x => x.RoleId).ToList();
 
         }
-        public int Login(string userName, string passWord, bool isLoginAdmin = false)
+        public int Login(string userName, string passWord)
         {
             var result = db.Users.SingleOrDefault(x => x.Username == userName);
             if (result == null)
@@ -231,25 +231,19 @@ namespace PhanLong.DAO
             }
             else
             {
-                if (isLoginAdmin == true)
+
+                if (result.GroupID == CommonConstants.ADMIN_GROUP || result.GroupID == CommonConstants.BOSS_GROUP)
                 {
-                    if (result.GroupID == CommonConstants.ADMIN_GROUP || result.GroupID == CommonConstants.BOSS_GROUP || result.GroupID == CommonConstants.MEMBER_GROUP)
+                    if (result.Status == false)
                     {
-                        if (result.Status == false)
-                        {
-                            return -1;
-                        }
-                        else
-                        {
-                            if (result.Password == passWord)
-                                return 1;
-                            else
-                                return -2;
-                        }
+                        return -1;
                     }
                     else
                     {
-                        return -3;
+                        if (result.Password == passWord)
+                            return 1;
+                        else
+                            return -2;
                     }
                 }
                 else

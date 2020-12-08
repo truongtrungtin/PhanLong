@@ -3,6 +3,7 @@ using PhanLong.DAO;
 using PhanLong.EF;
 using PhanLong.Models;
 using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
@@ -14,42 +15,41 @@ namespace PhanLong.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            if (Request.Cookies["UserName"] != null && Request.Cookies["Password"] != null)
-            {   
-                if( Request.Cookies["UserName"].Value == "" || Request.Cookies["Password"].Value == "")
-                {
-                    Response.Cookies.Remove("UserName");
-                    Response.Cookies.Remove("Password");
-                }
-                else
-                {
-                    LoginModel model = new LoginModel();
-                    var dao = new UserDao();
-                    model.UserName = Request.Cookies["UserName"].Value;
-                    model.Password = Request.Cookies["Password"].Value;
-                    var result = dao.Login(model.UserName, model.Password, true);
-                    if (result == 1)
-                    {
-                        var user = dao.GetById(model.UserName);
-                        var userSession = new UserLogin();
-                        userSession.UserName = user.Username;
-                        userSession.UserID = user.Id;
-                        userSession.GroupID = user.GroupID;
-                        userSession.fullname = user.Name;
-                        userSession.Email = user.Email;
-                        userSession.avatar = user.Avatar;
-                        var listCredentials = dao.GetListCredential(model.UserName);
+            //if (Request.Cookies["UserName"] != null && Request.Cookies["Password"] != null)
+            //{
+            //    if (Request.Cookies["UserName"].Value == "" || Request.Cookies["Password"].Value == "")
+            //    {
+            //        FormsAuthentication.SignOut();
+            //    }
+            //    else
+            //    {
+            //        LoginModel model = new LoginModel();
+            //        var dao = new UserDao();
+            //        model.UserName = Request.Cookies["UserName"].Value;
+            //        model.Password = Request.Cookies["Password"].Value;
+            //        var result = dao.Login(model.UserName, model.Password);
+            //        if (result == 1)
+            //        {
+            //            var user = dao.GetById(model.UserName);
+            //            var userSession = new UserLogin();
+            //            userSession.UserName = user.Username;
+            //            userSession.UserID = user.Id;
+            //            userSession.GroupID = user.GroupID;
+            //            userSession.fullname = user.Name;
+            //            userSession.Email = user.Email;
+            //            userSession.avatar = user.Avatar;
+            //            var listCredentials = dao.GetListCredential(model.UserName);
 
-                        Session.Add(CommonConstants.SESSION_CREDENTIALS, listCredentials);
-                        Session.Add(CommonConstants.USER_SESSION, userSession);
-                        Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
-                        Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
-                        FormsAuthentication.SetAuthCookie(user.Username, model.RememberMe);
-                    }
-                    return RedirectToAction("Index", "Home");
-                }
-                
-            }
+            //            Session.Add(CommonConstants.SESSION_CREDENTIALS, listCredentials);
+            //            Session.Add(CommonConstants.USER_SESSION, userSession);
+            //            Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
+            //            Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
+            //            FormsAuthentication.SetAuthCookie(user.Username, model.RememberMe);
+            //        }
+            //        return RedirectToAction("Index", "Home");
+            //    }
+
+            //}
             return View("Index");
         }
 
@@ -59,7 +59,7 @@ namespace PhanLong.Controllers
             if (ModelState.IsValid)
             {
                 var dao = new UserDao();
-                var result = dao.Login(model.UserName, Encryptor.MD5Hash(model.Password), true);
+                var result = dao.Login(model.UserName, Encryptor.MD5Hash(model.Password));
                 if (result == 1)
                 {
                     var user = dao.GetById(model.UserName);
@@ -76,11 +76,21 @@ namespace PhanLong.Controllers
                     Session.Add(CommonConstants.USER_SESSION, userSession);
                     if (model.RememberMe == true)
                     {
-                        Response.Cookies["UserName"].Value = model.UserName.Trim();
-                        Response.Cookies["Password"].Value = Encryptor.MD5Hash(model.Password).Trim();
-                        Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
-                        Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
-                        FormsAuthentication.SetAuthCookie(user.Username, model.RememberMe);
+                        //Response.Cookies["UserName"].Value = model.UserName.Trim();
+                        //Response.Cookies["Password"].Value = Encryptor.MD5Hash(model.Password).Trim();
+                        //Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
+                        //Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
+                        var authTicket = new FormsAuthenticationTicket(
+                            1,
+                            model.UserName.Trim(),
+                            DateTime.Now,
+                            DateTime.Now.AddDays(30),
+                            model.RememberMe,
+                            "",
+                            "/"
+                            );
+                        HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName,FormsAuthentication.Encrypt(authTicket));
+                        Response.Cookies.Add(cookie);
                     }
                     return RedirectToAction("Index", "Home");
                 }
@@ -107,6 +117,7 @@ namespace PhanLong.Controllers
             }
             return View("Index");
         }
+
 
         //private Uri RedirectUri
         //{
@@ -181,6 +192,7 @@ namespace PhanLong.Controllers
             Session[CommonConstants.USER_SESSION] = null;
             Response.Cookies.Remove("UserName");
             Response.Cookies.Remove("Password");
+            FormsAuthentication.SignOut();
             return Redirect("/");
         }
 
