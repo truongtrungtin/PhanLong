@@ -42,6 +42,12 @@
     <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
 }
 
+@section js{
+    <!-- Select2 -->
+    <script src="/Content/plugins/select2/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/Content/plugins/inputmask/jquery.inputmask.min.js"></script>
+}
 @using (Html.BeginForm("Index", "ChiThu", FormMethod.Get))
 {
     <div class="card">
@@ -418,195 +424,12 @@
                     {
                         var tt = 0;
                         var tc = 0;
-                        var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();
+                        //var maphi = item.CTChiThus.Where(x => x.PhatSinhChiThu == item.Id).FirstOrDefault();
                         var phi = 0;
-                        if (ViewBag.IdChiThu != null)
+
+                        var ctct = item.CTChiThus.FirstOrDefault();
+                        if (ctct != null)
                         {
-                            if (ViewBag.IdChiThu == maphi.DMPhi.LoaiPhi)
-                            {
-                                if (ViewBag.IdTenPhi != null)
-                                {
-                                    phi = item.CTChiThus.Where(x => x.Phi == ViewBag.IdTenPhi).Count();
-                                    if (phi > 0)
-                                    {
-
-                                        var model = new CTChiDao().ListAll(item.Id);
-                                        <tr>
-                                            <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                                            <td>@item.Id</td>
-                                            <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
-                                            <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
-                                            <td>@(item.NguoiNhan != null ? item.DMKhachHang1.MaKH : null )</td>
-                                            <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
-                                            <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
-                                            <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
-                                            <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
-                                            <td>@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
-                                            <td> @(maphi.DMPhi.LoaiPhi == 1 ? maphi.DMPhi.MaPhi : null)</td>
-                                            <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
-                                            <td>@(item.Bill != null ? item.DMBill.MaBill : null)</td>
-                                            <td>@(item.SoHD != null ? item.SoHD : null)</td>
-                                            @if (maphi.DMPhi.LoaiPhi == 1 || maphi.DMPhi.LoaiPhi == 3 || maphi.DMPhi.LoaiPhi == 4)
-                                            {
-                                                <td style="text-align: right">
-                                                    @{ tc = 0;
-                                                        var tienchi = 0;
-                                                        foreach (var tien in item.CTChiThus)
-                                                        {
-                                                            tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                                            tc += tienchi;
-                                                        }
-                                                    }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tc))
-                                                </td>
-                                            }
-                                            else
-                                            {
-                                                <td></td>
-                                            }
-                                            @if (maphi.DMPhi.LoaiPhi == 2)
-                                            {
-                                                <td style="text-align: right">
-                                                    @{ tt = 0;
-                                                        var tienthu = 0;
-                                                        foreach (var tien in item.CTChiThus)
-                                                        {
-                                                            tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                                            tt += tienthu;
-                                                        }
-                                                    }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tt))
-                                                </td>
-                                            }
-                                            else
-                                            {
-                                                <td></td>
-                                            }
-                                            <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
-                                        </tr>
-                                    }
-                                }
-                                else
-                                {
-
-                                    var model = new CTChiDao().ListAll(item.Id);
-                                    <tr>
-                                        <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                                        <td>@item.Id</td>
-                                        <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
-                                        <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
-                                        <td>@(item.NguoiNhan != null ? item.DMKhachHang1.MaKH : null )</td>
-                                        <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
-                                        <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
-                                        <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
-                                        <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
-                                        <td>@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
-
-                                        <td> @(maphi.DMPhi.LoaiPhi == 1 ? maphi.DMPhi.MaPhi : null)</td>
-                                        <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
-                                        <td>@(item.Bill != null ? item.DMBill.MaBill : null)</td>
-                                        <td>@(item.SoHD != null ? item.SoHD : null)</td>
-                                        @if (maphi.DMPhi.LoaiPhi == 1 || maphi.DMPhi.LoaiPhi == 3 || maphi.DMPhi.LoaiPhi == 4)
-                                        {
-                                            <td style="text-align: right">
-                                                @{ tc = 0;
-                                                    var tienchi = 0;
-                                                    foreach (var tien in item.CTChiThus)
-                                                    {
-                                                        tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                                        tc += tienchi;
-                                                    }
-                                                }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tc))
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td></td>
-                                        }
-                                        @if (maphi.DMPhi.LoaiPhi == 2)
-                                        {
-                                            <td style="text-align: right">
-                                                @{ tt = 0;
-                                                    var tienthu = 0;
-                                                    foreach (var tien in item.CTChiThus)
-                                                    {
-                                                        tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                                        tt += tienthu;
-                                                    }
-                                                }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tt))
-                                            </td>
-                                        }
-                                        else
-                                        {
-                                            <td></td>
-                                        }
-                                        <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
-                                    </tr>
-                                }
-                            }
-                        }
-                        else if (ViewBag.IdTenPhi != null)
-                        {
-                            phi = item.CTChiThus.Where(x => x.Phi == ViewBag.IdTenPhi).Count();
-                            if (phi > 0)
-                            {
-
-                                var model = new CTChiDao().ListAll(item.Id);
-                                <tr>
-                                    <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                                    <td>@item.Id</td>
-                                    <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
-                                    <td>@(item.NguoiChiThu != null ? item.DMNhanVien.MaNV : null)</td>
-                                    <td>@(item.NguoiNhan != null ? item.DMKhachHang1.MaKH : null )</td>
-                                    <td>@(item.HTTT != null ? item.HinhThucTT.MoTa : null)</td>
-                                    <td>@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
-                                    <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
-                                    <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
-                                    <td>@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
-                                    <td> @(maphi.DMPhi.LoaiPhi == 1 ? maphi.DMPhi.MaPhi : null)</td>
-                                    <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
-                                    <td>@(item.Bill != null ? item.DMBill.MaBill : null)</td>
-                                    <td>@(item.SoHD != null ? item.SoHD : null)</td>
-                                    @if (maphi.DMPhi.LoaiPhi == 1 || maphi.DMPhi.LoaiPhi == 3 || maphi.DMPhi.LoaiPhi == 4)
-                                    {
-                                        <td style="text-align: right">
-                                            @{ tc = 0;
-                                                var tienchi = 0;
-                                                foreach (var tien in item.CTChiThus)
-                                                {
-                                                    tienchi = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                                    tc += tienchi;
-                                                }
-                                            }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tc))
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td></td>
-                                    }
-                                    @if (maphi.DMPhi.LoaiPhi == 2)
-                                    {
-                                        <td style="text-align: right">
-                                            @{ tt = 0;
-                                                var tienthu = 0;
-                                                foreach (var tien in item.CTChiThus)
-                                                {
-                                                    tienthu = Convert.ToInt32(tien.DonGia) * tien.SoLuong;
-                                                    tt += tienthu;
-                                                }
-                                            }@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tt))
-                                        </td>
-                                    }
-                                    else
-                                    {
-                                        <td></td>
-                                    }
-                                    <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
-                                </tr>
-                            }
-                        }
-                        else
-                        {
-
-                            var model = new CTChiDao().ListAll(item.Id);
                             <tr>
                                 <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
                                 <td>@item.Id</td>
@@ -618,14 +441,15 @@
                                 <td style="text-align:left">@(item.CTChiThus != null ? item.CTChiThus.FirstOrDefault().NoiDung : null)</td>
                                 <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
                                 <td>@(item.Mooc != null ? item.DMMooc.MaMooc : null)</td>
-                                <td> @(maphi.DMPhi.LoaiPhi == 1 ? maphi.DMPhi.MaPhi : null)</td>
-                                <td> @(maphi.DMPhi.LoaiPhi == 2 ? maphi.DMPhi.MaPhi : null)</td>
+                                <td> @( ctct.Phi != null && ctct.DMPhi.LoaiPhi != 2  ? ctct.DMPhi.MaPhi : null)</td>
+                                <td> @( ctct.Phi != null && ctct.DMPhi.LoaiPhi == 2 ? ctct.DMPhi.MaPhi : null)</td>
                                 <td>@(item.Bill != null ? item.DMBill.MaBill : null)</td>
                                 <td>@(item.SoHD != null ? item.SoHD : null)</td>
-                                @if (maphi.DMPhi.LoaiPhi == 1 || maphi.DMPhi.LoaiPhi == 3 || maphi.DMPhi.LoaiPhi == 4)
+                                @if (ctct.DMPhi.LoaiPhi != 2)
                                 {
                                     <td style="text-align: right">
-                                        @{ tc = 0;
+                                        @{ 
+                                            tc = 0;
                                             var tienchi = 0;
                                             foreach (var tien in item.CTChiThus)
                                             {
@@ -639,7 +463,7 @@
                                 {
                                     <td></td>
                                 }
-                                @if (maphi.DMPhi.LoaiPhi == 2)
+                                @if (ctct.DMPhi.LoaiPhi == 2)
                                 {
                                     <td style="text-align: right">
                                         @{ tt = 0;

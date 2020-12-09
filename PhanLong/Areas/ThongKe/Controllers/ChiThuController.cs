@@ -62,7 +62,7 @@ namespace PhanLong.Areas.ThongKe.Controllers
         public ActionResult Index(int[] chkId)
         {
             var model = new PhatSinhChiDao().GetById(chkId[0]);
-            if (chkId.Length == 1 && model.CTChiThus.FirstOrDefault().DMPhi.LoaiPhi == 1)
+            if (chkId.Length == 1 && model.CTChiThus.FirstOrDefault().DMPhi.LoaiPhi != 2)
             {
                 return RedirectToAction("PhieuChi", "ChiThu", new { id = chkId[0] });
             }

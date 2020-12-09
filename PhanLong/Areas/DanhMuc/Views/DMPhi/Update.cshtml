@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Danh mục phí";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.url = "Index";
+    ViewBag.url = "/DanhMuc/DMPhi";
     ViewBag.Back = "Trở lại";
     PhanLongDBContext db = new PhanLongDBContext();
 }
@@ -12,6 +12,11 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
     <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+}
+@section js{
+    <!-- Select2 -->
+    <script src="/Content/plugins/select2/js/select2.full.min.js"></script>
+
 }
 <div class="card">
     <div class="container">
@@ -28,7 +33,7 @@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                     @Html.HiddenFor(model => model.Id)
-                    <div class="row" >
+                    <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.MaPhi, htmlAttributes: new { @class = "col-form-label col-sm-2" })
@@ -40,7 +45,7 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group row">
-                                @Html.LabelFor(model => model.TenPhi, htmlAttributes: new {@class = "col-form-label col-sm-3" })
+                                @Html.LabelFor(model => model.TenPhi, htmlAttributes: new { @class = "col-form-label col-sm-3" })
                                 <div class="col-sm-9">
                                     @Html.EditorFor(model => model.TenPhi, new { htmlAttributes = new { @class = "form-control form-control-sm", @required = true } })
                                     @Html.ValidationMessageFor(model => model.TenPhi, "", new { @class = "text-danger" })
@@ -64,7 +69,7 @@
                                         }
                                         @foreach (var item in db.LoaiPhis)
                                         {
-                                            if (item.Id  != Model.LoaiPhi)
+                                            if (item.Id != Model.LoaiPhi)
                                             {
                                                 <option value="@item.Id">@item.Loai</option>
                                             }

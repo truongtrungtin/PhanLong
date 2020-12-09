@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Danh mục phí";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.url = "Index";
+    ViewBag.url = "DanhMuc/DMPhi";
     ViewBag.Back = "Trở lại";
     PhanLongDBContext db = new PhanLongDBContext();
 }
@@ -11,6 +11,11 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
     <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+}
+@section js{
+    <!-- Select2 -->
+    <script src="/Content/plugins/select2/js/select2.full.min.js"></script>
+
 }
 <div class="card">
     <div class="container">
@@ -46,7 +51,7 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group row">
-                                @Html.LabelFor(model => model.LoaiPhi, htmlAttributes: new {@class = "col-form-label col-sm-3" })
+                                @Html.LabelFor(model => model.LoaiPhi, htmlAttributes: new { @class = "col-form-label col-sm-3" })
                                 <div class="col-sm-9">
                                     <select name="LoaiPhi" class="form-control form-control-sm select2" data-placeholder="Chọn loại phí" required>
                                         <option value=""></option>

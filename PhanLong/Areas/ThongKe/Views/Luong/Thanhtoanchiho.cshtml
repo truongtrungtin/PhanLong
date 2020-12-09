@@ -48,7 +48,12 @@
         }
     </style>
 }
-
+@section js{
+    <!-- Select2 -->
+    <script src="/Content/plugins/select2/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/Content/plugins/inputmask/jquery.inputmask.min.js"></script>
+}
 @using (Html.BeginForm("EditGhiChuChiHo", "Luong", FormMethod.Post))
 {
     <input type="hidden" readonly class="form-control form-control-sm" name="Xe" value="@ViewBag.id" />

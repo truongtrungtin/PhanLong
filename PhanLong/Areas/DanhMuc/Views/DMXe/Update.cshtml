@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Danh mục xe";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.url = "/DanhMuc/DMXe/Index";
+    ViewBag.url = "/DanhMuc/DMXe";
     ViewBag.Back = "Trở lại";
 }
 <div class="card">
@@ -63,3 +63,9 @@
     </div>
 </div>
 
+
+@section js{
+    <!-- Select2 -->
+    <script src="/Content/plugins/select2/js/select2.full.min.js"></script>
+
+}

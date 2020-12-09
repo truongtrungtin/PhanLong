@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-
-namespace PhanLong.Models
+﻿namespace PhanLong.Models
 {
     public partial class ThanhToanLuong
     {
-      
+
         public long IdXe { get; set; }
         public long IdTaiXe { get; set; }
         public int Ngay { get; set; }

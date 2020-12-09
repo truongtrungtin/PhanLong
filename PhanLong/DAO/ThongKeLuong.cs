@@ -31,9 +31,9 @@ namespace PhanLong.DAO
                            Cont = ps.SoCont,
                            tiencuoc = ps.CuocTX,
                            tiennang = ps.TienNang,
-                           tienha = ps.TienHa ,
+                           tienha = ps.TienHa,
                            phict = ps.DMPhi.TenPhi,
-                           tienphict =ps.TienPhiCT,
+                           tienphict = ps.TienPhiCT,
                            phikhachhang = ps.PhiKH,
                            tienphikhachhang = ps.TienPhiKH,
 
@@ -46,7 +46,7 @@ namespace PhanLong.DAO
         {
             DateTime sdate = (ngayBD != "") ? Convert.ToDateTime(ngayBD) : new DateTime();
             DateTime edate = (ngayKT != "") ? Convert.ToDateTime(ngayKT).Date : new DateTime();
-            object[] parameters = 
+            object[] parameters =
             {
                 new SqlParameter("@ngaybd",sdate.ToString("yyyy'-'MM'-'dd")),
                 new SqlParameter("@ngaykt",edate.ToString("yyyy'-'MM'-'dd"))

@@ -15,6 +15,14 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="/Content/plugins/daterangepicker/daterangepicker.css">
 }
+
+@section js{
+    <!-- Select2 -->
+    <script src="/Content/plugins/select2/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/Content/plugins/inputmask/jquery.inputmask.min.js"></script>
+}
+
 @using (Html.BeginForm("Create", "PhatSinhBill", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
@@ -140,7 +148,7 @@
                                 </div>
                             </div>
                         }
-                      
+
                         <div class="col-sm-1" style="text-align:center">
                             @if (ViewBag.Ngay == "Thêm ngày giao")
                             {
@@ -218,19 +226,19 @@
                             @foreach (var item in Model)
                             {
                                 { i += 1; }
-                            <tr>
-                                <td>@i <input type="hidden" checked name="chkId[]" value="@item.Id" /></td>
-                                <td>@item.Cont</td>
-                                <td>@item.DoDay</td>
-                                <td>@item.QuyCach</td>
-                                <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : "Chưa nhập hạn lưu bãi")</td>
-                                <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : "Chưa nhập hạn lưu cont")</td>
-                                <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : "Chưa nhập hạn lưu rỗng")</td>
-                                <td>@(item.NgayGiao != null ? item.NgayGiao.Value.ToShortDateString() : "Chưa giao")</td>
-                                <td title="@(item.BaiGui != null ? item.DMCang.TenCang : null)">@(item.BaiGui != null ? item.DMCang.MaCang : null)</td>
-                                <td title="@(item.SoXe != null ? item.DMXe.BienSo : null)">@(item.SoXe != null ? item.DMXe.MaXe : null)</td>
-                                <td>@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : "Chưa gửi bãi")</td>
-                            </tr>
+                                <tr>
+                                    <td>@i <input type="hidden" checked name="chkId[]" value="@item.Id" /></td>
+                                    <td>@item.Cont</td>
+                                    <td>@item.DoDay</td>
+                                    <td>@item.QuyCach</td>
+                                    <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : "Chưa nhập hạn lưu bãi")</td>
+                                    <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : "Chưa nhập hạn lưu cont")</td>
+                                    <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : "Chưa nhập hạn lưu rỗng")</td>
+                                    <td>@(item.NgayGiao != null ? item.NgayGiao.Value.ToShortDateString() : "Chưa giao")</td>
+                                    <td title="@(item.BaiGui != null ? item.DMCang.TenCang : null)">@(item.BaiGui != null ? item.DMCang.MaCang : null)</td>
+                                    <td title="@(item.SoXe != null ? item.DMXe.BienSo : null)">@(item.SoXe != null ? item.DMXe.MaXe : null)</td>
+                                    <td>@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : "Chưa gửi bãi")</td>
+                                </tr>
                             }
                         </tbody>
                     </table>

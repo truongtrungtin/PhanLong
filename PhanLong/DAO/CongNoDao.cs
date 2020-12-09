@@ -34,7 +34,7 @@ namespace PhanLong.DAO
             var model = data;
             if (!string.IsNullOrEmpty(ngayBD) && !string.IsNullOrEmpty(ngayKT))
             {
-                model = model.Where(x=> (ngayBD == "" && ngayKT == "") || (x.Ngay >= sdate && x.Ngay <= edate));
+                model = model.Where(x => (ngayBD == "" && ngayKT == "") || (x.Ngay >= sdate && x.Ngay <= edate));
             }
             if (congNoModel.KhachHang != null)
             {

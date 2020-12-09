@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Danh mục xe";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    ViewBag.url = "Index";
+    ViewBag.url = "/DanhMuc/DMXe";
     ViewBag.Back = "Trở lại";
 }
 <div class="card">
@@ -40,7 +40,7 @@
                         </div>
                         <div class="col-sm-3">
                             <div class="form-group row">
-                                @Html.LabelFor(model => model.NgayDangKiem, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-5" })
+                                @Html.LabelFor(model => model.NgayDangKiem, htmlAttributes: new {@class = "col-form-label col-sm-5" })
                                 <div class="col-sm-7">
                                     <div class="input-group">
                                         <div class="input-group-prepend">
@@ -72,5 +72,8 @@
     </div>
 </div>
 
+@section js{
+    <!-- Select2 -->
+    <script src="/Content/plugins/select2/js/select2.full.min.js"></script>
 
-
+}

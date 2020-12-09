@@ -32,6 +32,12 @@
 
 }
 
+@section js{
+    <!-- Select2 -->
+    <script src="/Content/plugins/select2/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/Content/plugins/inputmask/jquery.inputmask.min.js"></script>
+}
 @using (Html.BeginForm("Index", "Luong", FormMethod.Get))
 {
     <div class="card no-print">
@@ -110,7 +116,7 @@
                         DateTime sdate = (ViewBag.NgayBD != "") ? Convert.ToDateTime(ViewBag.NgayBD).Date : new DateTime();
                         DateTime edate = (ViewBag.NgayKT != "") ? Convert.ToDateTime(ViewBag.NgayKT).Date : new DateTime();
                         var socont = db.PhatSinhs.Where(x => x.Xe == item.IdXe && (x.Ngay >= sdate && x.Ngay <= edate));
-                        
+
                         stt = stt + 1;
                         <tr>
                             @*@{var ngay = socont.Select(x => x.Ngay).Distinct().Count();}*@
@@ -126,10 +132,10 @@
                             <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.cuoctx * 60 / 100))</td>
                             <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (Convert.ToDecimal(item.tiennang) + Convert.ToDecimal(item.tienha) + Convert.ToDecimal(item.tienphikh)))</td>
                             <td style="text-align:right">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.tienphict))</td>
-                            <td class="no-print"><a href="/ThongKe/Luong/CTTTLuong?id=@item.IdXe&NgayBD=@ngaybd.ToShortDateString()&NgayKT=@ngaykt.ToShortDateString()" name="_Submit" class="btn btn-primary">Lương</a><a href="/ThongKe/Luong/Thanhtoanchiho?id=@item.IdXe&NgayBD=@ngaybd.ToShortDateString()&NgayKT=@ngaykt.ToShortDateString()"  name="_Submit" class="btn btn-primary">Chi hộ</a> </td>
+                            <td class="no-print"><a href="/ThongKe/Luong/CTTTLuong?id=@item.IdXe&NgayBD=@ngaybd.ToShortDateString()&NgayKT=@ngaykt.ToShortDateString()" name="_Submit" class="btn btn-primary">Lương</a><a href="/ThongKe/Luong/Thanhtoanchiho?id=@item.IdXe&NgayBD=@ngaybd.ToShortDateString()&NgayKT=@ngaykt.ToShortDateString()" name="_Submit" class="btn btn-primary">Chi hộ</a> </td>
                         </tr>
 
-                     
+
                         tongtien += item.cuoctx;
                         tongcont += item.SoCont;
                         tongngaycong += item.Ngay;

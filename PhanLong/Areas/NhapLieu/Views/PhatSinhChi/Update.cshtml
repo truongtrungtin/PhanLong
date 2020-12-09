@@ -15,6 +15,14 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="/Content/plugins/daterangepicker/daterangepicker.css">
 }
+
+@section js{
+    <!-- Select2 -->
+    <script src="/Content/plugins/select2/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/Content/plugins/inputmask/jquery.inputmask.min.js"></script>
+}
+
 <div class="card">
     <div class="card-header">
         <h4 class="card-title">
@@ -29,24 +37,24 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                 <div class="row" style="height: 30px;">
-                    <div class="col-sm-2">
+                    <div class="col-md-2 col-lg-2">
                         <div class="form-group row">
-                            @Html.LabelFor(model => model.Ngay, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
-                            <div class="col-sm-8">
+                            @Html.LabelFor(model => model.Ngay, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-md-4 col-lg-4" })
+                            <div class="col-md-8 col-lg-8">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                     </div>
-                                    <input type="text" name="Ngay" class="form-control form-control-sm" value="@Model.Ngay" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask required>
+                                    <input type="text" name="Ngay" class="form-control form-control-sm" value="@Model.Ngay.ToShortDateString()" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask required>
                                 </div>
                                 @Html.ValidationMessageFor(model => model.Ngay, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-md-2 col-lg-2">
                         <div class="form-group row">
-                            <label style="text-align:right" class="col-form-label col-sm-4" for="NguoiChiThu">Người chi</label>
-                            <div class="col-sm-8">
+                            <label style="text-align:right" class="col-form-label col-md-4 col-lg-4" for="NguoiChiThu">Người chi</label>
+                            <div class="col-md-8 col-lg-8">
                                 <select name="NguoiChiThu" class="form-control form-control-sm select2" required data-placeholder="Chọn người chi">
                                     @if (Model.NguoiChiThu != null)
                                     {
@@ -69,10 +77,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-md-2 col-lg-3">
                         <div class="form-group row">
-                            @Html.LabelFor(model => model.NguoiNhan, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
-                            <div class="col-sm-8">
+                            @Html.LabelFor(model => model.NguoiNhan, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-md-4 col-lg-4" })
+                            <div class="col-md-8 col-lg-8">
                                 <select name="NguoiNhan" class="form-control form-control-sm select2" data-placeholder="Chọn người nhận">
                                     @if (Model.NguoiNhan != null)
                                     {
@@ -96,10 +104,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-md-2 col-lg-2">
                         <div class="form-group row">
-                            <label style="text-align:right" class="col-form-label col-sm-4" for="HTTT">HTTT:</label>
-                            <div class="col-sm-8">
+                            <label style="text-align:right" class="col-form-label col-md-3 col-lg-3" for="HTTT">HTTT:</label>
+                            <div class="col-md-9 col-lg-9">
                                 <select name="HTTT" class="form-control form-control-sm select2" data-placeholder="" required>
                                     @if (Model.HTTT != null)
                                     {
@@ -117,16 +125,15 @@
                                         }
 
                                     }
-
                                 </select>
                                 @Html.ValidationMessageFor(model => model.HTTT, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-md-4 col-lg-3">
                         <div class="form-group row">
-                            @Html.LabelFor(model => model.KhachHang, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-2" })
-                            <div class="col-sm-10">
+                            @Html.LabelFor(model => model.KhachHang, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-md-3 col-lg-4" })
+                            <div class="col-md-9 col-lg-8">
                                 <select name="KhachHang" class="form-control form-control-sm select2" data-placeholder="Chọn khách hàng" required>
                                     @if (Model.KhachHang != null)
                                     {
@@ -151,10 +158,10 @@
                     </div>
                 </div>
                 <div class="row" style="height: 30px;">
-                    <div class="col-sm-2">
+                    <div class="col-md-2 col-lg-2">
                         <div class="form-group row">
-                            @Html.LabelFor(model => model.SoHD, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
-                            <div class="col-sm-8">
+                            @Html.LabelFor(model => model.SoHD, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-md-4 col-lg-5" })
+                            <div class="col-md-8 col-lg-7">
                                 <div class="input-group">
                                     @Html.EditorFor(model => model.SoHD, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
                                     @Html.ValidationMessageFor(model => model.SoHD, "", new { @class = "text-danger" })
@@ -163,10 +170,10 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-2">
+                    <div class="col-lg-2">
                         <div class="form-group row">
-                            <label style="text-align:right" class="col-form-label col-sm-4" for="Xe">Xe:</label>
-                            <div class="col-sm-8">
+                            <label style="text-align:right" class="col-form-label col-lg-4" for="Xe">Xe:</label>
+                            <div class="col-lg-8">
                                 <select name="Xe" class="form-control form-control-sm select2" data-placeholder="Chọn Xe">
                                     @if (Model.Xe != null)
                                     {
@@ -188,10 +195,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-lg-2">
                         <div class="form-group row">
-                            <label style="text-align:right" class="col-form-label col-sm-4" for="Mooc">Mooc:</label>
-                            <div class="col-sm-8">
+                            <label style="text-align:right" class="col-form-label col-lg-4" for="Mooc">Mooc:</label>
+                            <div class="col-lg-8">
                                 <select name="Mooc" class="form-control form-control-sm select2" data-placeholder="Chọn Mooc">
                                     @if (Model.Mooc != null)
                                     {
@@ -213,10 +220,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-lg-2">
                         <div class="form-group row">
-                            @Html.LabelFor(model => model.Bill, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
-                            <div class="col-sm-8">
+                            @Html.LabelFor(model => model.Bill, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-lg-4" })
+                            <div class="col-lg-8">
                                 <select name="Bill" class="form-control form-control-sm select2" data-placeholder="Chọn số bill">
                                     @if (Model.Bill != null)
                                     {
@@ -240,10 +247,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-lg-4">
                         <div class="form-group row">
-                            @Html.LabelFor(model => model.GhiChu, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-2" })
-                            <div class="col-sm-10">
+                            @Html.LabelFor(model => model.GhiChu, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-lg-2" })
+                            <div class="col-lg-10">
                                 <textarea type="text" name="GhiChu" class="form-control form-control-sm" rows="1" placeholder="Ghi chú ....">@Model.GhiChu</textarea>
                                 @Html.ValidationMessageFor(model => model.GhiChu, "", new { @class = "text-danger" })
 
@@ -260,5 +267,3 @@
         }
     </div>
 </div>
-
-

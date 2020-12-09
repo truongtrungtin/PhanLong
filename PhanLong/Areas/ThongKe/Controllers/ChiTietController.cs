@@ -13,8 +13,8 @@ namespace PhanLong.Areas.ThongKe.Controllers
         public ActionResult Index(PhatSinh phatSinh, string sday = null, string eday = null, string _Search = null, string _ThanhToanCuoc = null)
         {
             var dao = new PhatSinhDao();
-  
-            if (_Search != null && _Search != "" )
+
+            if (_Search != null && _Search != "")
             {
                 if (phatSinh.KhachHang != null)
                 {
@@ -50,7 +50,7 @@ namespace PhanLong.Areas.ThongKe.Controllers
                     ViewBag.IdBill = Bill.Id;
                 }
             }
-            else if (_ThanhToanCuoc  != null && _ThanhToanCuoc != "")
+            else if (_ThanhToanCuoc != null && _ThanhToanCuoc != "")
             {
                 return RedirectToAction("ThanhToanCuoc", "ChiTiet", new { @KhachHang = phatSinh.KhachHang, @SoBill = phatSinh.SoBill, @sday = sday, @eday = eday });
             }

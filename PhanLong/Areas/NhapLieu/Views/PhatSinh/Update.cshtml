@@ -17,6 +17,14 @@
     <!-- Daterange picker -->
     <link rel="stylesheet" href="/Content/plugins/daterangepicker/daterangepicker.css">
 }
+
+@section js{
+    <!-- Select2 -->
+    <script src="/Content/plugins/select2/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/Content/plugins/inputmask/jquery.inputmask.min.js"></script>
+}
+
 <div class="card">
     <div class="card-header">
         <h4 class="card-title">
@@ -184,9 +192,9 @@
                                     {
                                         if (item.Id != Model.CangNhan)
                                         {
-                                             <option value="@item.Id">@item.MaCang - @item.TenCang</option>
+                                            <option value="@item.Id">@item.MaCang - @item.TenCang</option>
                                         }
-                                        
+
                                     }
                                 </select>
                                 @Html.ValidationMessageFor(model => model.CangNhan, "", new { @class = "text-danger" })
@@ -282,7 +290,7 @@
                                     {
                                         if (item.Id != Model.Xe)
                                         {
-                                        <option value="@item.Id">@item.MaXe - @item.BienSo</option>
+                                            <option value="@item.Id">@item.MaXe - @item.BienSo</option>
                                         }
                                     }
                                 </select>

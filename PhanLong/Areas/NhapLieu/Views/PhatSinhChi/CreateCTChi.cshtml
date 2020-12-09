@@ -16,6 +16,13 @@
     <link rel="stylesheet" href="/Content/plugins/daterangepicker/daterangepicker.css">
 }
 
+@section js{
+    <!-- Select2 -->
+    <script src="/Content/plugins/select2/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/Content/plugins/inputmask/jquery.inputmask.min.js"></script>
+}
+
 <div class="card">
     <div class="card-header">
         <h4 class="card-title">
@@ -31,7 +38,7 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 <input type="hidden" readonly name="PhatSinhChiThu" value="@ViewBag.IdChi" />
                 <div class="row" style="height: 30px;">
-                    
+
                     <div class="col-sm-2">
                         <div class="form-group row">
                             <label style="text-align:right" class="col-form-label col-sm-4" for="Cont">Số cont:</label>
@@ -121,5 +128,4 @@
         Html.RenderAction("ViewCTChi", "PhatSinhChi");
     }
 </div>
-
 

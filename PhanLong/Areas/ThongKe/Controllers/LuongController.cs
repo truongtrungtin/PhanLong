@@ -3,7 +3,6 @@ using PhanLong.EF;
 using System;
 using System.Linq;
 using System.Web.Mvc;
-using System.Globalization;
 
 namespace PhanLong.Areas.ThongKe.Controllers
 {
@@ -29,46 +28,46 @@ namespace PhanLong.Areas.ThongKe.Controllers
 
         public ActionResult CTTTLuong(long id, string NgayBD, string NgayKT)
         {
-            
-                if (NgayBD == "" || NgayBD == null)
-                {
-                    NgayBD = "2020-06-01";
-                }
-                if (NgayKT == "" || NgayKT == null)
-                {
-                    NgayKT = DateTime.Now.ToString("yyyy'-'MM'-'dd");
-                }
-                if (id != null)
-                {
-                    var mXe = new DMXeDao().GetById(id);
-                    ViewBag.Xe = mXe.BienSo;
-                    ViewBag.MaXe = mXe.MaXe;
-                    ViewBag.IdXe = mXe.Id;
-                }
-                var xe = new DMXeDao().GetById(id);
-                var model = new CTTTLuongDao().PhatSinhLuong(id, NgayBD, NgayKT);
-                var ChiLuong = new CTTTLuongDao().ChiLuong(id, NgayBD, NgayKT);
-                var TienThuong = new CTTTLuongDao().TienThuong(id, NgayBD, NgayKT);
-                var TienKhac = new CTTTLuongDao().TienKhac(id, NgayBD, NgayKT);
-                var Loai = new PhatSinhDao().GetLoai(id);
-                var tx = new PhatSinhDao().GetNvByXe(id, NgayBD, NgayKT);
-                ViewBag.ChiLuong = ChiLuong.OrderBy(x=> x.NgayChi);
-                ViewBag.TongChiLuong = ChiLuong.Count;
-                ViewBag.TienThuong = TienThuong;
-                ViewBag.TienKhac = TienKhac;
-                ViewBag.id = id;
-                ViewBag.tx = tx.DMNhanVien.TenNV;
-                ViewBag.Xe = xe.BienSo;
-                ViewBag.NgayBD = NgayBD;
-                ViewBag.NgayKT = NgayKT;
-                ViewBag.N20 = model.Where(x => x.DMLoai.MaLoai == "20N").Count();
-                ViewBag.X20 = model.Where(x => x.DMLoai.MaLoai == "20X").Count();
-                ViewBag.N40 = model.Where(x => x.DMLoai.MaLoai == "40N").Count();
-                ViewBag.X40 = model.Where(x => x.DMLoai.MaLoai == "40X").Count();
-                ViewBag.Tong = (ViewBag.N20 + ViewBag.X20 + ViewBag.N40 + ViewBag.X40);
-                return View(model);
-            
-            
+
+            if (NgayBD == "" || NgayBD == null)
+            {
+                NgayBD = "2020-06-01";
+            }
+            if (NgayKT == "" || NgayKT == null)
+            {
+                NgayKT = DateTime.Now.ToString("yyyy'-'MM'-'dd");
+            }
+            if (id != null)
+            {
+                var mXe = new DMXeDao().GetById(id);
+                ViewBag.Xe = mXe.BienSo;
+                ViewBag.MaXe = mXe.MaXe;
+                ViewBag.IdXe = mXe.Id;
+            }
+            var xe = new DMXeDao().GetById(id);
+            var model = new CTTTLuongDao().PhatSinhLuong(id, NgayBD, NgayKT);
+            var ChiLuong = new CTTTLuongDao().ChiLuong(id, NgayBD, NgayKT);
+            var TienThuong = new CTTTLuongDao().TienThuong(id, NgayBD, NgayKT);
+            var TienKhac = new CTTTLuongDao().TienKhac(id, NgayBD, NgayKT);
+            var Loai = new PhatSinhDao().GetLoai(id);
+            var tx = new PhatSinhDao().GetNvByXe(id, NgayBD, NgayKT);
+            ViewBag.ChiLuong = ChiLuong.OrderBy(x => x.NgayChi);
+            ViewBag.TongChiLuong = ChiLuong.Count;
+            ViewBag.TienThuong = TienThuong;
+            ViewBag.TienKhac = TienKhac;
+            ViewBag.id = id;
+            ViewBag.tx = tx.DMNhanVien.TenNV;
+            ViewBag.Xe = xe.BienSo;
+            ViewBag.NgayBD = NgayBD;
+            ViewBag.NgayKT = NgayKT;
+            ViewBag.N20 = model.Where(x => x.DMLoai.MaLoai == "20N").Count();
+            ViewBag.X20 = model.Where(x => x.DMLoai.MaLoai == "20X").Count();
+            ViewBag.N40 = model.Where(x => x.DMLoai.MaLoai == "40N").Count();
+            ViewBag.X40 = model.Where(x => x.DMLoai.MaLoai == "40X").Count();
+            ViewBag.Tong = (ViewBag.N20 + ViewBag.X20 + ViewBag.N40 + ViewBag.X40);
+            return View(model);
+
+
         }
 
         [HttpPost]
