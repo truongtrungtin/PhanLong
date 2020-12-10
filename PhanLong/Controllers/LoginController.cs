@@ -86,7 +86,7 @@ namespace PhanLong.Controllers
             //        return RedirectToAction("Index", "Login");
             //    }
             //}
-            return View("Index");
+            return View();
         }
 
         [HttpPost]
@@ -106,9 +106,6 @@ namespace PhanLong.Controllers
                     userSession.fullname = user.Name;
                     userSession.Email = user.Email;
                     userSession.avatar = user.Avatar;
-                    var listCredentials = dao.GetListCredential(model.UserName);
-
-                    Session.Add(CommonConstants.SESSION_CREDENTIALS, listCredentials);
                     Session.Add(CommonConstants.USER_SESSION, userSession);
                     if (model.RememberMe == true)
                     {
@@ -151,7 +148,7 @@ namespace PhanLong.Controllers
                     SetAlert("đăng nhập không đúng!", "warning");
                 }
             }
-            return View("Index");
+            return View(model);
         }
 
 
@@ -226,8 +223,6 @@ namespace PhanLong.Controllers
         public ActionResult Logout()
         {
             Session[CommonConstants.USER_SESSION] = null;
-            Response.Cookies.Remove("UserName");
-            FormsAuthentication.SignOut();
             return RedirectToAction("Index", "Login");
         }
 

@@ -368,11 +368,14 @@
         <h6>Settings (Thử nghiệm)</h6>
         <hr class="mb-2" />
         <div class="mb-1">
+            <div class="timer"></div>
+        </div>
+        <div class="mb-1">
             <input id="counter" type="text" value="" style="width:30px" readonly class="mr-1" />
             <span>Online</span>
         </div>
         <div class="mb-4">
-       
+
 
             @foreach (var item in db.UserSettings.Where(x => x.User == session.UserID))
             {
