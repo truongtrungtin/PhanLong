@@ -14660,7 +14660,7 @@ body.text-sm .control-sidebar {
 }
 
 .text-sm .dropdown-menu {
-    font-size: 0.875rem !important;
+    font-size: 12px !important;
 }
 
 .text-sm .dropdown-toggle::after {
@@ -14677,7 +14677,7 @@ body.text-sm .control-sidebar {
 }
 
 .dropdown-menu-lg {
-    min-width: 850px;
+    min-width: 528px;
     padding: 0;
 }
 

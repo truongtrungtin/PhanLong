@@ -5,8 +5,7 @@
 @{
     PhanLongDBContext db = new PhanLongDBContext();
     var session = (UserLogin)Session[CommonConstants.USER_SESSION];
-    var notification = new NotificationsDao().GetNotifications().Where(x => ((x.HanLuuBai != null && (Convert.ToDateTime(x.HanLuuBai) - DateTime.Now.Date).TotalDays <= 3) || (x.HanLuuRong != null && (Convert.ToDateTime(x.HanLuuRong) - DateTime.Now.Date).TotalDays <= 3) || (x.HanLuuCont != null && (Convert.ToDateTime(x.HanLuuCont) - DateTime.Now.Date).TotalDays <= 3)) && (x.Ngaygiao == null && x.NgayLuuBai == null)).Select(x => new { x.IdBill, x.Bill, x.HanLuuBai, x.HanLuuRong, x.HanLuuCont }).Distinct();
-
+    var notification = db.Notifications.OrderBy(x => x.HanLuuBai);
 
 }
 <nav class="main-header navbar navbar-expand navbar-white navbar-light border-bottom-0 text-sm">
@@ -44,7 +43,8 @@
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                     <span class="dropdown-item dropdown-header font-weight-bold">@(notification.Count()) thông báo</span>
                     <div class="dropdown-divider"></div>
-                    <table class="table table-hover table-bordered table-sm" style="max-width:100%;">
+                    
+                    <table class="table table-hover  table-bordered table-sm" style="max-width:100%;">
                         <thead>
                             <tr>
                                 <th width="20%" title="Bill">Bill</th>
@@ -61,7 +61,7 @@
                                 {
 
                                     <tr style="color:red">
-                                        <td><a href="/ThongKe/Bill/CTBill/@item.IdBill">@item.Bill</a></td>
+                                        <td><a href="/ThongKe/Bill/CTBill/@item.Id">@item.MaBill</a></td>
                                         @if (item.HanLuuBai == null)
                                         {
                                             <td style="color:red">Chưa nhập hạn lưu bãi</td>
@@ -132,7 +132,7 @@
                                 else
                                 {
                                     <tr>
-                                        <td><a href="/ThongKe/Bill/CTBill/@item.IdBill">@item.Bill</a></td>
+                                        <td><a href="/ThongKe/Bill/CTBill/@item.Id">@item.MaBill</a></td>
                                         @if (item.HanLuuBai == null)
                                         {
                                             <td style="color:red">Chưa nhập hạn lưu bãi</td>

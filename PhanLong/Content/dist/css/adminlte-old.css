@@ -14484,7 +14484,7 @@ body.text-sm .control-sidebar {
 }
 
 .text-sm .dropdown-menu {
-    font-size: 0.875rem !important;
+    font-size: 12px !important;
 }
 
 .text-sm .dropdown-toggle::after {

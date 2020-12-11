@@ -23,6 +23,11 @@
     <!-- Theme style -->
     <!-- Daterange picker -->
     <link rel="stylesheet" href="/Content/plugins/daterangepicker/daterangepicker.css">
+    <style>
+        .table thead th {
+            line-height: 20px !important;
+        }
+    </style>
     <script type="text/javascript">
         function codeAddress() {
             document.getElementById("buttonAlert").click(); // Click on the checkbox
@@ -46,11 +51,10 @@
                     </button>
 
                 </div>
-
                 <div class="modal-body">
-                    <table class="table table-hover table-bordered table-sm" id="dataTable" style="max-width:100%;">
+                    <table class="table table-hover table-bordered table-responsive-lg table-sm" id="dataTable" style="max-width:100%;">
                         <thead>
-                            <tr>
+                            <tr >
                                 <th width="15%" title="Bill">Bill</th>
                                 <th width="10%" title="Loại">Khách hàng</th>
                                 <th width="10%" title="Loại">Hãng tàu</th>
@@ -270,7 +274,7 @@
                 </h3>
             </div>
             <div class="card-body">
-                <table class="table table-hover table-bordered table-striped table-sm" id="GiaoNhanTable">
+                <table class="table table-hover table-bordered table-striped table-responsive-lg table-sm" id="GiaoNhanTable" width="100%">
                     <thead>
                         <tr>
                             <th width="10%" title="ngày giao">Ngày giao</th>

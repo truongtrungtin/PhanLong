@@ -15,77 +15,6 @@ namespace PhanLong.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            //if (Request.Cookies["UserName"] != null)
-            //{
-            //    if (Request.Cookies["UserName"].Value == "" || Request.Cookies["Password"].Value == "")
-            //    {
-            //        Session[CommonConstants.USER_SESSION] = null;
-            //        Response.Cookies.Remove("UserName");
-            //        FormsAuthentication.SignOut();
-            //    }
-            //    else
-            //    {
-            //        LoginModel model = new LoginModel();
-            //        var dao = new UserDao();
-            //        model.UserName = Request.Cookies["UserName"].Value;
-            //        var result = dao.Login(model.UserName, model.Password);
-            //        if (result == 1)
-            //        {
-            //            var user = dao.GetById(model.UserName);
-            //            var userSession = new UserLogin();
-            //            userSession.UserName = user.Username;
-            //            userSession.UserID = user.Id;
-            //            userSession.GroupID = user.GroupID;
-            //            userSession.fullname = user.Name;
-            //            userSession.Email = user.Email;
-            //            userSession.avatar = user.Avatar;
-            //            var listCredentials = dao.GetListCredential(model.UserName);
-
-            //            Session.Add(CommonConstants.SESSION_CREDENTIALS, listCredentials);
-            //            Session.Add(CommonConstants.USER_SESSION, userSession);
-            //            if (model.RememberMe == true)
-            //            {
-            //                //Response.Cookies["UserName"].Value = model.UserName.Trim();
-            //                //Response.Cookies["Password"].Value = Encryptor.MD5Hash(model.Password).Trim();
-            //                //Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
-            //                //Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
-            //                var authTicket = new FormsAuthenticationTicket(
-            //                    1,
-            //                    model.UserName.Trim(),
-            //                    DateTime.Now,
-            //                    DateTime.Now.AddDays(30),
-            //                    model.RememberMe,
-            //                    "",
-            //                    "/"
-            //                    );
-            //                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
-            //                Response.Cookies.Add(cookie);
-            //            }
-            //            return RedirectToAction("Index", "Home");
-            //        }
-            //        else if (result == 0)
-            //        {
-            //            SetAlert("Tài khoản không tồn tại!", "warning");
-            //        }
-            //        else if (result == -1)
-            //        {
-            //            SetAlert("Tài khoản đang bị khoá!", "warning");
-            //        }
-            //        else if (result == -2)
-            //        {
-            //            SetAlert("Mật khẩu không đúng!", "warning");
-            //        }
-            //        else if (result == -3)
-            //        {
-            //            SetAlert("Tài khoản của bạn không có quyền đăng nhập!", "warning");
-            //        }
-            //        else
-            //        {
-            //            SetAlert("đăng nhập không đúng!", "warning");
-            //        }
-            //        return RedirectToAction("Index", "Login");
-            //    }
-            //}
             return View();
         }
 
@@ -112,21 +41,7 @@ namespace PhanLong.Controllers
                     Session.Add(CommonConstants.USER_SESSION, userSession);
                     if (model.RememberMe == true)
                     {
-                        //Response.Cookies["UserName"].Value = model.UserName.Trim();
-                        //Response.Cookies["Password"].Value = Encryptor.MD5Hash(model.Password).Trim();
-                        //Response.Cookies["UserName"].Expires = DateTime.Now.AddDays(30);
-                        //Response.Cookies["Password"].Expires = DateTime.Now.AddDays(30);
-                        var authTicket = new FormsAuthenticationTicket(
-                            1,
-                            model.UserName.Trim(),
-                            DateTime.Now,
-                            DateTime.Now.AddDays(30),
-                            model.RememberMe,
-                            "",
-                            "/"
-                            );
-                        HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, FormsAuthentication.Encrypt(authTicket));
-                        Response.Cookies.Add(cookie);
+                        
                     }
                     return RedirectToAction("Index", "Home");
                 }
