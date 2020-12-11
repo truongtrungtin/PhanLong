@@ -442,7 +442,7 @@
                         <td class="hidden-border" style="text-align:right;color:blue;border-color:white"></td>
                         <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (ha))</td>
                         <td class="hidden-border" style="text-align:right;color:blue;border-color:white"></td>
-                        <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (khac))</td>
+                        <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (phikhac))</td>
                     </tr>
                 }
 
@@ -459,8 +459,8 @@
                         <th>STT</th>
                         <th>Ngày</th>
                         <th></th>
-                        <th>Cont</th>
                         <th></th>
+                        <th>Số Cont</th>
                         <th>Nội dung</th>
                         <th></th>
                         <th></th>
@@ -483,8 +483,8 @@
                         <td>@stt1</td>
                         <td>@(item.PhatSinhChiThu1.Ngay != null ? item.PhatSinhChiThu1.Ngay.ToShortDateString() : null)</td>
                         <td></td>
-                        <td>@item.Cont</td>
                         <td></td>
+                        <td>@item.Cont</td>
                         <td style="text-align:left">@item.NoiDung</td>
                         <td></td>
                         <td></td>

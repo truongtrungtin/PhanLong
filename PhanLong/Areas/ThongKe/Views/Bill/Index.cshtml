@@ -144,7 +144,7 @@
                                 <td>@item.SoToKhai</td>
                                 <td>@item.MaBill</td>
                                 <td>@item.CTBills.Where(x => x.Bill == item.Id).Count()</td>
-                                <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null )</td>
+                                <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToString("dd/MM/yyyy") : null )</td>
                                 <td>@item.NguoiGui</td>
                                 <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                                 <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
@@ -163,7 +163,7 @@
                                 <td>@item.SoToKhai</td>
                                 <td>@item.MaBill</td>
                                 <td>@item.CTBills.Where(x => x.Bill == item.Id).Count()</td>
-                                <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null )</td>
+                                 <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToString("dd/MM/yyyy") : null )</td>
                                 <td>@item.NguoiGui</td>
                                 <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                                 <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
@@ -182,7 +182,7 @@
                                 <td>@item.SoToKhai</td>
                                 <td>@item.MaBill</td>
                                 <td>@item.CTBills.Where(x => x.Bill == item.Id).Count()</td>
-                                <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null )</td>
+                                 <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToString("dd/MM/yyyy") : null )</td>
                                 <td>@item.NguoiGui</td>
                                 <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                                 <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>
@@ -201,7 +201,7 @@
                                 <td>@item.SoToKhai</td>
                                 <td>@item.MaBill</td>
                                 <td>@item.CTBills.Where(x => x.Bill == item.Id).Count()</td>
-                                <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToShortDateString() : null )</td>
+                                 <td>@(item.NgayTauDen != null ? item.NgayTauDen.Value.ToString("dd/MM/yyyy") : null )</td>
                                 <td>@item.NguoiGui</td>
                                 <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                                 <td title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.MaCang : null)</td>

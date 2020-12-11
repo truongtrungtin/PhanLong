@@ -131,28 +131,28 @@
                         }
                         else if (item.NgayGui != null && item.NgayGiao == null)
                         {
-                            <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : "Chưa nhập hạn lưu bãi")</td>
-                            <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : "Chưa nhập hạn lưu cont")</td>
-                            <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : "Chưa nhập hạn lưu rỗng ")</td>
+                            <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToString("dd/MM/yyyy")  : "Chưa nhập hạn lưu bãi")</td>
+                            <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToString("dd/MM/yyyy")  : "Chưa nhập hạn lưu cont")</td>
+                            <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToString("dd/MM/yyyy")  : "Chưa nhập hạn lưu rỗng ")</td>
                         }
                         else if (item.NgayGui == null && item.NgayGiao != null)
                         {
-                            <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : "Chưa nhập hạn lưu bãi")</td>
-                            <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : "Chưa nhập hạn lưu cont")</td>
-                            <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : "Chưa nhập hạn lưu rỗng ")</td>
+                            <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToString("dd/MM/yyyy")  : "Chưa nhập hạn lưu bãi")</td>
+                            <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToString("dd/MM/yyyy")  : "Chưa nhập hạn lưu cont")</td>
+                            <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToString("dd/MM/yyyy")  : "Chưa nhập hạn lưu rỗng ")</td>
                         }
                         else
                         {
-                            <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToShortDateString() : "Chưa nhập hạn lưu bãi")</td>
-                            <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToShortDateString() : "Chưa nhập hạn lưu cont")</td>
-                            <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToShortDateString() : "Chưa nhập hạn lưu rỗng ")</td>
+                            <td>@(item.HanLuuBai != null ? item.HanLuuBai.Value.ToString("dd/MM/yyyy")  : "Chưa nhập hạn lưu bãi")</td>
+                            <td>@(item.HanLuuCont != null ? item.HanLuuCont.Value.ToString("dd/MM/yyyy")  : "Chưa nhập hạn lưu cont")</td>
+                            <td>@(item.HanLuuRong != null ? item.HanLuuRong.Value.ToString("dd/MM/yyyy")  : "Chưa nhập hạn lưu rỗng ")</td>
                         }
                         <td>@item.ViTri</td>
                         <td>@item.DoDay</td>
                         <td>@item.QuyCach</td>
-                        <td style="color:@(item.NgayGiao != null ? "black" : "red")">@(item.NgayGiao != null ? item.NgayGiao.Value.ToShortDateString() : "Chưa giao")</td>
+                        <td style="color:@(item.NgayGiao != null ? "black" : "red")">@(item.NgayGiao != null ? item.NgayGiao.Value.ToString("dd/MM/yyyy")  : "Chưa giao")</td>
                         <td title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet + " " + item.DMKho.NguoiLienHe : null)">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
-                        <td style="color:@(item.NgayGui != null ? "black" : "red")">@(item.NgayGui != null ? item.NgayGui.Value.ToShortDateString() : "Chưa gửi bãi")</td>
+                        <td style="color:@(item.NgayGui != null ? "black" : "red")">@(item.NgayGui != null ? item.NgayGui.Value.ToString("dd/MM/yyyy")  : "Chưa gửi bãi")</td>
                         <td title="@(item.SoXe != null ? item.DMXe.BienSo : null)">@(item.SoXe != null ? item.DMXe.MaXe : null)</td>
                         <td title="@(item.BaiGui != null ? item.DMCang.TenCang : null)">@(item.BaiGui != null ? item.DMCang.MaCang : null)</td>
                         <td>@(item.GhiChu != null ? item.GhiChu : null)</td>
