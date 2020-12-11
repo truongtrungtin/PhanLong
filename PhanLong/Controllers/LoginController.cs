@@ -106,6 +106,9 @@ namespace PhanLong.Controllers
                     userSession.fullname = user.Name;
                     userSession.Email = user.Email;
                     userSession.avatar = user.Avatar;
+                    var listCredentials = dao.GetListCredential(model.UserName);
+
+                    Session.Add(CommonConstants.SESSION_CREDENTIALS, listCredentials);
                     Session.Add(CommonConstants.USER_SESSION, userSession);
                     if (model.RememberMe == true)
                     {
