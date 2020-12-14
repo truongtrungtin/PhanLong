@@ -22,7 +22,7 @@
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                 @Html.HiddenFor(model => model.Id)
 
-                    <div class="row" style="height: 30px;">
+                    <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.MaKho, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-3" })
@@ -61,8 +61,7 @@
                         </div>
 
                     </div>
-                    <div class="row" style="height: 30px;">
-
+                    <div class="row">
                         <div class="col-sm-2">
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.SoDienThoai, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-3" })
