@@ -2822,9 +2822,7 @@
     <Folder Include="Areas\TraCuu\Data\" />
     <Folder Include="Areas\TraCuu\Views\Shared\" />
     <Folder Include="Bill\" />
-    <Folder Include="Data\files\" />
-    <Folder Include="Data\flash\" />
-    <Folder Include="Data\images\" />
+    <Folder Include="Data\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
