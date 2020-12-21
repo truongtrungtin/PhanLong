@@ -138,7 +138,7 @@
                 </div>
                 <div class="col-3 col-md-3 col-lg-2">
                     <div class="form-group row">
-                        <label class="col-form-label col-3 col-md-3 col-lg-5" style="text-align:right" for="Bill">Bill: </label>
+                        <label class="col-form-label col-3 col-md-3 col-lg-5" style="text-align:right" for="Bill">Số Bill: </label>
                         <div class="col-9 col-md-7 col-lg-7">
                             <div class="input-group">
                                 <input type="text" class="form-control form-control-sm" value="@ViewBag.Bill" style="text-align:right" readonly>
@@ -168,7 +168,7 @@
             </div>
             <div class="col-3 col-md-2 col-lg-2">
                 <div class="form-group row">
-                    <label class="col-form-label col-5 col-md-5 col-lg-4" for="NgayKT">Đến ngày:</label>
+                    <label style="text-align:right" class="col-form-label col-5 col-md-5 col-lg-4" for="NgayKT">Đến ngày:</label>
                     <div class="col-7 col-md-7 col-lg-6">
                         <div class="input-group">
                             <input type="text" class="form-control form-control-sm" readonly value="@ngaykt" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
@@ -179,21 +179,20 @@
                     </div>
                 </div>
             </div>
-            <div class="col-3 col-md-2 col-lg-2">
+            <div class="col-3 col-md-3 col-lg-2">
                 <div class="form-group row">
-                    <div class="col-3 col-md-2 col-lg-1">
-                    </div>
-                    <div class="col-9 col-md-10 col-lg-10">
+                    <div class="col-9 col-md-11 col-lg-10">
                         <div class="form-group row">
-                            <label class="col-form-label col-6 col-md-7 col-lg-4" style="text-align:right" for="Cont">Tổng cont:</label>
-                            <div class="col-6 col-md-5 col-lg-4">
+                            <label class="col-form-label col-6 col-md-8 col-lg-8" style="text-align:right" for="Cont">Tổng số cont:</label>
+                            <div class="col-6 col-md-4 col-lg-4">
                                 <div class="input-group">
                                     <input type="text" class="form-control form-control-sm" style="text-align:center" value="@cont" readonly>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-3 col-md-1 col-lg-1">
+                    </div>
                 </div>
             </div>
         </div>
