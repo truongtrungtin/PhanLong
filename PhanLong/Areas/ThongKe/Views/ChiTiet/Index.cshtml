@@ -15,6 +15,7 @@
     decimal ha = 0;
     decimal khac = 0;
     decimal chirieng = 0;
+    long Lotrinh = 0;
     foreach (var item in Model)
     {
         cuoc += Convert.ToDecimal(item.CuocKH);
@@ -22,6 +23,7 @@
         ha += Convert.ToDecimal(item.TienHa);
         khac += Convert.ToDecimal(item.TienPhiKH);
         chirieng += Convert.ToDecimal(item.TienPhiCT);
+        Lotrinh += item.Kho != null ? item.DMKho.LoTrinh * 2 : 0;
     }
     string ngaybd = "";
     string ngaykt = "";
@@ -52,6 +54,28 @@
     <!-- Select2 -->
     <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
     <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+    <style>
+        table th input { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: black;
+            font-weight: bold;
+            font-size: 12px;
+            background-color: #d1cbc3;
+            border: none;
+            text-align:center;
+            width: 100px;
+        }
+            table th input::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+                color: black;
+                font-weight: bold;
+                font-size: 12px;
+                opacity: 1; /* Firefox */
+            }
+
+       
+        table th {
+            background-color: rgba(0,0,0,.05);
+        }
+    </style>
 }
 
 @section js{
@@ -59,6 +83,42 @@
     <script src="/Content/plugins/select2/js/select2.full.min.js"></script>
     <!-- InputMask -->
     <script src="/Content/plugins/inputmask/jquery.inputmask.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $('#TableThongKePhatSinh .search_input').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" placeholder="' + title + '" />');
+            });
+            $('#TableThongKePhatSinh .search_date').each(function () {
+                var title = $(this).text();
+                $(this).html('<input type="text" name="eday" placeholder="' + title + '" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>');
+            });
+
+            $('#TableThongKePhatSinh').DataTable({
+                "scrollY": "400px",
+                "scrollX": true,
+                "bSort": false,
+                "lengthMenu": [[20, 50, 100, -1], [20, 50, 100, "All"]],
+                initComplete: function () {
+                    // Apply the search
+                    this.api().columns().every(function () {
+                        var that = this;
+
+                        $('input', this.header()).on('keyup change clear', function () {
+                            if (that.search() !== this.value) {
+                                that
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+
+                    });
+                },
+            });
+        });
+    </script>
+
 }
 
 @using (Html.BeginForm("Index", "ChiTiet", FormMethod.Get))
@@ -224,7 +284,7 @@
             Thống kê phát sinh
         </h3>
         <div class="row" style="height: 30px; padding-top:5px">
-            <div class="col-sm-4">
+            <div class="col-sm-3">
             </div>
             <div class="col-sm-2">
                 <div class="form-group row">
@@ -250,6 +310,16 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-1">
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-6">Tổng km:</label>
+                    <div class="col-sm-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control form-control-sm" value="@Lotrinh" readonly>
                         </div>
                     </div>
                 </div>
@@ -377,31 +447,32 @@
     <div class="card-body">
         @using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post))
         {
-            <table class="table table-hover table-bordered  table-striped table-sm" id="dataTable" style="width:100%">
+            <table class="table table-hover table-bordered table-striped table-sm" id="TableThongKePhatSinh" style="width:100%">
 
                 <thead style="background-color:#d1cbc3">
                     <tr>
                         <th title="Số thứ tự">STT</th>
-                        <th title="Ngày giao">Ngày</th>
-                        <th title="Loại">Loại</th>
-                        <th title="Khách hàng">Khách hàng</th>
-                        <th title="Kho">Kho</th>
-                        <th title="Số Cont">Số Cont</th>
-                        <th title="Số Bill">Bill</th>
-                        <th title="Cước">Cước (VNĐ)</th>
-                        <th title="Nhân viên">Nhân viên</th>
-                        <th title="Số Xe">Xe</th>
-                        <th title="Hoá đơn nâng">Hoá đơn nâng</th>
-                        <th title="Tiền nâng">Tiền nâng (VNĐ)</th>
-                        <th title="Hoá đơn Hạ">Hoá đơn Hạ</th>
-                        <th title="Tiền hạ">Tiền Hạ (VNĐ)</th>
-                        <th title="Phí Khách hàng">Hoá đơn khác</th>
-                        <th title="Tiền Phí khách hàng">Tiền khác (VNĐ)</th>
-                        <th title="Tiền Phí khách hàng">Tổng chi hộ (VNĐ)</th>
-                        <th title="Phí công ty">Chi phí riêng TX</th>
-                        <th title="Tiền phí công ty">Tiền phí riêng (VNĐ)</th>
-                        <th title="Thời gian">Tổng chi (VNĐ)</th>
-                        <th title="Ghi chú">Ghi Chú</th>
+                        <th class="search_date" title="Ngày giao">Ngày</th>
+                        <th class="search_input" title="Loại">Loại</th>
+                        <th class="search_input" title="Khách hàng">Khách hàng</th>
+                        <th class="search_input" title="Kho">Kho</th>
+                        <th class="search_input" title="Lộ trình">Km</th>
+                        <th class="search_input" title="Số Cont">Số Cont</th>
+                        <th class="search_input" title="Số Bill">Bill</th>
+                        <th class="search_input" title="Cước">Cước </th>
+                        <th class="search_input" title="Nhân viên">Nhân viên</th>
+                        <th class="search_input" title="Số Xe">Xe</th>
+                        <th class="search_input" title="Hoá đơn nâng">Hoá đơn nâng</th>
+                        <th class="search_input" title="Tiền nâng">Tiền nâng </th>
+                        <th class="search_input" title="Hoá đơn Hạ">Hoá đơn Hạ</th>
+                        <th class="search_input" title="Tiền hạ">Tiền Hạ </th>
+                        <th class="search_input" title="Phí Khách hàng">Hoá đơn khác</th>
+                        <th class="search_input" title="Tiền Phí khách hàng">Tiền khác </th>
+                        <th class="search_input" title="Tiền Phí khách hàng">Tổng chi hộ </th>
+                        <th class="search_input" title="Phí công ty">Chi phí riêng TX</th>
+                        <th class="search_input" title="Tiền phí công ty">Tiền phí riêng </th>
+                        <th class="search_input" title="Thời gian">Tổng chi </th>
+                        <th class="search_input" title="Ghi chú">Ghi Chú</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -414,6 +485,7 @@
                             <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
                             <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy: null )">@(item.KhachHang != null ? item.DMKhachHang.MaKH: null )</td>
                             <td title="@(item.Kho != null ? item.DMKho.DiaChi : null )">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
+                            <td title="@(item.Kho != null ? item.DMKho.LoTrinh * 2 : 0 )">@(item.Kho != null ? item.DMKho.LoTrinh * 2 : 0)</td>
                             <td>@(item.SoCont != null ? item.SoCont : null)</td>
                             <td>@(item.SoBill != null ? item.DMBill.MaBill : null)</td>
                             <td style="text-align:right">@(item.CuocKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocKH)) : null)</td>

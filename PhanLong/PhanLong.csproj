@@ -2671,7 +2671,7 @@
     <Content Include="Images\Avatar\default.jpg" />
     <Content Include="Images\Avatar\Phan Long\6294455228908828232012.jpg" />
     <Content Include="Images\Avatar\trungtin.230599\89419274_731374924063267_5210478771013943296_o2057.jpg" />
-    <Content Include="Images\logo.png" />
+    <Content Include="Images\Logo.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -2822,9 +2822,7 @@
     <Folder Include="Areas\TraCuu\Data\" />
     <Folder Include="Areas\TraCuu\Views\Shared\" />
     <Folder Include="Bill\" />
-    <Folder Include="Data\files\" />
-    <Folder Include="Data\flash\" />
-    <Folder Include="Data\images\" />
+    <Folder Include="Data\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

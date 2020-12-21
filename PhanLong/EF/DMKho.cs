@@ -38,9 +38,8 @@
         [Display(Name = "Thông tin: ")]
         public string DiaChiChiTiet { get; set; }
 
-        [StringLength(50)]
         [Display(Name = "Lộ trình: ")]
-        public string LoTrinh { get; set; }
+        public long LoTrinh { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Giờ cấm: ")]

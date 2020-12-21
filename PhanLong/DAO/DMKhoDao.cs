@@ -88,8 +88,14 @@ namespace PhanLong.DAO
                             }
                             else if (column.ColumnName == "Lộ trình")
                             {
-
-                                dMKho.LoTrinh = dr["Lộ trình"].ToString();
+                                if (dr["Lộ trình"].ToString() != "")
+                                {
+                                    dMKho.LoTrinh = Convert.ToInt64(dr["Lộ trình"]);
+                                }
+                                else
+                                {
+                                    dMKho.LoTrinh = 0;
+                                }
 
                             }
                             else if (column.ColumnName == "Giờ cấm")
