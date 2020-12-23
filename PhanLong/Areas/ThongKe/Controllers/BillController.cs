@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace PhanLong.Areas.ThongKe.Controllers
 {
-    public class BillController : Controller
+    public class BillController : BaseController
     {
         // GET: ThongKe/ThongKeBill
         public ActionResult Index()
