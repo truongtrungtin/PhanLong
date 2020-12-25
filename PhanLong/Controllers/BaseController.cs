@@ -8,7 +8,7 @@ namespace PhanLong.Controllers
 {
     public class BaseController : Controller
     {
-        protected override void Initialize(System.Web.Routing.RequestContext requestContext)
+        protected override void Initialize(RequestContext requestContext)
         {
             base.Initialize(requestContext);
             if (Session[CommonConstants.CurrentCulture] != null)

@@ -2702,6 +2702,7 @@
     <Content Include="Content\plugins\moment\moment-with-locales.min.js.map" />
     <Content Include="Content\plugins\moment\moment.min.js.map" />
     <Content Include="Content\plugins\sparklines\sparkline.mjs" />
+    <Content Include="Areas\ThongKe\Views\Bill\BillTon.cshtml" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
     <Content Include="Scripts\jquery-3.5.1.min.js" />

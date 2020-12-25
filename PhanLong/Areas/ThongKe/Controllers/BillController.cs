@@ -33,5 +33,12 @@ namespace PhanLong.Areas.ThongKe.Controllers
             var model = dao.ListAll(id);
             return View(model);
         }
+
+        public ActionResult BillTon()
+        {
+            var dao = new DMBillDao();
+            var model = dao.ListAll();
+            return View(model);
+        }
     }
 }

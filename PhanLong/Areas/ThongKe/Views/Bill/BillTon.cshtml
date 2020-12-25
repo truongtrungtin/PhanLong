@@ -1,0 +1,49 @@
+﻿@model  IEnumerable<PhanLong.EF.DMBill>
+@using PhanLong.DAO
+@{
+    ViewBag.Title = "Chi tiết tồn Cont";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var dao = new DMBillDao();
+}
+<h5 style="text-align:center">
+    <b>Chi tiết tồn Cont</b>
+</h5>
+
+<div class="row">
+    @foreach (var item in Model.Where(x => x.CTBills.Where(m => m.NgayGiao == null).Count() > 0))
+    {
+        <section class="col-lg-3 connectedSortable">
+            <table class="table" width="100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th width="50%" colspan="2">Lô @item.CTBills.Count() @item.NguoiGui.Split(' ')[0] @dao.GetMaBill(item.NguoiGui, item.MaBill)</th>
+                        <th width="25%">S/L</th>
+                        <th width="25%">Tồn</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var SubItem in item.CTBills.Select(x => new { x.DoDay, x.QuyCach }).Distinct())
+                    {
+                        <tr>
+                            <th></th>
+                            <td style="text-align:right">@SubItem.DoDay li</td>
+                            <td >@SubItem.QuyCach</td>
+                            <td>@item.CTBills.Where(x => x.DoDay == SubItem.DoDay).Count() cont</td>
+                            <td>@item.CTBills.Where(x => x.DoDay == SubItem.DoDay && x.NgayGiao == null).Count() cont</td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="2"></th>
+                        <th style="border-top: 2px solid #000000" >@item.CTBills.Count() cont</th>
+                        <th style="border: 2px solid #000000;color:blue">@item.CTBills.Where(x =>x.NgayGiao == null).Count() cont</th>
+                    </tr>
+                </tfoot>
+
+            </table>
+
+        </section>
+    }
+</div>
