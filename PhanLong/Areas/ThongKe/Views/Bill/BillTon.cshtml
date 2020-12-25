@@ -3,10 +3,12 @@
 @{
     ViewBag.Title = "Chi tiết tồn Cont";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.url = "/ThongKe/Bill/";
+    ViewBag.Back = "Trở lại";
     var dao = new DMBillDao();
 }
 <h5 style="text-align:center">
-    <b>Chi tiết tồn Cont</b>
+    <b>Chi tiết tồn Cont ngày @DateTime.Now.ToShortDateString()</b>
 </h5>
 
 <div class="row">
@@ -16,7 +18,6 @@
             <table class="table" width="100%">
                 <thead>
                     <tr>
-                        <th></th>
                         <th width="50%" colspan="2">Lô @item.CTBills.Count() @item.NguoiGui.Split(' ')[0] @dao.GetMaBill(item.NguoiGui, item.MaBill)</th>
                         <th width="25%">S/L</th>
                         <th width="25%">Tồn</th>
@@ -26,7 +27,6 @@
                     @foreach (var SubItem in item.CTBills.Select(x => new { x.DoDay, x.QuyCach }).Distinct())
                     {
                         <tr>
-                            <th></th>
                             <td style="text-align:right">@SubItem.DoDay li</td>
                             <td >@SubItem.QuyCach</td>
                             <td>@item.CTBills.Where(x => x.DoDay == SubItem.DoDay).Count() cont</td>
