@@ -272,6 +272,18 @@ namespace PhanLong.DAO
             return db.DMBills.SingleOrDefault(x => x.MaBill == mabill);
 
         }
+
+        public string GetMaBill(string NguoiGui, string SoBill)
+        {
+            string Resutl = null;
+            Resutl += NguoiGui[0].ToString().ToUpper();
+            for (int i = SoBill.Length - 5; i < SoBill.Length - 1; i++ )
+            {
+                Resutl += SoBill[i];
+            }
+            return Resutl;
+        }
+
         public DMBill GetById(long? id)
         {
             return db.DMBills.SingleOrDefault(x => x.Id == id);

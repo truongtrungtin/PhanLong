@@ -60,7 +60,7 @@
                 <span class="info-box-text">BILL CHƯA GỬI BÃI</span>
                 @foreach (var item in Model)
                 {
-                    var songay = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGui == null).ToList();
+                    var songay = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGui == null && x.NgayGiao == null).ToList();
                     if (songay.Count() > 0 || item.CTBills.Count() == 0)
                     {
                         billbai += 1;
@@ -73,26 +73,30 @@
         <!-- /.info-box -->
     </div>
     <!-- /.col -->
+   
     <div class="col-12 col-sm-6 col-md-3">
-        <div class="info-box mb-3">
-            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
-
-            <div class="info-box-content">
-                <span class="info-box-text">BILL CHƯA GIAO</span>
-                @foreach (var item in Model)
-                {
-                    var songay = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGiao == null).ToList();
-                    if (songay.Count() > 0 || item.CTBills.Count() == 0)
+        <a href="/ThongKe/Bill/BillTon">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">BILL CHƯA GIAO</span>
+                    @foreach (var item in Model)
                     {
-                        billton += 1;
+                        var songay = item.CTBills.Where(x => x.Bill == item.Id && x.NgayGiao == null).ToList();
+                        if (songay.Count() > 0 || item.CTBills.Count() == 0)
+                        {
+                            billton += 1;
+                        }
                     }
-                }
-                <span class="info-box-number">@billton</span>
+                    <span class="info-box-number">@billton</span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
-        </div>
-        <!-- /.info-box -->
+            <!-- /.info-box -->
+        </a>
     </div>
+  
+    
     <!-- /.col -->
 
 </div>

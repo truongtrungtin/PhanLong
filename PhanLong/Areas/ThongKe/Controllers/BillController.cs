@@ -3,7 +3,7 @@ using System.Web.Mvc;
 
 namespace PhanLong.Areas.ThongKe.Controllers
 {
-    public class BillController : Controller
+    public class BillController : BaseController
     {
         // GET: ThongKe/ThongKeBill
         public ActionResult Index()
@@ -31,6 +31,13 @@ namespace PhanLong.Areas.ThongKe.Controllers
             ViewBag.TD = (bill.NgayTauDen != null ? bill.NgayTauDen.Value.ToShortDateString() : null);
             ViewBag.CN = (bill.CangNhan != null ? bill.DMCang.TenCang : null);
             var model = dao.ListAll(id);
+            return View(model);
+        }
+
+        public ActionResult BillTon()
+        {
+            var dao = new DMBillDao();
+            var model = dao.ListAll();
             return View(model);
         }
     }
