@@ -24,8 +24,7 @@
         nang += Convert.ToDecimal(item.TienNang);
         ha += Convert.ToDecimal(item.TienHa);
         phikhac += Convert.ToDecimal(item.TienPhiKH);
-        chirieng += Convert.ToDecimal(item.TienPhiCT);
-    }
+     }
 
     long idKh = Convert.ToInt64(ViewBag.IdKH);
     long idBill = Convert.ToInt64(ViewBag.IdBill);
@@ -206,7 +205,7 @@
                         <label class="col-form-label col-lg-12" for="tongchi">Tổng tiền<sup>(1+2+3)</sup></label>
                         <div class="col-lg-12">
                             <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" value="@(cuoc != 0 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (cuoc + VAT + nang + ha + phikhac + chirieng + khac)): null)" style="text-align:right" readonly>
+                                <input type="text" class="form-control form-control-sm" value="@(cuoc != 0 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (cuoc + VAT + nang + ha + phikhac  + khac)): null)" style="text-align:right" readonly>
                             </div>
                         </div>
                     </div>
