@@ -629,8 +629,49 @@ namespace PhanLong.DAO
             var model = db.PhatSinhs.Where(x => (sdate == null && edate == null) || (x.Ngay >= sdate && x.Ngay <= edate));
             return model.Where(x => x.Xe == id).FirstOrDefault();
         }
-        public long Insert(PhatSinh entity)
+        public long Insert(PhatSinh entity, string MaBill)
         {
+            if (MaBill != null)
+            {
+                var SoBill = new DMBillDao().CheckMaBill(MaBill) != null ? new DMBillDao().CheckMaBill(MaBill).Id : 0;
+                if (SoBill != 0)
+                {
+                    entity.SoBill = SoBill;
+                }
+                else
+                {
+                    DMBill dMBill = new DMBill();
+                    dMBill.MaBill = MaBill;
+                    dMBill.KhachHang = entity.KhachHang;
+                    dMBill.CangNhan = entity.CangNhan;
+                    entity.SoBill = new DMBillDao().Insert(dMBill);
+                    
+                }
+                if (entity.SoCont != null && new CTBillDao().Check(entity.SoBill, entity.SoCont) == null)
+                {
+                    CTBill cTBill = new CTBill();
+                    cTBill.Bill = entity.SoBill;
+                    cTBill.Cont = entity.SoCont;
+                    cTBill.Loai = entity.Loai;
+                    cTBill.Kho = entity.Kho;
+                    cTBill.NgayGiao = entity.Ngay;
+                    cTBill.SoXe = entity.Xe;
+                    cTBill.HaRong = entity.CangTra;
+                    new CTBillDao().Insert(cTBill);
+                }
+                if (entity.SoCont != null && new CTBillDao().Check(entity.SoBill, entity.SoCont) != null)
+                {
+                    CTBill cTBill = new CTBill();
+                    cTBill.Bill = entity.SoBill;
+                    cTBill.Cont = entity.SoCont;
+                    cTBill.Loai = entity.Loai;
+                    cTBill.Kho = entity.Kho;
+                    cTBill.NgayGiao = entity.Ngay;
+                    cTBill.SoXe = entity.Xe;
+                    cTBill.HaRong = entity.CangTra;
+                    new CTBillDao().Update(cTBill);
+                }
+            }
             db.PhatSinhs.Add(entity);
             //if (entity.CuocKH != null)
             //{
@@ -660,6 +701,11 @@ namespace PhanLong.DAO
 
                 return false;
             }
+        }
+
+        private int CheckSoCont(string SoCont)
+        {
+            return db.PhatSinhs.Where(x => x.SoCont == SoCont).Count();
         }
 
         public bool? ChangeStatusVAT(long id)
@@ -703,11 +749,57 @@ namespace PhanLong.DAO
             }
         }
 
-        public bool Update(PhatSinh phatSinh)
+        public bool Update(PhatSinh phatSinh, string MaBill)
         {
             try
             {
                 var item = db.PhatSinhs.Find(phatSinh.Id);
+                var Cont = item.SoCont;
+                if (MaBill != null)
+                {
+                    var dao = new DMBillDao().CheckMaBill(MaBill) != null ? new DMBillDao().CheckMaBill(MaBill).Id : 0;
+                    if (dao == 0)
+                    {
+                        DMBill dMBill = new DMBill();
+                        dMBill.MaBill = MaBill;
+                        dMBill.KhachHang = phatSinh.KhachHang;
+                        dMBill.CangNhan = phatSinh.CangNhan;
+                        phatSinh.SoBill = new DMBillDao().Insert(dMBill);
+                    }
+                    else
+                    {
+                        phatSinh.SoBill = dao;
+                    }
+                    if (phatSinh.SoCont != null && new CTBillDao().Check(phatSinh.SoBill, phatSinh.SoCont) == null)
+                    {
+                        CTBill cTBill = new CTBill();
+                        cTBill.Bill = phatSinh.SoBill;
+                        cTBill.Cont = phatSinh.SoCont;
+                        cTBill.Loai = phatSinh.Loai;
+                        cTBill.Kho = phatSinh.Kho;
+                        cTBill.NgayGiao = phatSinh.Ngay;
+                        cTBill.SoXe = phatSinh.Xe;
+                        cTBill.HaRong = phatSinh.CangTra;
+                        var CTBId = new CTBillDao().Insert(cTBill);
+                    }
+                    else if (phatSinh.SoCont != null && new CTBillDao().Check(phatSinh.SoBill, phatSinh.SoCont) != null)
+                    {
+                        CTBill cTBill = new CTBill();
+                        cTBill.Id = new CTBillDao().Check(phatSinh.SoBill, phatSinh.SoCont).Id;
+                        cTBill.Bill = phatSinh.SoBill;
+                        cTBill.Cont = phatSinh.SoCont;
+                        cTBill.Loai = phatSinh.Loai;
+                        cTBill.Kho = phatSinh.Kho;
+                        cTBill.NgayGiao = phatSinh.Ngay;
+                        cTBill.SoXe = phatSinh.Xe;
+                        cTBill.HaRong = phatSinh.CangTra;
+                        new CTBillDao().Update(cTBill);
+                    }
+                    if (Cont != null && Cont != phatSinh.SoCont && new CTBillDao().Check(phatSinh.SoBill, Cont) != null && CheckSoCont(Cont) == 1)
+                    {
+                        new CTBillDao().Delete(new CTBillDao().Check(phatSinh.SoBill, Cont).Id);
+                    }
+                }
                 item.Ngay = phatSinh.Ngay;
                 item.Loai = phatSinh.Loai;
                 item.KhachHang = phatSinh.KhachHang;
@@ -732,6 +824,7 @@ namespace PhanLong.DAO
                 item.VAT = phatSinh.VAT;
                 item.Thoigian = phatSinh.Thoigian;
                 item.DateUpdate = DateTime.Now;
+              
                 db.SaveChanges();
                 return true;
             }
