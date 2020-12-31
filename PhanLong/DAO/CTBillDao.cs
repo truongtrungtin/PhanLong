@@ -362,7 +362,7 @@ namespace PhanLong.DAO
             return db.CTBills.Where(x => x.Bill == bill).OrderBy(x => (x.NgayGiao == null ? x.NgayGiao : x.NgayGui)).ToList();
         }
 
-        public CTBill Check(long Bill, string cont)
+        public CTBill Check(long? Bill, string cont)
         {
             return db.CTBills.SingleOrDefault(x => x.Bill == Bill && x.Cont == cont);
         }

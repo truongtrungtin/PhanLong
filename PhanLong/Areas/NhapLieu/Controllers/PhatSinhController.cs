@@ -85,7 +85,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
 
         [HttpPost]
         [HasCredential(RoleId = "ADD_PHATSINH")]
-        public ActionResult Create(PhatSinh phatSinh, int[] chkId, string delete = null, string update = null, string kehoach = null, string Copy = null)
+        public ActionResult Create(PhatSinh phatSinh, int[] chkId, string delete = null, string update = null, string kehoach = null, string Copy = null, string MaBill = null)
         {
             var ps = new PhatSinhDao();
             if (delete != null && chkId != null)
@@ -117,7 +117,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                 if (ModelState.IsValid)
                 {
                     var dao = new PhatSinhDao();
-                    long result = dao.Insert(phatSinh);
+                    long result = dao.Insert(phatSinh, MaBill);
                     if (result > 0)
                     {
                         SetAlert("Đã thêm bảng ghi thành công !", "success");
@@ -145,7 +145,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
         }
         [HttpPost]
         [HasCredential(RoleId = "EDIT_PHATSINH")]
-        public ActionResult Update(PhatSinh phatSinh, int[] chkId, string delete = null, string copy = null)
+        public ActionResult Update(PhatSinh phatSinh, int[] chkId, string delete = null, string copy = null, string MaBill = null)
         {
             var ps = new PhatSinhDao();
             if (delete != null && chkId != null)
@@ -165,7 +165,7 @@ namespace PhanLong.Areas.NhapLieu.Controllers
                 if (ModelState.IsValid)
                 {
                     var dao = new PhatSinhDao();
-                    var result = dao.Update(phatSinh);
+                    var result = dao.Update(phatSinh, MaBill);
                     if (result)
                     {
                         SetAlert("Cập nhật dữ liệu thành công!", "success");

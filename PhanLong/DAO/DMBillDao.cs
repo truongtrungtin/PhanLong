@@ -288,6 +288,11 @@ namespace PhanLong.DAO
         {
             return db.DMBills.SingleOrDefault(x => x.Id == id);
         }
+        public DMBill CheckMaBill(string MaBill)
+        {
+            return db.DMBills.SingleOrDefault(x => x.MaBill == MaBill);
+        }
+
         public long Insert(DMBill entity)
         {
             db.DMBills.Add(entity);

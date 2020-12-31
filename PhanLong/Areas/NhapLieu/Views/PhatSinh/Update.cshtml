@@ -148,26 +148,27 @@
                         <div class="form-group row">
                             @Html.LabelFor(model => model.SoBill, htmlAttributes: new { @style = "text-align:right", @class = "control-label col-sm-4" })
                             <div class="col-sm-8">
-                                <select name="SoBill" class="form-control form-control-sm select2" data-placeholder="Chọn bill">
-                                    @if (Model.SoBill != null)
-                                    {
-                                        <option value="@Model.SoBill">@Model.DMBill.MaBill</option>
+                                @*<select name="SoBill" class="form-control form-control-sm select2" data-placeholder="Chọn bill">
+            @if (Model.SoBill != null)
+            {
+                <option value="@Model.SoBill">@Model.DMBill.MaBill</option>
 
-                                    }
-                                    else
-                                    {
-                                        <option value=""></option>
-                                    }
-                                    @foreach (var item in db.DMBills)
-                                    {
-                                        if (item.Id != Model.SoBill)
-                                        {
-                                            <option value="@item.Id">@item.MaBill</option>
-                                        }
+            }
+            else
+            {
+                <option value=""></option>
+            }
+            @foreach (var item in db.DMBills)
+            {
+                if (item.Id != Model.SoBill)
+                {
+                    <option value="@item.Id">@item.MaBill</option>
+                }
 
-                                    }
+            }
 
-                                </select>
+        </select>*@
+                                <input type="text" class="form-control form-control-sm" value="@(Model.SoBill != null ? Model.DMBill.MaBill : null)" name="MaBill" required />
                                 @Html.ValidationMessageFor(model => model.SoBill, "", new { @class = "text-danger" })
                             </div>
                         </div>
