@@ -447,32 +447,32 @@
     <div class="card-body">
         @using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post))
         {
-            <table class="table table-hover table-bordered table-striped table-sm" id="TableThongKePhatSinh" style="width:100%">
+            <table class="table table-hover table-bordered table-striped table-sm nowrap" id="TableThongKePhatSinh" style="width:100%">
 
                 <thead style="background-color:#d1cbc3">
                     <tr>
-                        <th title="Số thứ tự">STT</th>
-                        <th class="search_date" title="Ngày giao">Ngày</th>
-                        <th class="search_input" title="Loại">Loại</th>
-                        <th class="search_input" title="Khách hàng">Khách hàng</th>
-                        <th class="search_input" title="Kho">Kho</th>
-                        <th class="search_input" title="Lộ trình">Km</th>
-                        <th class="search_input" title="Số Cont">Số Cont</th>
-                        <th class="search_input" title="Số Bill">Bill</th>
-                        <th class="search_input" title="Cước">Cước </th>
-                        <th class="search_input" title="Nhân viên">Nhân viên</th>
-                        <th class="search_input" title="Số Xe">Xe</th>
-                        <th class="search_input" title="Hoá đơn nâng">Hoá đơn nâng</th>
-                        <th class="search_input" title="Tiền nâng">Tiền nâng </th>
-                        <th class="search_input" title="Hoá đơn Hạ">Hoá đơn Hạ</th>
-                        <th class="search_input" title="Tiền hạ">Tiền Hạ </th>
-                        <th class="search_input" title="Phí Khách hàng">Hoá đơn khác</th>
-                        <th class="search_input" title="Tiền Phí khách hàng">Tiền khác </th>
-                        <th class="search_input" title="Tiền Phí khách hàng">Tổng chi hộ </th>
-                        <th class="search_input" title="Phí công ty">Chi phí riêng TX</th>
-                        <th class="search_input" title="Tiền phí công ty">Tiền phí riêng </th>
-                        <th class="search_input" title="Thời gian">Tổng chi </th>
-                        <th class="search_input" title="Ghi chú">Ghi Chú</th>
+                        <th width="1px" title="Số thứ tự">STT</th>
+                        <th width="1px" title="Ngày giao">Ngày</th>
+                        <th width="1px" title="Loại">Loại</th>
+                        <th width="1px" title="Khách hàng">KH</th>
+                        <th width="1px" title="Kho">Kho</th>
+                        <th width="1px" title="Lộ trình">Km</th>
+                        <th width="1px" title="Số Cont">Số Cont</th>
+                        <th width="1px" title="Số Bill">Bill/Booking</th>
+                        <th width="1px" title="Cước">Cước </th>
+                        <th width="1px" title="Nhân viên">NV</th>
+                        <th width="1px" title="Số Xe">Xe</th>
+                        <th width="1px" title="Hoá đơn nâng">HD nâng</th>
+                        <th width="1px" title="Tiền nâng">Tiền nâng </th>
+                        <th width="1px" title="Hoá đơn Hạ">HD Hạ</th>
+                        <th width="1px" title="Tiền hạ">Tiền Hạ </th>
+                        <th width="1px" title="Phí Khách hàng">HD khác</th>
+                        <th width="1px" title="Tiền Phí khách hàng">Tiền khác </th>
+                        <th width="1px" title="Tiền Phí khách hàng">Tổng chi hộ </th>
+                        <th width="1px" title="Phí công ty">CP CT</th>
+                        <th width="1px" title="Tiền phí công ty">Tiền CT</th>
+                        <th width="1px" title="Thời gian">Tổng chi </th>
+                        <th title="Ghi chú">Ghi Chú</th>
                     </tr>
                 </thead>
                 <tbody>
