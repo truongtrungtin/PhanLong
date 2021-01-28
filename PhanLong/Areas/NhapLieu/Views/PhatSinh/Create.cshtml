@@ -189,7 +189,7 @@
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.SoBill, htmlAttributes: new { @style = "text-align:right", @class = "control-label col-sm-4" })
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control form-control-sm" name="MaBill" required />
+                                    <input type="text" class="form-control form-control-sm" name="MaBill" value="@Model.DMBill.MaBill" required />
                                 </div>
                                 @Html.ValidationMessageFor(model => model.SoBill, "", new { @class = "text-danger" })
                             </div>
