@@ -154,7 +154,11 @@
     <script src="/Content/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script>
         $("#example1").DataTable({
-            "responsive": true, "lengthChange": true, "autoWidth": false, "ordering": false,
+            "responsive": true, "lengthChange": false, "autoWidth": false, "ordering": false,
+            "scrollY": "650px",
+            "scrollX": true,
+            "bSort": false,
+            "lengthMenu": [[-1], ["All"]],
             "buttons": ["excel"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     </script>
