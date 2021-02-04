@@ -1,7 +1,10 @@
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
+using System.Linq;
+
 namespace PhanLong.EF
 {
-    using System.Data.Entity;
-
     public partial class PhanLongDBContext : DbContext
     {
         public PhanLongDBContext()
@@ -227,6 +230,18 @@ namespace PhanLong.EF
                 .IsUnicode(false);
 
             modelBuilder.Entity<DMMooc>()
+                .Property(e => e.NamSanXuat)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DMMooc>()
+                .Property(e => e.HopDong)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DMMooc>()
+                .Property(e => e.SoTien)
+                .HasPrecision(18, 0);
+
+            modelBuilder.Entity<DMMooc>()
                 .HasMany(e => e.PhatSinhChiThus)
                 .WithOptional(e => e.DMMooc)
                 .HasForeignKey(e => e.Mooc);
@@ -268,6 +283,18 @@ namespace PhanLong.EF
             modelBuilder.Entity<DMXe>()
                 .Property(e => e.BienSo)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<DMXe>()
+                .Property(e => e.NamSanXuat)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DMXe>()
+                .Property(e => e.HopDong)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<DMXe>()
+                .Property(e => e.SoTien)
+                .HasPrecision(18, 0);
 
             modelBuilder.Entity<DMXe>()
                 .HasMany(e => e.CTBills)

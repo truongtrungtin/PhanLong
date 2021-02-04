@@ -1,5 +1,8 @@
 ﻿using PhanLong.DAO;
 using PhanLong.EF;
+using System;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 
 
@@ -56,8 +59,9 @@ namespace PhanLong.Areas.DanhMuc.Controllers
                 return View();
             }
         }
+
         [HttpPost]
-        public ActionResult Create(DMMooc dMMooc, int[] chkId, string delete = null)
+        public ActionResult Create(DMMooc dMMooc, int[] chkId, HttpPostedFileBase HopDong, string delete = null)
         {
             var item = new DMMoocDao();
             if (delete != null && chkId != null)
@@ -76,6 +80,19 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    if (HopDong != null)
+                    {
+                        string fileName = Path.GetFileNameWithoutExtension(HopDong.FileName);
+                        string extension = Path.GetExtension(HopDong.FileName);
+                        fileName = fileName + dMMooc.NgayMua.Value.ToString("dd") + dMMooc.NgayMua.Value.ToString("MM") + dMMooc.NgayMua.Value.ToString("yyyy") + extension;
+                        dMMooc.HopDong = "/File/HopDong/" + dMMooc.MaMooc + "/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("~/File/HopDong/" + dMMooc.MaMooc), fileName);
+                        if (!Directory.Exists(Server.MapPath("~/File/HopDong/" + dMMooc.MaMooc)))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/File/HopDong/" + dMMooc.MaMooc));
+                        }
+                        HopDong.SaveAs(fileName);
+                    }
                     var dao = new DMMoocDao();
                     var Check = dao.Check(dMMooc.MaMooc);
                     if (Check.Count > 0)
@@ -112,7 +129,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             return View(model);
         }
         [HttpPost]
-        public ActionResult Update(DMMooc dMMooc, int[] chkId, string delete = null)
+        public ActionResult Update(DMMooc dMMooc, int[] chkId, HttpPostedFileBase HopDong, string delete = null)
         {
             var item = new DMMoocDao();
             if (delete != null && chkId != null)
@@ -131,6 +148,19 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    if (HopDong != null)
+                    {
+                        string fileName = Path.GetFileNameWithoutExtension(HopDong.FileName);
+                        string extension = Path.GetExtension(HopDong.FileName);
+                        fileName = fileName + dMMooc.NgayMua.Value.ToString("dd") + dMMooc.NgayMua.Value.ToString("MM") + dMMooc.NgayMua.Value.ToString("yyyy") + extension;
+                        dMMooc.HopDong = "/File/HopDong/" + dMMooc.MaMooc + "/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("~/File/HopDong/" + dMMooc.MaMooc), fileName);
+                        if (!Directory.Exists(Server.MapPath("~/File/HopDong/" + dMMooc.MaMooc)))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/File/HopDong/" + dMMooc.MaMooc));
+                        }
+                        HopDong.SaveAs(fileName);
+                    }
                     var dao = new DMMoocDao();
                     var Check1 = dao.Check(dMMooc.MaMooc);
                     var Check2 = dao.GetById(dMMooc.Id);
@@ -146,12 +176,12 @@ namespace PhanLong.Areas.DanhMuc.Controllers
                         if (result)
                         {
                             SetAlert("Cập nhật dữ liệu xe thành công!", "success");
-                            return RedirectToAction("Index", "DMMooc");
+                            return RedirectToAction("Update", "DMMooc", new { id = dMMooc.Id });
                         }
                         else
                         {
                             SetAlert("Cập nhật dữ liệu xe không thành công", "warning");
-                            return RedirectToAction("Update", "DMMooc");
+                            return RedirectToAction("Update", "DMMooc", new { id = dMMooc.Id });
                         }
                     }
                 }
