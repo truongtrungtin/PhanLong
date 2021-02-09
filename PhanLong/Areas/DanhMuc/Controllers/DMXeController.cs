@@ -1,6 +1,8 @@
 ﻿using PhanLong.Common;
 using PhanLong.DAO;
 using PhanLong.EF;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 
 namespace PhanLong.Areas.DanhMuc.Controllers
@@ -59,8 +61,9 @@ namespace PhanLong.Areas.DanhMuc.Controllers
         }
         [HttpPost]
         [HasCredential(RoleId = "ADD_XE")]
-        public ActionResult Create(DMXe dMXe, int[] chkId, string delete = null)
+        public ActionResult Create(DMXe dMXe, int[] chkId, HttpPostedFileBase HopDong, string delete = null)
         {
+
             var item = new DMXeDao();
             if (delete != null && chkId != null)
             {
@@ -76,8 +79,22 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             }
             else
             {
+
                 if (ModelState.IsValid)
                 {
+                    if (HopDong != null)
+                    {
+                        string fileName = Path.GetFileNameWithoutExtension(HopDong.FileName);
+                        string extension = Path.GetExtension(HopDong.FileName);
+                        fileName = fileName + dMXe.NgayMua.Value.ToString("dd") + dMXe.NgayMua.Value.ToString("MM") + dMXe.NgayMua.Value.ToString("yyyy") + extension;
+                        dMXe.HopDong = "/File/HopDong/" + dMXe.MaXe + "/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("~/File/HopDong/" + dMXe.MaXe), fileName);
+                        if (!Directory.Exists(Server.MapPath("~/File/HopDong/" + dMXe.MaXe)))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/File/HopDong/" + dMXe.MaXe));
+                        }
+                        HopDong.SaveAs(fileName);
+                    }
                     var dao = new DMXeDao();
                     var Check = dao.Check(dMXe.MaXe);
                     if (Check.Count > 0)
@@ -115,7 +132,7 @@ namespace PhanLong.Areas.DanhMuc.Controllers
         }
         [HttpPost]
         [HasCredential(RoleId = "EDIT_XE")]
-        public ActionResult Update(DMXe dMXe, int[] chkId, string delete = null)
+        public ActionResult Update(DMXe dMXe, int[] chkId, HttpPostedFileBase HopDong, string delete = null)
         {
             var item = new DMXeDao();
             if (delete != null && chkId != null)
@@ -134,6 +151,19 @@ namespace PhanLong.Areas.DanhMuc.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    if (HopDong != null)
+                    {
+                        string fileName = Path.GetFileNameWithoutExtension(HopDong.FileName);
+                        string extension = Path.GetExtension(HopDong.FileName);
+                        fileName = fileName + dMXe.NgayMua.Value.ToString("dd") + dMXe.NgayMua.Value.ToString("MM") + dMXe.NgayMua.Value.ToString("yyyy") + extension;
+                        dMXe.HopDong = "/File/HopDong/" + dMXe.MaXe + "/" + fileName;
+                        fileName = Path.Combine(Server.MapPath("~/File/HopDong/" + dMXe.MaXe), fileName);
+                        if (!Directory.Exists(Server.MapPath("~/File/HopDong/" + dMXe.MaXe)))
+                        {
+                            Directory.CreateDirectory(Server.MapPath("~/File/HopDong/" + dMXe.MaXe));
+                        }
+                        HopDong.SaveAs(fileName);
+                    }
                     var dao = new DMXeDao();
                     var Check1 = dao.Check(dMXe.MaXe);
                     var Check2 = dao.GetById(dMXe.Id);
@@ -149,12 +179,13 @@ namespace PhanLong.Areas.DanhMuc.Controllers
                         if (result)
                         {
                             SetAlert("Cập nhật dữ liệu xe thành công!", "success");
-                            return RedirectToAction("Index", "DMXe");
+                            return RedirectToAction("Update", "DMXe", new { id = dMXe.Id });
+
                         }
                         else
                         {
                             SetAlert("Cập nhật dữ liệu xe không thành công", "warning");
-                            return RedirectToAction("Update", "DMXe");
+                            return RedirectToAction("Update", "DMXe", new { id = dMXe.Id });
                         }
                     }
                 }

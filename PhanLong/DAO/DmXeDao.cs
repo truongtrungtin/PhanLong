@@ -104,6 +104,22 @@ namespace PhanLong.DAO
                 item.MaXe = dMKho.MaXe;
                 item.BienSo = dMKho.BienSo;
                 item.NgayDangKiem = dMKho.NgayDangKiem;
+                item.HanDangKiem = dMKho.HanDangKiem;
+                item.NhanHieu = dMKho.NhanHieu;
+                item.SoKhung = dMKho.SoKhung;
+                item.NamSanXuat = dMKho.NamSanXuat;
+                item.HanSuDung = dMKho.HanSuDung;
+                item.TaiTrong = dMKho.TaiTrong;
+                item.LoaiVo = dMKho.LoaiVo;
+                item.Ruot = dMKho.Ruot;
+                item.SoLuongVo = dMKho.SoLuongVo;
+                item.NguoiBan = dMKho.NguoiBan;
+                item.HopDong = dMKho.HopDong;
+                item.NgayMua = dMKho.NgayMua;
+                item.SoTien = dMKho.SoTien;
+                item.HopDong = dMKho.HopDong;
+                item.SoHoaDon = dMKho.SoHoaDon;
+                item.GhiChu = dMKho.GhiChu;
                 db.SaveChanges();
                 return true;
             }

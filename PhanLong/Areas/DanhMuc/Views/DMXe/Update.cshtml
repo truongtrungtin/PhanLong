@@ -1,9 +1,22 @@
 ﻿@model PhanLong.EF.DMXe
+@using PhanLong.EF
+
 @{
     ViewBag.Title = "Danh mục xe";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.url = "/DanhMuc/DMXe";
     ViewBag.Back = "Trở lại";
+    var db = new PhanLongDBContext();
+}
+@section css{
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/Content/plugins/select2/css/select2.css">
+    <link rel="stylesheet" href="/Content/plugins/select2-bootstrap4-theme/select2-bootstrap4.css">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/Content/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/Content/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="~/Content/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css">
 }
 <div class="card">
     <div class="container">
@@ -13,43 +26,208 @@
             </h4>
         </div>
         <div class="card-body">
-            @using (Html.BeginForm("Update", "DMXe", FormMethod.Post))
+            @using (Html.BeginForm("Update", "DMXe", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.Id)
                     <div class="row">
-                        <div class="col-sm-3">
+                        <div class="col-lg-3">
                             <div class="form-group row">
-                                @Html.LabelFor(model => model.MaXe, htmlAttributes: new { @class = "col-form-label col-sm-3" })
-                                <div class="col-sm-9">
-                                    @Html.EditorFor(model => model.MaXe, new { htmlAttributes = new { @class = "form-control form-control-sm", @readonly = true } })
-                                    @Html.ValidationMessageFor(model => model.MaXe, "", new { @class = "text-danger" })
+                                <label class="col-form-label col-lg-4">Mã Xe</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control form-control-sm" name="MaXe" value="@Model.MaXe" required />
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-lg-3">
                             <div class="form-group row">
-                                @Html.LabelFor(model => model.BienSo, htmlAttributes: new { @class = "col-form-label col-sm-4", @required = true })
-                                <div class="col-sm-8">
-                                    @Html.EditorFor(model => model.BienSo, new { htmlAttributes = new { @class = "form-control form-control-sm" } })
-                                    @Html.ValidationMessageFor(model => model.BienSo, "", new { @class = "text-danger" })
+                                <label class="col-form-label col-lg-4">Biển số</label>
+                                <div class="col-lg-8">
+                                    <input type="text" class="form-control form-control-sm" name="BienSo" value="@Model.BienSo" required />
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-lg-3">
                             <div class="form-group row">
-                                @Html.LabelFor(model => model.NgayDangKiem, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-5" })
-                                <div class="col-sm-7">
-                                    <div class="input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                <label class="col-form-label col-lg-5">Ngày đăng kiểm</label>
+                                <div class="col-lg-7">
+                                    <div class="input-group date" id="NgayDangKiem" data-target-input="nearest">
+                                        <input type="text" name="NgayDangKiem" value="@(Model.NgayDangKiem != null ? Model.NgayDangKiem.Value.ToString("dd/MM/yyyy") : null)" data-target="#NgayDangKiem" required class="form-control form-control-sm" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                        <div class="input-group-append" data-target="#NgayDangKiem" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                         </div>
-                                        <input type="text" name="NgayDangKiem" class="form-control form-control-sm" value="@(Model.NgayDangKiem != null ? Model.NgayDangKiem.Value.ToShortDateString(): null)" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
                                     </div>
-                                    @Html.ValidationMessageFor(model => model.NgayDangKiem, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-5">Hạn đăng kiểm</label>
+                                <div class="col-lg-7">
+                                    <div class="input-group date" id="HanDangKiem" data-target-input="nearest">
+                                        <input type="text" name="HanDangKiem" value="@(Model.HanDangKiem != null ? Model.HanDangKiem.Value.ToString("dd/MM/yyyy") : null)" data-target="#HanDangKiem" required class="form-control form-control-sm" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                        <div class="input-group-append" data-target="#HanDangKiem" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-4">Nhãn Hiệu</label>
+                                <div class="col-lg-8">
+                                    <input type="text" name="NhanHieu" value="@Model.NhanHieu" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-4">Số khung</label>
+                                <div class="col-lg-8">
+                                    <input type="text" name="SoKhung" value="@Model.SoKhung" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-5">Năm sản xuất</label>
+                                <div class="col-lg-7">
+                                    <input type="text" name="NamSanXuat" value="@Model.NamSanXuat" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-5">Nước sản xuất</label>
+                                <div class="col-lg-7">
+                                    <input type="text" name="NuocSanXuat" value="@Model.NuocSanXuat" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-4">Hạn sử dụng</label>
+                                <div class="col-lg-8">
+                                    <div class="input-group date" id="HanSuDung" data-target-input="nearest">
+                                        <input type="text" name="HanSuDung" value="@(Model.HanSuDung != null ? @Model.HanSuDung.Value.ToString("dd/MM/yyyy") : null)" data-target="#HanSuDung" required class="form-control form-control-sm" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                        <div class="input-group-append" data-target="#HanSuDung" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-4">Tải trọng</label>
+                                <div class="col-lg-8">
+                                    <input type="text" name="TaiTrong" value="@Model.TaiTrong" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-5">Loại vỏ</label>
+                                <div class="col-lg-7">
+                                    <input type="text" name="LoaiVo" value="@Model.LoaiVo" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-6">Số lượng vỏ</label>
+                                <div class="col-lg-6">
+                                    <input type="number" name="SoLuongVo" value="@Model.SoLuongVo" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <div class="form-group">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="checkbox" id="Ruot" name="Ruot" @(Model.Ruot == true ? "checked" : null)>
+                                    <label for="Ruot" class="custom-control-label">Ruột</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-4">Người bán</label>
+                                <div class="col-lg-8">
+                                    <select name="NguoiBan" class="form-control form-control-sm select2" data-placeholder="Chọn">
+                                        @if (Model.NguoiBan != null)
+                                        {
+                                            <option value="@Model.NguoiBan">@db.DMKhachHangs.SingleOrDefault(x => x.MaKH == Model.NguoiBan).MaKH - @db.DMKhachHangs.SingleOrDefault(x => x.MaKH == Model.NguoiBan).TenCongTy </option>
+                                        }
+                                        else
+                                        {
+                                            <option value=""></option>
+                                        }
+                                        @foreach (var item in db.DMKhachHangs)
+                                        {
+                                            <option value="@item.MaKH">@item.MaKH - @item.TenCongTy</option>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-4">Ngày mua</label>
+                                <div class="col-lg-8">
+                                    <div class="input-group date" id="NgayMua" data-target-input="nearest">
+                                        <input type="text" name="NgayMua" value="@(Model.NgayMua != null ? Model.NgayMua.Value.ToString("dd/MM/yyyy") : null)" data-target="#NgayMua" required class="form-control form-control-sm" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                                        <div class="input-group-append" data-target="#NgayMua" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-5">Số tiền</label>
+                                <div class="col-lg-7">
+                                    <input type="text" name="SoTien" value="@Model.SoTien" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-5">Số hóa đơn</label>
+                                <div class="col-lg-7">
+                                    <input type="text" name="SoHoaDon" value="@Model.SoHoaDon" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-4">Hợp đồng</label>
+                                <div class="col-lg-8">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input custom-control sm" id="HopDong" name="HopDong">
+                                        @if (Model.HopDong != null)
+                                        {
+                                            <label class="custom-file-label" for="HopDong">@Model.HopDong</label>
+
+                                        }
+                                        else
+                                        {
+                                            <label class="custom-file-label" for="HopDong">Chọn file</label>
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group row">
+                                <label class="col-form-label col-lg-3">Ghi chú</label>
+                                <div class="col-lg-7">
+                                    <textarea name="GhiChu" class="form-control form-control-sm">@Model.GhiChu</textarea>
                                 </div>
                             </div>
                         </div>
@@ -67,5 +245,39 @@
 @section js{
     <!-- Select2 -->
     <script src="/Content/plugins/select2/js/select2.full.min.js"></script>
+    <script src="~/Content/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <!-- InputMask -->
+    <script src="~/Content/plugins/moment/moment.min.js"></script>
+    <script src="~/Content/plugins/inputmask/jquery.inputmask.min.js"></script>
+    <!-- Summernote -->
+    <script src="/Content/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/Content/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <script src="/Content/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+    <script src="/Content/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="/Content/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            bsCustomFileInput.init();
+            $('.select2').select2({ theme: 'bootstrap4', allowClear: true });
+            $("input[name='Ruot']").each(function () {
+                $(this).val('state' ? 'True' : 'False');
+            });
+            $('[data-mask]').inputmask('dd/mm/yyyy');
+            $('#NgayDangKiem').datetimepicker({
+                format: 'DD/MM/YYYY',
+            });
+            $('#HanDangKiem').datetimepicker({
+                format: 'DD/MM/YYYY',
+            });
+            $('#HanSuDung').datetimepicker({
+                format: 'DD/MM/YYYY',
+            });
+            $('#NgayMua').datetimepicker({
+                format: 'DD/MM/YYYY',
+            });
+        });
+    </script>
 
 }

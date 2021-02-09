@@ -69,6 +69,22 @@ namespace PhanLong.DAO
                 item.MaMooc = dMMooc.MaMooc;
                 item.BienSo = dMMooc.BienSo;
                 item.NgayDangKiem = dMMooc.NgayDangKiem;
+                item.HanDangKiem = dMMooc.HanDangKiem;
+                item.NhanHieu = dMMooc.NhanHieu;
+                item.SoKhung = dMMooc.SoKhung;
+                item.NamSanXuat = dMMooc.NamSanXuat;
+                item.HanSuDung = dMMooc.HanSuDung;
+                item.TaiTrong = dMMooc.TaiTrong;
+                item.LoaiVo = dMMooc.LoaiVo;
+                item.Ruot = dMMooc.Ruot;
+                item.SoLuongVo = dMMooc.SoLuongVo;
+                item.NguoiBan = dMMooc.NguoiBan;
+                item.HopDong = dMMooc.HopDong;
+                item.NgayMua = dMMooc.NgayMua;
+                item.SoTien = dMMooc.SoTien;
+                item.HopDong = dMMooc.HopDong;
+                item.SoHoaDon = dMMooc.SoHoaDon;
+                item.GhiChu = dMMooc.GhiChu;
                 db.SaveChanges();
                 return true;
             }
