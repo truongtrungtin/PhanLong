@@ -45,7 +45,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                if ((DateTime.Now - item.Ngay).TotalDays < 32)
+                if ((DateTime.Now - item.Ngay).TotalDays < 15)
                 {
                     <tr id="row_@item.Id">
                         <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
