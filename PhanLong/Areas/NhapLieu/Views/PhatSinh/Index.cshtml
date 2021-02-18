@@ -4,7 +4,7 @@
 @using System.Globalization;
 
 @{
-    ViewBag.Title = "Nhập liệu";
+    ViewBag.Title = "Phát sinh";
     Layout = "~/Views/Shared/_Layout.cshtml";
     PhanLongDBContext db = new PhanLongDBContext();
     var session = (UserLogin)Session[CommonConstants.USER_SESSION];
@@ -35,7 +35,7 @@
     <div class="card-body">
         @using (Html.BeginForm("Index", "PhatSinh", FormMethod.Post))
         {
-            <table class="table table-hover table-bordered table-striped table-responsive-lg table-sm" id="example1" style="width:100%;">
+            <table class="table table-hover table-bordered table-striped table-responsive-lg table-sm" id="TablePhatSinh" style="width:100%;">
                 <thead>
                     <tr>
                         <th width="1%"><input type='checkbox' id='check' value='' /></th>
@@ -47,15 +47,16 @@
                         <th title="Số Bill">Số Bill</th>
                         <th title="Cảng Nhận">Cảng nhận</th>
                         <th title="Cảng trả">Cảng trả</th>
-                        <th title="Cước">Cước</th>
+                        <th title="Cước">Cước KH</th>
                         <th title="Cước Tài Xế">Cước tài xế</th>
+                        <th title="Tỉ lệ cước">Tỉ lệ cước</th>
                         <th title="Tên tài xế">Tài xế</th>
-                        <th title="Số Xe">Xe</th>
+                        <th title="Số Xe">Số xe</th>
                         <th title="Hoá đơn nâng">Hoá đơn nâng</th>
                         <th title="Tiền nâng">Tiền nâng</th>
                         <th title="Hoá đơn Hạ">Hoá đơn hạ</th>
                         <th title="Tiền hạ">Tiền hạ</th>
-                        <th title="Phí Khách hàng">Phí khách hàng</th>
+                        <th title="Phí Khách hàng">Phí KH</th>
                         <th title="Tiền Phí khách hàng">Tiền phí KH</th>
                         <th title="Phí công ty">Phí Công Ty</th>
                         <th title="Tiền phí công ty">Tiền Phí CT</th>
@@ -80,6 +81,7 @@
                                 <td title="@(item.CangTra != null ? item.DMCang1.TenCang: null )">@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
                                 <td style="text-align:right">@(item.CuocKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocKH)) : null)</td>
                                 <td style="text-align:right">@(item.CuocTX != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocTX)) : null)</td>
+                                <td style="text-align:right">60%</td>
                                 <td title="@(item.DMNhanVien != null ? item.DMNhanVien.TenNV : null)">@(item.DMNhanVien != null ? item.DMNhanVien.MaNV : null)</td>
                                 <td title="@(item.Xe != null ? item.DMXe.BienSo : null)">@(item.Xe != null ? item.DMXe.MaXe : null)</td>
                                 <td>@(item.HDNang != null ? item.HDNang : null)</td>
@@ -153,9 +155,17 @@
     <script src="/Content/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="/Content/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script>
-        $("#example1").DataTable({
-            "responsive": true, "lengthChange": true, "autoWidth": false, "ordering": false,
+        var tableKhachHang = $("#TablePhatSinh").DataTable({
+            scrollY: 630,
+            "scrollX": true,
+            "ordering": false,
+            "info": false,
+            "responsive": true,
+            "paging": false,
+            "lengthChange": true,
+            "autoWidth": false,
             "buttons": ["excel"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        }).buttons().container().appendTo('#TablePhatSinh_wrapper .col-md-6:eq(0)');
+
     </script>
 }
