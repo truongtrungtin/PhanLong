@@ -60,7 +60,7 @@
                 <td title="@(item.CangTra != null ? item.DMCang1.TenCang: null )">@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
                 <td style="text-align:right">@(item.CuocKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocKH)) : null)</td>
                 <td style="text-align:right">@(item.CuocTX != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocTX)) : null)</td>
-                <td style="text-align:right">60%</td>
+                <td>@item.TiLe%</td>
                 <td>@(item.DMNhanVien != null ? item.DMNhanVien.MaNV : null)</td>
                 <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
                 <td>@(item.HDNang != null ? item.HDNang : null)</td>
