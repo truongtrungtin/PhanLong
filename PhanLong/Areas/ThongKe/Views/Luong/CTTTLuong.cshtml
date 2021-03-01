@@ -17,6 +17,7 @@
     int sttc = 0;
     int sttt = 0;
     Decimal tiencuoc = 0;
+    Decimal tienluong = 0;
     Decimal tientru = 0;
     Decimal tiencong = 0;
     Decimal tienung = 0;
@@ -24,7 +25,10 @@
     {
         tiencuoc += Convert.ToDecimal(item.CuocTX);
     }
-
+    foreach (var item in Model)
+    {
+        tienluong += Convert.ToDecimal(item.CuocTX * item.TiLe / 100);
+    }
     foreach (var item in tienkhac)
     {
         if (item.TienKhac != null && item.LoaiPhi == 3 && item.Phi == 10046)
@@ -201,7 +205,7 @@
                 <div class="col-1 col-lg-1">
                     <div class="form-group">
                         <label style="text-align:center">Tổng ngày</label>
-                        <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="7">
+                        <input style="text-align:center" type="text" class="form-control form-control-sm" value="@Model.Select(x=>x.Ngay).Distinct().Count()">
                     </div>
                 </div>
                 <div class="col-1 col-lg-1">
@@ -246,8 +250,8 @@
                     <!-- text input -->
                     <div class="form-group row">
                         <div class="col-6 col-lg-6">
-                            <label style="text-align:center">Tiền lương (60%) <sup>(1)</sup></label>
-                            <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc * 60 / 100))">
+                            <label style="text-align:center">Tiền lương<sup>(1)</sup></label>
+                            <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienluong))">
                         </div>
                         <div class="col-6 col-lg-6">
                             <label style="text-align:center">Tiền trừ <sup>(2)</sup></label>
@@ -268,7 +272,7 @@
                         </div>
                         <div class="col-6 col-lg-6">
                             <label style="text-align:center">Tổng tiền <sup>(1  - 2 - 3 + 4)</sup></label>
-                            <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc * 60 / 100 - tientru + tiencong - tienung))">
+                            <input style="text-align:center" type="text" class="form-control form-control-sm" placeholder="Enter ..." value="@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienluong - tientru + tiencong - tienung))">
                         </div>
                     </div>
                 </div>
@@ -289,6 +293,8 @@
                     <th width="11%">Cảng nhận</th>
                     <th width="11%">Cảng trả</th>
                     <th width="8%">Tiền cước</th>
+                    <th width="8%">Tỉ lệ</th>
+                    <th width="8%">Tiền lương</th>
                     <th>Ghi chú</th>
                     <th width="10%" class="no-print">#</th>
                 </tr>
@@ -297,46 +303,44 @@
                 @foreach (var item in Model)
                 {
                     sttc += 1;
-                    <tr>
-                        <td>@sttc</td>
-                        <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
-                        <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
-                        <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
-                        <td style="text-align:left" title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet : null)">@(item.Kho != null ? item.DMKho.DiaChi : null)</td>
-                        <td style="text-align:left">@(item.SoCont != null ? item.SoCont : null)</td>
-                        <td style="text-align:left" title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.TenCang : null)</td>
-                        <td style="text-align:left" title="@(item.CangTra != null ? item.DMCang1.TenCang : null)">@(item.CangTra != null ? item.DMCang1.TenCang : null)</td>
-                        <td class="tg-t1ow" style="text-align:right">@(item.CuocTX != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocTX)) : null)</td>
-                        <td style="text-align:left">@(item.GhiChuLuong != null ? item.GhiChuLuong : null)</td>
-                        <td class="no-print"><a href="#" class="btn btn-warning" onclick='EditGhiChu(@item.Id)'>Thêm ghi chú</a></td>
-                    </tr>
+                <tr>
+                    <td>@sttc</td>
+                    <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                    <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
+                    <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy : null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                    <td style="text-align:left" title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet : null)">@(item.Kho != null ? item.DMKho.DiaChi : null)</td>
+                    <td style="text-align:left">@(item.SoCont != null ? item.SoCont : null)</td>
+                    <td style="text-align:left" title="@(item.CangNhan != null ? item.DMCang.TenCang : null)">@(item.CangNhan != null ? item.DMCang.TenCang : null)</td>
+                    <td style="text-align:left" title="@(item.CangTra != null ? item.DMCang1.TenCang : null)">@(item.CangTra != null ? item.DMCang1.TenCang : null)</td>
+                    <td class="tg-t1ow" style="text-align:right">@(item.CuocTX != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocTX)) : null)</td>
+                    <td class="tg-t1ow">@item.TiLe%</td>
+                    <td class="tg-t1ow" style="text-align:right">@(item.CuocTX != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocTX * item.TiLe / 100)) : null)</td>
+                    <td style="text-align:left">@(item.GhiChuLuong != null ? item.GhiChuLuong : null)</td>
+                    <td class="no-print"><a href="#" class="btn btn-warning" onclick='EditGhiChu(@item.Id)'>Thêm ghi chú</a></td>
+                </tr>
 
                 }
             </tbody>
             <tbody>
                 @if (tienkhac.Count > 0)
                 {
-                    <tr>
-                        <td class="hidden-border" colspan="6" style="text-align:right;border-color:white">Cộng cước:</td>
-                        <td class="hidden-border" colspan="2" style="text-align:right;border-color:white"></td>
-                        <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc))</td>
-                    </tr>
-                    <tr>
-                        <td class="hidden-border" colspan="6" style="text-align:right;border-color:white;border-bottom:#000000">Tiền lương (60%):</td>
-                        <td class="hidden-border" colspan="2" style="text-align:right;border-color:white;border-bottom:#000000"></td>
-                        <td class="hidden-border" style="text-align:right;color:blue;border-color:white;border-bottom:#000000">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc * 60 / 100))</td>
-                    </tr>
+                <tr>
+                    <td class="hidden-border" colspan="6" style="text-align:right;border-color:white">Cộng cước:</td>
+                    <td class="hidden-border" colspan="2" style="text-align:right;border-color:white"></td>
+                    <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc))</td>
+                    <td class="hidden-border" style="text-align:right;border-color:white">Tiền lương:</td>
+                    <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienluong))</td>
+                    <td class="hidden-border" style="text-align:right;border-color:white"></td>
+                </tr>
                 }
                 else
                 {
-                    <tr>
-                        <td class="hidden-border" colspan="8" style="text-align:right;border-color:white">Cộng cước:</td>
-                        <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc))</td>
-                    </tr>
-                    <tr>
-                        <td class="hidden-border" colspan="8" style="text-align:right;border-color:white">Tiền lương (60%):</td>
-                        <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc * 60 / 100))</td>
-                    </tr>
+                <tr>
+                    <td class="hidden-border" colspan="8" style="text-align:right;border-color:white">Cộng cước:</td>
+                    <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc))</td>
+                    <td class="hidden-border" colspan="8" style="text-align:right;border-color:white">Tiền lương:</td>
+                    <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienluong))</td>
+                </tr>
                 }
 
             </tbody>
@@ -348,12 +352,13 @@
                         <th>Ngày cộng</th>
                         <th></th>
                         <th></th>
+                     
                         <th>Nội dung</th>
                         <th>Hình thức</th>
                         <th>Tiền trừ</th>
                         <th>Tiền ứng</th>
                         <th>Tiền cộng</th>
-                        <th>Ghi chú</th>
+                        <th colspan="3">Ghi chú</th>
                         <th class="no-print">#</th>
                     </tr>
                 </tbody>
@@ -371,7 +376,7 @@
                             <td style="text-align:right">@(item.TienKhac != null && item.LoaiPhi == 3 && item.Phi == 10046 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienKhac)) : null )</td>
                             <td style="text-align:right">@(item.TienKhac != null && item.LoaiPhi == 3 && item.Phi == 45 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienKhac)) : null )</td>
                             <td style="text-align:right">@(item.TienKhac != null && item.LoaiPhi == 4 ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienKhac)) : null )</td>
-                            <td style="text-align:left">@(item.ghichu != null ? item.ghichu : null )</td>
+                            <td colspan="3" style="text-align:left">@(item.ghichu != null ? item.ghichu : null )</td>
                             <td class="no-print"><a href="#" class="btn btn-warning" onclick='EditGhiChuChiPhi(@item.Id)'>Thêm ghi chú</a></td>
                         </tr>
                     }
