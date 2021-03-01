@@ -8,10 +8,10 @@
 
 <input type="hidden" readonly name="UserCreate" value="@session.UserName" />
 <div class="row">
-    <div class="col-sm-5">
+    <div class="col-lg-5">
         <div class="form-group row">
-            <label style="text-align:right" class="col-form-label col-sm-2" for="Ngay">Ngày:</label>
-            <div class="col-sm-9">
+            <label style="text-align:right" class="col-form-label col-lg-2" for="Ngay">Ngày:</label>
+            <div class="col-lg-9">
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
@@ -21,11 +21,24 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-7">
+    <div class="col-lg-7">
         <div class="form-group row">
-            <label style="text-align:right" class="col-form-label col-sm-3" for="Mota">Mô tả:</label>
-            <div class="col-sm-9">
+            <label style="text-align:right" class="col-form-label col-lg-3" for="Mota">Mô tả:</label>
+            <div class="col-lg-9">
                 <input type="text" name="Mota" id="Mota" placeholder="Nhập mô tả ..." class="form-control form-control-sm" />
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="form-group row">
+            <label class="col-form-label col-lg-3">File đính kèm</label>
+            <div class="col-lg-9">
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input custom-control" id="FileUpload" name="FileUpload">
+                        <label class="custom-file-label" for="FileUpload">Chọn file</label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -34,7 +47,11 @@
     <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
     <input type="submit" href="#" class="btn btn-primary" value="Lưu" id="SaveGhiChu" />
 </div>
+<script src="~/Content/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 <script>
     $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
     $('[data-mask]').inputmask()
+    $(function () {
+        bsCustomFileInput.init();
+    });
 </script>

@@ -823,6 +823,7 @@ namespace PhanLong.DAO
                 item.GhiChu = phatSinh.GhiChu;
                 item.VAT = phatSinh.VAT;
                 item.Thoigian = phatSinh.Thoigian;
+                item.TiLe = phatSinh.TiLe;
                 item.DateUpdate = DateTime.Now;
               
                 db.SaveChanges();

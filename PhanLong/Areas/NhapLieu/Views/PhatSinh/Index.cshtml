@@ -49,6 +49,7 @@
                         <th title="Cảng trả">Cảng trả</th>
                         <th title="Cước">Cước</th>
                         <th title="Cước Tài Xế">Cước tài xế</th>
+                        <th>Tỉ Lệ</th>
                         <th title="Tên tài xế">Tài xế</th>
                         <th title="Số Xe">Xe</th>
                         <th title="Hoá đơn nâng">Hoá đơn nâng</th>
@@ -80,6 +81,7 @@
                                 <td title="@(item.CangTra != null ? item.DMCang1.TenCang: null )">@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
                                 <td style="text-align:right">@(item.CuocKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocKH)) : null)</td>
                                 <td style="text-align:right">@(item.CuocTX != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocTX)) : null)</td>
+                                <td>@(item.TiLe != null ? item.TiLe: null)</td>
                                 <td title="@(item.DMNhanVien != null ? item.DMNhanVien.TenNV : null)">@(item.DMNhanVien != null ? item.DMNhanVien.MaNV : null)</td>
                                 <td title="@(item.Xe != null ? item.DMXe.BienSo : null)">@(item.Xe != null ? item.DMXe.MaXe : null)</td>
                                 <td>@(item.HDNang != null ? item.HDNang : null)</td>

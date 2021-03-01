@@ -47,6 +47,10 @@ namespace PhanLong.DAO
                 var item = db.TodoLists.Find(toDolist.Id);
                 item.Ngay = toDolist.Ngay;
                 item.Mota = toDolist.Mota;
+                if (toDolist.FileUpload != null)
+                {
+                    item.FileUpload = toDolist.FileUpload;
+                }
                 db.SaveChanges();
                 return true;
             }
@@ -73,10 +77,11 @@ namespace PhanLong.DAO
 
         }
 
-        public bool? ChangeStatus(long id)
+        public bool? ChangeStatus(long id, string Username)
         {
             var user = db.TodoLists.Find(id);
             user.IsActive = !user.IsActive;
+            user.UserFinish = Username;
             db.SaveChanges();
             return user.IsActive;
         }

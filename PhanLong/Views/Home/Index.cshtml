@@ -235,7 +235,7 @@
 
 
 
-@using (Html.BeginForm("AddTodoList", "Home", FormMethod.Post))
+@using (Html.BeginForm("AddTodoList", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="modal fade" id="MyModal">
         <div class="modal-dialog">
@@ -251,7 +251,7 @@
     </div>
 }
 
-@using (Html.BeginForm("EditTodoList", "Home", FormMethod.Post))
+@using (Html.BeginForm("EditTodoList", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     <div class="modal fade" id="MyModalEditTodoList">
         <div class="modal-dialog">
@@ -371,6 +371,7 @@
                                 </small>
                                 <!-- General tools such as edit or delete-->
                                 <div class="tools">
+                                    <a href="@item.FileUpload"><i class="fa fa-download"></i></a>
                                     <a href="#" onclick='EditTodoList(@item.Id)'><i class="fas fa-edit"></i></a>
                                     @Ajax.ActionLink(" ", "Delete", new { @id = item.Id },
                                    new AjaxOptions
@@ -413,6 +414,7 @@
                                 </small>
                                 <!-- General tools such as edit or delete-->
                                 <div class="tools">
+                                    <a href="@item.FileUpload"><i class="fa fa-download" aria-hidden="true"></i></a>
                                     <a href="#" onclick='EditTodoList(@item.Id)'><i class="fas fa-edit"></i></a>
                                     @Ajax.ActionLink(" ", "Delete", new { @id = item.Id },
                                    new AjaxOptions
@@ -424,7 +426,6 @@
                                 </div>
                             </li>
                         }
-
                     }
                 </ul>
             </div>
