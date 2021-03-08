@@ -325,12 +325,11 @@
                 @if (tienkhac.Count > 0)
                 {
                 <tr>
-                    <td class="hidden-border" colspan="6" style="text-align:right;border-color:white">Cộng cước:</td>
-                    <td class="hidden-border" colspan="2" style="text-align:right;border-color:white"></td>
-                    <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc))</td>
-                    <td class="hidden-border" style="text-align:right;border-color:white">Tiền lương:</td>
-                    <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienluong))</td>
-                    <td class="hidden-border" style="text-align:right;border-color:white"></td>
+                    <td class="hidden-border" colspan="8" style="text-align:right;border-color:white;border-bottom:#000000">Cộng cước:</td>
+                    <td class="hidden-border" style="text-align:right;color:blue;border-color:white;border-bottom:#000000">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc))</td>
+                    <td class="hidden-border" style="text-align:right;border-color:white;border-bottom:#000000">Tiền lương:</td>
+                    <td class="hidden-border" style="text-align:right;color:blue;border-color:white;border-bottom:#000000">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienluong))</td>
+                    <td class="hidden-border" style="text-align:right;border-color:white;border-bottom:#000000"></td>
                 </tr>
                 }
                 else
@@ -338,7 +337,7 @@
                 <tr>
                     <td class="hidden-border" colspan="8" style="text-align:right;border-color:white">Cộng cước:</td>
                     <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tiencuoc))</td>
-                    <td class="hidden-border" colspan="8" style="text-align:right;border-color:white">Tiền lương:</td>
+                    <td class="hidden-border" style="text-align:right;border-color:white">Tiền lương:</td>
                     <td class="hidden-border" style="text-align:right;color:blue;border-color:white">@String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (tienluong))</td>
                 </tr>
                 }
