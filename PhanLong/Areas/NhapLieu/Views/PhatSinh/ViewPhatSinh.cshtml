@@ -47,31 +47,32 @@
             {
                 if ((DateTime.Now - item.Ngay).TotalDays < 32)
                 {
-                    <tr id="row_@item.Id">
-                        <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
-                        <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
-                        <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy: null )">@(item.KhachHang != null ? item.DMKhachHang.MaKH: null )</td>
-                        <td title="@(item.Kho != null ? item.DMKho.DiaChi: null )">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
-                        <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
-                        <td>@(item.SoCont != null ? item.SoCont : null)</td>
-                        <td>@(item.SoBill != null ? item.DMBill.MaBill: null)</td>
-                        <td title="@(item.CangNhan != null ? item.DMCang.TenCang: null )">@(item.CangNhan != null ? item.DMCang.MaCang: null)</td>
-                        <td title="@(item.CangTra != null ? item.DMCang1.TenCang: null )">@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
-                        <td style="text-align:right">@(item.CuocKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocKH)) : null)</td>
-                        <td style="text-align:right">@(item.CuocTX != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocTX)) : null)</td>
-                        <td>@(item.DMNhanVien != null ? item.DMNhanVien.MaNV : null)</td>
-                        <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
-                        <td>@(item.HDNang != null ? item.HDNang : null)</td>
-                        <td style="text-align:right">@(item.TienNang != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienNang))  : null)</td>
-                        <td>@(item.HDHa != null ? item.HDHa : null)</td>
-                        <td style="text-align:right">@(item.TienHa != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienHa)) : null )</td>
-                        <td>@(item.PhiKH != null ? item.PhiKH : null)</td>
-                        <td style="text-align:right">@(item.TienPhiKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienPhiKH)) : null)</td>
-                        <td>@(item.PhiCT != null ? item.DMPhi.TenPhi : null)</td>
-                        <td style="text-align:right">@(item.TienPhiCT!= null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienPhiCT)): null )</td>
-                        <td>@(item.Thoigian != null ? item.DMThoiGian.ThoiGian : null)</td>
-                        <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
-                    </tr>
+            <tr id="row_@item.Id">
+                <td><input type='checkbox' name='chkId[]' id='checkbox' value="@item.Id" /></td>
+                <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy: null )">@(item.KhachHang != null ? item.DMKhachHang.MaKH: null )</td>
+                <td title="@(item.Kho != null ? item.DMKho.DiaChi: null )">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
+                <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
+                <td>@(item.SoCont != null ? item.SoCont : null)</td>
+                <td>@(item.SoBill != null ? item.DMBill.MaBill: null)</td>
+                <td title="@(item.CangNhan != null ? item.DMCang.TenCang: null )">@(item.CangNhan != null ? item.DMCang.MaCang: null)</td>
+                <td title="@(item.CangTra != null ? item.DMCang1.TenCang: null )">@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
+                <td style="text-align:right">@(item.CuocKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocKH)) : null)</td>
+                <td style="text-align:right">@(item.CuocTX != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.CuocTX)) : null)</td>
+                <td>@item.TiLe%</td>
+                <td>@(item.DMNhanVien != null ? item.DMNhanVien.MaNV : null)</td>
+                <td>@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                <td>@(item.HDNang != null ? item.HDNang : null)</td>
+                <td style="text-align:right">@(item.TienNang != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienNang))  : null)</td>
+                <td>@(item.HDHa != null ? item.HDHa : null)</td>
+                <td style="text-align:right">@(item.TienHa != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienHa)) : null )</td>
+                <td>@(item.PhiKH != null ? item.PhiKH : null)</td>
+                <td style="text-align:right">@(item.TienPhiKH != null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienPhiKH)) : null)</td>
+                <td>@(item.PhiCT != null ? item.DMPhi.TenPhi : null)</td>
+                <td style="text-align:right">@(item.TienPhiCT!= null ? String.Format(CultureInfo.InvariantCulture, "{0:0,0}", (item.TienPhiCT)): null )</td>
+                <td>@(item.Thoigian != null ? item.DMThoiGian.ThoiGian : null)</td>
+                <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+            </tr>
                 }
             }
         </tbody>

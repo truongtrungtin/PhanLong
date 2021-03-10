@@ -1,5 +1,8 @@
-﻿using PhanLong.DAO;
+﻿using PhanLong.Common;
+using PhanLong.DAO;
 using PhanLong.EF;
+using System.IO;
+using System.Web;
 using System.Web.Mvc;
 
 namespace PhanLong.Controllers
@@ -18,8 +21,22 @@ namespace PhanLong.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddTodoList(TodoList todoList)
+        public ActionResult AddTodoList(TodoList todoList, HttpPostedFileBase FileUpload)
         {
+            if (FileUpload != null)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(FileUpload.FileName);
+                string extension = Path.GetExtension(FileUpload.FileName);
+                fileName += extension;
+                string Url = "/File/Todolist/" + todoList.Ngay.ToString("dd-MM-yyyy") + "/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/File/Todolist/" + todoList.Ngay.ToString("dd-MM-yyyy")), fileName);
+                if (!Directory.Exists(Server.MapPath("~/File/Todolist/" + todoList.Ngay.ToString("dd-MM-yyyy"))))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/File/Todolist/" + todoList.Ngay.ToString("dd-MM-yyyy")));
+                }
+                FileUpload.SaveAs(fileName);
+                todoList.FileUpload = Url;
+            }
             if (new ToDolistDao().Insert(todoList))
             {
                 SetAlert("Thêm kế hoạch thành công!", "success");
@@ -41,8 +58,22 @@ namespace PhanLong.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditTodoList(TodoList todoList)
+        public ActionResult EditTodoList(TodoList todoList, HttpPostedFileBase FileUpload)
         {
+            if (FileUpload != null)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(FileUpload.FileName);
+                string extension = Path.GetExtension(FileUpload.FileName);
+                fileName += extension;
+                string Url = "/File/Todolist/" + todoList.Ngay.ToString("dd-MM-yyyy") + "/" + fileName;
+                fileName = Path.Combine(Server.MapPath("~/File/Todolist/" + todoList.Ngay.ToString("dd-MM-yyyy")), fileName);
+                if (!Directory.Exists(Server.MapPath("~/File/Todolist/" + todoList.Ngay.ToString("dd-MM-yyyy"))))
+                {
+                    Directory.CreateDirectory(Server.MapPath("~/File/Todolist/" + todoList.Ngay.ToString("dd-MM-yyyy")));
+                }
+                FileUpload.SaveAs(fileName);
+                todoList.FileUpload = Url;
+            }
             if (new ToDolistDao().Update(todoList))
             {
                 SetAlert("Chỉnh sửa kế hoạch thành công!", "success");
@@ -71,7 +102,8 @@ namespace PhanLong.Controllers
         [HttpPost]
         public JsonResult ChangeStatus(long id)
         {
-            var result = new ToDolistDao().ChangeStatus(id);
+            var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+            var result = new ToDolistDao().ChangeStatus(id,session.UserName);
             return Json(new
             {
                 status = result

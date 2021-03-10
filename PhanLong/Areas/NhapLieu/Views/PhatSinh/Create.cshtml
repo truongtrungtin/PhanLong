@@ -268,8 +268,22 @@
                         </div>
                         <div class="col-sm-2">
                             <div class="form-group row">
-                                @Html.LabelFor(model => model.TenTX, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
-                                <div class="col-sm-8">
+                                <label for="VAT" class="col-form-label col-lg-6">Tỉ lệ cước:</label>
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <input type="number" min="0" max="100" value="60" name="TiLe" class="form-control form-control-sm text-right" />
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="line-height: 0.5">%</span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
+                            <div class="form-group row">
+                                @Html.LabelFor(model => model.TenTX, htmlAttributes: new { @class = "col-form-label col-lg-5" })
+                                <div class="col-lg-7">
                                     <select name="TenTX" class="form-control form-control-sm select2" data-placeholder="Chọn tài xế">
                                         @if (Model.TenTX != null)
                                         {
@@ -611,7 +625,20 @@ else
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-lg-1">
+                            <div class="form-group row">
+                                <label for="VAT" class="col-form-label col-lg-6">Tỉ lệ cước</label>
+                                <div class="col-lg-6">
+                                    <div class="input-group">
+                                        <input type="number" min="0" max="100" value="60" name="TiLe" class="form-control form-control-sm text-right" />
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" style="line-height: 0.5">%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-1">
                             <div class="form-group row">
                                 @Html.LabelFor(model => model.TenTX, htmlAttributes: new { @style = "text-align:right", @class = "col-form-label col-sm-4" })
                                 <div class="col-sm-8">

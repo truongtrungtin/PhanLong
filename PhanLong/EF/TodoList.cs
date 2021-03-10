@@ -19,5 +19,9 @@ namespace PhanLong.EF
 
         [StringLength(50)]
         public string UserCreate { get; set; }
+        [StringLength(50)]
+        public string UserFinish { get; set; }
+        [StringLength(250)]
+        public string FileUpload { get; set; }
     }
 }

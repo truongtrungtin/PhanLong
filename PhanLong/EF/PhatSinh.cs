@@ -32,6 +32,8 @@
         [Display(Name = "Cảng nhận: ")]
         public long? CangNhan { get; set; }
 
+
+
         [Display(Name = "Cảng trả: ")]
         public long? CangTra { get; set; }
 
@@ -45,7 +47,10 @@
         public long? TenTX { get; set; }
 
         [Display(Name = "Xe: ")]
-        public long? Xe { get; set; }
+        public long? Xe { get; set; }      
+        
+        [Display(Name = "Tỉ Lệ: ")]
+        public long? TiLe { get; set; }
 
         [StringLength(50)]
         [Display(Name = "Hoá đơn nâng: ")]

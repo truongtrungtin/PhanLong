@@ -12,5 +12,6 @@
         public decimal? tienha { get; set; }
         public decimal? tienphikh { get; set; }
         public decimal? tienphict { get; set; }
+        public decimal? luong { get; set; }
     }
 }
