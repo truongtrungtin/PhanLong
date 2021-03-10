@@ -10,6 +10,9 @@
     var notification = db.Notifications.OrderBy(x => x.HanLuuBai);
     var stt = 0;
     var stt1 = 0;
+    var stt2 = 0;
+    var today = DateTime.Today.Date;
+    var tomorrow = today.AddDays(1);
 }
 @section css{
     <!-- Select2 -->
@@ -275,7 +278,7 @@
             <div class="card-header border-0">
                 <h3 class="card-title">
                     <i class="fas fa-th mr-1"></i>
-                    Giao - Nhận hôm nay (@DateTime.Today.Date.ToString("dd/MM/yyyy"))
+                    Giao - Nhận hôm nay (@today.ToString("dd/MM/yyyy"))
                 </h3>
             </div>
             <div class="card-body">
@@ -296,7 +299,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in db.PhatSinhs.Where(x => x.Ngay == DateTime.Today.Date))
+                        @foreach (var item in db.PhatSinhs.Where(x => x.Ngay == today))
                         {
 
                             if ((item.Ngay - DateTime.Now.Date).TotalDays + 0.7 >= 0)
@@ -326,7 +329,7 @@
             <div class="card-header border-0">
                 <h3 class="card-title">
                     <i class="fas fa-th mr-1"></i>
-                    Giao - Nhận ngày mai (@DateTime.Today.Date.AddDays(1).ToString("dd/MM/yyyy"))
+                    Giao - Nhận ngày mai (@tomorrow.ToString("dd/MM/yyyy"))
                 </h3>
             </div>
             <div class="card-body">
@@ -347,14 +350,14 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in db.PhatSinhs.Where(x => x.Ngay == DateTime.Today.Date))
+                        @foreach (var item in db.PhatSinhs.Where(x => x.Ngay == tomorrow))
                         {
 
                             if ((item.Ngay - DateTime.Now.Date).TotalDays + 0.7 >= 0)
                             {
-                                stt1++;
+                                stt2++;
                                 <tr id="row_@item.Id">
-                                    <td>@stt1</td>
+                                    <td>@stt2</td>
                                     <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy: null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                                     <td title="@(item.TenTX != null ? item.DMNhanVien.TenNV : null) - @(item.Xe != null ? item.DMXe.BienSo : null)">@(item.Xe != null ? item.DMXe.MaXe : null)</td>
                                     <td title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet: null )">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
