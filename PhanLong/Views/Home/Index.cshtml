@@ -268,22 +268,21 @@
 }
 
 <div class="row">
-    <section class="col-lg-7 connectedSortable">
+    <section class="col-lg-5 connectedSortable">
         <!-- /.card -->
         <!-- solid sales graph -->
         <div class="card ">
             <div class="card-header border-0">
                 <h3 class="card-title">
                     <i class="fas fa-th mr-1"></i>
-                    Giao - Nhận
+                    Giao - Nhận hôm nay (@DateTime.Today.Date.ToString("dd/MM/yyyy"))
                 </h3>
             </div>
             <div class="card-body">
-                <table class="table table-hover table-bordered table-striped table-responsive-lg table-sm" id="GiaoNhanTable" width="100%">
+                <table class="table table-hover table-bordered table-striped table-responsive-lg table-sm" id="GiaoNhanTodayTable" width="100%">
                     <thead>
                         <tr>
                             <th width="3%" title="Số thứ tự">STT</th>
-                            <th width="7%" title="ngày giao">Ngày giao</th>
                             <th width="5%" title="Khách hàng">Khách hàng</th>
                             <th width="5%" title="Số Xe">Xe</th>
                             <th width="5%" title="Kho">Kho</th>
@@ -297,7 +296,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in db.PhatSinhs.OrderBy(x => x.Ngay))
+                        @foreach (var item in db.PhatSinhs.Where(x => x.Ngay == DateTime.Today.Date))
                         {
 
                             if ((item.Ngay - DateTime.Now.Date).TotalDays + 0.7 >= 0)
@@ -305,7 +304,57 @@
                                 stt1++;
                                 <tr id="row_@item.Id">
                                     <td>@stt1</td>
-                                    <td>@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</td>
+                                    <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy: null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
+                                    <td title="@(item.TenTX != null ? item.DMNhanVien.TenNV : null) - @(item.Xe != null ? item.DMXe.BienSo : null)">@(item.Xe != null ? item.DMXe.MaXe : null)</td>
+                                    <td title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet: null )">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
+                                    <td>@(item.Loai != null ? item.DMLoai.MaLoai : null)</td>
+                                    <td>@(item.SoCont != null ? item.SoCont : null)</td>
+                                    <td>@(item.SoBill != null ? item.DMBill.MaBill: null)</td>
+                                    <td title="@(item.CangNhan != null ? item.DMCang.TenCang: null )">@(item.CangNhan != null ? item.DMCang.MaCang: null)</td>
+                                    <td title="@(item.CangTra != null ? item.DMCang1.TenCang: null )">@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
+                                    <td>@(item.Thoigian != null ? item.DMThoiGian.ThoiGian : null)</td>
+                                    <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card ">
+            <div class="card-header border-0">
+                <h3 class="card-title">
+                    <i class="fas fa-th mr-1"></i>
+                    Giao - Nhận ngày mai (@DateTime.Today.Date.AddDays(1).ToString("dd/MM/yyyy"))
+                </h3>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover table-bordered table-striped table-responsive-lg table-sm" id="GiaoNhanTomorrowTable" width="100%">
+                    <thead>
+                        <tr>
+                            <th width="3%" title="Số thứ tự">STT</th>
+                            <th width="5%" title="Khách hàng">Khách hàng</th>
+                            <th width="5%" title="Số Xe">Xe</th>
+                            <th width="5%" title="Kho">Kho</th>
+                            <th width="5%" title="Loại">Loại</th>
+                            <th width="10%" title="Số Cont">Số Cont</th>
+                            <th width="17%" title="Số Bill">Số Bill</th>
+                            <th width="5%" style="line-height: 18px;" title="Cảng Nhận">Cảng nhận</th>
+                            <th width="5%" style="line-height: 18px;" title="Cảng trả">Cảng trả</th>
+                            <th width="5%" style="line-height: 18px;" title="Thời gian">Thời gian</th>
+                            <th title="Ghi chú">Ghi Chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in db.PhatSinhs.Where(x => x.Ngay == DateTime.Today.Date))
+                        {
+
+                            if ((item.Ngay - DateTime.Now.Date).TotalDays + 0.7 >= 0)
+                            {
+                                stt1++;
+                                <tr id="row_@item.Id">
+                                    <td>@stt1</td>
                                     <td title="@(item.KhachHang != null ? item.DMKhachHang.TenCongTy: null)">@(item.KhachHang != null ? item.DMKhachHang.MaKH : null)</td>
                                     <td title="@(item.TenTX != null ? item.DMNhanVien.TenNV : null) - @(item.Xe != null ? item.DMXe.BienSo : null)">@(item.Xe != null ? item.DMXe.MaXe : null)</td>
                                     <td title="@(item.Kho != null ? item.DMKho.DiaChiChiTiet: null )">@(item.Kho != null ? item.DMKho.MaKho : null)</td>
@@ -514,7 +563,10 @@
         if (@DateTime.Now.Day > 28 || @DateTime.Now.Day < 10) {
             alert("KIỂM TRA CÔNG NỢ !!!");
         }
-        $('#GiaoNhanTable').DataTable({
+        $('#GiaoNhanTodayTable').DataTable({
+            "ordering": false
+        });
+        $('#GiaoNhanTomorrowTable').DataTable({
             "ordering": false
         });
 
