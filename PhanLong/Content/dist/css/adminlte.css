@@ -20319,6 +20319,7 @@ html.maximized-card {
             margin-top: 3px;
         }
 
+
         .todo-list > li .badge {
             font-size: .7rem;
             margin-left: 10px;
@@ -33977,3 +33978,4 @@ a.text-muted:hover {
 .expand-maximum-on-hover:hover {
     max-width: initial;
 }
+

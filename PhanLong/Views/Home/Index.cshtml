@@ -316,7 +316,7 @@
                                     <td title="@(item.CangNhan != null ? item.DMCang.TenCang: null )">@(item.CangNhan != null ? item.DMCang.MaCang: null)</td>
                                     <td title="@(item.CangTra != null ? item.DMCang1.TenCang: null )">@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
                                     <td>@(item.Thoigian != null ? item.DMThoiGian.ThoiGian : null)</td>
-                                    <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                                    <td>@(item.GhiChu != null ? item.GhiChu : null)</td>
                                 </tr>
                             }
                         }
@@ -367,7 +367,7 @@
                                     <td title="@(item.CangNhan != null ? item.DMCang.TenCang: null )">@(item.CangNhan != null ? item.DMCang.MaCang: null)</td>
                                     <td title="@(item.CangTra != null ? item.DMCang1.TenCang: null )">@(item.CangTra != null ?item.DMCang1.MaCang : null)</td>
                                     <td>@(item.Thoigian != null ? item.DMThoiGian.ThoiGian : null)</td>
-                                    <td class="cell expand-maximum-on-hover">@(item.GhiChu != null ? item.GhiChu : null)</td>
+                                    <td>@(item.GhiChu != null ? item.GhiChu : null)</td>
                                 </tr>
                             }
                         }
@@ -404,7 +404,7 @@
                                 <span class="text">@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</span>
                                 <span class="text">-</span>
                                 <!-- todo text -->
-                                <span class="text">@item.Mota</span>
+                                <span class="text expand-maximum-on-hover">@item.Mota</span>
                                 <span class="text">-</span>
                                 <!-- Emphasis label -->
                                 <small class="badge badge-danger">
@@ -447,7 +447,7 @@
                                 <span class="text">@(item.Ngay != null ? item.Ngay.ToShortDateString() : null)</span>
                                 <span class="text">-</span>
                                 <!-- todo text -->
-                                <span class="text">@item.Mota</span>
+                                <span class="text expand-maximum-on-hover">@item.Mota</span>
                                 <span class="text">-</span>
                                 <!-- Emphasis label -->
                                 <small class="badge badge-danger">
