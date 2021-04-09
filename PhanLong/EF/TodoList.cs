@@ -12,7 +12,6 @@ namespace PhanLong.EF
         [Column(TypeName = "date")]
         public DateTime Ngay { get; set; }
 
-        [StringLength(250)]
         public string Mota { get; set; }
 
         public bool? IsActive { get; set; }
