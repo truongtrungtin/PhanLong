@@ -227,10 +227,11 @@
         $(function () {
             var counterHub = $.connection.online;
             $.connection.hub.start().done(function () {
+                window.onbeforeunload = function (e) {
+                    counterHub.connection.stop();
+                };
             });
-            window.onbeforeunload = function (e) {
-                counterHub.connection.stop();
-            };
+          
             counterHub.client.online = function (count) {
                 $("#counter").val(count)
             }
